@@ -9,11 +9,9 @@ lib/libcanberra-gtk.so.0.1.9
 lib/libcanberra.so
 lib/libcanberra.so.0
 lib/libcanberra.so.0.2.5
-%%GSTREAMER%%lib/libcanberra-%%VERSION%%/libcanberra-gstreamer.so
 lib/libcanberra-%%VERSION%%/libcanberra-multi.so
 lib/libcanberra-%%VERSION%%/libcanberra-null.so
 lib/libcanberra-%%VERSION%%/libcanberra-oss.so
-%%PULSE%%lib/libcanberra-%%VERSION%%/libcanberra-pulse.so
 libdata/pkgconfig/libcanberra-gtk.pc
 libdata/pkgconfig/libcanberra.pc
 %%DOCSDIR%%/README
