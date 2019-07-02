@@ -379,6 +379,7 @@
     SUBDIR += libbs2b
     SUBDIR += libcanberra
     SUBDIR += libcanberra-gstreamer
+    SUBDIR += libcanberra-gtk2
     SUBDIR += libcanberra-gtk3
     SUBDIR += libcanberra-pulse
     SUBDIR += libcdaudio

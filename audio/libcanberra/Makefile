@@ -3,7 +3,7 @@
 #   $MCom: ports/trunk/audio/libcanberra/Makefile 20031 2014-11-02 21:47:55Z kwm $
 
 PORTNAME=	libcanberra
-PORTVERSION=	0.30
+DISTVERSION=	${CANBERRA_VERSION}
 PORTREVISION?=	6
 CATEGORIES=	audio devel
 MASTER_SITES=	http://0pointer.de/lennart/projects/libcanberra/ \
@@ -19,7 +19,7 @@ LIB_DEPENDS=	libvorbisfile.so:audio/libvorbis \
 		libltdl.so:devel/libltdl
 
 USES=		gmake gnome libtool localbase:ldflags pathfix pkgconfig tar:xz
-USE_GNOME=	gnomeprefix gtk20
+USE_GNOME=	gnomeprefix
 USE_LDCONFIG=	yes
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--disable-lynx --disable-tdb --disable-alsa
@@ -28,30 +28,39 @@ INSTALL_TARGET=	install-strip
 PLIST_SUB=	VERSION=${PORTVERSION}
 
 .if defined(PKGNAMESUFFIX) # Slave ports for backends and GTK3
-LIB_DEPENDS+=		libcanberra.so:audio/libcanberra
-CONFIGURE_ARGS+=	--disable-null --disable-oss --disable-gtk
+USES+=			canberra:lib
+CONFIGURE_ARGS+=	--disable-null --disable-oss
+
+.  if ${PKGNAMESUFFIX:M-gtk2}
+USE_GNOME+=		cairo gdkpixbuf2 gtk20
+USE_XORG+=		x11
+CONFIGURE_ARGS+=	--enable-gtk \
+			--disable-gtk3 --disable-pulse --disable-gstreamer --enable-null
+.  endif
 
 .  if ${PKGNAMESUFFIX:M-gtk3}
 USE_GNOME+=		cairo gdkpixbuf2 gtk30
 USE_XORG+=		x11
 CONFIGURE_ARGS+=	--enable-gtk3 \
-			--disable-pulse --disable-gstreamer --enable-null
+			--disable-gtk --disable-pulse --disable-gstreamer --enable-null
 .  endif
 
 .  if ${PKGNAMESUFFIX:M-pulse}
 LIB_DEPENDS+=		libpulse.so:audio/pulseaudio
 CONFIGURE_ARGS+=	--enable-pulse \
-			--disable-gtk3 --disable-gstreamer
+			--disable-gtk --disable-gtk3 --disable-gstreamer
 .  endif
 
 .  if ${PKGNAMESUFFIX:M-gstreamer}
 USE_GSTREAMER1=	yes
 CONFIGURE_ARGS+=	--enable-gstreamer \
-			--disable-gtk3 --disable-pulse
+			--disable-gtk --disable-gtk3 --disable-pulse
 .  endif
 
 .else # Master
-CONFIGURE_ARGS+=	--disable-gtk3 \
+USES+=			canberra:selfbuild
+CONFIGURE_ARGS+=	--disable-gtk \
+			--disable-gtk3 \
 			--disable-pulse \
 			--disable-gstreamer
 .endif # end slaveport
