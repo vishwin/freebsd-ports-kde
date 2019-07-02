@@ -33,7 +33,8 @@ canberra-gtk3_PORT=	audio/libcanberra-gtk3
 canberra-gstreamer_PATH=	${_CANBERRA_MODULE_DIR}/libcanberra-gstreamer.so
 canberra-gstreamer_PORT=	audio/libcanberra-gstraemer
 
-canberra-gstreamer_PORT=	audio/libcanberra-pulse
+canberra-pulse_PATH=	${_CANBERRA_MODULE_DIR}/libcanberra-pulse.so
+canberra-pulse_PORT=	audio/libcanberra-pulse
 
 PLIST_SUB+=		CANBERRA_VERSION=${CANBERRA_VERSION} \
 			CANBERRA_MODULE_DIR=${_CANBERRA_MODULE_DIR_REL}
