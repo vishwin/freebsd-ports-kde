@@ -27,7 +27,7 @@ RUN_DEPENDS=	gnome-video-effects>=0:graphics/gnome-video-effects
 
 PORTSCOUT=	limitw:1,even
 
-USES=		canberra:gtk3 gettext gmake gnome libtool localbase pathfix \
+USES=		canberra:gtk2,gtk3 gettext gmake gnome libtool localbase pathfix \
 		pkgconfig tar:xz
 USE_GNOME=	cairo intlhack evolutiondataserver3 librsvg2 \
 		gnomedesktop3 libxml2:build introspection:build

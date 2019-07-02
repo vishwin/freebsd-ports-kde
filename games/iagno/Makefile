@@ -19,7 +19,7 @@ BUILD_DEPENDS=	vala:lang/vala \
 
 PORTSCOUT=	limitw:1,even
 
-USES=		canberra:gtk3 gettext gmake gnome localbase pathfix pkgconfig tar:xz
+USES=		canberra:gtk2,gtk3 gettext gmake gnome localbase pathfix pkgconfig tar:xz
 USE_GNOME=	cairo gtk30 intlhack librsvg2 libxml2:build
 USE_XORG=	x11
 INSTALLS_ICONS=	yes

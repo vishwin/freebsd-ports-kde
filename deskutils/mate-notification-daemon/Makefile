@@ -19,7 +19,7 @@ LIB_DEPENDS=	libdbus-1.so:devel/dbus \
 
 PORTSCOUT=	limitw:1,even
 
-USES=		canberra:gtk3 gettext gmake libtool localbase pathfix \
+USES=		canberra:gtk2,gtk3 gettext gmake libtool localbase pathfix \
 		pkgconfig tar:xz
 USE_XORG=	x11
 USE_GNOME=	cairo glib20 gtk30 librsvg2 libwnck3 intlhack

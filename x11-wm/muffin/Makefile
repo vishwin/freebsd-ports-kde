@@ -18,7 +18,7 @@ LIB_DEPENDS=	libstartup-notification-1.so:x11/startup-notification \
 		libcinnamon-desktop.so:x11/cinnamon-desktop
 RUN_DEPENDS=	zenity>=3.0.0:x11/zenity
 
-USES=		autoreconf:build canberra:gtk3 gettext libtool gmake \
+USES=		autoreconf:build canberra:gtk2,gtk3 gettext libtool gmake \
 		pathfix pkgconfig python:2.7
 USE_GITHUB=	yes
 GH_ACCOUNT=	linuxmint

@@ -11,7 +11,7 @@ COMMENT=	GObject library for playing system sounds
 
 BUILD_DEPENDS=	vala:lang/vala
 
-USES=		canberra gmake gnome libtool pathfix pkgconfig tar:xz
+USES=		canberra:gtk2 gmake gnome libtool pathfix pkgconfig tar:xz
 USE_GNOME=	glib20 introspection:build
 GNU_CONFIGURE=	yes
 INSTALL_TARGET=	install-strip

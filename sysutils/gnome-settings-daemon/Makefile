@@ -29,7 +29,7 @@ PORTSCOUT=	limitw:1,even
 
 USE_XORG=	x11 xext xi xtst
 USE_GNOME=	cairo gnomedesktop3 gtk30
-USES=		canberra:gtk3 gettext gnome localbase:ldflags meson perl5 \
+USES=		canberra:gtk2,gtk3 gettext gnome localbase:ldflags meson perl5 \
 		pkgconfig python:3.6+,build tar:xz
 USE_PERL5=	build
 INSTALLS_ICONS=	yes

@@ -39,7 +39,7 @@ GROUPS=		gdm video
 
 PORTSCOUT=	limitw:1,even
 
-USES=		canberra:gtk3 cpe gettext gmake gnome libtool pathfix pkgconfig tar:xz
+USES=		canberra:gtk2,gtk3 cpe gettext gmake gnome libtool pathfix pkgconfig tar:xz
 CPE_VENDOR=	gnome
 CPE_PRODUCT=	gnome_display_manager
 USE_GNOME=	cairo dconf gtk30 intltool introspection

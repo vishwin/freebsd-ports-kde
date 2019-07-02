@@ -21,7 +21,7 @@ RUN_DEPENDS=	zenity>=3.0.0:x11/zenity
 
 PORTSCOUT=	limitw:1,even
 
-USES=		canberra:gtk3 gettext gmake libtool localbase pathfix pkgconfig tar:xz
+USES=		canberra:gtk2,gtk3 gettext gmake libtool localbase pathfix pkgconfig tar:xz
 USE_XORG=	ice sm x11 xcomposite xcursor xdamage xext xfixes \
 		xinerama xrandr xrender
 USE_GNOME=	cairo gdkpixbuf2 gtk30 intltool

@@ -18,7 +18,7 @@ USE_XORG=	x11
 USE_GNOME=	glib20 gtk20 gconf2 intltool libxml2 gnomedocutils
 INSTALLS_OMF=	yes
 GNU_CONFIGURE=	yes
-USES=		canberra gettext gmake pkgconfig tar:bzip2
+USES=		canberra:gtk2 gettext gmake pkgconfig tar:bzip2
 CONFIGURE_ENV+=	GMSGFMT="${LOCALBASE}/bin/msgfmt"
 GCONF_SCHEMAS=	twitux.schemas
 INSTALLS_ICONS=	yes

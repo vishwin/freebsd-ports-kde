@@ -46,7 +46,7 @@ RUN_DEPENDS=	iso-codes>=0:misc/iso-codes \
 		geoclue>=0:net/geoclue \
 		mc-tool:net-im/telepathy-mission-control
 
-USES=		canberra:gtk3 compiler:c11 gettext gmake gnome libtool localbase pathfix \
+USES=		canberra:gtk2,gtk3 compiler:c11 gettext gmake gnome libtool localbase pathfix \
 		pkgconfig python:2.7 tar:xz
 USE_GNOME=	cairo evolutiondataserver3 intlhack
 USE_XORG=	x11 xcomposite xdamage xext xfixes xi xrandr

@@ -17,7 +17,7 @@ LIB_DEPENDS=	libdbus-glib-1.so:devel/dbus-glib \
 RUN_DEPENDS=	console-kit-daemon:sysutils/consolekit2 \
 		xdpyinfo:x11/xdpyinfo
 
-USES=		autoreconf:build canberra gettext gmake libtool \
+USES=		autoreconf:build canberra:gtk2 gettext gmake libtool \
 		pathfix pkgconfig tar:xz
 USE_GITHUB=	yes
 GH_ACCOUNT=	linuxmint

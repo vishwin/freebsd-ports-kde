@@ -20,7 +20,7 @@ LIB_DEPENDS=	libgnome-games-support-1.so:games/libgnome-games-support \
 
 PORTSCOUT=	limitw:1,even
 
-USES=		canberra:gtk3 gettext gmake gnome localbase pathfix \
+USES=		canberra:gtk2,gtk3 gettext gmake gnome localbase pathfix \
 		pkgconfig tar:xz
 USE_GNOME=	cairo gtk30 intlhack librsvg2 libxml2:build
 USE_XORG=	x11

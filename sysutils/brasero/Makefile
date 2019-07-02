@@ -16,7 +16,7 @@ LIB_DEPENDS=	libnotify.so:devel/libnotify \
 RUN_DEPENDS=	growisofs:sysutils/dvd+rw-tools \
 		cdrdao:sysutils/cdrdao
 
-USES=		canberra:gtk3 desktop-file-utils gettext gmake libtool pathfix pkgconfig \
+USES=		canberra:gtk2,gtk3 desktop-file-utils gettext gmake libtool pathfix pkgconfig \
 		shared-mime-info tar:xz
 USE_GNOME=	gnomeprefix gtk30 intlhack libxml2
 GNU_CONFIGURE=	yes

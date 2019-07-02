@@ -15,7 +15,7 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 
 LIB_DEPENDS=	libpulse.so:audio/pulseaudio
 
-USES=		canberra:gtk3 gmake pkgconfig gettext tar:xz compiler:c++11-lang
+USES=		canberra:gtk2,gtk3 gmake pkgconfig gettext tar:xz compiler:c++11-lang
 USE_GNOME=	glibmm gtkmm30 intltool libsigc++20
 USE_CXXSTD=	c++11
 

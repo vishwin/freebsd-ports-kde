@@ -27,7 +27,7 @@ LIB_DEPENDS=	libgmime-2.6.so:mail/gmime26 \
 		libsecret-1.so:security/libsecret \
 		libenchant-2.so:textproc/enchant2
 
-USES=		canberra compiler:c11 desktop-file-utils gettext gmake gnome meson \
+USES=		canberra:gtk2 compiler:c11 desktop-file-utils gettext gmake gnome meson \
 		pkgconfig python:3.5+,build shebangfix sqlite tar:xz
 USE_GNOME=	cairo gtk30 libxml2
 

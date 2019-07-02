@@ -24,7 +24,7 @@ LIB_DEPENDS=	libclutter-1.0.so:graphics/clutter \
 
 PORTSCOUT=	limitw:1,even
 
-USES=		canberra:gtk3 gettext gmake gnome localbase pathfix \
+USES=		canberra:gtk2,gtk3 gettext gmake gnome localbase pathfix \
 		pkgconfig tar:xz
 USE_GNOME=	cairo gtk30 intlhack librsvg2 libxml2:build
 INSTALLS_ICONS=	yes

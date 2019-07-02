@@ -113,7 +113,7 @@ BOGOFILTER_BUILD_DEPENDS=	bogofilter:mail/bogofilter
 BOGOFILTER_RUN_DEPENDS=		bogofilter:mail/bogofilter
 
 CANBERRA_DESC=		Canberra theme audio plugin
-CANBERRA_USES=		canberra:gtk3
+CANBERRA_USES=		canberra:gtk2,gtk3
 CANBERRA_CMAKE_BOOL=	ENABLE_CANBERRA
 
 PST_DESC=	Outlook .pst importer
