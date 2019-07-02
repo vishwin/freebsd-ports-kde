@@ -13,10 +13,9 @@ COMMENT=	GTK mixer for PulseAudio
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-LIB_DEPENDS=	libpulse.so:audio/pulseaudio \
-		libcanberra-gtk3.so:audio/libcanberra-gtk3
+LIB_DEPENDS=	libpulse.so:audio/pulseaudio
 
-USES=		gmake pkgconfig gettext tar:xz compiler:c++11-lang
+USES=		canberra:gtk3 gmake pkgconfig gettext tar:xz compiler:c++11-lang
 USE_GNOME=	glibmm gtkmm30 intltool libsigc++20
 USE_CXXSTD=	c++11
 

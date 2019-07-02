@@ -16,13 +16,12 @@ USES=	tar:bzip2
 .if !defined(REFERENCE_PORT)
 
 BUILD_DEPENDS=	rarian-sk-config:textproc/rarian
-LIB_DEPENDS=	libcanberra-gtk.so:audio/libcanberra \
-		libpopt.so:devel/popt
+LIB_DEPENDS=	libpopt.so:devel/popt
 RUN_DEPENDS=	rarian-sk-config:textproc/rarian
 
 INSTALL_TARGET=	install-strip
 USE_GNOME=	gnomeprefix intlhack libbonobo gnomevfs2 referencehack
-USES+=		bison gettext gmake localbase libtool:keepla pathfix pkgconfig
+USES+=		bison canberra:gtk2 gettext gmake localbase libtool:keepla pathfix pkgconfig
 USE_XORG=	xpm
 USE_LDCONFIG=	yes
 GNU_CONFIGURE=	yes

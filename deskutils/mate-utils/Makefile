@@ -18,13 +18,11 @@ LICENSE_FILE_LGPL21=	${WRKSRC}/COPYING.libs
 
 BUILD_DEPENDS=	itstool:textproc/itstool \
 		inkscape:graphics/inkscape
-LIB_DEPENDS=	libgtop-2.0.so:devel/libgtop \
-		libcanberra-gtk.so:audio/libcanberra \
-		libcanberra-gtk3.so:audio/libcanberra-gtk3
+LIB_DEPENDS=	libgtop-2.0.so:devel/libgtop
 
 PORTSCOUT=	limitw:1,even
 
-USES=		gettext gmake libtool localbase pathfix \
+USES=		canberra:gtk2,gtk3 gettext gmake libtool localbase pathfix \
 		pkgconfig tar:xz
 USE_MATE=	panel
 USE_XORG=	ice sm x11 xext

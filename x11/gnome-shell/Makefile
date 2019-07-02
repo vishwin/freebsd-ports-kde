@@ -31,15 +31,13 @@ LIB_DEPENDS=	libstartup-notification-1.so:x11/startup-notification \
 		libicuuc.so:devel/icu \
 		libpulse.so:audio/pulseaudio \
 		libcroco-0.6.so:textproc/libcroco \
-		libcanberra.so:audio/libcanberra \
-		libcanberra-gtk3.so:audio/libcanberra-gtk3 \
 		libp11-kit.so:security/p11-kit \
 		libgjs.so:lang/gjs
 RUN_DEPENDS=	gnome-control-center:sysutils/gnome-control-center
 
 PORTSCOUT=	limitw:1,even
 
-USES=		compiler:c11 cpe gettext gl gnome libtool localbase meson \
+USES=		canberra:gtk3 compiler:c11 cpe gettext gl gnome libtool localbase meson \
 		pathfix perl5 pkgconfig python:3.4+ shebangfix tar:xz webplugin:native
 USE_GNOME=	cairo evolutiondataserver3 gdkpixbuf2 introspection \
 		libxslt:build libxml2

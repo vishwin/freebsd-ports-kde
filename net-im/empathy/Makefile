@@ -36,8 +36,6 @@ LIB_DEPENDS=	libenchant.so:textproc/enchant \
 		libfolks-telepathy.so:net-im/folks \
 		libnotify.so:devel/libnotify \
 		libgcr-3.so:security/gcr \
-		libcanberra.so:audio/libcanberra \
-		libcanberra-gtk3.so:audio/libcanberra-gtk3 \
 		libclutter-gtk-1.0.so:graphics/clutter-gtk3 \
 		libclutter-gst-3.0.so:multimedia/clutter-gst3 \
 		libsoup-2.4.so:devel/libsoup \
@@ -48,7 +46,7 @@ RUN_DEPENDS=	iso-codes>=0:misc/iso-codes \
 		geoclue>=0:net/geoclue \
 		mc-tool:net-im/telepathy-mission-control
 
-USES=		compiler:c11 gettext gmake gnome libtool localbase pathfix \
+USES=		canberra:gtk3 compiler:c11 gettext gmake gnome libtool localbase pathfix \
 		pkgconfig python:2.7 tar:xz
 USE_GNOME=	cairo evolutiondataserver3 intlhack
 USE_XORG=	x11 xcomposite xdamage xext xfixes xi xrandr

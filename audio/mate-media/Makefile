@@ -14,16 +14,14 @@ LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
 BUILD_DEPENDS=	itstool:textproc/itstool
-LIB_DEPENDS=	libcanberra-gtk.so:audio/libcanberra \
-		libcanberra-gtk3.so:audio/libcanberra-gtk3 \
-		libfontconfig.so:x11-fonts/fontconfig \
+LIB_DEPENDS=	libfontconfig.so:x11-fonts/fontconfig \
 		libfreetype.so:print/freetype2 \
 		libstartup-notification-1.so:x11/startup-notification \
 		libunique-3.0.so:x11-toolkits/libunique3
 
 PORTSCOUT=	limitw:1,even
 
-USES=		gettext gmake libtool localbase pathfix \
+USES=		canberra:gtk2,gtk3 gettext gmake libtool localbase pathfix \
 		pkgconfig tar:xz
 USE_MATE=	desktop mixer panel
 USE_GNOME=	cairo glib20 gtk30 intlhack libxml2

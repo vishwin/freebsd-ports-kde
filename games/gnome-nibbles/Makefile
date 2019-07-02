@@ -17,9 +17,7 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 BUILD_DEPENDS=	vala:lang/vala \
 		itstool:textproc/itstool \
 		appstream-util:devel/appstream-glib
-LIB_DEPENDS=	libcanberra-gtk3.so:audio/libcanberra-gtk3 \
-		libcanberra.so:audio/libcanberra \
-		libclutter-gtk-1.0.so:graphics/clutter-gtk3 \
+LIB_DEPENDS=	libclutter-gtk-1.0.so:graphics/clutter-gtk3 \
 		libclutter-1.0.so:graphics/clutter \
 		libcogl.so:graphics/cogl \
 		libjson-glib-1.0.so:devel/json-glib \
@@ -28,7 +26,7 @@ LIB_DEPENDS=	libcanberra-gtk3.so:audio/libcanberra-gtk3 \
 
 PORTSCOUT=	limitw:1,even
 
-USES=		gettext gmake gnome localbase pathfix \
+USES=		canberra:gtk3 gettext gmake gnome localbase pathfix \
 		pkgconfig tar:xz
 USE_GNOME=	cairo gtk30 intlhack librsvg2 libxml2:build
 INSTALLS_ICONS=	yes

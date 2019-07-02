@@ -21,14 +21,13 @@ LIB_DEPENDS=	libgmime-2.6.so:mail/gmime26 \
 		libjson-glib-1.0.so:devel/json-glib \
 		libwebkit2gtk-4.0.so:www/webkit2-gtk3 \
 		libgoa-1.0.so:net/gnome-online-accounts \
-		libcanberra.so:audio/libcanberra \
 		libnotify.so:devel/libnotify \
 		libgee-0.8.so:devel/libgee \
 		libgcr-3.so:security/gcr \
 		libsecret-1.so:security/libsecret \
 		libenchant-2.so:textproc/enchant2
 
-USES=		compiler:c11 desktop-file-utils gettext gmake gnome meson \
+USES=		canberra compiler:c11 desktop-file-utils gettext gmake gnome meson \
 		pkgconfig python:3.5+,build shebangfix sqlite tar:xz
 USE_GNOME=	cairo gtk30 libxml2
 

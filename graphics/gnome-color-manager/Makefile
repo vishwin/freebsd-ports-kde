@@ -20,14 +20,12 @@ BUILD_DEPENDS=	docbook2man:textproc/docbook-utils \
 LIB_DEPENDS=	liblcms2.so:graphics/lcms2 \
 		libcolord.so:graphics/colord \
 		libcolord-gtk.so:graphics/colord-gtk \
-		libcanberra.so:audio/libcanberra \
-		libcanberra-gtk3.so:audio/libcanberra-gtk3 \
 		libtiff.so:graphics/tiff \
 		libexif.so:graphics/libexif
 
 PORTSCOUT=	limitw:1,even
 
-USES=		compiler:c++11-lang gettext gnome meson pkgconfig tar:xz
+USES=		canberra:gtk3 compiler:c++11-lang gettext gnome meson pkgconfig tar:xz
 USE_GNOME=	cairo gtk30 vte3
 USE_LDCONFIG=	yes
 INSTALLS_ICONS=	yes

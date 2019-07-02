@@ -12,13 +12,12 @@ COMMENT=	Send small notifications to your desktop
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-LIB_DEPENDS=	libdbus-1.so:devel/dbus \
-		libcanberra-gtk3.so:audio/libcanberra-gtk3
+LIB_DEPENDS=	libdbus-1.so:devel/dbus
 
 PORTSCOUT=	limitw:1,even
 
 USE_GNOME=	gnomeprefix gtk30
-USES=		gettext gmake gnome localbase pathfix \
+USES=		canberra:gtk3 gettext gmake gnome localbase pathfix \
 		pkgconfig tar:xz
 USE_XORG=	x11
 INSTALLS_ICONS=	yes

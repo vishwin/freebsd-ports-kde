@@ -16,13 +16,12 @@ BUILD_DEPENDS=	gnome-keyring:security/gnome-keyring \
 		yelp-tools>=0:textproc/yelp-tools
 LIB_DEPENDS=	libpcre.so:devel/pcre \
 		libesmtp.so:mail/libesmtp \
-		libgmime-2.6.so:mail/gmime26 \
-		libcanberra-gtk3.so:audio/libcanberra-gtk3
+		libgmime-2.6.so:mail/gmime26
 RUN_DEPENDS=	gnome-keyring:security/gnome-keyring
 
 # Depends on gtkhtml4 (which is being abandonend). When our webkitgtk3
 # in ports gets updated to > 1.10.x, balsa should depend on it.
-USES=		desktop-file-utils gettext gmake iconv pathfix \
+USES=		canberra:gtk3 desktop-file-utils gettext gmake iconv pathfix \
 		perl5 pkgconfig tar:bzip2 ssl
 USE_GNOME=	gnomeprefix gtkhtml4 intlhack libxslt
 INSTALLS_ICONS=	yes

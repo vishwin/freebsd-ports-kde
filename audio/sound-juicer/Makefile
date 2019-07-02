@@ -14,13 +14,12 @@ BUILD_DEPENDS=	itstool:textproc/itstool
 LIB_DEPENDS=	libmusicbrainz5.so:audio/libmusicbrainz5 \
 		libdiscid.so:audio/libdiscid \
 		libtag.so:audio/taglib \
-		libcanberra.so:audio/libcanberra \
 		libdbus-glib-1.so:devel/dbus-glib \
 		libbrasero-media3.so:sysutils/brasero
 
 PORTSCOUT=	limitw:1,even
 
-USES=		desktop-file-utils gettext gmake gnome pathfix pkgconfig tar:xz
+USES=		canberra desktop-file-utils gettext gmake gnome pathfix pkgconfig tar:xz
 USE_GNOME=	gnomeprefix intlhack
 USE_GSTREAMER1=	cdparanoia flac good vorbis
 GNU_CONFIGURE=	yes

@@ -20,17 +20,6 @@ do-build:
 			libcanberra-gtk-module.la  \
 			canberra-gtk-play
 
-# bin/canberra-gtk-play
-# include/canberra-gtk.h
-# lib/gnome-settings-daemon-3.0/gtk-modules/canberra-gtk-module.desktop
-# lib/gtk-2.0/modules/libcanberra-gtk-module.so
-# lib/libcanberra-gtk.so
-# lib/libcanberra-gtk.so.0
-# lib/libcanberra-gtk.so.0.1.9
-# libdata/pkgconfig/libcanberra-gtk.pc
-# %%DOCSDIR%%/libcanberra-canberra-gtk.html
-# share/vala/vapi/libcanberra-gtk.vapi
-
 do-install:
 	${INSTALL_DATA} ${INSTALL_WRKSRC}/libcanberra-gtk.pc \
 		${STAGEDIR}${PREFIX}/libdata/pkgconfig/

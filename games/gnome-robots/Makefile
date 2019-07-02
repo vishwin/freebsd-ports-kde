@@ -15,14 +15,12 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 
 BUILD_DEPENDS=	itstool:textproc/itstool \
 		appstream-util:devel/appstream-glib
-LIB_DEPENDS=	libcanberra-gtk3.so:audio/libcanberra-gtk3 \
-		libcanberra.so:audio/libcanberra \
-		libgnome-games-support-1.so:games/libgnome-games-support \
+LIB_DEPENDS=	libgnome-games-support-1.so:games/libgnome-games-support \
 		libgee-0.8.so:devel/libgee
 
 PORTSCOUT=	limitw:1,even
 
-USES=		gettext gmake gnome localbase pathfix \
+USES=		canberra:gtk3 gettext gmake gnome localbase pathfix \
 		pkgconfig tar:xz
 USE_GNOME=	cairo gtk30 intlhack librsvg2 libxml2:build
 USE_XORG=	x11

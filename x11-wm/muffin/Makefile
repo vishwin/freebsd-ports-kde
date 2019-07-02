@@ -15,11 +15,10 @@ BUILD_DEPENDS=	zenity>=3.0.0:x11/zenity \
 		gsettings-desktop-schemas>=3.4.0:devel/gsettings-desktop-schemas
 LIB_DEPENDS=	libstartup-notification-1.so:x11/startup-notification \
 		libclutter-glx-1.0.so:graphics/clutter \
-		libcanberra-gtk3.so:audio/libcanberra-gtk3 \
 		libcinnamon-desktop.so:x11/cinnamon-desktop
 RUN_DEPENDS=	zenity>=3.0.0:x11/zenity
 
-USES=		autoreconf:build gettext libtool gmake \
+USES=		autoreconf:build canberra:gtk3 gettext libtool gmake \
 		pathfix pkgconfig python:2.7
 USE_GITHUB=	yes
 GH_ACCOUNT=	linuxmint

@@ -15,8 +15,6 @@ LICENSE=	GPLv3
 
 LIB_DEPENDS=	\
 		liblensfun.so:graphics/lensfun \
-		libcanberra-gtk.so:audio/libcanberra \
-		libcanberra-gtk3.so:audio/libcanberra-gtk3 \
 		libexpat.so:textproc/expat2 \
 		libfftw3.so:math/fftw3 \
 		libfftw3f.so:math/fftw3-float \
@@ -28,7 +26,7 @@ LIB_DEPENDS=	\
 		libsigc-2.0.so:devel/libsigc++20 \
 		libtiff.so:graphics/tiff
 
-USES=		cmake desktop-file-utils gnome dos2unix \
+USES=		canberra:gtk2,gtk3 cmake desktop-file-utils gnome dos2unix \
 		jpeg localbase:ldflags pkgconfig tar:xz
 
 DOS2UNIX_REGEX=	.*\.(cc|h)

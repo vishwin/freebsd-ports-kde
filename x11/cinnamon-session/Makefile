@@ -13,12 +13,11 @@ COMMENT=	Session component for the cinnamon desktop
 BUILD_DEPENDS=	gnome-autogen.sh:devel/gnome-common
 LIB_DEPENDS=	libdbus-glib-1.so:devel/dbus-glib \
 		libjson-glib-1.0.so:devel/json-glib \
-		libupower-glib.so:sysutils/upower \
-		libcanberra.so:audio/libcanberra
+		libupower-glib.so:sysutils/upower
 RUN_DEPENDS=	console-kit-daemon:sysutils/consolekit2 \
 		xdpyinfo:x11/xdpyinfo
 
-USES=		autoreconf:build gettext gmake libtool \
+USES=		autoreconf:build canberra gettext gmake libtool \
 		pathfix pkgconfig tar:xz
 USE_GITHUB=	yes
 GH_ACCOUNT=	linuxmint

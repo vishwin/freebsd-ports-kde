@@ -12,9 +12,7 @@ COMMENT=	Power management system for the MATE Desktop
 
 BUILD_DEPENDS=	itstool:textproc/itstool \
 		gnome-keyring>=3.0.0:security/gnome-keyring
-LIB_DEPENDS=	libcanberra-gtk.so:audio/libcanberra \
-		libcanberra-gtk3.so:audio/libcanberra-gtk3 \
-		libdbus-1.so:devel/dbus \
+LIB_DEPENDS=	libdbus-1.so:devel/dbus \
 		libdbus-glib-1.so:devel/dbus-glib \
 		libupower-glib.so:sysutils/upower \
 		libfontconfig.so:x11-fonts/fontconfig \
@@ -27,7 +25,7 @@ RUN_DEPENDS=	pkexec:sysutils/polkit \
 
 PORTSCOUT=	limitw:1,even
 
-USES=		gettext gmake libtool localbase \
+USES=		canberra:gtk2,gtk3 gettext gmake libtool localbase \
 		pathfix pkgconfig tar:xz
 USE_MATE=	panel
 USE_XORG=	x11 xext xorgproto xrandr xrender

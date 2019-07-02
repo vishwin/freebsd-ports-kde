@@ -14,8 +14,7 @@ BUILD_DEPENDS=	cinnamon-session:x11/cinnamon-session \
 		gnome-autogen.sh:devel/gnome-common \
 		gsettings-desktop-schemas>=0:devel/gsettings-desktop-schemas \
 		docbook-xsl>=0:textproc/docbook-xsl
-LIB_DEPENDS=	libcanberra-gtk3.so:audio/libcanberra-gtk3 \
-		libpolkit-gobject-1.so:sysutils/polkit \
+LIB_DEPENDS=	libpolkit-gobject-1.so:sysutils/polkit \
 		libibus-1.0.so:textproc/ibus \
 		libdbus-1.so:devel/dbus \
 		libcolord.so:graphics/colord \
@@ -27,7 +26,7 @@ LIB_DEPENDS=	libcanberra-gtk3.so:audio/libcanberra-gtk3 \
 RUN_DEPENDS=	cinnamon-session:x11/cinnamon-session \
 		gsettings-desktop-schemas>=0:devel/gsettings-desktop-schemas
 
-USES=		autoreconf gettext gmake libtool pathfix \
+USES=		autoreconf canberra:gtk3 gettext gmake libtool pathfix \
 		pkgconfig tar:xz
 USE_GNOME=	gnomeprefix intlhack libgnomekbd \
 		libxslt:build
