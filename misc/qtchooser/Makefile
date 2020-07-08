@@ -48,7 +48,7 @@ post-install:
 # after it was removed from the ports tree.
 #
 	${MKDIR} ${STAGEDIR}${QT_QTCHOOSERDIR}
-.for qt_version in 4 5
+.for qt_version in 5 6
 	${ECHO} ${PREFIX}/lib/qt${qt_version}/bin > ${STAGEDIR}${QT_QTCHOOSERDIR}/qt${qt_version}.conf
 	${ECHO} ${PREFIX}/lib/qt${qt_version} >> ${STAGEDIR}${QT_QTCHOOSERDIR}/qt${qt_version}.conf
 .endfor
