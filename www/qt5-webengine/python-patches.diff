@@ -1,21 +1,119 @@
+--- ./src/3rdparty/chromium/mojo/public/tools/bindings/pylib/mojom/generate/generator.py.orig	2020-05-06 14:21:29.000000000 +0000
++++ ./src/3rdparty/chromium/mojo/public/tools/bindings/pylib/mojom/generate/generator.py	2020-09-18 21:42:49.262344000 +0000
+@@ -112,7 +112,10 @@
+ 
+   # Dump the data to disk.
+   with open(full_path, "wb") as f:
+-    f.write(contents)
++    if isinstance(contents, str):
++      f.write(contents.encode('utf-8'))
++    else:
++      f.write(contents)
+ 
+ 
+ def AddComputedData(module):
+--- ./src/3rdparty/chromium/mojo/public/tools/bindings/pylib/mojom/generate/module.py.orig	2020-05-06 14:21:29.000000000 +0000
++++ ./src/3rdparty/chromium/mojo/public/tools/bindings/pylib/mojom/generate/module.py	2020-09-18 21:40:20.349662000 +0000
+@@ -764,17 +764,58 @@
+ class Module(object):
+   def __init__(self, path=None, mojom_namespace=None,
+                attributes=None):
++    print("I Module " + path)
+     self.path = path
+     self.mojom_namespace = mojom_namespace
+-    self.structs = []
+-    self.unions = []
+-    self.interfaces = []
+-    self.enums = []
+-    self.constants = []
++    self.__structs = []
++    self.__unions = []
++    self.__interfaces = []
++    self.__enums = []
++    self.__constants = []
+     self.kinds = {}
+     self.attributes = attributes
+     self.imports = []
+     self.imported_kinds = {}
++
++  @property
++  def structs(self):
++    return self.__structs
++
++  @structs.setter
++  def structs(self, s):
++    self.__structs = list(s)
++
++  @property
++  def unions(self):
++    return self.__unions
++
++  @unions.setter
++  def unions(self, s):
++    self.__unions = list(s)
++
++  @property
++  def interfaces(self):
++    return self.__interfaces
++
++  @interfaces.setter
++  def interfaces(self, s):
++    self.__interfaces = list(s)
++
++  @property
++  def enums(self):
++    return self.__enums
++
++  @enums.setter
++  def enums(self, s):
++    self.__enums = list(s)
++
++  @property
++  def constants(self):
++    return self.__constants
++
++  @constants.setter
++  def constants(self, s):
++    self.__constants = list(s)
+ 
+   def __repr__(self):
+     # Gives us a decent __repr__ for modules.
+--- ./src/3rdparty/chromium/mojo/public/tools/bindings/generators/mojom_js_generator.py.orig	2020-09-18 21:44:13.893905000 +0000
++++ ./src/3rdparty/chromium/mojo/public/tools/bindings/generators/mojom_js_generator.py	2020-09-18 21:46:16.951172000 +0000
+@@ -9,6 +9,7 @@
+ import mojom.generate.pack as pack
+ import os
+ import urllib
++import urllib.request
+ from mojom.generate.template_expander import UseJinja
+ 
+ _kind_to_javascript_default_value = {
+@@ -215,7 +216,7 @@
+ 
+ 
+ def GetRelativeUrl(module, base_module):
+-  return urllib.pathname2url(
++  return urllib.request.pathname2url(
+       os.path.relpath(module.path, os.path.dirname(base_module.path)))
+ 
+ 
 --- ./src/3rdparty/chromium/mojo/public/tools/bindings/generators/mojom_cpp_generator.py.orig	2020-05-06 14:21:29.000000000 +0000
-+++ ./src/3rdparty/chromium/mojo/public/tools/bindings/generators/mojom_cpp_generator.py	2020-09-18 15:27:47.495244000 +0000
-@@ -208,7 +208,14 @@
++++ ./src/3rdparty/chromium/mojo/public/tools/bindings/generators/mojom_cpp_generator.py	2020-09-18 21:40:20.349960000 +0000
+@@ -208,7 +208,13 @@
  
  class Generator(generator.Generator):
    def __init__(self, *args, **kwargs):
-+    for x in args:
-+        print("I t=" + str(type(x)) + "  v=" + str(x))
++    print("I Generator args[0] t=" + str(type(args[0])))
++    if args[0] is not None:
++        print("I Generator module structs_t=" + str(type(args[0].structs)))
      super(Generator, self).__init__(*args, **kwargs)
-+    for x in args:
-+        print("I t=" + str(type(x)) + "  v=" + str(x))
 +    if self.module is not None:
-+        print("I structs_t  =" + str(type(self.module.structs)))
-+        print("I unions_t   =" + str(type(self.module.unions)))
++        print("I Generator module.structs_t  =" + str(type(self.module.structs)))
++        print("I Generator module.unions_t   =" + str(type(self.module.unions)))
  
    def _GetExtraTraitsHeaders(self):
      extra_headers = set()
-@@ -271,6 +278,9 @@
+@@ -271,6 +277,9 @@
      for interface in self.module.interfaces:
        all_enums.extend(interface.enums)
  
@@ -25,8 +123,8 @@
      types = set(self._GetFullMojomNameForKind(typename)
                  for typename in
                  self.module.structs + all_enums + self.module.unions)
---- ./src/3rdparty/chromium/mojo/public/tools/bindings/mojom_bindings_generator.py.orig	2020-09-18 21:08:04.686574000 +0000
-+++ ./src/3rdparty/chromium/mojo/public/tools/bindings/mojom_bindings_generator.py	2020-09-18 21:12:24.696997000 +0000
+--- ./src/3rdparty/chromium/mojo/public/tools/bindings/mojom_bindings_generator.py.orig	2020-05-06 14:21:29.000000000 +0000
++++ ./src/3rdparty/chromium/mojo/public/tools/bindings/mojom_bindings_generator.py	2020-09-18 21:40:20.350234000 +0000
 @@ -145,7 +145,7 @@
  
  def ReadFileContents(filename):
@@ -37,7 +135,7 @@
  
  class MojomProcessor(object):
 --- ./src/3rdparty/chromium/tools/polymer/polymer.py.orig	2020-05-06 14:21:29.000000000 +0000
-+++ ./src/3rdparty/chromium/tools/polymer/polymer.py	2020-09-18 15:27:47.495484000 +0000
++++ ./src/3rdparty/chromium/tools/polymer/polymer.py	2020-09-18 21:40:20.350462000 +0000
 @@ -491,8 +491,6 @@
    # across platforms.
    with io.open(os.path.join(out_folder, result[1]), mode='w', encoding='utf-8', newline='\n') as f:
