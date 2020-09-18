@@ -1,5 +1,5 @@
---- ./src/3rdparty/chromium/mojo/public/tools/bindings/generators/mojom_cpp_generator.py.orig	2020-09-18 14:56:04.991903000 +0000
-+++ ./src/3rdparty/chromium/mojo/public/tools/bindings/generators/mojom_cpp_generator.py	2020-09-18 15:12:34.431692000 +0000
+--- ./src/3rdparty/chromium/mojo/public/tools/bindings/generators/mojom_cpp_generator.py.orig	2020-05-06 14:21:29.000000000 +0000
++++ ./src/3rdparty/chromium/mojo/public/tools/bindings/generators/mojom_cpp_generator.py	2020-09-18 15:27:47.495244000 +0000
 @@ -208,7 +208,14 @@
  
  class Generator(generator.Generator):
@@ -25,8 +25,19 @@
      types = set(self._GetFullMojomNameForKind(typename)
                  for typename in
                  self.module.structs + all_enums + self.module.unions)
---- ./src/3rdparty/chromium/tools/polymer/polymer.py.orig	2020-09-18 14:49:48.729578000 +0000
-+++ ./src/3rdparty/chromium/tools/polymer/polymer.py	2020-09-18 14:50:01.592274000 +0000
+--- ./src/3rdparty/chromium/mojo/public/tools/bindings/mojom_bindings_generator.py.orig	2020-09-18 21:08:04.686574000 +0000
++++ ./src/3rdparty/chromium/mojo/public/tools/bindings/mojom_bindings_generator.py	2020-09-18 21:12:24.696997000 +0000
+@@ -145,7 +145,7 @@
+ 
+ def ReadFileContents(filename):
+   with open(filename, 'rb') as f:
+-    return f.read()
++    return f.read().decode()
+ 
+ 
+ class MojomProcessor(object):
+--- ./src/3rdparty/chromium/tools/polymer/polymer.py.orig	2020-05-06 14:21:29.000000000 +0000
++++ ./src/3rdparty/chromium/tools/polymer/polymer.py	2020-09-18 15:27:47.495484000 +0000
 @@ -491,8 +491,6 @@
    # across platforms.
    with io.open(os.path.join(out_folder, result[1]), mode='w', encoding='utf-8', newline='\n') as f:
