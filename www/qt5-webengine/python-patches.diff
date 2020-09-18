@@ -1,0 +1,38 @@
+--- ./src/3rdparty/chromium/mojo/public/tools/bindings/generators/mojom_cpp_generator.py.orig	2020-09-18 14:56:04.991903000 +0000
++++ ./src/3rdparty/chromium/mojo/public/tools/bindings/generators/mojom_cpp_generator.py	2020-09-18 15:12:34.431692000 +0000
+@@ -208,7 +208,14 @@
+ 
+ class Generator(generator.Generator):
+   def __init__(self, *args, **kwargs):
++    for x in args:
++        print("I t=" + str(type(x)) + "  v=" + str(x))
+     super(Generator, self).__init__(*args, **kwargs)
++    for x in args:
++        print("I t=" + str(type(x)) + "  v=" + str(x))
++    if self.module is not None:
++        print("I structs_t  =" + str(type(self.module.structs)))
++        print("I unions_t   =" + str(type(self.module.unions)))
+ 
+   def _GetExtraTraitsHeaders(self):
+     extra_headers = set()
+@@ -271,6 +278,9 @@
+     for interface in self.module.interfaces:
+       all_enums.extend(interface.enums)
+ 
++    print("all_enums_t=" + str(type(all_enums)))
++    print("structs_t  =" + str(type(self.module.structs)))
++    print("unions_t   =" + str(type(self.module.unions)))
+     types = set(self._GetFullMojomNameForKind(typename)
+                 for typename in
+                 self.module.structs + all_enums + self.module.unions)
+--- ./src/3rdparty/chromium/tools/polymer/polymer.py.orig	2020-09-18 14:49:48.729578000 +0000
++++ ./src/3rdparty/chromium/tools/polymer/polymer.py	2020-09-18 14:50:01.592274000 +0000
+@@ -491,8 +491,6 @@
+   # across platforms.
+   with io.open(os.path.join(out_folder, result[1]), mode='w', encoding='utf-8', newline='\n') as f:
+     for l in result[0]:
+-      if (type(l) != unicode):
+-        l = unicode(l, encoding='utf-8')
+       f.write(l)
+   return
+ 
