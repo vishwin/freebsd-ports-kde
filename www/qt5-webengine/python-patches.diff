@@ -354,6 +354,43 @@
          return generator_internal
      return wrapper
  
+--- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/make_qualified_names.h.tmpl.orig
++++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/make_qualified_names.h.tmpl
+@@ -24,12 +24,12 @@
+ {{symbol_export}}extern const WTF::AtomicString& {{namespace_prefix}}NamespaceURI;
+ 
+ // Tags
+-{% for tag in tags|sort %}
++{% for tag in tags %}
+ {{symbol_export}}extern const blink::{{namespace}}QualifiedName& {{tag|symbol}}Tag;
+ {% endfor %}
+ 
+ // Attributes
+-{% for attr in attrs|sort %}
++{% for attr in attrs %}
+ {{symbol_export}}extern const blink::QualifiedName& {{attr|symbol}}Attr;
+ {% endfor %}
+ 
+--- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/element_factory.cc.tmpl.orig
++++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/element_factory.cc.tmpl
+@@ -26,7 +26,7 @@
+ 
+ static {{namespace}}FunctionMap* g_{{namespace|lower}}_constructors = nullptr;
+ 
+-{% for tag in tags|sort if not tag.noConstructor %}
++{% for tag in tags if not tag.noConstructor %}
+ static {{namespace}}Element* {{namespace}}{{tag.name.to_upper_camel_case()}}Constructor(
+     Document& document, const CreateElementFlags flags) {
+   {% if tag.runtimeEnabled %}
+@@ -52,7 +52,7 @@
+   // Empty array initializer lists are illegal [dcl.init.aggr] and will not
+   // compile in MSVC. If tags list is empty, add check to skip this.
+   static const Create{{namespace}}FunctionMapData data[] = {
+-  {% for tag in tags|sort if not tag.noConstructor %}
++  {% for tag in tags if not tag.noConstructor %}
+     { {{cpp_namespace}}::{{tag|symbol}}Tag, {{namespace}}{{tag.name.to_upper_camel_case()}}Constructor },
+   {% endfor %}
+   };
 --- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/make_names.h.tmpl.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/make_names.h.tmpl
 @@ -19,7 +19,7 @@
@@ -367,20 +404,29 @@
  
 --- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/macros.tmpl.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/macros.tmpl
-@@ -45,7 +45,13 @@
+@@ -45,8 +45,14 @@
  
  
  {% macro trie_switch(trie, index, return_macro, lowercase_data) %}
-+{{ trie|length }}
-+{{ trie.values()[0] }}
-+{{ trie.values()[0] is string }}
-+
++{% if trie is string %}
++/* bogus */ {{ trie }}
++{% else %}
++/* len */ {{ trie|length }}
  {% if trie|length == 1 and trie.values()[0] is string %}
-+{{ trie_leaf(index, trie, return_macro, lowercase_data) -}}
-+{% elif trie is string %}
  {{ trie_leaf(index, trie, return_macro, lowercase_data) -}}
++{% elif trie is string %}
++{{ trie_leaf(index, trie, return_macro, lowercase_data) -}}
  {% else %}
      {% if lowercase_data %}
+ switch (ToASCIILower(data[{{index}}])) {
+@@ -59,6 +65,7 @@
+     {% endfor %}
+ }
+ break;
++{% endif %}
+ {% endif %}
+ {% endmacro %}
+ 
 --- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/template_expander.py.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/template_expander.py
 @@ -55,6 +55,8 @@
@@ -437,6 +483,15 @@
 +    outputHFile.write( '\n#endif  // %s\n' % headerGuard )
 --- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/in_generator.py.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/in_generator.py
+@@ -76,7 +76,7 @@
+     def __init__(self, in_files):
+         super(Writer, self).__init__(in_files)
+ 
+-        if isinstance(in_files, basestring):
++        if isinstance(in_files, str):
+             in_files = [in_files]
+         if in_files:
+             self.in_file = InFile.load_from_files(in_files, self.defaults, self.valid_values, self.default_parameters)
 @@ -92,7 +92,7 @@
          script_name = os.path.basename(argv[0])
          args = argv[1:]
@@ -865,7 +920,12 @@
  
 --- ./src/3rdparty/chromium/tools/grit/grit/format/html_inline.py.orig
 +++ ./src/3rdparty/chromium/tools/grit/grit/format/html_inline.py
-@@ -39,26 +39,26 @@
+@@ -35,30 +35,30 @@
+ 
+ DIST_DEFAULT = 'chromium'
+ DIST_ENV_VAR = 'CHROMIUM_BUILD'
+-DIST_SUBSTR = '%DISTRIBUTION%'
++DIST_SUBSTR = b'%DISTRIBUTION%'
  
  # Matches beginning of an "if" block.
  _BEGIN_IF_BLOCK = lazy_re.compile(
@@ -919,7 +979,7 @@
      re.MULTILINE)
  
  
-@@ -113,7 +113,7 @@
+@@ -113,10 +113,13 @@
    Returns:
      string
    """
@@ -928,7 +988,13 @@
      # filename is probably a URL, which we don't want to bother inlining
      return filename
  
-@@ -308,42 +308,42 @@
++  print("filename t=" + str(type(filename)) + "  v=" + repr(filename))
++  print("distribution t=" + str(type(distribution)) + "  v=" + repr(distribution))
++  print("DIST_SUBSTR t=" + str(type(DIST_SUBSTR)) + "  v=" + repr(DIST_SUBSTR))
+   filename = filename.replace(DIST_SUBSTR , distribution)
+   filepath = os.path.normpath(os.path.join(base_path, filename))
+   inlined_files.add(filepath)
+@@ -308,42 +311,42 @@
      filename = [v for k, v in src_match.groupdict().items()
                  if k.startswith('file') and v][0]
  
@@ -983,7 +1049,7 @@
          if next_if is None or next_if.start() >= end_if.end():
            count = count - 1
            if count == 0:
-@@ -353,13 +353,13 @@
+@@ -353,13 +356,13 @@
            count = count + 1
            pos = next_if.end()
  
@@ -1001,7 +1067,7 @@
  
    def InlineFileContents(src_match,
                           pattern,
-@@ -459,12 +459,12 @@
+@@ -459,12 +462,12 @@
          r'[ ]*[0-9.]*x[ ]*(,[ ]*)?)+\)')
      value_re = '(%s|%s)' % (GetUrlRegexString(), image_set_value_re)
      css_re = property_re + value_re
@@ -1016,7 +1082,7 @@
                    lambda m: SrcReplace(m, filepath),
                    src_match.group(0))
  
-@@ -472,7 +472,7 @@
+@@ -472,7 +475,7 @@
      """Helper function that inlines CSS files included via the @import
         directive.
      """
@@ -1025,7 +1091,7 @@
                    lambda m: InlineCSSFile(m, '%s', filepath),
                    text)
  
-@@ -484,9 +484,25 @@
+@@ -484,9 +487,25 @@
    # InlineScript, InlineCSSFile and InlineIncludeFiles on text we're eventually
    # going to throw out anyway.
    flat_text = CheckConditionalElements(flat_text)
@@ -1052,7 +1118,7 @@
    if not preprocess_only:
      if strip_whitespace:
        flat_text = minifier.Minify(flat_text, input_filename)
-@@ -494,13 +510,17 @@
+@@ -494,13 +513,17 @@
      if not allow_external_script:
        # We need to inline css and js before we inline images so that image
        # references gets inlined in the css and js
