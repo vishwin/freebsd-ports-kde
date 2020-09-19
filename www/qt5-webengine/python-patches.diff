@@ -354,6 +354,17 @@
          exposed, runtime_enabled = argument.split()
          arguments.append({'exposed': exposed, 'runtime_enabled': runtime_enabled})
  
+--- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/blink_idl_parser.py.orig
++++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/blink_idl_parser.py
+@@ -139,7 +139,7 @@
+     try:
+         outputdir = argv[1]
+     except IndexError as err:
+-        print 'Usage: %s OUTPUT_DIR' % argv[0]
++        print('Usage: %s OUTPUT_DIR' % argv[0])
+         return 1
+     blink_idl_lexer.main(argv)
+     # Important: rewrite_tables=True causes the cache file to be deleted if it
 --- ./src/3rdparty/chromium/third_party/devtools-frontend/src/scripts/build/modular_build.py.orig
 +++ ./src/3rdparty/chromium/third_party/devtools-frontend/src/scripts/build/modular_build.py
 @@ -40,7 +40,7 @@
