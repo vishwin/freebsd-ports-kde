@@ -275,6 +275,30 @@
      vendor_match = VENDOR_PATTERN.match(line)
      if vendor_match:
        if vendor:
+--- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/core/css/properties/make_css_property_instances.py.orig
++++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/core/css/properties/make_css_property_instances.py
+@@ -39,8 +39,8 @@
+         aliases = self._css_properties.aliases
+ 
+         # Lists of PropertyClassData.
+-        self._property_classes_by_id = map(self.get_class, properties)
+-        self._alias_classes_by_id = map(self.get_class, aliases)
++        self._property_classes_by_id = list(map(self.get_class, properties))
++        self._alias_classes_by_id = list(map(self.get_class, aliases))
+ 
+         # Sort by enum value.
+         self._property_classes_by_id.sort(key=lambda t: t.enum_value)
+--- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/gperf.py.orig
++++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/gperf.py
+@@ -61,7 +61,7 @@
+             if gperf_extra_args:
+                 gperf_args.extend(gperf_extra_args)
+             return generate_gperf(gperf_path, gperf_input, gperf_args)
+-        generator_internal.func_name = generator.func_name
++        generator_internal.func_name = generator.__name__
+         return generator_internal
+     return wrapper
+ 
 --- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/template_expander.py.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/template_expander.py
 @@ -64,6 +64,6 @@
