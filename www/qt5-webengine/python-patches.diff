@@ -810,10 +810,24 @@
                    lambda m: InlineCSSFile(m, '%s', filepath),
                    text)
  
-@@ -487,6 +487,12 @@
+@@ -484,9 +484,25 @@
+   # InlineScript, InlineCSSFile and InlineIncludeFiles on text we're eventually
+   # going to throw out anyway.
+   flat_text = CheckConditionalElements(flat_text)
++  if isinstance(flat_text, bytes):
++    pass
++  else:
++    flat_text = flat_text.encode()
  
-   flat_text = _INCLUDE_RE.sub(InlineIncludeFiles, flat_text)
+-  flat_text = _INCLUDE_RE.sub(InlineIncludeFiles, flat_text)
++  def inliner(m):
++    r = InlineIncludeFiles(m)
++    if isinstance(r, bytes):
++      return r
++    return r.encode()
  
++  flat_text = _INCLUDE_RE.sub(inliner, flat_text)
++
 +  def replacor(m):
 +    r = InlineCSSFile(m, '<style>%s</style>')
 +    if isinstance(r, bytes):
@@ -823,7 +837,7 @@
    if not preprocess_only:
      if strip_whitespace:
        flat_text = minifier.Minify(flat_text, input_filename)
-@@ -494,13 +500,17 @@
+@@ -494,13 +510,17 @@
      if not allow_external_script:
        # We need to inline css and js before we inline images so that image
        # references gets inlined in the css and js
