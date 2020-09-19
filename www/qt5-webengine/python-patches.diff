@@ -342,13 +342,12 @@
  
 --- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/macros.tmpl.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/macros.tmpl
-@@ -53,6 +53,9 @@
+@@ -53,6 +53,8 @@
      {% else %}
  switch (data[{{index}}]) {
      {% endif %}
-+{{ str(type(trie)) }}
 +{{ str(trie) }}
-+{{ str(type(trie.items())) }}
++{{ str(trie.items()) }}
      {% for char, value in trie.items()|sort %}
  case '{{char}}':
      {{ trie_switch(value, index + 1, return_macro, lowercase_data) | indent(4) }}
@@ -483,6 +482,17 @@
          exposed, runtime_enabled = argument.split()
          arguments.append({'exposed': exposed, 'runtime_enabled': runtime_enabled})
  
+--- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/code_generator.py.orig
++++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/code_generator.py
+@@ -194,7 +194,7 @@
+         cache_dir = argv[1]
+         dummy_filename = argv[2]
+     except IndexError:
+-        print 'Usage: %s CACHE_DIR DUMMY_FILENAME' % argv[0]
++        print('Usage: %s CACHE_DIR DUMMY_FILENAME' % argv[0])
+         return 1
+ 
+     # Cache templates
 --- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/blink_idl_parser.py.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/blink_idl_parser.py
 @@ -139,7 +139,7 @@
