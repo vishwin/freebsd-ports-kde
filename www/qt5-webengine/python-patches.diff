@@ -252,6 +252,29 @@
  
  
  class MojomProcessor(object):
+--- ./src/3rdparty/chromium/services/device/public/cpp/usb/tools/usb_ids.py.orig
++++ ./src/3rdparty/chromium/services/device/public/cpp/usb/tools/usb_ids.py
+@@ -16,14 +16,18 @@
+   return name
+ 
+ def ParseTable(input_path):
+-  input_file = open(input_path, "r")
+-  input = input_file.read().split("\n")
++  print("Reading table " + input_path)
++  input_file = open(input_path, "rb")
++  input = input_file.read().split(b"\n")
+   input_file.close()
+ 
+   table = {}
+   vendor = None
+ 
+   for line in input:
++    if b'\xb4' in line:
++      line = line.replace(b'\xb4', b"'")  # Bad encoding in table
++    line = line.decode()
+     vendor_match = VENDOR_PATTERN.match(line)
+     if vendor_match:
+       if vendor:
 --- ./src/3rdparty/chromium/tools/polymer/polymer.py.orig
 +++ ./src/3rdparty/chromium/tools/polymer/polymer.py
 @@ -491,8 +491,6 @@
