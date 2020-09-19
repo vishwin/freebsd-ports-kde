@@ -427,6 +427,24 @@
  {% endif %}
  {% endmacro %}
  
+--- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/element_type_helpers.h.tmpl.orig
++++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/element_type_helpers.h.tmpl
+@@ -12,7 +12,7 @@
+ 
+ namespace blink {
+ // Type checking.
+-{% for tag in tags|sort if not tag.multipleTagNames and not tag.noTypeHelpers %}
++{% for tag in tags if not tag.multipleTagNames and not tag.noTypeHelpers %}
+ class {{tag.interface}};
+ template <>
+ inline bool IsElementOfType<const {{tag.interface}}>(const Node& node) {
+@@ -55,4 +55,4 @@
+ {% endif %}
+ }  // namespace blink
+ 
+-#endif  // THIRD_PARTY_BLINK_RENDERER_CORE_{{namespace|upper}}_ELEMENT_TYPE_HELPERS_H_
+\ No newline at end of file
++#endif  // THIRD_PARTY_BLINK_RENDERER_CORE_{{namespace|upper}}_ELEMENT_TYPE_HELPERS_H_
 --- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/template_expander.py.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/template_expander.py
 @@ -55,6 +55,8 @@
