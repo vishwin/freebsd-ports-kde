@@ -67,7 +67,49 @@
    ReferenceKind.AddSharedProperty('attributes')
  
    def __init__(self, mojom_name=None, module=None, attributes=None):
-@@ -659,10 +674,10 @@
+@@ -600,7 +615,41 @@
+         if self.attributes else None
+ 
+ 
++def listprop(name):
++  """
++  Returns a property that stores a value in __name.
++  The value is always coerced to a list.
++  """
++  xname = "__" + name
++  def get(self):
++    return getattr(self, xname)
++    
++  def set(self, v):
++    setattr(self, xname, list(v))
++        
++  return property(get, set)
++
++def listornoneprop(name):
++  """
++  Returns a property that stores a value in __name.
++  The value is always coerced to a list, unless it's None.
++  """
++  xname = "__" + name
++  def get(self):
++    return getattr(self, xname)
++    
++  def set(self, v):
++    if v is None:
++      setattr(self, xname, None)
++    else:
++      setattr(self, xname, list(v))
++        
++  return property(get, set)
++
+ class Method(object):
++  parameters = listprop("parameters")
++  response_parameters = listornoneprop("response_parameters")
++
+   def __init__(self, interface, mojom_name, ordinal=None, attributes=None):
+     self.interface = interface
+     self.mojom_name = mojom_name
+@@ -659,10 +708,10 @@
  class Interface(ReferenceKind):
    ReferenceKind.AddSharedProperty('mojom_name')
    ReferenceKind.AddSharedProperty('name')
@@ -81,67 +123,29 @@
  
    def __init__(self, mojom_name=None, module=None, attributes=None):
      if mojom_name is not None:
-@@ -766,15 +781,55 @@
+@@ -731,6 +780,8 @@
+ 
+ 
+ class Enum(Kind):
++  fields = listprop("fields")
++
+   def __init__(self, mojom_name=None, module=None, attributes=None):
+     self.mojom_name = mojom_name
+     self.native_only = False
+@@ -762,6 +813,13 @@
+ 
+ 
+ class Module(object):
++  structs = listprop("structs")
++  unions = listprop("unions")
++  interfaces = listprop("interfaces")
++  enums = listprop("enums")
++  constants = listprop("constants")
++  imports = listprop("imports")
++
+   def __init__(self, path=None, mojom_namespace=None,
                 attributes=None):
      self.path = path
-     self.mojom_namespace = mojom_namespace
--    self.structs = []
--    self.unions = []
--    self.interfaces = []
--    self.enums = []
--    self.constants = []
-+    self.__structs = []
-+    self.__unions = []
-+    self.__interfaces = []
-+    self.__enums = []
-+    self.__constants = []
-     self.kinds = {}
-     self.attributes = attributes
-     self.imports = []
-     self.imported_kinds = {}
-+
-+  @property
-+  def structs(self):
-+    return self.__structs
-+
-+  @structs.setter
-+  def structs(self, s):
-+    self.__structs = list(s)
-+
-+  @property
-+  def unions(self):
-+    return self.__unions
-+
-+  @unions.setter
-+  def unions(self, s):
-+    self.__unions = list(s)
-+
-+  @property
-+  def interfaces(self):
-+    return self.__interfaces
-+
-+  @interfaces.setter
-+  def interfaces(self, s):
-+    self.__interfaces = list(s)
-+
-+  @property
-+  def enums(self):
-+    return self.__enums
-+
-+  @enums.setter
-+  def enums(self, s):
-+    self.__enums = list(s)
-+
-+  @property
-+  def constants(self):
-+    return self.__constants
-+
-+  @constants.setter
-+  def constants(self, s):
-+    self.__constants = list(s)
- 
-   def __repr__(self):
-     # Gives us a decent __repr__ for modules.
 --- ./src/3rdparty/chromium/mojo/public/tools/bindings/generators/mojom_js_generator.py.orig
 +++ ./src/3rdparty/chromium/mojo/public/tools/bindings/generators/mojom_js_generator.py
 @@ -9,6 +9,7 @@
@@ -188,6 +192,34 @@
      return (StructConstructor(struct.fields, ordinal_fields[:param_count])
              for param_count in param_counts)
  
+--- ./src/3rdparty/chromium/mojo/public/tools/bindings/concatenate_and_replace_closure_exports.py.orig
++++ ./src/3rdparty/chromium/mojo/public/tools/bindings/concatenate_and_replace_closure_exports.py
+@@ -27,20 +27,20 @@
+ 
+ 
+ def FilterLine(filename, line, output):
+-  if line.startswith("goog.require"):
++  if line.startswith(b"goog.require"):
+     return
+ 
+-  if line.startswith("goog.provide"):
+-    match = re.match("goog.provide\('([^']+)'\);", line)
++  if line.startswith(b"goog.provide"):
++    match = re.match(b"goog.provide\('([^']+)'\);", line)
+     if not match:
+       print("Invalid goog.provide line in %s:\n%s" % (filename, line))
+       exit(1)
+ 
+     module_name = match.group(1)
+     if module_name == _MOJO_INTERNAL_MODULE_NAME:
+-      output.write("self.mojo = { internal: {} };")
++      output.write(b"self.mojo = { internal: {} };")
+     else:
+-      output.write("%s('%s');\n" % (_MOJO_EXPORT_MODULE_SYMBOL, module_name))
++      output.write(("%s('%s');\n" % (_MOJO_EXPORT_MODULE_SYMBOL, module_name)).encode())
+     return
+ 
+   output.write(line)
 --- ./src/3rdparty/chromium/mojo/public/tools/bindings/mojom_bindings_generator.py.orig
 +++ ./src/3rdparty/chromium/mojo/public/tools/bindings/mojom_bindings_generator.py
 @@ -112,6 +112,7 @@
