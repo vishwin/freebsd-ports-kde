@@ -311,6 +311,15 @@
  
          # Sort by enum value.
          self._property_classes_by_id.sort(key=lambda t: t.enum_value)
+--- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/in_file.py.orig
++++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/in_file.py
+@@ -158,5 +158,5 @@
+ 
+     def _fatal(self, message):
+         # FIXME: This should probably raise instead of exit(1)
+-        print message
++        print(message)
+         exit(1)
 --- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/gperf.py.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/gperf.py
 @@ -61,7 +61,7 @@
@@ -322,6 +331,18 @@
          return generator_internal
      return wrapper
  
+--- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/macros.tmpl.orig
++++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/macros.tmpl
+@@ -53,6 +53,9 @@
+     {% else %}
+ switch (data[{{index}}]) {
+     {% endif %}
++{{ str(type(trie)) }}
++{{ str(trie) }}
++{{ str(type(trie.items())) }}
+     {% for char, value in trie.items()|sort %}
+ case '{{char}}':
+     {{ trie_switch(value, index + 1, return_macro, lowercase_data) | indent(4) }}
 --- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/template_expander.py.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/template_expander.py
 @@ -64,6 +64,6 @@
@@ -674,6 +695,46 @@
  
  
  def _ChunkifyPNG(data):
+--- ./src/3rdparty/chromium/tools/grit/grit/gather/chrome_html.py.orig
++++ ./src/3rdparty/chromium/tools/grit/grit/gather/chrome_html.py
+@@ -31,27 +31,27 @@
+ 
+ # Matches a chrome theme source URL.
+ _THEME_SOURCE = lazy_re.compile(
+-    r'(?P<baseurl>chrome://theme/IDR_[A-Z0-9_]*)(?P<query>\?.*)?')
++    rb'(?P<baseurl>chrome://theme/IDR_[A-Z0-9_]*)(?P<query>\?.*)?')
+ # Pattern for matching CSS url() function.
+-_CSS_URL_PATTERN = r'url\((?P<quote>"|\'|)(?P<filename>[^"\'()]*)(?P=quote)\)'
++_CSS_URL_PATTERN = rb'url\((?P<quote>"|\'|)(?P<filename>[^"\'()]*)(?P=quote)\)'
+ # Matches CSS url() functions with the capture group 'filename'.
+ _CSS_URL = lazy_re.compile(_CSS_URL_PATTERN)
+ # Matches one or more CSS image urls used in given properties.
+ _CSS_IMAGE_URLS = lazy_re.compile(
+-    r'(?P<attribute>content|background|[\w-]*-image):\s*'
+-        r'(?P<urls>(' + _CSS_URL_PATTERN + r'\s*,?\s*)+)')
++    rb'(?P<attribute>content|background|[\w-]*-image):\s*'
++        rb'(?P<urls>(' + _CSS_URL_PATTERN + r'\s*,?\s*)+)')
+ # Matches CSS image sets.
+ _CSS_IMAGE_SETS = lazy_re.compile(
+-    r'(?P<attribute>content|background|[\w-]*-image):[ ]*'
+-        r'-webkit-image-set\((?P<images>'
+-        r'(\s*,?\s*url\((?P<quote>"|\'|)[^"\'()]*(?P=quote)\)[ ]*[0-9.]*x)*)\)',
++    rb'(?P<attribute>content|background|[\w-]*-image):[ ]*'
++        rb'-webkit-image-set\((?P<images>'
++        rb'(\s*,?\s*url\((?P<quote>"|\'|)[^"\'()]*(?P=quote)\)[ ]*[0-9.]*x)*)\)',
+     re.MULTILINE)
+ # Matches a single image in a CSS image set with the capture group scale.
+-_CSS_IMAGE_SET_IMAGE = lazy_re.compile(r'\s*,?\s*'
+-    r'url\((?P<quote>"|\'|)[^"\'()]*(?P=quote)\)[ ]*(?P<scale>[0-9.]*x)',
++_CSS_IMAGE_SET_IMAGE = lazy_re.compile(rb'\s*,?\s*'
++    rb'url\((?P<quote>"|\'|)[^"\'()]*(?P=quote)\)[ ]*(?P<scale>[0-9.]*x)',
+     re.MULTILINE)
+ _HTML_IMAGE_SRC = lazy_re.compile(
+-    r'<img[^>]+src=\"(?P<filename>[^">]*)\"[^>]*>')
++    rb'<img[^>]+src=\"(?P<filename>[^">]*)\"[^>]*>')
+ 
+ def GetImageList(
+     base_path, filename, scale_factors, distribution,
 --- ./src/3rdparty/chromium/tools/grit/grit/format/html_inline.py.orig
 +++ ./src/3rdparty/chromium/tools/grit/grit/format/html_inline.py
 @@ -39,26 +39,26 @@
