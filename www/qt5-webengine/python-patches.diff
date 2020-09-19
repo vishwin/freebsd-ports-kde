@@ -275,26 +275,40 @@
      vendor_match = VENDOR_PATTERN.match(line)
      if vendor_match:
        if vendor:
+--- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/make_event_factory.py.orig
++++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/make_event_factory.py
+@@ -118,7 +118,7 @@
+         }
+ 
+     def _fatal(self, message):
+-        print 'FATAL ERROR: ' + message
++        print('FATAL ERROR: ' + message)
+         exit(1)
+ 
+     def _headers_header_include_path(self, entry):
 --- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/hasher.py.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/hasher.py
-@@ -22,16 +22,16 @@
+@@ -20,18 +20,18 @@
+ # We've modified Victor's version to output hash values that match WTFString,
+ # which involves using a specific seed and some different constants.
  
- class uint32_t(long):
+-class uint32_t(long):
++class uint32_t(int):
      def __rshift__(self, other):
 -        return uint32_t(long.__rshift__(self, other) & ((1L << 32) - 1))
-+        return uint32_t(long.__rshift__(self, other) & ((1 << 32) - 1))
++        return uint32_t(int.__rshift__(self, other) & ((1 << 32) - 1))
  
      def __lshift__(self, other):
 -        return uint32_t(long.__lshift__(self, other) & ((1L << 32) - 1))
-+        return uint32_t(long.__lshift__(self, other) & ((1 << 32) - 1))
++        return uint32_t(int.__lshift__(self, other) & ((1 << 32) - 1))
  
      def __add__(self, other):
 -        return uint32_t(long.__add__(self, other) & ((1L << 32) - 1))
-+        return uint32_t(long.__add__(self, other) & ((1 << 32) - 1))
++        return uint32_t(int.__add__(self, other) & ((1 << 32) - 1))
  
      def __xor__(self, other):
 -        return uint32_t(long.__xor__(self, other) & ((1L << 32) - 1))
-+        return uint32_t(long.__xor__(self, other) & ((1 << 32) - 1))
++        return uint32_t(int.__xor__(self, other) & ((1 << 32) - 1))
  
  
  def hash(string):
@@ -353,7 +367,16 @@
      {{ trie_switch(value, index + 1, return_macro, lowercase_data) | indent(4) }}
 --- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/template_expander.py.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/template_expander.py
-@@ -64,6 +64,6 @@
+@@ -55,6 +55,8 @@
+             template_cache[template_path] = template
+ 
+     params['template_file'] = template_path
++    for k, v in params.items():
++      print(k + " t=" + str(type(v)) + "  v=" + repr(v))
+     return template.render(params)
+ 
+ 
+@@ -64,6 +66,6 @@
              parameters = generator(*args, **kwargs)
              return apply_template(template_path, parameters, filters=filters,
                                    tests=tests, template_cache=template_cache)
@@ -361,6 +384,26 @@
 +        generator_internal.func_name = generator.__name__
          return generator_internal
      return real_decorator
+--- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/rule_bison.py.orig
++++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/rule_bison.py
+@@ -75,7 +75,7 @@
+ for outputHTry in outputHTries:
+     try:
+         os.unlink(outputHTry)
+-    except OSError, e:
++    except OSError as e:
+         if e.errno != errno.ENOENT:
+             raise
+ 
+@@ -91,7 +91,7 @@
+         os.stat(outputHTry)
+         outputHTmp = outputHTry
+         break
+-    except OSError, e:
++    except OSError as e:
+         if e.errno != errno.ENOENT:
+             raise
+ 
 --- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/in_generator.py.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/in_generator.py
 @@ -92,7 +92,7 @@
