@@ -367,27 +367,33 @@
  
 --- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/macros.tmpl.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/macros.tmpl
-@@ -47,6 +47,8 @@
+@@ -45,7 +45,13 @@
+ 
+ 
  {% macro trie_switch(trie, index, return_macro, lowercase_data) %}
++{{ trie|length }}
++{{ trie.values()[0] }}
++{{ trie.values()[0] is string }}
++
  {% if trie|length == 1 and trie.values()[0] is string %}
- {{ trie_leaf(index, trie, return_macro, lowercase_data) -}}
-+{% elif trie is string %}
 +{{ trie_leaf(index, trie, return_macro, lowercase_data) -}}
++{% elif trie is string %}
+ {{ trie_leaf(index, trie, return_macro, lowercase_data) -}}
  {% else %}
      {% if lowercase_data %}
- switch (ToASCIILower(data[{{index}}])) {
 --- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/template_expander.py.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/template_expander.py
-@@ -55,6 +55,8 @@
+@@ -54,7 +54,8 @@
+         if filters is None and tests is None and template_cache is not None:
              template_cache[template_path] = template
  
-     params['template_file'] = template_path
-+    for k, v in params.items():
-+      print(k + " t=" + str(type(v)) + "  v=" + repr(v))
+-    params['template_file'] = template_path
++    for l in template.generate(params):
++        print(l)
      return template.render(params)
  
  
-@@ -64,6 +66,6 @@
+@@ -64,6 +65,6 @@
              parameters = generator(*args, **kwargs)
              return apply_template(template_path, parameters, filters=filters,
                                    tests=tests, template_cache=template_cache)
