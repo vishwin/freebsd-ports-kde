@@ -457,6 +457,17 @@
  
  
  def idl_file_to_global_names(idl_filename):
+--- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/blink_idl_lexer.py.orig
++++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/blink_idl_lexer.py
+@@ -117,7 +117,7 @@
+     try:
+         outputdir = argv[1]
+     except IndexError as err:
+-        print 'Usage: %s OUTPUT_DIR' % argv[0]
++        print('Usage: %s OUTPUT_DIR' % argv[0])
+         return 1
+     # Important: rewrite_tables=True causes the cache file to be deleted if it
+     # exists, thus making sure that PLY doesn't load it instead of regenerating
 --- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/generate_global_constructors.py.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/generate_global_constructors.py
 @@ -109,7 +109,7 @@
