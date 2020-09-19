@@ -332,6 +332,17 @@
 +        generator_internal.func_name = generator.__name__
          return generator_internal
      return real_decorator
+--- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/in_generator.py.orig
++++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/in_generator.py
+@@ -92,7 +92,7 @@
+         script_name = os.path.basename(argv[0])
+         args = argv[1:]
+         if len(args) < 1:
+-            print "USAGE: %s INPUT_FILES" % script_name
++            print("USAGE: %s INPUT_FILES" % script_name)
+             exit(1)
+ 
+         parser = optparse.OptionParser()
 --- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/make_runtime_features.py.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/make_runtime_features.py
 @@ -28,7 +28,7 @@
