@@ -903,7 +903,7 @@
  
    def InlineFileContents(src_match,
                           pattern,
-@@ -459,7 +459,7 @@
+@@ -459,12 +459,12 @@
          r'[ ]*[0-9.]*x[ ]*(,[ ]*)?)+\)')
      value_re = '(%s|%s)' % (GetUrlRegexString(), image_set_value_re)
      css_re = property_re + value_re
@@ -912,6 +912,12 @@
  
    def InlineCSSUrls(src_match, filepath=input_filepath):
      """Helper function that inlines each url on a CSS image rule match."""
+     # Replace contents of url() references in matches.
+-    return re.sub(GetUrlRegexString(),
++    return re.sub(GetUrlRegexString().encode(),
+                   lambda m: SrcReplace(m, filepath),
+                   src_match.group(0))
+ 
 @@ -472,7 +472,7 @@
      """Helper function that inlines CSS files included via the @import
         directive.
