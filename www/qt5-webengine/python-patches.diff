@@ -1,5 +1,5 @@
 --- ./src/3rdparty/chromium/mojo/public/tools/bindings/pylib/mojom/generate/generator.py.orig	2020-05-06 14:21:29.000000000 +0000
-+++ ./src/3rdparty/chromium/mojo/public/tools/bindings/pylib/mojom/generate/generator.py	2020-09-18 21:42:49.262344000 +0000
++++ ./src/3rdparty/chromium/mojo/public/tools/bindings/pylib/mojom/generate/generator.py	2020-09-18 22:41:34.852786000 +0000
 @@ -112,7 +112,10 @@
  
    # Dump the data to disk.
@@ -13,8 +13,17 @@
  
  def AddComputedData(module):
 --- ./src/3rdparty/chromium/mojo/public/tools/bindings/pylib/mojom/generate/module.py.orig	2020-05-06 14:21:29.000000000 +0000
-+++ ./src/3rdparty/chromium/mojo/public/tools/bindings/pylib/mojom/generate/module.py	2020-09-18 22:35:55.789652000 +0000
-@@ -327,9 +327,6 @@
++++ ./src/3rdparty/chromium/mojo/public/tools/bindings/pylib/mojom/generate/module.py	2020-09-19 08:30:54.226383000 +0000
+@@ -154,6 +154,8 @@
+          print(b.name)  # Outputs 'test_struct_2'.
+     """
+     def Get(self):
++      if name not in self.shared_definition:
++        raise AttributeError(name)
+       return self.shared_definition[name]
+ 
+     def Set(self, value):
+@@ -327,9 +329,6 @@
    ReferenceKind.AddSharedProperty('name')
    ReferenceKind.AddSharedProperty('native_only')
    ReferenceKind.AddSharedProperty('custom_serializer')
@@ -24,7 +33,7 @@
    ReferenceKind.AddSharedProperty('attributes')
  
    def __init__(self, mojom_name=None, module=None, attributes=None):
-@@ -346,6 +343,31 @@
+@@ -346,6 +345,31 @@
      self.constants = []
      self.attributes = attributes
  
@@ -56,7 +65,7 @@
    def Repr(self, as_ref=True):
      if as_ref:
        return '<%s mojom_name=%r module=%s>' % (
-@@ -766,15 +791,55 @@
+@@ -766,15 +790,55 @@
                 attributes=None):
      self.path = path
      self.mojom_namespace = mojom_namespace
@@ -117,8 +126,8 @@
  
    def __repr__(self):
      # Gives us a decent __repr__ for modules.
---- ./src/3rdparty/chromium/mojo/public/tools/bindings/generators/mojom_js_generator.py.orig	2020-09-18 21:44:13.893905000 +0000
-+++ ./src/3rdparty/chromium/mojo/public/tools/bindings/generators/mojom_js_generator.py	2020-09-18 21:46:16.951172000 +0000
+--- ./src/3rdparty/chromium/mojo/public/tools/bindings/generators/mojom_js_generator.py.orig	2020-05-06 14:21:29.000000000 +0000
++++ ./src/3rdparty/chromium/mojo/public/tools/bindings/generators/mojom_js_generator.py	2020-09-18 22:41:34.853401000 +0000
 @@ -9,6 +9,7 @@
  import mojom.generate.pack as pack
  import os
@@ -136,8 +145,45 @@
        os.path.relpath(module.path, os.path.dirname(base_module.path)))
  
  
+--- ./src/3rdparty/chromium/mojo/public/tools/bindings/generators/mojom_cpp_generator.py.orig	2020-09-18 23:14:00.769714000 +0000
++++ ./src/3rdparty/chromium/mojo/public/tools/bindings/generators/mojom_cpp_generator.py	2020-09-19 08:59:22.897140000 +0000
+@@ -522,6 +522,8 @@
+     return _NameFormatter(kind, self.variant).FormatForMojom()
+ 
+   def _IsTypemappedKind(self, kind):
++    print("IsTypemappedKind? t=" + str(type(kind)) + "  v=" + str(kind))
++    print(hasattr(kind, "name"))
+     return hasattr(kind, "name") and \
+         self._GetFullMojomNameForKind(kind) in self.typemap
+ 
+@@ -873,7 +875,24 @@
+       if param_counts[-1] != version.num_fields:
+         param_counts.append(version.num_fields)
+ 
+-    ordinal_fields = sorted(struct.fields, key=lambda field: field.ordinal)
++    class OrdinalSorter:
++      def __init__(self, o):
++        self.o = o
++      def __lt__(self, other):
++        if self.o is None:
++          if other.o is None:
++            return False
++          return True  # None < anything
++        if other.o is None:
++          return False # anything > None
++        return self.o < other.o
++
++    print("GetStructConstructor:")
++    print("fields t=" + str(type(struct.fields)))
++    for f in struct.fields:
++      print(".. f t=" + str(type(f)) + "  v=" + str(f))
++      print("   f ordinal=" + repr(f.ordinal))
++    ordinal_fields = sorted(struct.fields, key=lambda field: OrdinalSorter(field.ordinal))
+     return (StructConstructor(struct.fields, ordinal_fields[:param_count])
+             for param_count in param_counts)
+ 
 --- ./src/3rdparty/chromium/mojo/public/tools/bindings/mojom_bindings_generator.py.orig	2020-05-06 14:21:29.000000000 +0000
-+++ ./src/3rdparty/chromium/mojo/public/tools/bindings/mojom_bindings_generator.py	2020-09-18 21:40:20.350234000 +0000
++++ ./src/3rdparty/chromium/mojo/public/tools/bindings/mojom_bindings_generator.py	2020-09-18 22:41:34.853663000 +0000
 @@ -145,7 +145,7 @@
  
  def ReadFileContents(filename):
@@ -148,7 +194,7 @@
  
  class MojomProcessor(object):
 --- ./src/3rdparty/chromium/tools/polymer/polymer.py.orig	2020-05-06 14:21:29.000000000 +0000
-+++ ./src/3rdparty/chromium/tools/polymer/polymer.py	2020-09-18 21:40:20.350462000 +0000
++++ ./src/3rdparty/chromium/tools/polymer/polymer.py	2020-09-18 22:41:34.853892000 +0000
 @@ -491,8 +491,6 @@
    # across platforms.
    with io.open(os.path.join(out_folder, result[1]), mode='w', encoding='utf-8', newline='\n') as f:
