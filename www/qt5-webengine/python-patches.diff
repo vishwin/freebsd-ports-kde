@@ -415,6 +415,21 @@
          if e.errno != errno.ENOENT:
              raise
  
+@@ -109,9 +109,8 @@
+ outputHInGen = outputH.replace('gen/', '')
+ headerGuard = NameStyleConverter(outputHInGen).to_header_guard()
+ 
+-outputHFile = open(outputH, 'w')
+-print >>outputHFile, '#ifndef %s' % headerGuard
+-print >>outputHFile, '#define %s' % headerGuard
+-print >>outputHFile, outputHContents
+-print >>outputHFile, '#endif  // %s' % headerGuard
+-outputHFile.close()
++with open(outputH, 'w') as outputHFile:
++    outputHFile.write( '#ifndef %s\n' % headerGuard )
++    outputHFile.write( '#define %s\n' % headerGuard )
++    outputHFile.write( outputHContents )
++    outputHFile.write( '\n#endif  // %s\n' % headerGuard )
 --- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/in_generator.py.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/in_generator.py
 @@ -92,7 +92,7 @@
