@@ -645,15 +645,19 @@
  
 --- ./src/3rdparty/chromium/tools/idl_parser/idl_parser.py.orig
 +++ ./src/3rdparty/chromium/tools/idl_parser/idl_parser.py
-@@ -35,7 +35,7 @@
+@@ -35,9 +35,9 @@
  import sys
  import time
  
 -from idl_lexer import IDLLexer
+-from idl_node import IDLAttribute
+-from idl_node import IDLNode
 +from .idl_lexer import IDLLexer
- from idl_node import IDLAttribute
- from idl_node import IDLNode
++from .idl_node import IDLAttribute
++from .idl_node import IDLNode
  
+ SRC_DIR = os.path.join(os.path.dirname(__file__), os.pardir, os.pardir)
+ sys.path.insert(0, os.path.join(SRC_DIR, 'third_party'))
 --- ./src/3rdparty/chromium/tools/metrics/ukm/codegen.py.orig
 +++ ./src/3rdparty/chromium/tools/metrics/ukm/codegen.py
 @@ -20,7 +20,7 @@
