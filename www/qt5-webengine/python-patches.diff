@@ -354,6 +354,17 @@
          return generator_internal
      return wrapper
  
+--- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/make_names.h.tmpl.orig
++++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/make_names.h.tmpl
+@@ -19,7 +19,7 @@
+ namespace blink {
+ namespace {{namespace}} {
+ 
+-{% for entry in entries|sort %}
++{% for entry in entries|sort(attribute='name') %}
+ {{symbol_export}}extern const WTF::AtomicString& {{entry|symbol}};
+ {% endfor %}
+ 
 --- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/macros.tmpl.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/macros.tmpl
 @@ -53,6 +53,8 @@
