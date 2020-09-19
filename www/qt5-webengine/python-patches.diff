@@ -334,6 +334,23 @@
  
          # Sort by enum value.
          self._property_classes_by_id.sort(key=lambda t: t.enum_value)
+--- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/core/css/make_style_shorthands.py.orig
++++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/core/css/make_style_shorthands.py
+@@ -53,10 +53,10 @@
+ 
+         self._longhand_dictionary = defaultdict(list)
+         for property_ in json5_properties.shorthands:
+-            property_['longhand_enum_keys'] = map(
+-                enum_key_for_css_property, property_['longhands'])
+-            property_['longhand_property_ids'] = map(
+-                id_for_css_property, property_['longhands'])
++            property_['longhand_enum_keys'] = list(map(
++                enum_key_for_css_property, property_['longhands']))
++            property_['longhand_property_ids'] = list(map(
++                id_for_css_property, property_['longhands']))
+             for longhand_enum_key in property_['longhand_enum_keys']:
+                 self._longhand_dictionary[longhand_enum_key].append(property_)
+ 
 --- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/in_file.py.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/in_file.py
 @@ -158,5 +158,5 @@
