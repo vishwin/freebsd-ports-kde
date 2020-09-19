@@ -315,6 +315,28 @@
              extended_attributes[name] = value
              concatenated = None
      return extended_attributes
+--- ./src/3rdparty/chromium/third_party/devtools-frontend/src/scripts/build/modular_build.py.orig
++++ ./src/3rdparty/chromium/third_party/devtools-frontend/src/scripts/build/modular_build.py
+@@ -40,7 +40,7 @@
+     try:
+         return json.loads(read_file(filename))
+     except:
+-        print 'ERROR: Failed to parse %s' % filename
++        print('ERROR: Failed to parse %s' % filename)
+         raise
+ 
+ 
+--- ./src/3rdparty/chromium/third_party/devtools-frontend/src/scripts/build/build_release_applications.py.orig
++++ ./src/3rdparty/chromium/third_party/devtools-frontend/src/scripts/build/build_release_applications.py
+@@ -11,7 +11,7 @@
+ - Builds app.html referencing the application script.
+ """
+ 
+-from cStringIO import StringIO
++from io import StringIO
+ from os import path
+ from os.path import join
+ import copy
 --- ./src/3rdparty/chromium/third_party/devtools-frontend/src/scripts/build/generate_supported_css.py.orig
 +++ ./src/3rdparty/chromium/third_party/devtools-frontend/src/scripts/build/generate_supported_css.py
 @@ -38,9 +38,12 @@
