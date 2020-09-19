@@ -920,6 +920,15 @@
      re.MULTILINE)
  
  
+@@ -113,7 +113,7 @@
+   Returns:
+     string
+   """
+-  if filename.find(':') != -1:
++  if filename.find(b':') != -1:
+     # filename is probably a URL, which we don't want to bother inlining
+     return filename
+ 
 @@ -308,42 +308,42 @@
      filename = [v for k, v in src_match.groupdict().items()
                  if k.startswith('file') and v][0]
