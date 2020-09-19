@@ -722,7 +722,7 @@
 -    r'(?P<attribute>content|background|[\w-]*-image):\s*'
 -        r'(?P<urls>(' + _CSS_URL_PATTERN + r'\s*,?\s*)+)')
 +    rb'(?P<attribute>content|background|[\w-]*-image):\s*'
-+        rb'(?P<urls>(' + _CSS_URL_PATTERN + r'\s*,?\s*)+)')
++        rb'(?P<urls>(' + _CSS_URL_PATTERN + rb'\s*,?\s*)+)')
  # Matches CSS image sets.
  _CSS_IMAGE_SETS = lazy_re.compile(
 -    r'(?P<attribute>content|background|[\w-]*-image):[ ]*'
