@@ -275,6 +275,17 @@
      vendor_match = VENDOR_PATTERN.match(line)
      if vendor_match:
        if vendor:
+--- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/make_runtime_features.py.orig
++++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/make_runtime_features.py
+@@ -28,7 +28,7 @@
+ # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ 
+ import copy
+-import cPickle as pickle
++import pickle
+ import os
+ import sys
+ 
 --- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/compute_global_objects.py.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/compute_global_objects.py
 @@ -46,7 +46,7 @@
@@ -631,7 +642,7 @@
      re.MULTILINE)
  
  
-@@ -308,11 +308,11 @@
+@@ -308,42 +308,42 @@
      filename = [v for k, v in src_match.groupdict().items()
                  if k.startswith('file') and v][0]
  
@@ -644,9 +655,14 @@
 +    filename = filename.replace(b'%DISTRIBUTION%', distribution.encode())
      if filename_expansion_function:
        filename = filename_expansion_function(filename)
-     return os.path.normpath(os.path.join(base_path, filename))
-@@ -322,28 +322,28 @@
-     expr2 = src_match.group('expr2') or ''
+-    return os.path.normpath(os.path.join(base_path, filename))
++    return os.path.normpath(os.path.join(base_path, filename.decode()))
+ 
+   def IsConditionSatisfied(src_match):
+-    expr1 = src_match.group('expr1') or ''
+-    expr2 = src_match.group('expr2') or ''
++    expr1 = src_match.group('expr1') or b''
++    expr2 = src_match.group('expr2') or b''
      return grd_node is None or grd_node.EvaluateCondition(expr1 + expr2)
  
 -  def CheckConditionalElements(str):
@@ -708,6 +724,15 @@
  
    def InlineCSSUrls(src_match, filepath=input_filepath):
      """Helper function that inlines each url on a CSS image rule match."""
+@@ -472,7 +472,7 @@
+     """Helper function that inlines CSS files included via the @import
+        directive.
+     """
+-    return re.sub(r'@import\s+' + GetUrlRegexString() + r';',
++    return re.sub(rb'@import\s+' + GetUrlRegexString().encode() + rb';',
+                   lambda m: InlineCSSFile(m, '%s', filepath),
+                   text)
+ 
 --- ./src/3rdparty/chromium/tools/grit/grit/format/data_pack.py.orig
 +++ ./src/3rdparty/chromium/tools/grit/grit/format/data_pack.py
 @@ -195,7 +195,7 @@
