@@ -383,17 +383,16 @@
      {% if lowercase_data %}
 --- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/template_expander.py.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/template_expander.py
-@@ -54,7 +54,8 @@
-         if filters is None and tests is None and template_cache is not None:
+@@ -55,6 +55,8 @@
              template_cache[template_path] = template
  
--    params['template_file'] = template_path
+     params['template_file'] = template_path
 +    for l in template.generate(params):
 +        print(l)
      return template.render(params)
  
  
-@@ -64,6 +65,6 @@
+@@ -64,6 +66,6 @@
              parameters = generator(*args, **kwargs)
              return apply_template(template_path, parameters, filters=filters,
                                    tests=tests, template_cache=template_cache)
