@@ -371,6 +371,15 @@
          return generator_internal
      return wrapper
  
+@@ -83,7 +83,7 @@
+     gperf_args.remove(infile)
+ 
+     open(args.output_file, 'wb').write(
+-        generate_gperf(gperf_path, open(infile).read(), gperf_args))
++        generate_gperf(gperf_path.decode(), open(infile, 'rb').read(), gperf_args))
+ 
+ if __name__ == '__main__':
+     main()
 --- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/make_qualified_names.h.tmpl.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/make_qualified_names.h.tmpl
 @@ -24,12 +24,12 @@
