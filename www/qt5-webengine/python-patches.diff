@@ -536,6 +536,26 @@
 +    outputHFile.write( '#define %s\n' % headerGuard )
 +    outputHFile.write( outputHContents )
 +    outputHFile.write( '\n#endif  // %s\n' % headerGuard )
+--- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/make_instrumenting_probes.py.orig
++++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/make_instrumenting_probes.py
+@@ -134,7 +134,7 @@
+             raise Exception("Instant probe must return void: %s" % self.name)
+ 
+         # Splitting parameters by a comma, assuming that attribute lists contain no more than one attribute.
+-        self.params = map(Parameter, map(str.strip, match.group(3).split(",")))
++        self.params = list(map(Parameter, map(str.strip, match.group(3).split(","))))
+ 
+ 
+ class Parameter(object):
+@@ -144,7 +144,7 @@
+         if match:
+             self.options.append(match.group(1))
+ 
+-        parts = map(str.strip, source.split("="))
++        parts = list(map(str.strip, source.split("=")))
+         self.default_value = parts[1] if len(parts) != 1 else None
+ 
+         param_decl = parts[0]
 --- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/in_generator.py.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/in_generator.py
 @@ -76,7 +76,7 @@
