@@ -13,7 +13,7 @@
  
  def AddComputedData(module):
 --- ./src/3rdparty/chromium/mojo/public/tools/bindings/pylib/mojom/generate/module.py.orig	2020-05-06 14:21:29.000000000 +0000
-+++ ./src/3rdparty/chromium/mojo/public/tools/bindings/pylib/mojom/generate/module.py	2020-09-19 08:30:54.226383000 +0000
++++ ./src/3rdparty/chromium/mojo/public/tools/bindings/pylib/mojom/generate/module.py	2020-09-19 09:08:32.211977000 +0000
 @@ -154,6 +154,8 @@
           print(b.name)  # Outputs 'test_struct_2'.
      """
@@ -65,7 +65,48 @@
    def Repr(self, as_ref=True):
      if as_ref:
        return '<%s mojom_name=%r module=%s>' % (
-@@ -766,15 +790,55 @@
+@@ -659,9 +683,6 @@
+ class Interface(ReferenceKind):
+   ReferenceKind.AddSharedProperty('mojom_name')
+   ReferenceKind.AddSharedProperty('name')
+-  ReferenceKind.AddSharedProperty('methods')
+-  ReferenceKind.AddSharedProperty('enums')
+-  ReferenceKind.AddSharedProperty('constants')
+   ReferenceKind.AddSharedProperty('attributes')
+ 
+   def __init__(self, mojom_name=None, module=None, attributes=None):
+@@ -676,6 +697,30 @@
+     self.constants = []
+     self.attributes = attributes
+ 
++  @property
++  def methods(self):
++    return self.shared_definition["methods"]
++
++  @methods.setter
++  def methods(self, s):
++    self.shared_definition["methods"] = list(s)
++
++  @property
++  def enums(self):
++    return self.shared_definition["enums"]
++
++  @enums.setter
++  def enums(self, s):
++    self.shared_definition["enums"] = list(s)
++
++  @property
++  def constants(self):
++    return self.shared_definition["constants"]
++
++  @constants.setter
++  def constants(self, s):
++    self.shared_definition["constants"] = list(s)
++
+   def Repr(self, as_ref=True):
+     if as_ref:
+       return '<%s mojom_name=%r>' % (self.__class__.__name__, self.mojom_name)
+@@ -766,15 +811,55 @@
                 attributes=None):
      self.path = path
      self.mojom_namespace = mojom_namespace
@@ -146,45 +187,56 @@
  
  
 --- ./src/3rdparty/chromium/mojo/public/tools/bindings/generators/mojom_cpp_generator.py.orig	2020-09-18 23:14:00.769714000 +0000
-+++ ./src/3rdparty/chromium/mojo/public/tools/bindings/generators/mojom_cpp_generator.py	2020-09-19 08:59:22.897140000 +0000
-@@ -522,6 +522,8 @@
-     return _NameFormatter(kind, self.variant).FormatForMojom()
- 
-   def _IsTypemappedKind(self, kind):
-+    print("IsTypemappedKind? t=" + str(type(kind)) + "  v=" + str(kind))
-+    print(hasattr(kind, "name"))
-     return hasattr(kind, "name") and \
-         self._GetFullMojomNameForKind(kind) in self.typemap
- 
-@@ -873,7 +875,24 @@
++++ ./src/3rdparty/chromium/mojo/public/tools/bindings/generators/mojom_cpp_generator.py	2020-09-19 09:06:10.242198000 +0000
+@@ -873,7 +875,23 @@
        if param_counts[-1] != version.num_fields:
          param_counts.append(version.num_fields)
  
 -    ordinal_fields = sorted(struct.fields, key=lambda field: field.ordinal)
 +    class OrdinalSorter:
++      """
++      In Python2, None could be sorted relative to other values: 
++        None < None           -> False
++        None < something_else -> True
++        something_else < None -> False
++      """
 +      def __init__(self, o):
 +        self.o = o
 +      def __lt__(self, other):
-+        if self.o is None:
-+          if other.o is None:
-+            return False
-+          return True  # None < anything
 +        if other.o is None:
-+          return False # anything > None
++          return False
++        if self.o is None:
++          return True  # None < anything
 +        return self.o < other.o
 +
-+    print("GetStructConstructor:")
-+    print("fields t=" + str(type(struct.fields)))
-+    for f in struct.fields:
-+      print(".. f t=" + str(type(f)) + "  v=" + str(f))
-+      print("   f ordinal=" + repr(f.ordinal))
 +    ordinal_fields = sorted(struct.fields, key=lambda field: OrdinalSorter(field.ordinal))
      return (StructConstructor(struct.fields, ordinal_fields[:param_count])
              for param_count in param_counts)
  
 --- ./src/3rdparty/chromium/mojo/public/tools/bindings/mojom_bindings_generator.py.orig	2020-05-06 14:21:29.000000000 +0000
-+++ ./src/3rdparty/chromium/mojo/public/tools/bindings/mojom_bindings_generator.py	2020-09-18 22:41:34.853663000 +0000
-@@ -145,7 +145,7 @@
++++ ./src/3rdparty/chromium/mojo/public/tools/bindings/mojom_bindings_generator.py	2020-09-19 09:17:51.286735000 +0000
+@@ -112,6 +112,7 @@
+ 
+ 
+ def ScrambleMethodOrdinals(interfaces, salt):
++  salt_str = salt.encode()
+   already_generated = set()
+   for interface in interfaces:
+     i = 0
+@@ -126,9 +127,9 @@
+         # to be very strong, cryptographically. It just needs to be non-trivial
+         # to guess the results without the secret salt, in order to make it
+         # harder for a compromised process to send fake Mojo messages.
+-        sha256 = hashlib.sha256(salt)
+-        sha256.update(interface.mojom_name)
+-        sha256.update(str(i))
++        sha256 = hashlib.sha256(salt_str)
++        sha256.update(interface.mojom_name.encode())
++        sha256.update(str(i).encode())
+         # Take the first 4 bytes as a little-endian uint32.
+         ordinal = struct.unpack('<L', sha256.digest()[:4])[0]
+         # Trim to 31 bits, so it always fits into a Java (signed) int.
+@@ -145,7 +146,7 @@
  
  def ReadFileContents(filename):
    with open(filename, 'rb') as f:
