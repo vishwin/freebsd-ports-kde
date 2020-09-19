@@ -275,6 +275,29 @@
      vendor_match = VENDOR_PATTERN.match(line)
      if vendor_match:
        if vendor:
+--- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/hasher.py.orig
++++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/hasher.py
+@@ -22,16 +22,16 @@
+ 
+ class uint32_t(long):
+     def __rshift__(self, other):
+-        return uint32_t(long.__rshift__(self, other) & ((1L << 32) - 1))
++        return uint32_t(long.__rshift__(self, other) & ((1 << 32) - 1))
+ 
+     def __lshift__(self, other):
+-        return uint32_t(long.__lshift__(self, other) & ((1L << 32) - 1))
++        return uint32_t(long.__lshift__(self, other) & ((1 << 32) - 1))
+ 
+     def __add__(self, other):
+-        return uint32_t(long.__add__(self, other) & ((1L << 32) - 1))
++        return uint32_t(long.__add__(self, other) & ((1 << 32) - 1))
+ 
+     def __xor__(self, other):
+-        return uint32_t(long.__xor__(self, other) & ((1L << 32) - 1))
++        return uint32_t(long.__xor__(self, other) & ((1 << 32) - 1))
+ 
+ 
+ def hash(string):
 --- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/core/css/properties/make_css_property_instances.py.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/core/css/properties/make_css_property_instances.py
 @@ -39,8 +39,8 @@
