@@ -275,6 +275,62 @@
      vendor_match = VENDOR_PATTERN.match(line)
      if vendor_match:
        if vendor:
+--- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/generate_global_constructors.py.orig
++++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/generate_global_constructors.py
+@@ -109,7 +109,7 @@
+ def generate_global_constructors_list(interface_name, extended_attributes):
+     extended_attributes_list = [
+         name + (('=' + extended_attributes[name]) if extended_attributes[name] else '')
+-        for name in 'RuntimeEnabled', 'ContextEnabled', 'SecureContext'
++        for name in ('RuntimeEnabled', 'ContextEnabled', 'SecureContext')
+         if name in extended_attributes]
+     if extended_attributes_list:
+         extended_string = '[%s] ' % ', '.join(extended_attributes_list)
+--- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/utilities.py.orig
++++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/utilities.py
+@@ -8,7 +8,7 @@
+ """
+ 
+ import os
+-import cPickle as pickle
++import pickle
+ import re
+ import shlex
+ import string
+@@ -339,7 +339,7 @@
+             except Exception:
+                 # If trouble unpickling, overwrite
+                 pass
+-    with open(pickle_filename, 'w') as pickle_file:
++    with open(pickle_filename, 'wb') as pickle_file:
+         pickle.dump(data, pickle_file)
+ 
+ 
+@@ -416,7 +416,7 @@
+         if parences < 0 or square_brackets < 0:
+             raise ValueError('You have more close braces than open braces.')
+         if parences == 0 and square_brackets == 0:
+-            name, _, value = map(string.strip, concatenated.partition('='))
++            name, _, value = map(lambda s : s.strip(), concatenated.partition('='))
+             extended_attributes[name] = value
+             concatenated = None
+     return extended_attributes
+--- ./src/3rdparty/chromium/third_party/devtools-frontend/src/scripts/build/generate_supported_css.py.orig
++++ ./src/3rdparty/chromium/third_party/devtools-frontend/src/scripts/build/generate_supported_css.py
+@@ -38,9 +38,12 @@
+ 
+ 
+ def _keep_only_required_keys(entry):
++    removeme = []
+     for key in entry.keys():
+         if key not in ("name", "longhands", "svg", "inherited"):
+-            del entry[key]
++            removeme.append(key)
++    for key in removeme:
++        del entry[key]
+     return entry
+ 
+ 
 --- ./src/3rdparty/chromium/tools/polymer/polymer.py.orig
 +++ ./src/3rdparty/chromium/tools/polymer/polymer.py
 @@ -491,8 +491,6 @@
