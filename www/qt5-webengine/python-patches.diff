@@ -800,7 +800,14 @@
    if not preprocess_only:
      if strip_whitespace:
        flat_text = minifier.Minify(flat_text, input_filename)
-@@ -499,8 +505,12 @@
+@@ -494,13 +500,17 @@
+     if not allow_external_script:
+       # We need to inline css and js before we inline images so that image
+       # references gets inlined in the css and js
+-      flat_text = re.sub(r'<script (?P<attrs1>.*?)src="(?P<filename>[^"\']*)"'
+-                         r'(?P<attrs2>.*?)></script>',
++      flat_text = re.sub(rb'<script (?P<attrs1>.*?)src="(?P<filename>[^"\']*)"'
++                         rb'(?P<attrs2>.*?)></script>',
                           InlineScript,
                           flat_text)
  
