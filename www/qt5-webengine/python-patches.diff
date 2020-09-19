@@ -763,6 +763,33 @@
                    lambda m: InlineCSSFile(m, '%s', filepath),
                    text)
  
+@@ -487,6 +487,12 @@
+ 
+   flat_text = _INCLUDE_RE.sub(InlineIncludeFiles, flat_text)
+ 
++  def replacor(m):
++    r = InlineCSSFile(m, '<style>%s</style>')
++    if isinstance(r, bytes):
++      return r
++    return r.encode()
++
+   if not preprocess_only:
+     if strip_whitespace:
+       flat_text = minifier.Minify(flat_text, input_filename)
+@@ -499,8 +505,12 @@
+                          InlineScript,
+                          flat_text)
+ 
++    if isinstance(flat_text, bytes):
++      pass
++    else:
++      flat_text = flat_text.encode()
+     flat_text = _STYLESHEET_RE.sub(
+-        lambda m: InlineCSSFile(m, '<style>%s</style>'),
++        replacor,
+         flat_text)
+ 
+   # Check conditional elements, second pass. This catches conditionals in any
 --- ./src/3rdparty/chromium/tools/grit/grit/format/data_pack.py.orig
 +++ ./src/3rdparty/chromium/tools/grit/grit/format/data_pack.py
 @@ -195,7 +195,7 @@
