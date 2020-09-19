@@ -275,6 +275,17 @@
      vendor_match = VENDOR_PATTERN.match(line)
      if vendor_match:
        if vendor:
+--- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/compute_global_objects.py.orig
++++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/compute_global_objects.py
+@@ -46,7 +46,7 @@
+ 
+ 
+ def dict_union(dicts):
+-    return dict((k, v) for d in dicts for k, v in d.iteritems())
++    return dict((k, v) for d in dicts for k, v in d.items())
+ 
+ 
+ def idl_file_to_global_names(idl_filename):
 --- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/generate_global_constructors.py.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/generate_global_constructors.py
 @@ -109,7 +109,7 @@
@@ -334,6 +345,15 @@
              extended_attributes[name] = value
              concatenated = None
      return extended_attributes
+@@ -432,7 +433,7 @@
+     if not match:
+         return None
+     arguments = []
+-    for argument in map(string.strip, match.group(1).split(',')):
++    for argument in map(lambda s : s.strip(), match.group(1).split(',')):
+         exposed, runtime_enabled = argument.split()
+         arguments.append({'exposed': exposed, 'runtime_enabled': runtime_enabled})
+ 
 --- ./src/3rdparty/chromium/third_party/devtools-frontend/src/scripts/build/modular_build.py.orig
 +++ ./src/3rdparty/chromium/third_party/devtools-frontend/src/scripts/build/modular_build.py
 @@ -40,7 +40,7 @@
@@ -383,6 +403,26 @@
  
          output.write('\n/* Autostart modules */\n')
          if (self.descriptors.worker):
+--- ./src/3rdparty/chromium/third_party/devtools-frontend/src/scripts/build/generate_devtools_grd.py.orig
++++ ./src/3rdparty/chromium/third_party/devtools-frontend/src/scripts/build/generate_devtools_grd.py
+@@ -116,7 +116,7 @@
+ 
+     try:
+         os.makedirs(path.join(output_directory, 'Images'))
+-    except OSError, e:
++    except OSError as e:
+         if e.errno != errno.EEXIST:
+             raise e
+ 
+@@ -140,7 +140,7 @@
+             shutil.copy(path.join(dirname, filename), path.join(output_directory, 'Images'))
+             add_file_to_grd(doc, path.join('Images', filename))
+ 
+-    with open(parsed_args.output_filename, 'w') as output_file:
++    with open(parsed_args.output_filename, 'wb') as output_file:
+         output_file.write(doc.toxml(encoding='UTF-8'))
+ 
+ 
 --- ./src/3rdparty/chromium/third_party/devtools-frontend/src/scripts/build/generate_supported_css.py.orig
 +++ ./src/3rdparty/chromium/third_party/devtools-frontend/src/scripts/build/generate_supported_css.py
 @@ -38,9 +38,12 @@
@@ -472,6 +512,139 @@
      ],
      alphabetization=[
          (_OBSOLETE_TYPE.tag, _KEEP_ORDER),
+--- ./src/3rdparty/chromium/tools/grit/grit/format/html_inline.py.orig
++++ ./src/3rdparty/chromium/tools/grit/grit/format/html_inline.py
+@@ -39,26 +39,26 @@
+ 
+ # Matches beginning of an "if" block.
+ _BEGIN_IF_BLOCK = lazy_re.compile(
+-    r'<if [^>]*?expr=("(?P<expr1>[^">]*)"|\'(?P<expr2>[^\'>]*)\')[^>]*?>')
++    rb'<if [^>]*?expr=("(?P<expr1>[^">]*)"|\'(?P<expr2>[^\'>]*)\')[^>]*?>')
+ 
+ # Matches ending of an "if" block.
+-_END_IF_BLOCK = lazy_re.compile(r'</if>')
++_END_IF_BLOCK = lazy_re.compile(rb'</if>')
+ 
+ # Used by DoInline to replace various links with inline content.
+ _STYLESHEET_RE = lazy_re.compile(
+-    r'<link rel="stylesheet"[^>]+?href="(?P<filename>[^"]*)".*?>(\s*</link>)?',
++    rb'<link rel="stylesheet"[^>]+?href="(?P<filename>[^"]*)".*?>(\s*</link>)?',
+     re.DOTALL)
+ _INCLUDE_RE = lazy_re.compile(
+-    r'(?P<comment>\/\/ )?<include[^>]+?'
+-    r'src=("(?P<file1>[^">]*)"|\'(?P<file2>[^\'>]*)\').*?>(\s*</include>)?',
++    rb'(?P<comment>\/\/ )?<include[^>]+?'
++    rb'src=("(?P<file1>[^">]*)"|\'(?P<file2>[^\'>]*)\').*?>(\s*</include>)?',
+     re.DOTALL)
+ _SRC_RE = lazy_re.compile(
+-    r'<(?!script)(?:[^>]+?\s)src="(?!\[\[|{{)(?P<filename>[^"\']*)"',
++    rb'<(?!script)(?:[^>]+?\s)src="(?!\[\[|{{)(?P<filename>[^"\']*)"',
+     re.MULTILINE)
+ # This re matches '<img srcset="..."' or '<source srcset="..."'
+ _SRCSET_RE = lazy_re.compile(
+-    r'<(img|source)\b(?:[^>]*?\s)srcset="(?!\[\[|{{|\$i18n{)'
+-    r'(?P<srcset>[^"\']*)"',
++    rb'<(img|source)\b(?:[^>]*?\s)srcset="(?!\[\[|{{|\$i18n{)'
++    rb'(?P<srcset>[^"\']*)"',
+     re.MULTILINE)
+ # This re is for splitting srcset value string into "image candidate strings".
+ # Notes:
+@@ -70,13 +70,13 @@
+ #   that form both of them.
+ # Matches for example "img2.png 2x" or "img9.png 11E-2w".
+ _SRCSET_ENTRY_RE = lazy_re.compile(
+-    r'\s*(?P<url>[^,\s]\S+[^,\s])'
+-    r'(?:\s+(?P<descriptor>[\deE.-]+[wx]))?\s*'
+-    r'(?P<separator>,|$)',
++    rb'\s*(?P<url>[^,\s]\S+[^,\s])'
++    rb'(?:\s+(?P<descriptor>[\deE.-]+[wx]))?\s*'
++    rb'(?P<separator>,|$)',
+     re.MULTILINE)
+ _ICON_RE = lazy_re.compile(
+-    r'<link rel="icon"\s(?:[^>]+?\s)?'
+-    r'href=(?P<quote>")(?P<filename>[^"\']*)\1',
++    rb'<link rel="icon"\s(?:[^>]+?\s)?'
++    rb'href=(?P<quote>")(?P<filename>[^"\']*)\1',
+     re.MULTILINE)
+ 
+ 
+@@ -308,11 +308,11 @@
+     filename = [v for k, v in src_match.groupdict().items()
+                 if k.startswith('file') and v][0]
+ 
+-    if filename.find(':') != -1:
++    if filename.find(b':') != -1:
+       # filename is probably a URL, which we don't want to bother inlining
+       return None
+ 
+-    filename = filename.replace('%DISTRIBUTION%', distribution)
++    filename = filename.replace(b'%DISTRIBUTION%', distribution)
+     if filename_expansion_function:
+       filename = filename_expansion_function(filename)
+     return os.path.normpath(os.path.join(base_path, filename))
+@@ -322,28 +322,28 @@
+     expr2 = src_match.group('expr2') or ''
+     return grd_node is None or grd_node.EvaluateCondition(expr1 + expr2)
+ 
+-  def CheckConditionalElements(str):
++  def CheckConditionalElements(text):
+     """Helper function to conditionally inline inner elements"""
+     while True:
+-      begin_if = _BEGIN_IF_BLOCK.search(str)
++      begin_if = _BEGIN_IF_BLOCK.search(text)
+       if begin_if is None:
+-        if _END_IF_BLOCK.search(str) is not None:
++        if _END_IF_BLOCK.search(text) is not None:
+           raise Exception('Unmatched </if>')
+-        return str
++        return text
+ 
+       condition_satisfied = IsConditionSatisfied(begin_if)
+-      leading = str[0:begin_if.start()]
++      leading = text[0:begin_if.start()]
+       content_start = begin_if.end()
+ 
+       # Find matching "if" block end.
+       count = 1
+       pos = begin_if.end()
+       while True:
+-        end_if = _END_IF_BLOCK.search(str, pos)
++        end_if = _END_IF_BLOCK.search(text, pos)
+         if end_if is None:
+           raise Exception('Unmatched <if>')
+ 
+-        next_if = _BEGIN_IF_BLOCK.search(str, pos)
++        next_if = _BEGIN_IF_BLOCK.search(text, pos)
+         if next_if is None or next_if.start() >= end_if.end():
+           count = count - 1
+           if count == 0:
+@@ -353,13 +353,13 @@
+           count = count + 1
+           pos = next_if.end()
+ 
+-      content = str[content_start:end_if.start()]
+-      trailing = str[end_if.end():]
++      content = text[content_start:end_if.start()]
++      trailing = text[end_if.end():]
+ 
+       if condition_satisfied:
+-        str = leading + CheckConditionalElements(content) + trailing
++        text = leading + CheckConditionalElements(content) + trailing
+       else:
+-        str = leading + trailing
++        text = leading + trailing
+ 
+   def InlineFileContents(src_match,
+                          pattern,
+@@ -459,7 +459,7 @@
+         r'[ ]*[0-9.]*x[ ]*(,[ ]*)?)+\)')
+     value_re = '(%s|%s)' % (GetUrlRegexString(), image_set_value_re)
+     css_re = property_re + value_re
+-    return re.sub(css_re, lambda m: InlineCSSUrls(m, filepath), text)
++    return re.sub(css_re.encode(), lambda m: InlineCSSUrls(m, filepath), text)
+ 
+   def InlineCSSUrls(src_match, filepath=input_filepath):
+     """Helper function that inlines each url on a CSS image rule match."""
 --- ./src/3rdparty/chromium/tools/grit/grit/format/data_pack.py.orig
 +++ ./src/3rdparty/chromium/tools/grit/grit/format/data_pack.py
 @@ -195,7 +195,7 @@
