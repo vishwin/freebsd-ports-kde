@@ -600,6 +600,17 @@
        f.write(l)
    return
  
+--- ./src/3rdparty/chromium/tools/idl_parser/idl_parser.py.orig
++++ ./src/3rdparty/chromium/tools/idl_parser/idl_parser.py
+@@ -35,7 +35,7 @@
+ import sys
+ import time
+ 
+-from idl_lexer import IDLLexer
++from .idl_lexer import IDLLexer
+ from idl_node import IDLAttribute
+ from idl_node import IDLNode
+ 
 --- ./src/3rdparty/chromium/tools/metrics/ukm/codegen.py.orig
 +++ ./src/3rdparty/chromium/tools/metrics/ukm/codegen.py
 @@ -20,7 +20,7 @@
