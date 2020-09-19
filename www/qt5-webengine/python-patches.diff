@@ -346,8 +346,8 @@
      {% else %}
  switch (data[{{index}}]) {
      {% endif %}
-+{{ str(trie) }}
-+{{ str(trie.items()) }}
++{{ trie }}
++{{ trie.items() }}
      {% for char, value in trie.items()|sort %}
  case '{{char}}':
      {{ trie_switch(value, index + 1, return_macro, lowercase_data) | indent(4) }}
@@ -765,6 +765,15 @@
  
  def GetImageList(
      base_path, filename, scale_factors, distribution,
+@@ -85,7 +85,7 @@
+       images.append((scale_factor, scale_filename))
+     return images
+ 
+-  if filename.find(':') != -1:
++  if filename.find(b':') != -1:
+     # filename is probably a URL, only return filename itself.
+     return [('1x', filename)]
+ 
 --- ./src/3rdparty/chromium/tools/grit/grit/format/html_inline.py.orig
 +++ ./src/3rdparty/chromium/tools/grit/grit/format/html_inline.py
 @@ -39,26 +39,26 @@
