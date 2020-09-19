@@ -326,6 +326,15 @@
          raise
  
  
+@@ -68,7 +68,7 @@
+ 
+     def application_json(self):
+         result = dict()
+-        result['modules'] = self.application.values()
++        result['modules'] = list(self.application.values())
+         result['has_html'] = self.has_html
+         return json.dumps(result)
+ 
 --- ./src/3rdparty/chromium/third_party/devtools-frontend/src/scripts/build/build_release_applications.py.orig
 +++ ./src/3rdparty/chromium/third_party/devtools-frontend/src/scripts/build/build_release_applications.py
 @@ -11,7 +11,7 @@
@@ -337,6 +346,24 @@
  from os import path
  from os.path import join
  import copy
+@@ -193,7 +193,7 @@
+             resource_name = path.normpath(resource_name).replace('\\', '/')
+             output.write('Root.Runtime.cachedResources["%s"] = "' % resource_name)
+             resource_content = read_file(path.join(self.application_dir, resource_name))
+-            resource_content += resource_source_url(resource_name).encode('utf-8')
++            resource_content += resource_source_url(resource_name)
+             resource_content = resource_content.replace('\\', '\\\\')
+             resource_content = resource_content.replace('\n', '\\n')
+             resource_content = resource_content.replace('"', '\\"')
+@@ -236,7 +236,7 @@
+             output.write('/* Additional descriptors */\n')
+             output.write('Root.allDescriptors.push(...%s);' % self._release_module_descriptors())
+             output.write('/* Additional descriptors %s */\n' % self.app_file('json'))
+-            output.write('Root.applicationDescriptor.modules.push(...%s);' % json.dumps(self.descriptors.application.values()))
++            output.write('Root.applicationDescriptor.modules.push(...%s);' % json.dumps(list(self.descriptors.application.values())))
+ 
+         output.write('\n/* Autostart modules */\n')
+         if (self.descriptors.worker):
 --- ./src/3rdparty/chromium/third_party/devtools-frontend/src/scripts/build/generate_supported_css.py.orig
 +++ ./src/3rdparty/chromium/third_party/devtools-frontend/src/scripts/build/generate_supported_css.py
 @@ -38,9 +38,12 @@
