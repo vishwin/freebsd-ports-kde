@@ -298,6 +298,15 @@
  
  
  def hash(string):
+@@ -46,7 +46,7 @@
+     if not string:
+         return 0
+ 
+-    result = uint32_t(0x9E3779B9L)
++    result = uint32_t(0x9E3779B9)
+     length = len(string)
+     remainder = length & 1
+     length >>= 1
 --- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/core/css/properties/make_css_property_instances.py.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/core/css/properties/make_css_property_instances.py
 @@ -39,8 +39,8 @@
