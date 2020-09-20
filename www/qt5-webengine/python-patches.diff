@@ -380,12 +380,15 @@
          return generator_internal
      return wrapper
  
-@@ -83,7 +85,7 @@
+@@ -82,8 +84,10 @@
+     # Since we're passing the input file on stdin, remove it from the args.
      gperf_args.remove(infile)
  
++    if not isinstance(gperf_path, bytes):
++        gperf_path = gperf_path.encode()
      open(args.output_file, 'wb').write(
 -        generate_gperf(gperf_path, open(infile).read(), gperf_args))
-+        generate_gperf(gperf_path.encode(), open(infile, 'rb').read(), gperf_args))
++        generate_gperf(gperf_path, open(infile, 'rb').read(), gperf_args))
  
  if __name__ == '__main__':
      main()
