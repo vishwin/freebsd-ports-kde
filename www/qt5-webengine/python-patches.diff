@@ -362,7 +362,16 @@
          exit(1)
 --- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/gperf.py.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/gperf.py
-@@ -61,7 +61,7 @@
+@@ -28,6 +28,8 @@
+             stdin=subprocess.PIPE,
+             stdout=subprocess.PIPE,
+             universal_newlines=True)
++        if isinstance(gperf_input, bytes):
++            gperf_input = gperf_input.decode()
+         gperf_output = gperf.communicate(gperf_input)[0]
+         # Massage gperf output to be more palatable for modern compilers.
+         # TODO(thakis): Upstream these to gperf so we don't need massaging.
+@@ -61,7 +63,7 @@
              if gperf_extra_args:
                  gperf_args.extend(gperf_extra_args)
              return generate_gperf(gperf_path, gperf_input, gperf_args)
@@ -371,7 +380,7 @@
          return generator_internal
      return wrapper
  
-@@ -83,7 +83,7 @@
+@@ -83,7 +85,7 @@
      gperf_args.remove(infile)
  
      open(args.output_file, 'wb').write(
@@ -1063,7 +1072,7 @@
      re.MULTILINE)
  
  
-@@ -113,10 +113,12 @@
+@@ -113,10 +113,16 @@
    Returns:
      string
    """
@@ -1074,10 +1083,14 @@
  
 +  if not isinstance(distribution, bytes):
 +    distribution = distribution.encode()
++  if not isinstance(base_path, bytes):
++    base_path = base_path.encode()
++  if not isinstance(filename, bytes):
++    filename = filename.encode()
    filename = filename.replace(DIST_SUBSTR , distribution)
    filepath = os.path.normpath(os.path.join(base_path, filename))
    inlined_files.add(filepath)
-@@ -308,42 +310,42 @@
+@@ -308,42 +314,42 @@
      filename = [v for k, v in src_match.groupdict().items()
                  if k.startswith('file') and v][0]
  
@@ -1132,7 +1145,7 @@
          if next_if is None or next_if.start() >= end_if.end():
            count = count - 1
            if count == 0:
-@@ -353,13 +355,13 @@
+@@ -353,13 +359,13 @@
            count = count + 1
            pos = next_if.end()
  
@@ -1150,7 +1163,7 @@
  
    def InlineFileContents(src_match,
                           pattern,
-@@ -459,12 +461,12 @@
+@@ -459,12 +465,12 @@
          r'[ ]*[0-9.]*x[ ]*(,[ ]*)?)+\)')
      value_re = '(%s|%s)' % (GetUrlRegexString(), image_set_value_re)
      css_re = property_re + value_re
@@ -1165,7 +1178,7 @@
                    lambda m: SrcReplace(m, filepath),
                    src_match.group(0))
  
-@@ -472,7 +474,7 @@
+@@ -472,7 +478,7 @@
      """Helper function that inlines CSS files included via the @import
         directive.
      """
@@ -1174,7 +1187,7 @@
                    lambda m: InlineCSSFile(m, '%s', filepath),
                    text)
  
-@@ -484,9 +486,25 @@
+@@ -484,9 +490,25 @@
    # InlineScript, InlineCSSFile and InlineIncludeFiles on text we're eventually
    # going to throw out anyway.
    flat_text = CheckConditionalElements(flat_text)
@@ -1201,7 +1214,7 @@
    if not preprocess_only:
      if strip_whitespace:
        flat_text = minifier.Minify(flat_text, input_filename)
-@@ -494,13 +512,17 @@
+@@ -494,13 +516,17 @@
      if not allow_external_script:
        # We need to inline css and js before we inline images so that image
        # references gets inlined in the css and js
