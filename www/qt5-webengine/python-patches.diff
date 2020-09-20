@@ -910,6 +910,21 @@
      ],
      alphabetization=[
          (_OBSOLETE_TYPE.tag, _KEEP_ORDER),
+--- ./src/3rdparty/chromium/tools/grit/grit/util.py.orig
++++ ./src/3rdparty/chromium/tools/grit/grit/util.py
+@@ -33,7 +33,11 @@
+ _, UTF8, UTF16 = range(3)
+ 
+ def abs(filename):
+-  return os.path.normpath(os.path.join(os.getcwd(), filename))
++  if isinstance(filename, bytes):
++    t = os.path.join(os.getcwd().encode(), filename)
++  else:
++    t = os.path.join(os.getcwd(), filename)
++  return os.path.normpath(t)
+ 
+ def Encode(message, encoding):
+   '''Returns a byte stream that represents |message| in the given |encoding|.'''
 --- ./src/3rdparty/chromium/tools/grit/grit/gather/chrome_scaled_image.py.orig
 +++ ./src/3rdparty/chromium/tools/grit/grit/gather/chrome_scaled_image.py
 @@ -16,7 +16,7 @@
