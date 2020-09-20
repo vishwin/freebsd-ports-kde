@@ -1131,7 +1131,21 @@
    return prefix + data_url + suffix
  
  def SrcsetInlineAsDataURL(
-@@ -308,42 +323,42 @@
+@@ -290,9 +305,12 @@
+   def SrcReplace(src_match, filepath=input_filepath,
+                  inlined_files=inlined_files):
+     """Helper function to provide SrcInlineAsDataURL with the base file path"""
+-    return SrcInlineAsDataURL(
++    src = SrcInlineAsDataURL(
+         src_match, filepath, distribution, inlined_files, names_only=names_only,
+         filename_expansion_function=filename_expansion_function)
++    if not isinstance(src, bytes):
++      src = src.encode()
++    return src
+ 
+   def SrcsetReplace(srcset_match, filepath=input_filepath,
+                  inlined_files=inlined_files):
+@@ -308,42 +326,42 @@
      filename = [v for k, v in src_match.groupdict().items()
                  if k.startswith('file') and v][0]
  
@@ -1186,7 +1200,7 @@
          if next_if is None or next_if.start() >= end_if.end():
            count = count - 1
            if count == 0:
-@@ -353,13 +368,13 @@
+@@ -353,13 +371,13 @@
            count = count + 1
            pos = next_if.end()
  
@@ -1204,7 +1218,7 @@
  
    def InlineFileContents(src_match,
                           pattern,
-@@ -459,12 +474,12 @@
+@@ -459,20 +477,23 @@
          r'[ ]*[0-9.]*x[ ]*(,[ ]*)?)+\)')
      value_re = '(%s|%s)' % (GetUrlRegexString(), image_set_value_re)
      css_re = property_re + value_re
@@ -1215,11 +1229,15 @@
      """Helper function that inlines each url on a CSS image rule match."""
      # Replace contents of url() references in matches.
 -    return re.sub(GetUrlRegexString(),
++    matched_src = src_match.group(0)
++    if not isinstance(matched_src, bytes):
++      matched_src = matched_src.encode()
 +    return re.sub(GetUrlRegexString().encode(),
                    lambda m: SrcReplace(m, filepath),
-                   src_match.group(0))
+-                  src_match.group(0))
++                  matched_src)
  
-@@ -472,7 +487,7 @@
+   def InlineCSSImports(text, filepath=input_filepath):
      """Helper function that inlines CSS files included via the @import
         directive.
      """
@@ -1228,7 +1246,7 @@
                    lambda m: InlineCSSFile(m, '%s', filepath),
                    text)
  
-@@ -484,9 +499,25 @@
+@@ -484,9 +505,25 @@
    # InlineScript, InlineCSSFile and InlineIncludeFiles on text we're eventually
    # going to throw out anyway.
    flat_text = CheckConditionalElements(flat_text)
@@ -1255,7 +1273,7 @@
    if not preprocess_only:
      if strip_whitespace:
        flat_text = minifier.Minify(flat_text, input_filename)
-@@ -494,13 +525,17 @@
+@@ -494,13 +531,17 @@
      if not allow_external_script:
        # We need to inline css and js before we inline images so that image
        # references gets inlined in the css and js
