@@ -639,7 +639,7 @@
      else:
          return value in valid_values
  
-@@ -252,11 +252,13 @@
+@@ -252,11 +252,17 @@
  
          # Only write the file if the contents have changed. This allows ninja to
          # skip rebuilding targets which depend on the output.
@@ -650,9 +650,13 @@
 -                output_file.write(contents)
 +        if not isinstance(contents, bytes):
 +            contents = contents.encode()
-+        with open(path, "rb") as input_file:
-+            if input_file.read() == contents:
-+                return
++        try:
++            with open(path, "rb") as input_file:
++                if input_file.read() == contents:
++                    return
++        except FileNotFoundError as e:
++            # Just means it doesn't exist, so write it
++            pass
 +        with open(path, "wb") as output_file:
 +            output_file.write(contents)
  
@@ -1070,6 +1074,21 @@
      # filename is probably a URL, only return filename itself.
      return [('1x', filename)]
  
+@@ -245,10 +245,12 @@
+     string
+   """
+   attr = src_match.group('attribute')
++  if not isinstance(attr, bytes):
++    attr = attr.encode()
+   images = _CSS_IMAGE_SET_IMAGE.sub(
+-      lambda m: m.group(0) if m.group('scale') in scale_factors else '',
++      lambda m: m.group(0) if m.group('scale') in scale_factors else b'',
+       src_match.group('images'))
+-  return "%s: -webkit-image-set(%s)" % (attr, images)
++  return b"%s: -webkit-image-set(%s)" % (attr, images)
+ 
+ 
+ def RemoveImageSetImages(text, scale_factors):
 --- ./src/3rdparty/chromium/tools/grit/grit/format/html_inline.py.orig
 +++ ./src/3rdparty/chromium/tools/grit/grit/format/html_inline.py
 @@ -35,30 +35,30 @@
