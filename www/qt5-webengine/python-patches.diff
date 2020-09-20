@@ -639,6 +639,23 @@
      else:
          return value in valid_values
  
+@@ -252,11 +252,11 @@
+ 
+         # Only write the file if the contents have changed. This allows ninja to
+         # skip rebuilding targets which depend on the output.
+-        with open(path, "a+") as output_file:
+-            output_file.seek(0)
+-            if output_file.read() != contents:
+-                output_file.truncate(0)
+-                output_file.write(contents)
++        with open(path, "rb") as input_file:
++            if input_file.read() == contents:
++                return
++        with open(path, "wb") as output_file:
++            output_file.write(contents)
+ 
+     def write_files(self, output_dir):
+         for file_name, generator in self._outputs.items():
 --- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/compute_global_objects.py.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/compute_global_objects.py
 @@ -46,7 +46,7 @@
