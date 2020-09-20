@@ -791,6 +791,15 @@
  import re
  import shlex
  import string
+@@ -210,7 +210,7 @@
+     |target| will be updated with |diff|.  Part of |diff| may be re-used in
+     |target|.
+     """
+-    for key, value in diff.iteritems():
++    for key, value in diff.items():
+         if key not in target:
+             target[key] = value
+         elif type(value) == dict:
 @@ -307,15 +307,16 @@
  
  def read_pickle_file(pickle_filename):
