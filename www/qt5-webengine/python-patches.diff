@@ -639,7 +639,7 @@
      else:
          return value in valid_values
  
-@@ -252,11 +252,11 @@
+@@ -252,11 +252,13 @@
  
          # Only write the file if the contents have changed. This allows ninja to
          # skip rebuilding targets which depend on the output.
@@ -648,6 +648,8 @@
 -            if output_file.read() != contents:
 -                output_file.truncate(0)
 -                output_file.write(contents)
++        if not isinstance(contents, bytes):
++            contents = contents.encode()
 +        with open(path, "rb") as input_file:
 +            if input_file.read() == contents:
 +                return
@@ -1344,3 +1346,20 @@
  
  
  def WriteDataPack(resources, output_file, encoding):
+--- ./src/3rdparty/chromium/tools/grit/grit/tool/build.py.orig
++++ ./src/3rdparty/chromium/tools/grit/grit/tool/build.py
+@@ -530,10 +530,11 @@
+ 
+     output_file = os.path.relpath(output_file, depdir)
+     # The path prefix to prepend to dependencies in the depfile.
+-    prefix = os.path.relpath(os.getcwd(), depdir)
+-    deps_text = ' '.join([os.path.join(prefix, i) for i in infiles])
++    prefix = os.path.relpath(os.getcwd(), depdir).encode()
++    infile_bytes = [ i if isinstance(i, bytes) else i.encode() for i in infiles ]
++    deps_text = b' '.join([os.path.join(prefix, i) for i in infile_bytes])
+ 
+-    depfile_contents = output_file + ': ' + deps_text
++    depfile_contents = output_file + ': ' + deps_text.decode()
+     self.MakeDirectoriesTo(depfile)
+     outfile = self.fo_create(depfile, 'w', encoding='utf-8')
+     outfile.write(depfile_contents)
