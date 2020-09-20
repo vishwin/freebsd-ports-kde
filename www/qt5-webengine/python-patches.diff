@@ -1115,7 +1115,19 @@
    mimetype = mimetypes.guess_type(filename)[0]
    if mimetype is None:
      raise Exception('%s is of an an unknown type and '
-@@ -308,42 +317,42 @@
+@@ -165,6 +174,11 @@
+ 
+   prefix = src_match.string[src_match.start():src_match.start('filename')]
+   suffix = src_match.string[src_match.end('filename'):src_match.end()]
++  assert isinstance(data_url, bytes)
++  if not isinstance(prefix, bytes):
++    prefix = prefix.encode()
++  if not isinstance(suffix, bytes):
++    suffix = suffix.encode()
+   return prefix + data_url + suffix
+ 
+ def SrcsetInlineAsDataURL(
+@@ -308,42 +322,42 @@
      filename = [v for k, v in src_match.groupdict().items()
                  if k.startswith('file') and v][0]
  
@@ -1170,7 +1182,7 @@
          if next_if is None or next_if.start() >= end_if.end():
            count = count - 1
            if count == 0:
-@@ -353,13 +362,13 @@
+@@ -353,13 +367,13 @@
            count = count + 1
            pos = next_if.end()
  
@@ -1188,7 +1200,7 @@
  
    def InlineFileContents(src_match,
                           pattern,
-@@ -459,12 +468,12 @@
+@@ -459,12 +473,12 @@
          r'[ ]*[0-9.]*x[ ]*(,[ ]*)?)+\)')
      value_re = '(%s|%s)' % (GetUrlRegexString(), image_set_value_re)
      css_re = property_re + value_re
@@ -1203,7 +1215,7 @@
                    lambda m: SrcReplace(m, filepath),
                    src_match.group(0))
  
-@@ -472,7 +481,7 @@
+@@ -472,7 +486,7 @@
      """Helper function that inlines CSS files included via the @import
         directive.
      """
@@ -1212,7 +1224,7 @@
                    lambda m: InlineCSSFile(m, '%s', filepath),
                    text)
  
-@@ -484,9 +493,25 @@
+@@ -484,9 +498,25 @@
    # InlineScript, InlineCSSFile and InlineIncludeFiles on text we're eventually
    # going to throw out anyway.
    flat_text = CheckConditionalElements(flat_text)
@@ -1239,7 +1251,7 @@
    if not preprocess_only:
      if strip_whitespace:
        flat_text = minifier.Minify(flat_text, input_filename)
-@@ -494,13 +519,17 @@
+@@ -494,13 +524,17 @@
      if not allow_external_script:
        # We need to inline css and js before we inline images so that image
        # references gets inlined in the css and js
