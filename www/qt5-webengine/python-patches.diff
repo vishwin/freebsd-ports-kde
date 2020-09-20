@@ -937,6 +937,17 @@
  
  def Encode(message, encoding):
    '''Returns a byte stream that represents |message| in the given |encoding|.'''
+--- ./src/3rdparty/chromium/tools/grit/grit/node/misc.py.orig
++++ ./src/3rdparty/chromium/tools/grit/grit/node/misc.py
+@@ -478,7 +478,7 @@
+             input_files.update(node.GetHtmlResourceFilenames())
+ 
+     self.SetOutputLanguage(old_output_language)
+-    return sorted(input_files)
++    return sorted([ x.encode() if not isinstance(x, bytes) else x for x in input_files ])
+ 
+   def GetFirstIdsFile(self):
+     """Returns a usable path to the first_ids file, if set, otherwise
 --- ./src/3rdparty/chromium/tools/grit/grit/gather/chrome_scaled_image.py.orig
 +++ ./src/3rdparty/chromium/tools/grit/grit/gather/chrome_scaled_image.py
 @@ -16,7 +16,7 @@
