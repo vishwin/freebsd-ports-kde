@@ -877,6 +877,15 @@
              interface_info = {
                  'is_callback_interface': definition.is_callback,
                  'is_dictionary': False,
+@@ -261,7 +261,7 @@
+                 'referenced_interfaces': get_put_forward_interfaces_from_definition(definition),
+             }
+         elif definitions.dictionaries:
+-            definition = next(definitions.dictionaries.itervalues())
++            definition = next(iter(definitions.dictionaries.values()))
+             interface_info = {
+                 'is_callback_interface': False,
+                 'is_dictionary': True,
 --- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/blink_idl_parser.py.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/blink_idl_parser.py
 @@ -139,7 +139,7 @@
