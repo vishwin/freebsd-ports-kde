@@ -1663,11 +1663,131 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
 -        path = parts[0] + '/'
 -      scale_image_name = path + scale_factor + '/' + parts[-1]
 +        path = parts[0] + b'/'
-+      scale_image_name = path + scale_factor + b'/' + parts[-1]
++      scale_image_name = path + scale_factor.encode() + b'/' + parts[-1]
        images.append((scale_factor, scale_image_name))
    return images
  
-@@ -245,10 +247,12 @@
+@@ -120,13 +122,16 @@
+     quote: a string giving the quotation character to use (i.e. "'")
+ 
+   Returns:
+-    string giving a -webkit-image-set rule referencing the provided images.
++    bytes giving a -webkit-image-set rule referencing the provided images.
+         (i.e. '-webkit-image-set(url('image.png') 1x, url('2x/image.png') 2x)')
+   """
++  def _(s):
++    return s if isinstance(s, bytes) else s.encode()
++
+   imageset = []
+   for (scale_factor, filename) in images:
+-    imageset.append("url(%s%s%s) %s" % (quote, filename, quote, scale_factor))
+-  return "-webkit-image-set(%s)" % (', '.join(imageset))
++    imageset.append(b"url(%s%s%s) %s" % (_(quote), _(filename), _(quote), _(scale_factor)))
++  return b"-webkit-image-set(%s)" % (b', '.join(imageset))
+ 
+ 
+ def UrlToImageSet(
+@@ -148,21 +153,25 @@
+     distribution: string that should replace %DISTRIBUTION%.
+ 
+   Returns:
+-    string
++    bytes
+   """
+   quote = src_match.group('quote')
+   filename = src_match.group('filename')
++  quote = quote if isinstance(quote, bytes) else quote.encode()
++  filename = filename if isinstance(filename, bytes) else filename.encode()
++
+   image_list = GetImageList(
+       base_path, filename, scale_factors, distribution,
+       filename_expansion_function=filename_expansion_function)
+ 
+   # Don't modify the source if there is only one image.
+   if len(image_list) == 1:
+-    return src_match.group(0)
++    i = src_match.group(0)
++  else:
++    i = GenerateImageSet(image_list, quote)
++  return i if isinstance(i, bytes) else i.encode()
+ 
+-  return GenerateImageSet(image_list, quote)
+ 
+-
+ def InsertImageSet(
+     src_match, base_path, scale_factors, distribution,
+     filename_expansion_function=None):
+@@ -178,15 +187,20 @@
+     distribution: string that should replace %DISTRIBUTION%.
+ 
+   Returns:
+-    string
++    bytes
+   """
+   attr = src_match.group('attribute')
++  u_ = src_match.group('urls')
++  
++  attr = attr if isinstance(attr, bytes) else attr.encode()
++  u_ = u_ if isinstance(u_, bytes) else u_.encode()
++
+   urls = _CSS_URL.sub(
+       lambda m: UrlToImageSet(m, base_path, scale_factors, distribution,
+                               filename_expansion_function),
+-      src_match.group('urls'))
++      u_)
+ 
+-  return "%s: %s" % (attr, urls)
++  return b"%s: %s" % (attr, urls)
+ 
+ 
+ def InsertImageStyle(
+@@ -204,11 +218,13 @@
+ 
+   # Don't modify the source if there is only one image or image already defines
+   # a style.
+-  if src_match.group(0).find(" style=\"") != -1 or len(image_list) == 1:
+-    return src_match.group(0)
++  grp_0 = src_match.group(0)
++  grp_0 = grp_0 if isinstance(grp_0, bytes) else grp_0.encode()
++  if grp_0.find(b" style=\"") != -1 or len(image_list) == 1:
++    return grp_0
+ 
+-  return "%s style=\"content: %s;\">" % (src_match.group(0)[:-1],
+-                                        GenerateImageSet(image_list, "'"))
++  return b"%s style=\"content: %s;\">" % (grp_0[:-1],
++                                        GenerateImageSet(image_list, b"'"))
+ 
+ 
+ def InsertImageSets(
+@@ -219,17 +235,21 @@
+   """
+   # Add high DPI urls for css attributes: content, background,
+   # or *-image or <img src="foo">.
+-  return _CSS_IMAGE_URLS.sub(
+-      lambda m: InsertImageSet(
+-          m, filepath, scale_factors, distribution,
+-          filename_expansion_function=filename_expansion_function),
+-      _HTML_IMAGE_SRC.sub(
++  h = _HTML_IMAGE_SRC.sub(
+           lambda m: InsertImageStyle(
+               m, filepath, scale_factors, distribution,
+               filename_expansion_function=filename_expansion_function),
+-          text)).decode('utf-8').encode('utf-8')
++          text)
+ 
++  c =  _CSS_IMAGE_URLS.sub(
++      lambda m: InsertImageSet(
++          m, filepath, scale_factors, distribution,
++          filename_expansion_function=filename_expansion_function),
++      h)
+ 
++  return c.decode('utf-8').encode('utf-8')
++
++
+ def RemoveImagesNotIn(scale_factors, src_match):
+   """Regex replace function which removes images for scale factors not in
+   scale_factors.
+@@ -245,10 +265,12 @@
      string
    """
    attr = src_match.group('attribute')
@@ -1682,7 +1802,7 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
  
  
  def RemoveImageSetImages(text, scale_factors):
-@@ -256,7 +260,7 @@
+@@ -256,7 +278,7 @@
    supported scale_factors.
    """
    return _CSS_IMAGE_SETS.sub(
