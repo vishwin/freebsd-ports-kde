@@ -802,7 +802,7 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
          if interface.is_callback:
              header_template_filename = 'callback_interface.h.tmpl'
              cpp_template_filename = 'callback_interface.cc.tmpl'
-@@ -201,10 +202,17 @@
+@@ -201,10 +202,14 @@
              header_template_filename = 'interface.h.tmpl'
              cpp_template_filename = 'interface.cc.tmpl'
              interface_context = v8_interface.interface_context
@@ -812,9 +812,6 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
          component_info = self.info_provider.component_info
          template_context = interface_context(interface, definitions.interfaces, component_info)
          includes.update(interface_info.get('cpp_includes', {}).get(component, set()))
-+        print("COMPONENT=" + str(full_path))
-+        print(repr(includes))
-+        print("TMPL=" + cpp_template_filename + "\n\n")
 +        if extra_includes:
 +            includes.update(extra_includes)
          if not interface.is_partial and not is_testing_target(full_path):
