@@ -253,6 +253,32 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
  
  
  class MojomProcessor(object):
+--- ./src/3rdparty/chromium/ui/ozone/generate_ozone_platform_list.py.orig
++++ ./src/3rdparty/chromium/ui/ozone/generate_ozone_platform_list.py
+@@ -63,7 +63,7 @@
+   We just capitalize the platform name and prepend "CreateOzonePlatform".
+   """
+ 
+-  return 'kPlatform' + string.capitalize(name)
++  return 'kPlatform' + name.capitalize()
+ 
+ 
+ def GeneratePlatformListText(out, platforms):
+@@ -153,11 +153,11 @@
+   out_h = sys.stdout
+   out_txt = sys.stdout
+   if options.output_cc:
+-    out_cc = open(options.output_cc, 'wb')
++    out_cc = open(options.output_cc, 'w')
+   if options.output_h:
+-    out_h = open(options.output_h, 'wb')
++    out_h = open(options.output_h, 'w')
+   if options.output_txt:
+-    out_txt = open(options.output_txt, 'wb')
++    out_txt = open(options.output_txt, 'w')
+ 
+   GeneratePlatformListText(out_txt, platforms)
+   GeneratePlatformListHeader(out_h, platforms)
 --- ./src/3rdparty/chromium/services/device/public/cpp/usb/tools/usb_ids.py.orig
 +++ ./src/3rdparty/chromium/services/device/public/cpp/usb/tools/usb_ids.py
 @@ -16,14 +16,18 @@
