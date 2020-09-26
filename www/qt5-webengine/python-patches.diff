@@ -817,7 +817,7 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
          if not interface.is_partial and not is_testing_target(full_path):
              template_context['header_includes'].add(self.info_provider.include_path_for_export)
              template_context['exported'] = self.info_provider.specifier_for_export
-@@ -314,7 +322,7 @@
+@@ -314,7 +319,7 @@
          # idl_definitions.py. What we do instead is to resolve typedefs in
          # _generate_container_code() whenever a new union file is generated.
          self.typedefs = {}
@@ -826,7 +826,7 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
              self.typedefs[name] = typedef.idl_type
  
      def _generate_container_code(self, union_type):
-@@ -409,7 +417,7 @@
+@@ -409,7 +414,7 @@
          if not callback_functions:
              return ()
          outputs = set()
