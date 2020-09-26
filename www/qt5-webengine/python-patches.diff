@@ -729,6 +729,17 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
      number_of_targets = len(targets)
      if number_of_targets > 1:
          raise Exception(
+--- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/v8_methods.py.orig
++++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/v8_methods.py
+@@ -493,7 +493,7 @@
+                                 % idl_type.name)
+             # Union container objects are "null" initially.
+             return '/* null default value */'
+-        if isinstance(default_value.value, basestring):
++        if isinstance(default_value.value, str):
+             member_type = idl_type.string_member_type
+         elif isinstance(default_value.value, (int, float)):
+             member_type = idl_type.numeric_member_type
 --- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/code_generator_v8.py.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/code_generator_v8.py
 @@ -94,7 +94,7 @@
@@ -1043,6 +1054,17 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
  import re
  import shlex
  import string
+@@ -188,8 +188,8 @@
+ 
+     @property
+     def callback_functions(self):
+-        return dict(self._component_info_core['callback_functions'].items() +
+-                    self._component_info_modules['callback_functions'].items())
++        return dict(list(self._component_info_core['callback_functions'].items()) +
++                    list(self._component_info_modules['callback_functions'].items()))
+ 
+     @property
+     def specifier_for_export(self):
 @@ -201,7 +201,7 @@
  
  
