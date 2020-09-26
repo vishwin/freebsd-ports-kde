@@ -1038,6 +1038,17 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
          return 1
      blink_idl_lexer.main(argv)
      # Important: rewrite_tables=True causes the cache file to be deleted if it
+--- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/idl_types.py.orig
++++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/idl_types.py
+@@ -336,7 +336,7 @@
+         return True
+ 
+     def single_matching_member_type(self, predicate):
+-        matching_types = filter(predicate, self.flattened_member_types)
++        matching_types = list(filter(predicate, self.flattened_member_types))
+         if len(matching_types) > 1:
+             raise ValueError('%s is ambiguous.' % self.name)
+         return matching_types[0] if matching_types else None
 --- ./src/3rdparty/chromium/third_party/dawn/generator/extract_json.py.orig
 +++ ./src/3rdparty/chromium/third_party/dawn/generator/extract_json.py
 @@ -24,7 +24,7 @@
