@@ -18,7 +18,7 @@
 
 PORTNAME=	webengine
 DISTVERSION=	${QT5_VERSION}
-PORTREVISION=	3
+PORTREVISION=	4
 CATEGORIES=	www
 PKGNAMEPREFIX=	qt5-
 
@@ -151,13 +151,8 @@ pre-configure:
 # Rerun syncqt.pl -- otherwise the resulting package misses some forwarding headers.
 	cd ${WRKSRC} && ${QT_BINDIR}/syncqt.pl -version ${QT5_VERSION}
 
-# Do `make clean configure` before this
-apply-python:
-	cd ${WRKSRC} && find . -name '*.orig' -delete
-	cd ${WRKSRC} && find . -name '*.rej' -delete
-	cd ${WRKSRC} && patch -p0 < ${FILESDIR}/../python-patches.diff
+post-configure:
+	cd ${WRKSRC} && ${PATCH} -p0 < ${FILESDIR}/python3-build.diff
 
-keep-python:
-	cd ${WRKSRC} && for f in `find  . -name '*.orig'` ; do diff -u "$$f" `dirname "$$f"`/`basename "$$f" .orig` || true ; done | sed 's/\t20[0-9][0-9]-.*//'
 
 .include <bsd.port.post.mk>
