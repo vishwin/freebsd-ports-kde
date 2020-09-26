@@ -663,14 +663,57 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
  
      def write_files(self, output_dir):
          for file_name, generator in self._outputs.items():
+--- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/templates/attributes.cc.tmpl.orig
++++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/templates/attributes.cc.tmpl
+@@ -634,7 +634,7 @@
+ {% filter secure_context(secure_context_test) %}
+ {% for feature_name, attribute_list in secure_context_attribute_list | groupby('runtime_enabled_feature_name') %}
+ {% filter runtime_enabled(feature_name) %}
+-{{install_attributes(attribute_list | sort, 'instance_object', 'prototype_object', 'interface_object')}}
++{{install_attributes(attribute_list | sort(attribute='name'), 'instance_object', 'prototype_object', 'interface_object')}}
+ {% endfilter %}{# runtime_enabled #}
+ {% endfor %}{# secure_context_attribute_list grouped by runtime_enabled #}
+ {% endfilter %}{# secure_context #}
+@@ -669,7 +669,7 @@
+ {% filter secure_context(secure_context_test) %}
+ {% for feature_name, attribute_list in secure_context_attribute_list | groupby('runtime_enabled_feature_name') %}
+ {% filter runtime_enabled(feature_name) %}
+-{{install_interface_objects(attribute_list | sort, 'instance_object', 'prototype_object')}}
++{{install_interface_objects(attribute_list | sort(attribute='name'), 'instance_object', 'prototype_object')}}
+ {% endfilter %}{# runtime_enabled #}
+ {% endfor %}{# secure_context_attribute_list grouped by runtime_enabled #}
+ {% endfilter %}{# secure_context #}
 --- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/templates/interface_base.cc.tmpl.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/templates/interface_base.cc.tmpl
-@@ -675,7 +675,7 @@
+@@ -669,13 +669,13 @@
+ 
+   {% for feature_name, attribute_list in runtime_enabled_attributes | selectattr('is_data_type_property') | groupby('runtime_enabled_feature_name') %}
+   {% filter runtime_enabled(feature_name) %}
+-  {{install_interface_objects(attribute_list | sort, 'instance_template', 'prototype_template') | trim | indent(2)}}
++  {{install_interface_objects(attribute_list | sort(attribute='name'), 'instance_template', 'prototype_template') | trim | indent(2)}}
+   {% endfilter %}
+   {% endfor %}
  
    {% for feature_name, attribute_list in runtime_enabled_attributes | selectattr('is_data_type_property', 'equalto', False) | groupby('runtime_enabled_feature_name') %}
    {% filter runtime_enabled(feature_name) %}
 -  {{install_attributes(attribute_list | sort, 'instance_template', 'prototype_template', 'interface_template') | trim | indent(2)}}
 +  {{install_attributes(attribute_list | sort(attribute='name'), 'instance_template', 'prototype_template', 'interface_template') | trim | indent(2)}}
+   {% endfilter %}
+   {% endfor %}
+ 
+@@ -770,13 +770,13 @@
+ 
+   {% for feature_name, attrs in runtime_enabled_attributes | selectattr('is_data_type_property') | groupby('runtime_enabled_feature_name') %}
+   {% filter runtime_enabled(feature_name) %}
+-  {{install_interface_objects(attrs | sort, 'instance', 'prototype')}}
++  {{install_interface_objects(attrs | sort(attribute='name'), 'instance', 'prototype')}}
+   {% endfilter %}
+   {% endfor %}
+ 
+   {% for feature_name, attrs in runtime_enabled_attributes | selectattr('is_data_type_property', 'equalto', False) | groupby('runtime_enabled_feature_name') %}
+   {% filter runtime_enabled(feature_name) %}
+-  {{install_attributes(attrs | sort, 'instance', 'prototype', 'interface') | trim | indent(2)}}
++  {{install_attributes(attrs | sort(attribute='name'), 'instance', 'prototype', 'interface') | trim | indent(2)}}
    {% endfilter %}
    {% endfor %}
  
@@ -771,6 +814,35 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
  
  ################################################################################
  # Constants
+--- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/v8_interface.py.orig
++++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/v8_interface.py
+@@ -120,7 +120,7 @@
+     KEY = 'origin_trial_feature_name'  # pylint: disable=invalid-name
+ 
+     def member_filter(members):
+-        return sorted([member for member in members if member.get(KEY)])
++        return sorted([member for member in members if member.get(KEY)], key=lambda x : x.get(KEY))
+ 
+     def member_filter_by_name(members, name):
+         return [member for member in members if member[KEY] == name]
+@@ -166,7 +166,7 @@
+     KEY = 'context_enabled_feature_name'  # pylint: disable=invalid-name
+ 
+     def member_filter(members):
+-        return sorted([member for member in members if member.get(KEY) and not member.get('exposed_test')])
++        return sorted([member for member in members if member.get(KEY) and not member.get('exposed_test')], key=lambda x : x.get(KEY))
+ 
+     def member_filter_by_name(members, name):
+         return [member for member in members if member[KEY] == name]
+@@ -484,7 +484,7 @@
+     context.update({
+         'optional_features':
+             sorted(origin_trial_features(interface, context['constants'], context['attributes'], context['methods']) +
+-                   context_enabled_features(context['attributes'])),
++                   context_enabled_features(context['attributes']), key = lambda x : x.get('name')),
+     })
+     if context['optional_features']:
+         includes.add('platform/bindings/v8_per_context_data.h')
 --- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/compute_interfaces_info_overall.py.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/compute_interfaces_info_overall.py
 @@ -127,12 +127,12 @@
