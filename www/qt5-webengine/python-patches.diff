@@ -788,6 +788,15 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
          partial_interface_paths = partial_interface_files[interface_name]
          partial_interfaces_full_paths = partial_interface_paths['full_paths']
          # Partial interface definitions each need an include, as they are
+@@ -290,7 +290,7 @@
+         })
+ 
+     # Clean up temporary private information
+-    for interface_info in interfaces_info.itervalues():
++    for interface_info in interfaces_info.values():
+         del interface_info['extended_attributes']
+         del interface_info['union_types']
+         del interface_info['is_legacy_treat_as_partial_interface']
 --- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/compute_global_objects.py.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/compute_global_objects.py
 @@ -46,7 +46,7 @@
