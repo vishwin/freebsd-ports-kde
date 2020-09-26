@@ -574,15 +574,6 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
 +#endif  // THIRD_PARTY_BLINK_RENDERER_CORE_{{namespace|upper}}_ELEMENT_TYPE_HELPERS_H_
 --- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/template_expander.py.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/template_expander.py
-@@ -55,6 +55,8 @@
-             template_cache[template_path] = template
- 
-     params['template_file'] = template_path
-+    for l in template.generate(params):
-+        print(l)
-     return template.render(params)
- 
- 
 @@ -64,6 +66,6 @@
              parameters = generator(*args, **kwargs)
              return apply_template(template_path, parameters, filters=filters,
