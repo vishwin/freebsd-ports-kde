@@ -853,7 +853,7 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
          dependency_component = idl_filename_to_component(dependency_idl_filename)
  
 -        dependency_interface = next(dependency_definitions.interfaces.itervalues())
-+        dependency_interface = next(dependency_definitions.interfaces.values())
++        dependency_interface = next(iter(dependency_definitions.interfaces.values()))
  
          transfer_extended_attributes(dependency_interface,
                                       dependency_idl_filename)
@@ -1146,6 +1146,19 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
          return self.inner_type.name + annotation
  
      def resolve_typedefs(self, typedefs):
+--- ./src/3rdparty/chromium/third_party/jinja2/filters.py.orig
++++ ./src/3rdparty/chromium/third_party/jinja2/filters.py
+@@ -848,8 +848,9 @@
+        attribute of another attribute.
+     """
+     expr = make_attrgetter(environment, attribute)
++    nonefilter = lambda x : expr(x) if expr(x) is not None else ""
+     return [_GroupTuple(key, list(values)) for key, values
+-            in groupby(sorted(value, key=expr), expr)]
++            in groupby(sorted(value, key=nonefilter), expr)]
+ 
+ 
+ @environmentfilter
 --- ./src/3rdparty/chromium/third_party/dawn/generator/extract_json.py.orig
 +++ ./src/3rdparty/chromium/third_party/dawn/generator/extract_json.py
 @@ -24,7 +24,7 @@
