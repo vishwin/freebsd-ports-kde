@@ -574,7 +574,7 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
 +#endif  // THIRD_PARTY_BLINK_RENDERER_CORE_{{namespace|upper}}_ELEMENT_TYPE_HELPERS_H_
 --- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/template_expander.py.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/template_expander.py
-@@ -64,6 +66,6 @@
+@@ -64,6 +64,6 @@
              parameters = generator(*args, **kwargs)
              return apply_template(template_path, parameters, filters=filters,
                                    tests=tests, template_cache=template_cache)
@@ -733,7 +733,18 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
  {% endfilter %}{# secure_context #}
 --- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/templates/interface_base.cc.tmpl.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/templates/interface_base.cc.tmpl
-@@ -669,13 +669,13 @@
+@@ -5,7 +5,10 @@
+ 
+ #include <algorithm>
+ 
++// ::CMP:: {{ cpp_class_or_partial }}
++// ::CMP:: {{ '%s.h' % cpp_class_or_partial }}
+ {% for filename in cpp_includes if filename != '%s.h' % cpp_class_or_partial %}
++// {{ filename }} {{ filename != '%s.h' % cpp_class_or_partial }}
+ #include "{{filename}}"
+ {% endfor %}
+ 
+@@ -669,13 +672,13 @@
  
    {% for feature_name, attribute_list in runtime_enabled_attributes | selectattr('is_data_type_property') | groupby('runtime_enabled_feature_name') %}
    {% filter runtime_enabled(feature_name) %}
@@ -749,7 +760,7 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
    {% endfilter %}
    {% endfor %}
  
-@@ -770,13 +770,13 @@
+@@ -770,13 +773,13 @@
  
    {% for feature_name, attrs in runtime_enabled_attributes | selectattr('is_data_type_property') | groupby('runtime_enabled_feature_name') %}
    {% filter runtime_enabled(feature_name) %}
