@@ -733,18 +733,7 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
  {% endfilter %}{# secure_context #}
 --- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/templates/interface_base.cc.tmpl.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/templates/interface_base.cc.tmpl
-@@ -5,7 +5,10 @@
- 
- #include <algorithm>
- 
-+// ::CMP:: {{ cpp_class_or_partial }}
-+// ::CMP:: {{ '%s.h' % cpp_class_or_partial }}
- {% for filename in cpp_includes if filename != '%s.h' % cpp_class_or_partial %}
-+// {{ filename }} {{ filename != '%s.h' % cpp_class_or_partial }}
- #include "{{filename}}"
- {% endfor %}
- 
-@@ -669,13 +672,13 @@
+@@ -669,13 +669,13 @@
  
    {% for feature_name, attribute_list in runtime_enabled_attributes | selectattr('is_data_type_property') | groupby('runtime_enabled_feature_name') %}
    {% filter runtime_enabled(feature_name) %}
@@ -760,7 +749,7 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
    {% endfilter %}
    {% endfor %}
  
-@@ -770,13 +773,13 @@
+@@ -770,13 +770,13 @@
  
    {% for feature_name, attrs in runtime_enabled_attributes | selectattr('is_data_type_property') | groupby('runtime_enabled_feature_name') %}
    {% filter runtime_enabled(feature_name) %}
@@ -810,7 +799,33 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
              self.typedefs[name] = typedef.idl_type
          self.additional_header_includes = set()
          definitions.accept(self)
-@@ -314,7 +314,7 @@
+@@ -185,6 +185,7 @@
+         include_paths = interface_info.get('dependencies_include_paths')
+ 
+         # Select appropriate Jinja template and contents function
++        extra_includes = []
+         if interface.is_callback:
+             header_template_filename = 'callback_interface.h.tmpl'
+             cpp_template_filename = 'callback_interface.cc.tmpl'
+@@ -201,10 +202,17 @@
+             header_template_filename = 'interface.h.tmpl'
+             cpp_template_filename = 'interface.cc.tmpl'
+             interface_context = v8_interface.interface_context
++            # This is a terrible hack because keywords.h gets lost elsewhere
++            extra_includes = ["third_party/blink/renderer/core/keywords.h"]
+ 
+         component_info = self.info_provider.component_info
+         template_context = interface_context(interface, definitions.interfaces, component_info)
+         includes.update(interface_info.get('cpp_includes', {}).get(component, set()))
++        print("COMPONENT=" + str(full_path))
++        print(repr(includes))
++        print("TMPL=" + cpp_template_filename + "\n\n")
++        if extra_includes:
++            includes.update(extra_includes)
+         if not interface.is_partial and not is_testing_target(full_path):
+             template_context['header_includes'].add(self.info_provider.include_path_for_export)
+             template_context['exported'] = self.info_provider.specifier_for_export
+@@ -314,7 +322,7 @@
          # idl_definitions.py. What we do instead is to resolve typedefs in
          # _generate_container_code() whenever a new union file is generated.
          self.typedefs = {}
@@ -819,7 +834,7 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
              self.typedefs[name] = typedef.idl_type
  
      def _generate_container_code(self, union_type):
-@@ -409,7 +409,7 @@
+@@ -409,7 +417,7 @@
          if not callback_functions:
              return ()
          outputs = set()
