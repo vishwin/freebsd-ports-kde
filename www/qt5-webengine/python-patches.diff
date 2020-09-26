@@ -663,6 +663,17 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
  
      def write_files(self, output_dir):
          for file_name, generator in self._outputs.items():
+--- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/templates/interface_base.cc.tmpl.orig
++++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/templates/interface_base.cc.tmpl
+@@ -675,7 +675,7 @@
+ 
+   {% for feature_name, attribute_list in runtime_enabled_attributes | selectattr('is_data_type_property', 'equalto', False) | groupby('runtime_enabled_feature_name') %}
+   {% filter runtime_enabled(feature_name) %}
+-  {{install_attributes(attribute_list | sort, 'instance_template', 'prototype_template', 'interface_template') | trim | indent(2)}}
++  {{install_attributes(attribute_list | sort(attribute='name'), 'instance_template', 'prototype_template', 'interface_template') | trim | indent(2)}}
+   {% endfilter %}
+   {% endfor %}
+ 
 --- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/idl_reader.py.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/idl_reader.py
 @@ -56,8 +56,7 @@
