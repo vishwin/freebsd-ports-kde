@@ -675,6 +675,35 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
      number_of_targets = len(targets)
      if number_of_targets > 1:
          raise Exception(
+--- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/code_generator_v8.py.orig
++++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/code_generator_v8.py
+@@ -94,7 +94,7 @@
+     def resolve(self, definitions, definition_name):
+         """Traverse definitions and resolves typedefs with the actual types."""
+         self.typedefs = {}
+-        for name, typedef in self.info_provider.typedefs.iteritems():
++        for name, typedef in self.info_provider.typedefs.items():
+             self.typedefs[name] = typedef.idl_type
+         self.additional_header_includes = set()
+         definitions.accept(self)
+@@ -314,7 +314,7 @@
+         # idl_definitions.py. What we do instead is to resolve typedefs in
+         # _generate_container_code() whenever a new union file is generated.
+         self.typedefs = {}
+-        for name, typedef in self.info_provider.typedefs.iteritems():
++        for name, typedef in self.info_provider.typedefs.items():
+             self.typedefs[name] = typedef.idl_type
+ 
+     def _generate_container_code(self, union_type):
+@@ -409,7 +409,7 @@
+         if not callback_functions:
+             return ()
+         outputs = set()
+-        for callback_function_dict in callback_functions.itervalues():
++        for callback_function_dict in callback_functions.values():
+             if callback_function_dict['component_dir'] != self.target_component:
+                 continue
+             callback_function = callback_function_dict['callback_function']
 --- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/idl_definitions.py.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/idl_definitions.py
 @@ -136,22 +136,22 @@
@@ -874,6 +903,15 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
  import re
  import shlex
  import string
+@@ -201,7 +201,7 @@
+ 
+ 
+ def load_interfaces_info_overall_pickle(info_dir):
+-    with open(os.path.join(info_dir, 'interfaces_info.pickle')) as interface_info_file:
++    with open(os.path.join(info_dir, 'interfaces_info.pickle'), "rb") as interface_info_file:
+         return pickle.load(interface_info_file)
+ 
+ 
 @@ -210,7 +210,7 @@
      |target| will be updated with |diff|.  Part of |diff| may be re-used in
      |target|.
@@ -883,6 +921,26 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
          if key not in target:
              target[key] = value
          elif type(value) == dict:
+@@ -227,16 +227,16 @@
+ 
+ def create_component_info_provider_core(info_dir):
+     interfaces_info = load_interfaces_info_overall_pickle(info_dir)
+-    with open(os.path.join(info_dir, 'core', 'component_info_core.pickle')) as component_info_file:
++    with open(os.path.join(info_dir, 'core', 'component_info_core.pickle'), "rb") as component_info_file:
+         component_info = pickle.load(component_info_file)
+     return ComponentInfoProviderCore(interfaces_info, component_info)
+ 
+ 
+ def create_component_info_provider_modules(info_dir):
+     interfaces_info = load_interfaces_info_overall_pickle(info_dir)
+-    with open(os.path.join(info_dir, 'core', 'component_info_core.pickle')) as component_info_file:
++    with open(os.path.join(info_dir, 'core', 'component_info_core.pickle'), "rb") as component_info_file:
+         component_info_core = pickle.load(component_info_file)
+-    with open(os.path.join(info_dir, 'modules', 'component_info_modules.pickle')) as component_info_file:
++    with open(os.path.join(info_dir, 'modules', 'component_info_modules.pickle'), "rb") as component_info_file:
+         component_info_modules = pickle.load(component_info_file)
+     return ComponentInfoProviderModules(
+         interfaces_info, component_info_core, component_info_modules)
 @@ -307,15 +307,16 @@
  
  def read_pickle_file(pickle_filename):
