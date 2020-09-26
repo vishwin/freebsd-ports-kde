@@ -531,29 +531,24 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
  
 --- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/macros.tmpl.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/macros.tmpl
-@@ -45,8 +45,14 @@
+@@ -25,7 +25,7 @@
+ 
+ 
+ {% macro trie_leaf(index, object, return_macro, lowercase_data) %}
+-{% set name, value = object.items()[0] %}
++{% set name, value = object.items()|first %}
+ {% if name|length %}
+ if (
+     {%- for c in name -%}
+@@ -45,7 +45,7 @@
  
  
  {% macro trie_switch(trie, index, return_macro, lowercase_data) %}
-+{% if trie is string %}
-+/* bogus */ {{ trie }}
-+{% else %}
-+/* len */ {{ trie|length }}
- {% if trie|length == 1 and trie.values()[0] is string %}
+-{% if trie|length == 1 and trie.values()[0] is string %}
++{% if trie|length == 1 and trie.values()|first is string %}
  {{ trie_leaf(index, trie, return_macro, lowercase_data) -}}
-+{% elif trie is string %}
-+{{ trie_leaf(index, trie, return_macro, lowercase_data) -}}
  {% else %}
      {% if lowercase_data %}
- switch (ToASCIILower(data[{{index}}])) {
-@@ -59,6 +65,7 @@
-     {% endfor %}
- }
- break;
-+{% endif %}
- {% endif %}
- {% endmacro %}
- 
 --- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/element_type_helpers.h.tmpl.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/element_type_helpers.h.tmpl
 @@ -12,7 +12,7 @@
