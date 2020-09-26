@@ -1586,7 +1586,13 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
  def _ChunkifyPNG(data):
 --- ./src/3rdparty/chromium/tools/grit/grit/gather/chrome_html.py.orig
 +++ ./src/3rdparty/chromium/tools/grit/grit/gather/chrome_html.py
-@@ -31,27 +31,27 @@
+@@ -26,32 +26,32 @@
+ 
+ 
+ # Distribution string to replace with distribution.
+-DIST_SUBSTR = '%DISTRIBUTION%'
++DIST_SUBSTR = b'%DISTRIBUTION%'
+ 
  
  # Matches a chrome theme source URL.
  _THEME_SOURCE = lazy_re.compile(
@@ -1624,7 +1630,7 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
  
  def GetImageList(
      base_path, filename, scale_factors, distribution,
-@@ -85,7 +85,7 @@
+@@ -85,11 +85,13 @@
        images.append((scale_factor, scale_filename))
      return images
  
@@ -1633,7 +1639,35 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
      # filename is probably a URL, only return filename itself.
      return [('1x', filename)]
  
-@@ -245,10 +245,12 @@
+-  filename = filename.replace(DIST_SUBSTR, distribution)
++  base_path = base_path.encode() if isinstance(base_path, str) else base_path
++
++  filename = filename.replace(DIST_SUBSTR, distribution.encode() if isinstance(distribution,str) else distribution)
+   if filename_expansion_function:
+     filename = filename_expansion_function(filename)
+   filepath = os.path.join(base_path, filename)
+@@ -98,15 +100,15 @@
+   for scale_factor in scale_factors:
+     # Check for existence of file and add to image set.
+     scale_path = os.path.split(os.path.join(base_path, filename))
+-    scale_image_path = os.path.join(scale_path[0], scale_factor, scale_path[1])
++    scale_image_path = os.path.join(scale_path[0], scale_factor if isinstance(scale_factor, bytes) else scale_factor.encode(), scale_path[1])
+     if os.path.isfile(scale_image_path):
+       # HTML/CSS always uses forward slashed paths.
+-      parts = filename.rsplit('/', 1)
++      parts = filename.rsplit(b'/', 1)
+       if len(parts) == 1:
+-        path = ''
++        path = b''
+       else:
+-        path = parts[0] + '/'
+-      scale_image_name = path + scale_factor + '/' + parts[-1]
++        path = parts[0] + b'/'
++      scale_image_name = path + scale_factor + b'/' + parts[-1]
+       images.append((scale_factor, scale_image_name))
+   return images
+ 
+@@ -245,10 +247,12 @@
      string
    """
    attr = src_match.group('attribute')
@@ -1648,6 +1682,15 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
  
  
  def RemoveImageSetImages(text, scale_factors):
+@@ -256,7 +260,7 @@
+   supported scale_factors.
+   """
+   return _CSS_IMAGE_SETS.sub(
+-      lambda m: RemoveImagesNotIn(scale_factors, m), text)
++      lambda m: RemoveImagesNotIn(scale_factors, m), text.encode() if isinstance(text,str) else text)
+ 
+ 
+ def ProcessImageSets(
 --- ./src/3rdparty/chromium/tools/grit/grit/format/html_inline.py.orig
 +++ ./src/3rdparty/chromium/tools/grit/grit/format/html_inline.py
 @@ -35,30 +35,30 @@
