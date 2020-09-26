@@ -1630,7 +1630,13 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
  
  def GetImageList(
      base_path, filename, scale_factors, distribution,
-@@ -85,11 +85,13 @@
+@@ -80,16 +80,19 @@
+     images = [('1x', filename)]
+     for scale_factor in scale_factors:
+       scale_filename = "%s@%s" % (theme_match.group('baseurl'), scale_factor)
++      scale_filename = scale_filename.encode()
+       if theme_match.group('query'):
+         scale_filename += theme_match.group('query')
        images.append((scale_factor, scale_filename))
      return images
  
@@ -1646,7 +1652,7 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
    if filename_expansion_function:
      filename = filename_expansion_function(filename)
    filepath = os.path.join(base_path, filename)
-@@ -98,15 +100,15 @@
+@@ -98,15 +101,15 @@
    for scale_factor in scale_factors:
      # Check for existence of file and add to image set.
      scale_path = os.path.split(os.path.join(base_path, filename))
@@ -1667,7 +1673,7 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
        images.append((scale_factor, scale_image_name))
    return images
  
-@@ -120,13 +122,16 @@
+@@ -120,13 +123,16 @@
      quote: a string giving the quotation character to use (i.e. "'")
  
    Returns:
@@ -1687,7 +1693,7 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
  
  
  def UrlToImageSet(
-@@ -148,21 +153,25 @@
+@@ -148,21 +154,25 @@
      distribution: string that should replace %DISTRIBUTION%.
  
    Returns:
@@ -1717,7 +1723,7 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
  def InsertImageSet(
      src_match, base_path, scale_factors, distribution,
      filename_expansion_function=None):
-@@ -178,15 +187,20 @@
+@@ -178,15 +188,20 @@
      distribution: string that should replace %DISTRIBUTION%.
  
    Returns:
@@ -1741,7 +1747,7 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
  
  
  def InsertImageStyle(
-@@ -204,11 +218,13 @@
+@@ -204,11 +219,13 @@
  
    # Don't modify the source if there is only one image or image already defines
    # a style.
@@ -1759,7 +1765,7 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
  
  
  def InsertImageSets(
-@@ -219,17 +235,21 @@
+@@ -219,17 +236,21 @@
    """
    # Add high DPI urls for css attributes: content, background,
    # or *-image or <img src="foo">.
@@ -1787,7 +1793,7 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
  def RemoveImagesNotIn(scale_factors, src_match):
    """Regex replace function which removes images for scale factors not in
    scale_factors.
-@@ -245,10 +265,12 @@
+@@ -245,10 +266,12 @@
      string
    """
    attr = src_match.group('attribute')
@@ -1802,7 +1808,7 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
  
  
  def RemoveImageSetImages(text, scale_factors):
-@@ -256,7 +278,7 @@
+@@ -256,7 +279,7 @@
    supported scale_factors.
    """
    return _CSS_IMAGE_SETS.sub(
@@ -1913,7 +1919,47 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
    return prefix + data_url + suffix
  
  def SrcsetInlineAsDataURL(
-@@ -290,9 +305,12 @@
+@@ -218,10 +233,11 @@
+     before, url, descriptor, separator, after = parts[i:i+5]
+ 
+     # There must be a comma-separated next entry or this must be the last entry.
+-    assert separator == "," or (separator == "" and i == len(parts) - 5), (
++    assert isinstance(separator, bytes)
++    assert separator == b"," or (separator == b"" and i == len(parts) - 5), (
+            "Bad srcset format in {}".format(srcset_match.group(0)))
+     # Both before and after the entry must be empty
+-    assert before == after == "", (
++    assert before == after == b"", (
+            "Bad srcset format in {}".format(srcset_match.group(0)))
+ 
+     if filename_expansion_function:
+@@ -229,8 +245,10 @@
+     else:
+       filename = url
+ 
++    assert isinstance(filename, bytes)
+     data_url = ConvertFileToDataURL(filename, base_path, distribution,
+                                     inlined_files, names_only)
++    assert isinstance(data_url, bytes)
+ 
+     # This is not "names_only" mode
+     if data_url:
+@@ -238,12 +256,12 @@
+       if descriptor:
+         candidate.append(descriptor)
+ 
+-      new_candidates.append(" ".join(candidate))
++      new_candidates.append(b" ".join(candidate))
+ 
+   prefix = srcset_match.string[srcset_match.start():
+       srcset_match.start('srcset')]
+   suffix = srcset_match.string[srcset_match.end('srcset'):srcset_match.end()]
+-  return prefix + ','.join(new_candidates) + suffix
++  return prefix + b','.join(new_candidates) + suffix
+ 
+ class InlinedData:
+   """Helper class holding the results from DoInline().
+@@ -290,9 +308,12 @@
    def SrcReplace(src_match, filepath=input_filepath,
                   inlined_files=inlined_files):
      """Helper function to provide SrcInlineAsDataURL with the base file path"""
@@ -1927,7 +1973,7 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
  
    def SrcsetReplace(srcset_match, filepath=input_filepath,
                   inlined_files=inlined_files):
-@@ -308,42 +326,42 @@
+@@ -308,42 +329,42 @@
      filename = [v for k, v in src_match.groupdict().items()
                  if k.startswith('file') and v][0]
  
@@ -1982,7 +2028,7 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
          if next_if is None or next_if.start() >= end_if.end():
            count = count - 1
            if count == 0:
-@@ -353,13 +371,13 @@
+@@ -353,13 +374,13 @@
            count = count + 1
            pos = next_if.end()
  
@@ -2000,7 +2046,36 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
  
    def InlineFileContents(src_match,
                           pattern,
-@@ -400,9 +418,10 @@
+@@ -368,7 +389,8 @@
+     """Helper function to inline external files of various types"""
+     filepath = GetFilepath(src_match)
+     if filepath is None:
+-      return src_match.group(0)
++      content = src_match.group(0)
++      return content if isinstance(content, bytes) else content.encode()
+     inlined_files.add(filepath)
+ 
+     if names_only:
+@@ -378,7 +400,7 @@
+           allow_external_script,
+           rewrite_function,
+           filename_expansion_function=filename_expansion_function))
+-      return ""
++      return b""
+     # To recursively save inlined files, we need InlinedData instance returned
+     # by DoInline.
+     inlined_data_inst=DoInline(filepath, grd_node,
+@@ -388,7 +410,8 @@
+ 
+     inlined_files.update(inlined_data_inst.inlined_files)
+ 
+-    return pattern % inlined_data_inst.inlined_data;
++    content = pattern % inlined_data_inst.inlined_data;
++    return content if isinstance(content, bytes) else content.encode()
+ 
+ 
+   def InlineIncludeFiles(src_match):
+@@ -400,9 +423,10 @@
    def InlineScript(match):
      """Helper function to inline external script files"""
      attrs = (match.group('attrs1') + match.group('attrs2')).strip()
@@ -2013,7 +2088,27 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
                                strip_whitespace=True)
  
    def InlineCSSText(text, css_filepath):
-@@ -459,20 +478,23 @@
+@@ -427,7 +451,8 @@
+     """
+     filepath = GetFilepath(src_match, base_path)
+     if filepath is None:
+-      return src_match.group(0)
++      content = src_match.group(0)
++      return content if isinstance(content, bytes) else content.encode()
+ 
+     # Even if names_only is set, the CSS file needs to be opened, because it
+     # can link to images that need to be added to the file set.
+@@ -439,7 +464,8 @@
+     # When resolving CSS files we need to pass in the path so that relative URLs
+     # can be resolved.
+ 
+-    return pattern % InlineCSSText(text, filepath)
++    content = pattern % InlineCSSText(text, filepath)
++    return content if isinstance(content, bytes) else content.encode()
+ 
+   def GetUrlRegexString(postfix=''):
+     """Helper function that returns a string for a regex that matches url('')
+@@ -459,20 +485,24 @@
          r'[ ]*[0-9.]*x[ ]*(,[ ]*)?)+\)')
      value_re = '(%s|%s)' % (GetUrlRegexString(), image_set_value_re)
      css_re = property_re + value_re
@@ -2037,11 +2132,12 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
         directive.
      """
 -    return re.sub(r'@import\s+' + GetUrlRegexString() + r';',
++    text = text if isinstance(text, bytes) else text.encode()
 +    return re.sub(rb'@import\s+' + GetUrlRegexString().encode() + rb';',
                    lambda m: InlineCSSFile(m, '%s', filepath),
                    text)
  
-@@ -484,9 +506,25 @@
+@@ -484,9 +514,25 @@
    # InlineScript, InlineCSSFile and InlineIncludeFiles on text we're eventually
    # going to throw out anyway.
    flat_text = CheckConditionalElements(flat_text)
@@ -2068,7 +2164,7 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
    if not preprocess_only:
      if strip_whitespace:
        flat_text = minifier.Minify(flat_text, input_filename)
-@@ -494,13 +532,17 @@
+@@ -494,13 +540,17 @@
      if not allow_external_script:
        # We need to inline css and js before we inline images so that image
        # references gets inlined in the css and js
