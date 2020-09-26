@@ -253,6 +253,26 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
  
  
  class MojomProcessor(object):
+--- ./src/3rdparty/chromium/ui/ozone/generate_constructor_list.py.orig
++++ ./src/3rdparty/chromium/ui/ozone/generate_constructor_list.py
+@@ -68,7 +68,7 @@
+   This is just "Create" + typename + platform.
+   """
+ 
+-  return 'Create' + typename + string.capitalize(platform)
++  return 'Create' + typename + platform.capitalize()
+ 
+ 
+ def GenerateConstructorList(out, namespace, export, typenames, platforms,
+@@ -165,7 +165,7 @@
+   # Write to standard output or file specified by --output_cc.
+   out_cc = sys.stdout
+   if options.output_cc:
+-    out_cc = open(options.output_cc, 'wb')
++    out_cc = open(options.output_cc, 'w')
+ 
+   GenerateConstructorList(out_cc, options.namespace, options.export,
+                           typenames, platforms, includes, usings)
 --- ./src/3rdparty/chromium/ui/ozone/generate_ozone_platform_list.py.orig
 +++ ./src/3rdparty/chromium/ui/ozone/generate_ozone_platform_list.py
 @@ -63,7 +63,7 @@
