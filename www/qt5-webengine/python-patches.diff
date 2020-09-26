@@ -2000,7 +2000,20 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
  
    def InlineFileContents(src_match,
                           pattern,
-@@ -459,20 +477,23 @@
+@@ -400,9 +418,10 @@
+   def InlineScript(match):
+     """Helper function to inline external script files"""
+     attrs = (match.group('attrs1') + match.group('attrs2')).strip()
++    attrs = attrs if isinstance(attrs, bytes) else attrs.encode()
+     if attrs:
+-      attrs = ' ' + attrs
+-    return InlineFileContents(match, '<script' + attrs + '>%s</script>',
++      attrs = b' ' + attrs
++    return InlineFileContents(match, b'<script' + attrs + b'>%s</script>',
+                               strip_whitespace=True)
+ 
+   def InlineCSSText(text, css_filepath):
+@@ -459,20 +478,23 @@
          r'[ ]*[0-9.]*x[ ]*(,[ ]*)?)+\)')
      value_re = '(%s|%s)' % (GetUrlRegexString(), image_set_value_re)
      css_re = property_re + value_re
@@ -2028,7 +2041,7 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
                    lambda m: InlineCSSFile(m, '%s', filepath),
                    text)
  
-@@ -484,9 +505,25 @@
+@@ -484,9 +506,25 @@
    # InlineScript, InlineCSSFile and InlineIncludeFiles on text we're eventually
    # going to throw out anyway.
    flat_text = CheckConditionalElements(flat_text)
@@ -2055,7 +2068,7 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
    if not preprocess_only:
      if strip_whitespace:
        flat_text = minifier.Minify(flat_text, input_filename)
-@@ -494,13 +531,17 @@
+@@ -494,13 +532,17 @@
      if not allow_external_script:
        # We need to inline css and js before we inline images so that image
        # references gets inlined in the css and js
