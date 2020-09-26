@@ -299,6 +299,17 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
  
    GeneratePlatformListText(out_txt, platforms)
    GeneratePlatformListHeader(out_h, platforms)
+--- ./src/3rdparty/chromium/ui/webui/resources/tools/js_modulizer.py.orig
++++ ./src/3rdparty/chromium/ui/webui/resources/tools/js_modulizer.py
+@@ -123,7 +123,7 @@
+   # across platforms.
+   with io.open(os.path.join(out_folder, out_filename), 'w', newline='\n') as f:
+     for l in lines:
+-      f.write(unicode(l, 'utf-8'))
++      f.write(l)
+   return
+ 
+ def main(argv):
 --- ./src/3rdparty/chromium/services/device/public/cpp/usb/tools/usb_ids.py.orig
 +++ ./src/3rdparty/chromium/services/device/public/cpp/usb/tools/usb_ids.py
 @@ -16,14 +16,18 @@
@@ -1498,6 +1509,18 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
  
  def Encode(message, encoding):
    '''Returns a byte stream that represents |message| in the given |encoding|.'''
+@@ -211,8 +215,9 @@
+   mode = 'rb' if encoding == BINARY else 'rU'
+   with open(abs(filename), mode) as f:
+     data = f.read()
+-  if encoding not in (BINARY, RAW_TEXT):
+-    data = data.decode(encoding)
++  # Binary returns a bytes object, and text mode already converts to str
++  # if encoding not in (BINARY, RAW_TEXT):
++  #   data = data.decode(encoding)
+   return data
+ 
+ 
 --- ./src/3rdparty/chromium/tools/grit/grit/node/misc.py.orig
 +++ ./src/3rdparty/chromium/tools/grit/grit/node/misc.py
 @@ -478,7 +478,7 @@
