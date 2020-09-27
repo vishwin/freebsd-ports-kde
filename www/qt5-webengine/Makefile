@@ -152,7 +152,19 @@ pre-configure:
 	cd ${WRKSRC} && ${QT_BINDIR}/syncqt.pl -version ${QT5_VERSION}
 
 post-configure:
+	# Clean up detritus from the *patch* phase
+	cd ${WRKSRC} && find . -name '*.orig' -delete
+	cd ${WRKSRC} && find . -name '*.rej' -delete
+	# Apply the Python3 fixes
 	cd ${WRKSRC} && ${PATCH} -p0 < ${FILESDIR}/python3-build.diff
+
+# Convenience target while working on the Python3 patches:
+# assuming `post-configure` was done, above, the only leftovers
+# from patching are exactly the bits that are relevant for
+# the Python build, so we can re-generate the diffs based on
+# the .orig files that are left over.
+keep-python:
+	cd ${WRKSRC} && for f in `find  . -name '*.orig'` ; do diff -u "$$f" `dirname "$$f"`/`basename "$$f" .orig` || true ; done | sed 's/\t20[0-9][0-9]-.*//'
 
 
 .include <bsd.port.post.mk>
