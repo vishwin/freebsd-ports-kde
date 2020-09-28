@@ -485,7 +485,7 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
  static {{namespace}}FunctionMap* g_{{namespace|lower}}_constructors = nullptr;
  
 -{% for tag in tags|sort if not tag.noConstructor %}
-+{% for tag in tags if not tag.noConstructor %}
++{% for tag in tags|sort(attribute='name') if not tag.noConstructor %}
  static {{namespace}}Element* {{namespace}}{{tag.name.to_upper_camel_case()}}Constructor(
      Document& document, const CreateElementFlags flags) {
    {% if tag.runtimeEnabled %}
@@ -494,7 +494,7 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
    // compile in MSVC. If tags list is empty, add check to skip this.
    static const Create{{namespace}}FunctionMapData data[] = {
 -  {% for tag in tags|sort if not tag.noConstructor %}
-+  {% for tag in tags if not tag.noConstructor %}
++  {% for tag in tags|sort(attribute='name') if not tag.noConstructor %}
      { {{cpp_namespace}}::{{tag|symbol}}Tag, {{namespace}}{{tag.name.to_upper_camel_case()}}Constructor },
    {% endfor %}
    };
@@ -556,7 +556,7 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
  namespace blink {
  // Type checking.
 -{% for tag in tags|sort if not tag.multipleTagNames and not tag.noTypeHelpers %}
-+{% for tag in tags if not tag.multipleTagNames and not tag.noTypeHelpers %}
++{% for tag in tags|sort(attribute='name') if not tag.multipleTagNames and not tag.noTypeHelpers %}
  class {{tag.interface}};
  template <>
  inline bool IsElementOfType<const {{tag.interface}}>(const Node& node) {
