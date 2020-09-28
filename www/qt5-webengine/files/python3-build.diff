@@ -468,13 +468,13 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
  
  // Tags
 -{% for tag in tags|sort %}
-+{% for tag in tags %}
++{% for tag in tags|sort(attribute='name') %}
  {{symbol_export}}extern const blink::{{namespace}}QualifiedName& {{tag|symbol}}Tag;
  {% endfor %}
  
  // Attributes
 -{% for attr in attrs|sort %}
-+{% for attr in attrs %}
++{% for attr in attrs|sort(attribute='name') %}
  {{symbol_export}}extern const blink::QualifiedName& {{attr|symbol}}Attr;
  {% endfor %}
  
