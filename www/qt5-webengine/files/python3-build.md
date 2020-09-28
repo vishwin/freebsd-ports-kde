@@ -4,6 +4,8 @@
 > because that's where I developed it. I hope it applies elsewhere, too.
 
 You will need:
+ - Qt5 WebEngine **5.15.0** for these patches to apply almost as-is.
+   Minor changes are needed for 5.15.1.
  - `python3-build.diff` (the actual Python3 bits)
  - `patch-configure.pri` (patches configure to accept Python3)
  - **possibly** `patch-*.py` from this directory; those are the
