@@ -920,6 +920,30 @@ cd /wrkdirs/usr/ports/www/qt5-webengine/work/qtwebengine-everywhere-src-5.15.0 &
      })
      if context['optional_features']:
          includes.add('platform/bindings/v8_per_context_data.h')
+@@ -1084,6 +1084,23 @@
+     Returns:
+         [(length, [(test, method)])]
+     """
++    for length, effective_overloads in effective_overloads_by_length:
++        print("Length %d" % length)
++        for e in effective_overloads:
++            print("::")
++            d = e[0]
++            if (d.get("name") == "postMessage"):
++                print(d["name"] + " (" + d["snake_case_name"] + ")")
++                for k,v in d.items():
++                    print("  " + str(k) + "  v=" + repr(v))
++            #if d.get("snake_case_name"):
++            #    print(d["name"] + " (" + d["snake_case_name"] + ")")
++            #else:
++            #    if not d.get("name"):
++            #        print(str(d["is_constructor"]) + " constructor " + d["cpp_value"])
++            #    else:
++            #        print(d["name"])
++        
+     return [(length, list(resolution_tests_methods(effective_overloads)))
+             for length, effective_overloads in effective_overloads_by_length]
+ 
 --- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/compute_interfaces_info_overall.py.orig
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/compute_interfaces_info_overall.py
 @@ -127,12 +127,12 @@
