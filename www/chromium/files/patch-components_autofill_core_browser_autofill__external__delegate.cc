@@ -1,6 +1,6 @@
---- components/autofill/core/browser/autofill_external_delegate.cc.orig	2020-05-13 18:40:26 UTC
+--- components/autofill/core/browser/autofill_external_delegate.cc.orig	2020-09-08 19:14:03 UTC
 +++ components/autofill/core/browser/autofill_external_delegate.cc
-@@ -117,7 +117,7 @@ void AutofillExternalDelegate::OnSuggestionsReturned(
+@@ -121,7 +121,7 @@ void AutofillExternalDelegate::OnSuggestionsReturned(
  
      // Append the "Hide Suggestions" menu item for only Autofill Address and
      // Autocomplete popups.

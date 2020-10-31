@@ -15,11 +15,13 @@
     SUBDIR += arpscan
     SUBDIR += arpwatch
     SUBDIR += arts++
+    SUBDIR += bandwhich
     SUBDIR += bandwidthd
     SUBDIR += bgpq3
     SUBDIR += bgpq4
     SUBDIR += bgpuma
     SUBDIR += blackbox_exporter
+    SUBDIR += bosun
     SUBDIR += bpft
     SUBDIR += braa
     SUBDIR += bsnmp-regex
@@ -54,7 +56,6 @@
     SUBDIR += coovachilli
     SUBDIR += cowpatty
     SUBDIR += cricket
-    SUBDIR += crmsh
     SUBDIR += darkstat
     SUBDIR += devmon
     SUBDIR += devmon-templates
@@ -118,7 +119,6 @@
     SUBDIR += klg
     SUBDIR += lg
     SUBDIR += librenms
-    SUBDIR += librenms-agent
     SUBDIR += libsmi
     SUBDIR += lldpd
     SUBDIR += mbrowse
@@ -279,6 +279,8 @@
     SUBDIR += php72-snmp
     SUBDIR += php73-snmp
     SUBDIR += php74-snmp
+    SUBDIR += php80-snmp
+    SUBDIR += phpfpm_exporter
     SUBDIR += phpipam
     SUBDIR += phpweathermap
     SUBDIR += ping_exporter
@@ -309,7 +311,6 @@
     SUBDIR += py-pyIOSXR
     SUBDIR += py-pyang
     SUBDIR += py-pyeapi
-    SUBDIR += py-pynsca
     SUBDIR += py-pynxos
     SUBDIR += py-pysmi
     SUBDIR += py-pysnmp
@@ -317,7 +318,6 @@
     SUBDIR += py-pyzabbix
     SUBDIR += py-snmp_passpersist
     SUBDIR += py-snmpclitools
-    SUBDIR += py-yapsnmp
     SUBDIR += rackmonkey
     SUBDIR += rancid3
     SUBDIR += rate
@@ -372,7 +372,9 @@
     SUBDIR += unbound_exporter
     SUBDIR += unifi-devel
     SUBDIR += unifi-lts
+    SUBDIR += unifi-poller
     SUBDIR += unifi5
+    SUBDIR += unifi6
     SUBDIR += virt-viewer
     SUBDIR += wdiag
     SUBDIR += whatmask

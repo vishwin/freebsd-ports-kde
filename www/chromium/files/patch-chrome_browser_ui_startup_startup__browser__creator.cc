@@ -1,15 +1,6 @@
---- chrome/browser/ui/startup/startup_browser_creator.cc.orig	2020-05-13 18:40:25 UTC
+--- chrome/browser/ui/startup/startup_browser_creator.cc.orig	2020-09-08 19:14:01 UTC
 +++ chrome/browser/ui/startup/startup_browser_creator.cc
-@@ -82,7 +82,7 @@
- #include "chrome/browser/ui/user_manager.h"
- #endif
- 
--#if defined(TOOLKIT_VIEWS) && defined(OS_LINUX)
-+#if defined(TOOLKIT_VIEWS) && (defined(OS_LINUX) || defined(OS_BSD))
- #include "ui/events/devices/x11/touch_factory_x11.h"  // nogncheck
- #endif
- 
-@@ -291,7 +291,7 @@ bool IsSilentLaunchEnabled(const base::CommandLine& co
+@@ -303,7 +303,7 @@ bool IsSilentLaunchEnabled(const base::CommandLine& co
  // true, send a warning if guest mode is requested but not allowed by policy.
  bool IsGuestModeEnforced(const base::CommandLine& command_line,
                           bool show_warning) {
@@ -18,13 +9,17 @@
    PrefService* service = g_browser_process->local_state();
    DCHECK(service);
  
-@@ -675,8 +675,10 @@ bool StartupBrowserCreator::ProcessCmdLineImpl(
+@@ -687,12 +687,14 @@ bool StartupBrowserCreator::ProcessCmdLineImpl(
    }
  #endif  // OS_CHROMEOS
  
 +#if 0 /* XXX */
  #if defined(TOOLKIT_VIEWS) && defined(USE_X11)
-   ui::TouchFactory::SetTouchDeviceListFromCommandLine();
+   // TODO(https://crbug.com/1097696): make it available on ozone/linux.
+   if (!features::IsUsingOzonePlatform())
+     ui::TouchFactory::SetTouchDeviceListFromCommandLine();
+   else
+     NOTIMPLEMENTED_LOG_ONCE();
 +#endif
  #endif
  

@@ -1,6 +1,6 @@
---- chrome/browser/policy/configuration_policy_handler_list_factory.cc.orig	2020-05-13 18:40:22 UTC
+--- chrome/browser/policy/configuration_policy_handler_list_factory.cc.orig	2020-09-08 19:14:00 UTC
 +++ chrome/browser/policy/configuration_policy_handler_list_factory.cc
-@@ -1162,11 +1162,11 @@ const PolicyToPreferenceMapEntry kSimplePolicyMap[] = 
+@@ -1232,11 +1232,11 @@ const PolicyToPreferenceMapEntry kSimplePolicyMap[] = 
      base::Value::Type::BOOLEAN },
  #endif  // !defined(OS_MACOSX) && !defined(OS_CHROMEOS)
  
@@ -14,7 +14,7 @@
  
  #if !defined(OS_MACOSX)
    { key::kFullscreenAllowed,
-@@ -1234,11 +1234,11 @@ const PolicyToPreferenceMapEntry kSimplePolicyMap[] = 
+@@ -1304,11 +1304,11 @@ const PolicyToPreferenceMapEntry kSimplePolicyMap[] = 
      base::Value::Type::BOOLEAN },
  #endif  // BUILDFLAG(ENABLE_SPELLCHECK)
  
@@ -26,5 +26,5 @@
 -#endif  // defined(OS_LINUX) && !defined(OS_CHROMEOS)
 +#endif  // (defined(OS_LINUX) && !defined(OS_CHROMEOS)) || defined(OS_BSD)
  
- #if defined(OS_CHROMEOS)
-   { key::kRequiredClientCertificateForUser,
+   { key::kScrollToTextFragmentEnabled,
+     prefs::kScrollToTextFragmentEnabled,

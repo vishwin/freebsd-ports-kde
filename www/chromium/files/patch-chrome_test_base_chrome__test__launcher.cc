@@ -1,4 +1,4 @@
---- chrome/test/base/chrome_test_launcher.cc.orig	2020-05-13 18:39:39 UTC
+--- chrome/test/base/chrome_test_launcher.cc.orig	2020-09-08 19:14:01 UTC
 +++ chrome/test/base/chrome_test_launcher.cc
 @@ -61,7 +61,7 @@
  #endif
@@ -9,7 +9,16 @@
  #include "chrome/browser/first_run/scoped_relaunch_chrome_browser_override.h"
  #include "chrome/browser/upgrade_detector/installed_version_poller.h"
  #include "testing/gtest/include/gtest/gtest.h"
-@@ -231,7 +231,7 @@ int LaunchChromeTests(size_t parallel_jobs,
+@@ -79,7 +79,7 @@ int ChromeTestSuiteRunner::RunTestSuite(int argc, char
+   content::ContentTestSuiteBase::RegisterInProcessThreads();
+ #endif
+ #if defined(OS_WIN) || defined(OS_MACOSX) || \
+-    (defined(OS_LINUX) && !defined(OS_CHROMEOS))
++    (defined(OS_LINUX) && !defined(OS_CHROMEOS)) || defined(OS_BSD)
+   InstalledVersionPoller::ScopedDisableForTesting disable_polling(
+       InstalledVersionPoller::MakeScopedDisableForTesting());
+ #endif
+@@ -229,7 +229,7 @@ int LaunchChromeTests(size_t parallel_jobs,
    }
  
  #if defined(OS_WIN) || defined(OS_MACOSX) || \

@@ -1,7 +1,7 @@
---- chrome/test/BUILD.gn.orig	2020-05-13 18:40:25 UTC
+--- chrome/test/BUILD.gn.orig	2020-09-08 19:14:01 UTC
 +++ chrome/test/BUILD.gn
-@@ -6109,7 +6109,7 @@ test("chrome_app_unittests") {
-     "//components/gwp_asan/buildflags",
+@@ -6228,7 +6228,7 @@ test("chrome_app_unittests") {
+     "//components/heap_profiling/in_process",
      "//components/safe_browsing:buildflags",
    ]
 -  if (!is_fuchsia) {

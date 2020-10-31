@@ -1,6 +1,6 @@
---- headless/lib/headless_content_main_delegate.cc.orig	2020-05-13 18:40:32 UTC
+--- headless/lib/headless_content_main_delegate.cc.orig	2020-09-08 19:14:06 UTC
 +++ headless/lib/headless_content_main_delegate.cc
-@@ -322,7 +322,7 @@ void HeadlessContentMainDelegate::InitCrashReporter(
+@@ -324,7 +324,7 @@ void HeadlessContentMainDelegate::InitCrashReporter(
      const base::CommandLine& command_line) {
    if (command_line.HasSwitch(::switches::kDisableBreakpad))
      return;
@@ -9,7 +9,7 @@
    // TODO(fuchsia): Implement this when crash reporting/Breakpad are available
    // in Fuchsia. (crbug.com/753619)
    NOTIMPLEMENTED();
-@@ -351,7 +351,7 @@ void HeadlessContentMainDelegate::InitCrashReporter(
+@@ -353,7 +353,7 @@ void HeadlessContentMainDelegate::InitCrashReporter(
    crash_reporter::InitializeCrashpadWithEmbeddedHandler(
        process_type.empty(), process_type, "", base::FilePath());
  #endif  // defined(HEADLESS_USE_BREAKPAD)
@@ -19,8 +19,8 @@
  
  
 @@ -405,7 +405,7 @@ int HeadlessContentMainDelegate::RunProcess(
+   return 0;
  }
- #endif  // !defined(CHROME_MULTIPLE_DLL_CHILD)
  
 -#if defined(OS_LINUX)
 +#if defined(OS_LINUX) || defined(OS_BSD)

@@ -1,4 +1,4 @@
---- net/proxy_resolution/configured_proxy_resolution_service.cc.orig	2020-05-15 15:16:32 UTC
+--- net/proxy_resolution/configured_proxy_resolution_service.cc.orig	2020-09-08 19:14:08 UTC
 +++ net/proxy_resolution/configured_proxy_resolution_service.cc
 @@ -47,7 +47,7 @@
  #elif defined(OS_MACOSX)
@@ -18,7 +18,7 @@
  constexpr net::NetworkTrafficAnnotationTag kSystemProxyConfigTrafficAnnotation =
      net::DefineNetworkTrafficAnnotation("proxy_config_system", R"(
        semantics {
-@@ -1435,7 +1435,7 @@ ConfiguredProxyResolutionService::CreateSystemProxyCon
+@@ -1410,7 +1410,7 @@ ConfiguredProxyResolutionService::CreateSystemProxyCon
               << "profile_io_data.cc::CreateProxyConfigService and this should "
               << "be used only for examples.";
    return std::make_unique<UnsetProxyConfigService>();

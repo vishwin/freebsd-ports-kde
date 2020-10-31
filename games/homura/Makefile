@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	homura
-PORTVERSION=	5.0
+PORTVERSION=	5.2
 CATEGORIES=	games
 
 MAINTAINER=	Alexander88207@protonmail.com
@@ -23,8 +23,10 @@ RUN_DEPENDS=	zenity:x11/zenity \
 		vulkaninfo:devel/vulkan-tools \
 		glxinfo:graphics/mesa-demos
 
-USE_GITHUB=	yes
-GH_ACCOUNT=	the-homura-project
+USE_GITLAB=	yes
+GL_ACCOUNT=	Alexander88207
+GL_PROJECT=	Homura
+GL_COMMIT=	e52176c0b1350add43846ba25816ecb90dc0d4b0
 
 NO_BUILD=	yes
 
@@ -33,9 +35,9 @@ PLIST_FILES=	bin/Homura
 .include <bsd.port.pre.mk>
 
 .if ${ARCH} == "i386"
-RUN_DEPENDS+=	wine:emulators/wine
+RUN_DEPENDS+=	wine:emulators/wine-devel
 .else
-RUN_DEPENDS+=	wine:emulators/i386-wine
+RUN_DEPENDS+=	wine:emulators/i386-wine-devel
 .endif
 
 do-install:

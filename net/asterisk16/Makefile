@@ -1,17 +1,14 @@
 # $FreeBSD$
 
 PORTNAME=	asterisk
-PORTVERSION=	16.11.1
-PORTREVISION=	1
+PORTVERSION=	16.14.0
 CATEGORIES=	net
-MASTER_SITES=	https://downloads.asterisk.org/pub/telephony/%SUBDIR%/:DEFAULT,g729 \
-		http://www.pjsip.org/release/${PJSIP_VERSION}/:PJSIP
+MASTER_SITES=	https://downloads.asterisk.org/pub/telephony/%SUBDIR%/:DEFAULT,g729
 MASTER_SITE_SUBDIR=	asterisk/ \
 			asterisk/old-releases/ \
 			sounds/releases/:g729
 PKGNAMESUFFIX=	16
-DISTFILES=	${DISTNAME}${EXTRACT_SUFX} \
-		pjproject-${PJSIP_VERSION}.tar.bz2:PJSIP
+DISTFILES=	${DISTNAME}${EXTRACT_SUFX}
 DIST_SUBDIR=	${PORTNAME}
 
 MAINTAINER=	madpilot@FreeBSD.org
@@ -20,12 +17,10 @@ COMMENT=	Open Source PBX and telephony toolkit
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
+ONLY_FOR_ARCHS=	amd64 armv6 armv7 i386 powerpc powerpc64 powerpc64le sparc64
+
 LIB_DEPENDS=	libuuid.so:misc/e2fsprogs-libuuid \
 		libjansson.so:devel/jansson
-
-ONLY_FOR_ARCHS=	amd64 armv6 armv7 i386 powerpc powerpc64 sparc64
-
-EXTRACT_ONLY:=	${DISTNAME}${EXTRACT_SUFX}
 
 USES=		bison compiler:c11 cpe gmake gnome iconv libedit localbase \
 		shebangfix sqlite ssl ncurses
@@ -34,7 +29,9 @@ USE_LDCONFIG=	yes
 USE_RC_SUBR=	asterisk
 USE_GITHUB=	nodefault
 
-PJSIP_VERSION=	2.9
+EXTRACT_ONLY:=	${DISTNAME}${EXTRACT_SUFX}
+
+PJSIP_VERSION=	2.10
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--datarootdir=${DATADIR} \
 		--with-ilbc=internal \
@@ -60,14 +57,14 @@ MAKE_ARGS+=	NOISY_BUILD=yes \
 
 CONFLICTS=		ossp-uuid-[0-9]*
 CONFLICTS_BUILD=	linuxthreads-*
-CONFLICTS_INSTALL=	asterisk13
+CONFLICTS_INSTALL=	asterisk13 asterisk18
 
 OPTIONS_DEFINE=			ASTVERSION BACKTRACE CURL EXCHANGE FREETDS G729 LDAP LUA MACRO \
 				MP3PLAYER OOH323 OPTIMIZED_CFLAGS PJSIP PORTAUDIO RADIUS SNMP \
-				SPANDSP SRTP SYSINFO URIPARSER XMPP
+				SPANDSP SRTP SYSINFO URIPARSER XMLDOC XMPP
 OPTIONS_DEFAULT=		CURL FREETDS GSM LUA MACRO MP3PLAYER NEWT ODBC OPUS MYSQL PGSQL \
 				PJSIP PORTAUDIO RADIUS SNMP SPANDSP SPEEX SRTP URIPARSER \
-				VORBIS
+				VORBIS XMLDOC
 
 OPTIONS_DEFINE_i386=		DAHDI
 OPTIONS_DEFINE_amd64=		DAHDI
@@ -110,6 +107,7 @@ PJSIP_DESC?=	Build the PJSIP based SIP channel
 SRTP_DESC?=	SecureRTP support
 SYSINFO_DESC?=	Use devel/libsysinfo to get system information
 URIPARSER_DESC?= Use RFC 3986 compliant uriparser library
+XMLDOC_DESC?=	Build and install XML documentation
 XMPP_DESC?=	XMPP/GTALK support
 
 OPTIONS_SUB=		yes
@@ -171,6 +169,7 @@ PJSIP_USES=		pkgconfig
 PJSIP_LIB_DEPENDS=	libsrtp2.so:net/libsrtp2 \
 			libspeex.so:audio/speex \
 			libspeexdsp.so:audio/speexdsp
+PJSIP_GH_TUPLE=		pjsip:pjproject:${PJSIP_VERSION}:pjsip
 
 PORTAUDIO_CONFIGURE_WITH=	portaudio
 PORTAUDIO_LIB_DEPENDS=	libportaudio.so:audio/portaudio
@@ -201,6 +200,8 @@ URIPARSER_LIB_DEPENDS=	liburiparser.so:net/uriparser
 VORBIS_CONFIGURE_WITH=	ogg
 VORBIS_LIB_DEPENDS=	libvorbis.so:audio/libvorbis \
 			libogg.so:audio/libogg
+
+XMLDOC_CONFIGURE_ENABLE=	xmldoc
 
 XMPP_CONFIGURE_WITH=	iksemel
 XMPP_LIB_DEPENDS=	libiksemel.so:textproc/iksemel

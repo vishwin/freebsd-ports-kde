@@ -1,6 +1,6 @@
---- components/autofill/core/browser/personal_data_manager.cc.orig	2020-05-13 18:40:26 UTC
+--- components/autofill/core/browser/personal_data_manager.cc.orig	2020-09-08 19:14:03 UTC
 +++ components/autofill/core/browser/personal_data_manager.cc
-@@ -1907,7 +1907,7 @@ bool PersonalDataManager::IsServerCard(const CreditCar
+@@ -1916,7 +1916,7 @@ bool PersonalDataManager::IsServerCard(const CreditCar
  
  bool PersonalDataManager::ShouldShowCardsFromAccountOption() const {
  // The feature is only for Linux, Windows and Mac.
@@ -9,7 +9,7 @@
      defined(OS_CHROMEOS)
    return false;
  #else
-@@ -1931,7 +1931,7 @@ bool PersonalDataManager::ShouldShowCardsFromAccountOp
+@@ -1940,7 +1940,7 @@ bool PersonalDataManager::ShouldShowCardsFromAccountOp
  
    // The option should only be shown if the user has not already opted-in.
    return !is_opted_in;

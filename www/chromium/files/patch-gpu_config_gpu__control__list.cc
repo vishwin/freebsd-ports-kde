@@ -1,6 +1,6 @@
---- gpu/config/gpu_control_list.cc.orig	2020-05-13 18:40:32 UTC
+--- gpu/config/gpu_control_list.cc.orig	2020-09-08 19:14:06 UTC
 +++ gpu/config/gpu_control_list.cc
-@@ -16,7 +16,11 @@
+@@ -17,7 +17,11 @@
  #include "base/values.h"
  #include "build/build_config.h"
  #include "gpu/config/gpu_util.h"
@@ -12,7 +12,7 @@
  
  namespace gpu {
  namespace {
-@@ -221,7 +225,7 @@ bool GpuControlList::More::GLVersionInfoMismatch(
+@@ -275,7 +279,7 @@ bool GpuControlList::More::GLVersionInfoMismatch(
  GpuControlList::GLType GpuControlList::More::GetDefaultGLType() {
  #if defined(OS_CHROMEOS)
    return kGLTypeGL;
@@ -21,7 +21,7 @@
    return kGLTypeGL;
  #elif defined(OS_MACOSX)
    return kGLTypeGL;
-@@ -789,7 +793,7 @@ GpuControlList::OsType GpuControlList::GetOsType() {
+@@ -781,7 +785,7 @@ GpuControlList::OsType GpuControlList::GetOsType() {
    return kOsAndroid;
  #elif defined(OS_FUCHSIA)
    return kOsFuchsia;

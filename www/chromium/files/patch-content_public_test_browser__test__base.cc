@@ -1,4 +1,4 @@
---- content/public/test/browser_test_base.cc.orig	2020-05-13 18:40:32 UTC
+--- content/public/test/browser_test_base.cc.orig	2020-09-08 19:14:05 UTC
 +++ content/public/test/browser_test_base.cc
 @@ -73,7 +73,7 @@
  #include "ui/gl/gl_implementation.h"

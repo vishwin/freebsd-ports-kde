@@ -2,10 +2,11 @@
 # $FreeBSD$
 
 PORTNAME=	chromium
-PORTVERSION=	83.0.4103.116
+PORTVERSION=	85.0.4183.121
+PORTREVISION=	1
 CATEGORIES?=	www java
 MASTER_SITES=	https://commondatastorage.googleapis.com/chromium-browser-official/ \
-		LOCAL/cpm/chromium/:fonts
+		LOCAL/rene/chromium/:fonts
 DISTFILES=	${DISTNAME}${EXTRACT_SUFX}
 
 MAINTAINER?=	chromium@FreeBSD.org
@@ -20,10 +21,10 @@ BUILD_DEPENDS=	bash:shells/bash \
 
 .if !defined(GN_ONLY)
 BUILD_DEPENDS+=	gperf:devel/gperf \
-		yasm:devel/yasm \
 		ffmpeg>=3.2.2,1:multimedia/ffmpeg \
 		flock:sysutils/flock \
 		node:www/node \
+		xcb-proto>0:x11/xcb-proto \
 		${LOCALBASE}/bin/ar:devel/binutils \
 		${LOCALBASE}/include/linux/videodev2.h:multimedia/v4l_compat \
 		${LOCALBASE}/share/usbids/usb.ids:misc/usbids \
@@ -83,7 +84,7 @@ DOS2UNIX_FILES=	third_party/skia/third_party/vulkanmemoryallocator/include/vk_me
 .if !defined(GN_ONLY)
 CPE_VENDOR=	google
 CPE_PRODUCT=	chrome
-USE_GL=		gl
+USE_GL=		gbm gl
 USE_LDCONFIG=	${DATADIR}
 USE_PERL5=	build
 USE_XORG=	x11 xcb xcomposite xcursor xext xdamage xfixes xi \
@@ -137,7 +138,7 @@ GN_ARGS+=	google_api_key="AIzaSyBsp9n41JLW8jCokwn7vhoaMejDFRd1mp8" \
 		google_default_client_secret="IR1za9-1VK0zZ0f_O8MVFicn"
 
 .if !defined(GN_ONLY)
-SUB_FILES=	chromium-browser.desktop chrome pkg-message
+SUB_FILES=	chromium-browser.desktop chrome
 SUB_LIST+=	COMMENT="${COMMENT}"
 
 OPTIONS_DEFINE=	CODECS CUPS DEBUG DRIVER KERBEROS TEST
@@ -146,7 +147,7 @@ DRIVER_DESC=	Install chromedriver
 OPTIONS_GROUP=		AUDIO
 OPTIONS_GROUP_AUDIO=	ALSA PULSEAUDIO SNDIO
 
-OPTIONS_DEFAULT=	ALSA CODECS CUPS DRIVER KERBEROS
+OPTIONS_DEFAULT=	CODECS CUPS DRIVER KERBEROS SNDIO
 OPTIONS_SUB=		yes
 
 ALSA_LIB_DEPENDS=	libasound.so:audio/alsa-lib
@@ -199,7 +200,7 @@ SNDIO_VARS_OFF=		GN_ARGS+=use_sndio=false
 .include "Makefile.tests"
 TEST_ALL_TARGET=	${TEST_TARGETS}
 TEST_DISTFILES=		${PORTNAME}-${DISTVERSION}-testdata${EXTRACT_SUFX} \
-			test_fonts${EXTRACT_SUFX}:fonts
+			test_fonts-85${EXTRACT_SUFX}:fonts
 
 .include <bsd.port.options.mk>
 
@@ -237,6 +238,7 @@ post-extract-TEST-on:
 	@${MV} ${WRKDIR}/test_fonts ${WRKSRC}/third_party/test_fonts/
 
 post-patch:
+	# XXX nop for www/chromium itself
 	@${REINPLACE_CMD} -e 's|@@PACKAGE@@|chromium|' \
 			-e 's|@@MENUNAME@@|Chromium Web Browser|' \
 			${WRKSRC}/chrome/app/resources/manpage.1.in
@@ -254,7 +256,15 @@ pre-configure:
 	#./build/linux/unbundle/remove_bundled_libraries.py [list of preserved]
 	cd ${WRKSRC} && ${SETENV} ${CONFIGURE_ENV} ${PYTHON_CMD} \
 		./build/linux/unbundle/replace_gn_files.py --system-libraries \
-		ffmpeg flac fontconfig freetype harfbuzz-ng libdrm libpng libwebp libxml libxslt openh264 opus snappy yasm || ${FALSE}
+		ffmpeg flac fontconfig freetype harfbuzz-ng libdrm libpng libwebp libxml libxslt openh264 opus snappy || ${FALSE}
+
+	# We need the site package from xcbgen, which installs as python3.x (really: default version), while the chromium
+	# build still needs to use python2.7. It works, because xcbgen can run with both versions, but we want to avoid
+	# having the pre-compiled pyc files from 2.7 in the 3.x site packages
+	# Remove this as soon as chromium uses python3.x as well
+	@${MKDIR} ${WRKDIR}/site-packages/xcbgen
+	${CP} ${PYTHONBASE}/lib/python${PYTHON_DEFAULT}/site-packages/xcbgen/*.py \
+		${WRKDIR}/site-packages/xcbgen
 .endif
 
 do-configure:

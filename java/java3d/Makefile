@@ -17,8 +17,8 @@ BROKEN_aarch64=		fails to compile: GVector.java:168: bad use of '>'
 BROKEN_armv6=		fails to compile: build.xml: Compile failed; see the compiler error output for details
 BROKEN_armv7=		fails to compile: build.xml: Compile failed; see the compiler error output for details
 
-USES=		gl tar:bzip2 xorg
-USE_JAVA=	yes
+USES=		compiler:c11 gl tar:bzip2 xorg
+USE_JAVA=	8
 USE_GL=		gl
 USE_XORG=	xt
 JAVA_VENDOR=	openjdk

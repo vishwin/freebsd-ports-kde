@@ -86,6 +86,7 @@
     SUBDIR += minizip
     SUBDIR += mscompress
     SUBDIR += mtf
+    SUBDIR += nfpm
     SUBDIR += nomarch
     SUBDIR += nwreckdum
     SUBDIR += ocaml-bz2
@@ -160,6 +161,10 @@
     SUBDIR += php74-phar
     SUBDIR += php74-zip
     SUBDIR += php74-zlib
+    SUBDIR += php80-bz2
+    SUBDIR += php80-phar
+    SUBDIR += php80-zip
+    SUBDIR += php80-zlib
     SUBDIR += pigz
     SUBDIR += pixz
     SUBDIR += plzip
@@ -168,14 +173,11 @@
     SUBDIR += ppunpack
     SUBDIR += pxz
     SUBDIR += py-acefile
-    SUBDIR += py-backports.lzma
     SUBDIR += py-borgbackup
     SUBDIR += py-brotli
     SUBDIR += py-brotlipy
-    SUBDIR += py-bup
     SUBDIR += py-bz2file
     SUBDIR += py-libarchive-c
-    SUBDIR += py-librtfcomp
     SUBDIR += py-lz4
     SUBDIR += py-lzma
     SUBDIR += py-lzstring
@@ -220,6 +222,7 @@
     SUBDIR += star
     SUBDIR += stuffit
     SUBDIR += szip
+    SUBDIR += tar-stream-chunker
     SUBDIR += tardy
     SUBDIR += thunar-archive-plugin
     SUBDIR += torrentzip
@@ -250,6 +253,7 @@
     SUBDIR += xdms
     SUBDIR += xmill
     SUBDIR += xpk
+    SUBDIR += zchunk
     SUBDIR += zip
     SUBDIR += zip-ada
     SUBDIR += zipmix

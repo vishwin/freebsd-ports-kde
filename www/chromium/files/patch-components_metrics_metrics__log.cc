@@ -1,6 +1,6 @@
---- components/metrics/metrics_log.cc.orig	2020-05-13 18:40:26 UTC
+--- components/metrics/metrics_log.cc.orig	2020-09-08 19:14:03 UTC
 +++ components/metrics/metrics_log.cc
-@@ -210,7 +210,7 @@ void MetricsLog::RecordCoreSystemProfile(
+@@ -215,7 +215,7 @@ void MetricsLog::RecordCoreSystemProfile(
  // OperatingSystemVersion refers to the ChromeOS release version.
  #if defined(OS_CHROMEOS)
    os->set_kernel_version(base::SysInfo::KernelVersion());

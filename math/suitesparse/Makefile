@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	suitesparse
-PORTVERSION=	5.8.0
+PORTVERSION=	5.8.1
 DISTVERSIONPREFIX=	v
 CATEGORIES=	math
 
@@ -12,7 +12,9 @@ COMMENT=	Set of packages for sparse matrix calculation
 LICENSE=	GPLv2 LGPL21
 LICENSE_COMB=	dual
 
-LIB_DEPENDS=	libmetis.so:math/metis
+LIB_DEPENDS=	libgmp.so:math/gmp	\
+		libmpfr.so:math/mpfr	\
+		libmetis.so:math/metis
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	DrTimothyAldenDavis
@@ -35,6 +37,7 @@ LDFLAGS+=	-L${WRKSRC}/lib # prevent linking with shared libs from the preinstall
 CONFLICTS_INSTALL=	mongoose plinkseq # bin/mongoose
 
 OPTIONS_DEFINE=		DEMOS DOCS OPENMP TBB
+OPTIONS_EXCLUDE_aarch64=	OPENMP
 OPTIONS_RADIO=		BLAS
 OPTIONS_RADIO_BLAS=	ATLAS GOTOBLAS NETLIB OPENBLAS
 OPTIONS_DEFAULT=	OPENBLAS OPENMP TBB
@@ -66,7 +69,7 @@ MODULES=	AMD CAMD CCOLAMD CHOLMOD COLAMD CSparse CXSparse_newfiles	\
 
 .if ${ARCH} == i386
 # See PR 230888 : Missing 64 bit atomic functions for i386
-USES+=		compiler:gcc-c++11-lib
+USE_GCC=	yes
 LDFLAGS+=	-latomic
 .elif defined(PPC_ABI) && ${PPC_ABI} == ELFv1
 USE_GCC=	yes

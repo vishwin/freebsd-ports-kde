@@ -1,6 +1,6 @@
---- base/allocator/partition_allocator/partition_alloc_unittest.cc.orig	2020-03-23 15:20:45 UTC
+--- base/allocator/partition_allocator/partition_alloc_unittest.cc.orig	2020-09-08 19:13:57 UTC
 +++ base/allocator/partition_allocator/partition_alloc_unittest.cc
-@@ -314,9 +314,13 @@ void FreeFullPage(PartitionPage* page) {
+@@ -313,9 +313,13 @@ void FreeFullPage(PartitionRoot<base::internal::Thread
    }
  }
  

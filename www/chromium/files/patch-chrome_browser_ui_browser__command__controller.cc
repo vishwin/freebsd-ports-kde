@@ -1,12 +1,12 @@
---- chrome/browser/ui/browser_command_controller.cc.orig	2020-05-13 18:40:25 UTC
+--- chrome/browser/ui/browser_command_controller.cc.orig	2020-09-08 19:14:01 UTC
 +++ chrome/browser/ui/browser_command_controller.cc
-@@ -84,7 +84,7 @@
+@@ -83,7 +83,7 @@
  #include "components/session_manager/core/session_manager.h"
  #endif
  
 -#if defined(OS_LINUX) && !defined(OS_CHROMEOS)
 +#if (defined(OS_LINUX) || defined(OS_BSD)) && !defined(OS_CHROMEOS)
- #include "ui/base/ime/linux/text_edit_key_bindings_delegate_auralinux.h"
+ #include "ui/base/ime/linux/text_edit_key_bindings_delegate_auralinux.h"  // nogncheck
  #endif
  
 @@ -254,7 +254,7 @@ bool BrowserCommandController::IsReservedCommandOrKey(
@@ -27,7 +27,7 @@
      case IDC_MINIMIZE_WINDOW:
        browser_->window()->Minimize();
        break;
-@@ -979,7 +979,7 @@ void BrowserCommandController::InitCommandState() {
+@@ -953,7 +953,7 @@ void BrowserCommandController::InitCommandState() {
    command_updater_.UpdateCommandEnabled(IDC_VISIT_DESKTOP_OF_LRU_USER_4, true);
    command_updater_.UpdateCommandEnabled(IDC_VISIT_DESKTOP_OF_LRU_USER_5, true);
  #endif

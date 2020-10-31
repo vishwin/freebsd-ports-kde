@@ -23,7 +23,6 @@
     SUBDIR += c
     SUBDIR += cbmbasic
     SUBDIR += ccl
-    SUBDIR += cdent
     SUBDIR += ceylon
     SUBDIR += cfortran
     SUBDIR += chaiscript
@@ -126,6 +125,7 @@
     SUBDIR += halide
     SUBDIR += harbour
     SUBDIR += haskell-mode.el
+    SUBDIR += hermes
     SUBDIR += hla
     SUBDIR += hs-brainfuck
     SUBDIR += hs-unlambda
@@ -141,10 +141,7 @@
     SUBDIR += jimtcl
     SUBDIR += jruby
     SUBDIR += julia
-    SUBDIR += julia06
-    SUBDIR += julia07
     SUBDIR += julia10
-    SUBDIR += julia11
     SUBDIR += jython
     SUBDIR += kawa
     SUBDIR += kf5-kross
@@ -171,6 +168,7 @@
     SUBDIR += lua51
     SUBDIR += lua52
     SUBDIR += lua53
+    SUBDIR += lua54
     SUBDIR += luajit
     SUBDIR += luajit-openresty
     SUBDIR += malbolge
@@ -260,6 +258,8 @@
     SUBDIR += php73-extensions
     SUBDIR += php74
     SUBDIR += php74-extensions
+    SUBDIR += php80
+    SUBDIR += php80-extensions
     SUBDIR += picoc
     SUBDIR += plexil
     SUBDIR += pocl
@@ -269,7 +269,6 @@
     SUBDIR += purescript
     SUBDIR += py-hy
     SUBDIR += py-lupa
-    SUBDIR += py-mx-base
     SUBDIR += py-qt5-qml
     SUBDIR += py-textX
     SUBDIR += pypy
@@ -284,10 +283,10 @@
     SUBDIR += python2
     SUBDIR += python27
     SUBDIR += python3
-    SUBDIR += python35
     SUBDIR += python36
     SUBDIR += python37
     SUBDIR += python38
+    SUBDIR += python39
     SUBDIR += qmasm
     SUBDIR += qscheme
     SUBDIR += quickjs
@@ -304,6 +303,7 @@
     SUBDIR += ruby25
     SUBDIR += ruby26
     SUBDIR += ruby27
+    SUBDIR += ruby30
     SUBDIR += runawk
     SUBDIR += rust
     SUBDIR += rust-bootstrap
@@ -336,6 +336,7 @@
     SUBDIR += spidermonkey24
     SUBDIR += spidermonkey52
     SUBDIR += spidermonkey60
+    SUBDIR += spidermonkey78
     SUBDIR += spl
     SUBDIR += squeak
     SUBDIR += squirrel
@@ -348,7 +349,6 @@
     SUBDIR += tcl86
     SUBDIR += tcl87
     SUBDIR += tclX
-    SUBDIR += tinypy
     SUBDIR += tolua
     SUBDIR += tolua++
     SUBDIR += tuareg-mode.el
