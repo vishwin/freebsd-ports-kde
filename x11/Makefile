@@ -253,6 +253,7 @@
     SUBDIR += pipeglade
     SUBDIR += pixman
     SUBDIR += plank
+    SUBDIR += plasma-bigscreen
     SUBDIR += plasma-wayland-protocols
     SUBDIR += plasma5-kactivitymanagerd
     SUBDIR += plasma5-kgamma5

@@ -1,0 +1,7 @@
+A big launcher giving you easy access to any installed apps and skills.
+Controllable via voice or TV remote.
+
+To test this, you can use
+> plasmashell --replace -p org.kde.plasma.mycroft.bigscreen
+
+WWW: https://plasma-bigscreen.org/
