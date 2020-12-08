@@ -30,7 +30,8 @@ _QT5_DISTS=		3d activeqt androidextras base charts connectivity datavis3d \
 			serialport speech svg tools translations virtualkeyboard wayland \
 			webchannel webengine webglplugin websockets webview winextras \
 			x11extras xmlpatterns
-_QT6_DISTS=		base declarative
+_QT6_DISTS=		5compat base declarative doc quick3d quickcontrols2 quicktimeline shadertools svg tools translations wayland
+
 _QT6_DIST_base_TAGNAME=	39d99c7
 _QT6_DIST_declarative_TAGNAME=	0efc634
 
@@ -418,7 +419,6 @@ _sub_need_clean=	\#\#
 .    endif
 post-install: qt-post-install
 qt-post-install:
-<<<<<<< HEAD
 # We can't use SUB_FILES with the shared pkg-change.in.
 # We need it to be a script instead of a group of @unexecs.
 # Do two steps of processing -- introducing the Qt variables,
@@ -426,13 +426,6 @@ qt-post-install:
 # according to the port's settings -- in one sed and write
 # to pkg-change.tmp. Then split it up and minify for the
 # install and deinstall step.
-=======
-.        if ${QT_DEFINES:N-*}
-# We can't use SUB_FILES with a shared pkg-deinstall.in.
-# We need it to be a script instead of a group of @unexecs, otherwise
-# qconfig-modules.h cleanup will be run in pre-deinstall stage, which is
-# useless. This will probably be replaced by a Keywords/ script in the future.
->>>>>>> 5705b0411dc3... qt6: add some preparations to fetch Qt6 from Github
 	@${SED} -e 's,%%QT_MODNAME%%,${QT_MODNAME},g' \
 		-e 's,%%QT_INCDIR%%,${QT_INCDIR},g' \
 		-e 's,@need_add,${_sub_need_add},' \
@@ -449,7 +442,7 @@ qt-post-install:
 	@${MKDIR} ${STAGEDIR}${QT_INCDIR}/QtCore/modules
 	@${ECHO_CMD} -n \
 		> ${STAGEDIR}${QT_INCDIR}/QtCore/modules/qconfig-${QT_MODNAME}.h
-.          for def in ${QT_DEFINES:N-*:O:u:C/=.*$//}
+.      for def in ${QT_DEFINES:N-*:O:u:C/=.*$//}
 	@${ECHO_CMD} "#if !defined(QT_${def}) && !defined(QT_NO_${def})" \
 		>> ${STAGEDIR}${QT_INCDIR}/QtCore/modules/qconfig-${QT_MODNAME}.h
 	${ECHO_CMD} "# define QT_${def}" \
@@ -458,29 +451,18 @@ qt-post-install:
 		>> ${STAGEDIR}${QT_INCDIR}/QtCore/modules/qconfig-${QT_MODNAME}.h
 	@${ECHO_CMD} \
 		>> ${STAGEDIR}${QT_INCDIR}/QtCore/modules/qconfig-${QT_MODNAME}.h
-.          endfor
+.      endfor
 	@${ECHO_CMD} "${PREFIX}/${QT_INCDIR_REL}/QtCore/modules/qconfig-${QT_MODNAME}.h" \
 		>> ${TMPPLIST}
-<<<<<<< HEAD
 .    endif # ${QT_DEFINES:N-*}
 .    if ${QT_CONFIG:N-*}
-=======
-	@${ECHO_CMD} "@exec echo '#include <QtCore/modules/qconfig-${QT_MODNAME}.h>' >> ${PREFIX}/${QT_INCDIR_REL}/QtCore/qconfig-modules.h" \
-		>> ${TMPPLIST}
-.        endif # ${QT_DEFINES:N-*}
-.        if ${QT_CONFIG:N-*}
->>>>>>> 5705b0411dc3... qt6: add some preparations to fetch Qt6 from Github
 	@${MKDIR} ${STAGEDIR}${QT_MKSPECDIR}/modules
 	${ECHO_CMD} "QT_CONFIG += ${QT_CONFIG:N-*:O:u}" \
 		> ${STAGEDIR}${QT_MKSPECDIR}/modules/qt_config_${QT_MODNAME}.pri
 	@${ECHO_CMD} "${PREFIX}/${QT_MKSPECDIR_REL}/modules/qt_config_${QT_MODNAME}.pri" \
 		>> ${TMPPLIST}
-<<<<<<< HEAD
 .    endif # ${QT_CONFIG:N-*}
 .  endif # M5
-=======
-.        endif # ${QT_CONFIG:N-*}
-.      endif # M5
 
 # Handle misc/qtchooser wrapper installation and deinstallation
 # If a port installs Qt version-specific binaries (e.g. "designer" which existed as a Qt4 application
@@ -495,5 +477,4 @@ qt-post-install:
 .      endif
 .    endif
 .  endif
->>>>>>> 5705b0411dc3... qt6: add some preparations to fetch Qt6 from Github
 .endif # defined(_QT_DIST_MK_INCLUDED)
