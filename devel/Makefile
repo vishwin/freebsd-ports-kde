@@ -5388,6 +5388,7 @@
     SUBDIR += qt6-5compat
     SUBDIR += qt6-base
     SUBDIR += qt6-tools
+    SUBDIR += qt6-translations
     SUBDIR += qtcreator
     SUBDIR += quickcheck++
     SUBDIR += quilt
