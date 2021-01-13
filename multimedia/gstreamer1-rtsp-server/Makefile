@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	gstreamer1-rtsp-server
-PORTVERSION=	1.16.2
+PORTVERSION=	${GST1_VERSION}
 CATEGORIES=	multimedia
 MASTER_SITES=	http://gstreamer.freedesktop.org/src/gst-rtsp-server/
 DISTNAME=	gst-rtsp-server-${PORTVERSION}

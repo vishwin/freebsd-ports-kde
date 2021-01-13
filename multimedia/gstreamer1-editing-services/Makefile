@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	gstreamer1-editing-services
-PORTVERSION=	1.16.2
+PORTVERSION=	${GST1_VERSION}
 CATEGORIES=	multimedia
 MASTER_SITES=	http://gstreamer.freedesktop.org/src/gstreamer-editing-services/
 DISTNAME=	gstreamer-editing-services-${PORTVERSION}
