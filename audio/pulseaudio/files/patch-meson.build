@@ -1,0 +1,13 @@
+--- meson.build.orig	2021-01-24 17:01:02 UTC
++++ meson.build
+@@ -612,6 +612,10 @@ endif
+ 
+ # Module dependencies
+ 
++if cc.has_header('execinfo.h')
++  add_project_link_arguments('-lexecinfo', language: ['c', 'cpp'])
++endif
++
+ if cc.has_header('sys/soundcard.h')
+   cdata.set('HAVE_OSS_OUTPUT', 1)
+   cdata.set('HAVE_OSS_WRAPPER', 1)

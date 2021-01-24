@@ -1,4 +1,4 @@
---- src/pulse/util.c.orig	2015-12-29 00:56:00 UTC
+--- src/pulse/util.c.orig	2021-01-16 17:26:36 UTC
 +++ src/pulse/util.c
 @@ -30,6 +30,10 @@
  #include <time.h>
@@ -11,7 +11,7 @@
  
  #ifdef HAVE_PWD_H
  #include <pwd.h>
-@@ -200,7 +204,7 @@ char *pa_get_binary_name(char *s, size_t
+@@ -224,7 +228,7 @@ char *pa_get_binary_name(char *s, size_t l) {
      }
  #endif
  
@@ -20,7 +20,7 @@
      {
          char *rp;
          /* This works on Linux and Debian/kFreeBSD */
-@@ -215,13 +219,17 @@ char *pa_get_binary_name(char *s, size_t
+@@ -239,13 +243,17 @@ char *pa_get_binary_name(char *s, size_t l) {
  
  #ifdef __FreeBSD__
      {

@@ -63,13 +63,13 @@ lib/cmake/PulseAudio/PulseAudioConfig.cmake
 lib/cmake/PulseAudio/PulseAudioConfigVersion.cmake
 lib/libpulse-mainloop-glib.so
 lib/libpulse-mainloop-glib.so.0
-lib/libpulse-mainloop-glib.so.0.0.5
+lib/libpulse-mainloop-glib.so.0.0.6
 lib/libpulse-simple.so
 lib/libpulse-simple.so.0
 lib/libpulse-simple.so.0.1.1
 lib/libpulse.so
 lib/libpulse.so.0
-lib/libpulse.so.0.21.1
+lib/libpulse.so.0.23.0
 %%AVAHI%%lib/pulse-%%PULSE_VERSION%%/modules/libavahi-wrap.so
 lib/pulse-%%PULSE_VERSION%%/modules/module-allow-passthrough.so
 lib/pulse-%%PULSE_VERSION%%/modules/module-device-manager.so
@@ -80,7 +80,6 @@ lib/pulse-%%PULSE_VERSION%%/modules/libprotocol-cli.so
 lib/pulse-%%PULSE_VERSION%%/modules/libprotocol-http.so
 lib/pulse-%%PULSE_VERSION%%/modules/libprotocol-native.so
 lib/pulse-%%PULSE_VERSION%%/modules/libprotocol-simple.so
-lib/pulse-%%PULSE_VERSION%%/modules/libraop.so
 lib/pulse-%%PULSE_VERSION%%/modules/librtp.so
 %%WEBRTC_AEC%%lib/pulse-%%PULSE_VERSION%%/modules/libwebrtc-util.so
 %%ALSA%%lib/pulse-%%PULSE_VERSION%%/modules/module-alsa-card.so
@@ -124,8 +123,6 @@ lib/pulse-%%PULSE_VERSION%%/modules/module-oss.so
 lib/pulse-%%PULSE_VERSION%%/modules/module-pipe-sink.so
 lib/pulse-%%PULSE_VERSION%%/modules/module-pipe-source.so
 lib/pulse-%%PULSE_VERSION%%/modules/module-position-event-sounds.so
-%%AVAHI%%lib/pulse-%%PULSE_VERSION%%/modules/module-raop-discover.so
-lib/pulse-%%PULSE_VERSION%%/modules/module-raop-sink.so
 lib/pulse-%%PULSE_VERSION%%/modules/module-remap-sink.so
 lib/pulse-%%PULSE_VERSION%%/modules/module-remap-source.so
 lib/pulse-%%PULSE_VERSION%%/modules/module-rescue-streams.so
@@ -238,10 +235,10 @@ man/man5/pulse-daemon.conf.5.gz
 %%ALSA%%share/pulseaudio/alsa-mixer/profile-sets/sb-omni-surround-5.1.conf
 %%ALSA%%share/pulseaudio/alsa-mixer/profile-sets/steelseries-arctis-5-usb-audio.conf
 %%ALSA%%share/pulseaudio/alsa-mixer/profile-sets/steelseries-arctis-7-usb-audio.conf
-share/zsh/site-functions/_pulseaudio
 share/locale/af/LC_MESSAGES/pulseaudio.mo
 share/locale/as/LC_MESSAGES/pulseaudio.mo
 share/locale/be/LC_MESSAGES/pulseaudio.mo
+share/locale/bg/LC_MESSAGES/pulseaudio.mo
 share/locale/bn_IN/LC_MESSAGES/pulseaudio.mo
 share/locale/ca/LC_MESSAGES/pulseaudio.mo
 share/locale/cs/LC_MESSAGES/pulseaudio.mo
@@ -252,8 +249,8 @@ share/locale/el/LC_MESSAGES/pulseaudio.mo
 share/locale/es/LC_MESSAGES/pulseaudio.mo
 share/locale/fi/LC_MESSAGES/pulseaudio.mo
 share/locale/fr/LC_MESSAGES/pulseaudio.mo
-share/locale/gu/LC_MESSAGES/pulseaudio.mo
 share/locale/gl/LC_MESSAGES/pulseaudio.mo
+share/locale/gu/LC_MESSAGES/pulseaudio.mo
 share/locale/he/LC_MESSAGES/pulseaudio.mo
 share/locale/hi/LC_MESSAGES/pulseaudio.mo
 share/locale/hr/LC_MESSAGES/pulseaudio.mo
@@ -261,6 +258,7 @@ share/locale/hu/LC_MESSAGES/pulseaudio.mo
 share/locale/id/LC_MESSAGES/pulseaudio.mo
 share/locale/it/LC_MESSAGES/pulseaudio.mo
 share/locale/ja/LC_MESSAGES/pulseaudio.mo
+share/locale/kk/LC_MESSAGES/pulseaudio.mo
 share/locale/kn/LC_MESSAGES/pulseaudio.mo
 share/locale/ko/LC_MESSAGES/pulseaudio.mo
 share/locale/lt/LC_MESSAGES/pulseaudio.mo
@@ -291,3 +289,4 @@ share/vala/vapi/libpulse-simple.deps
 share/vala/vapi/libpulse-simple.vapi
 share/vala/vapi/libpulse.deps
 share/vala/vapi/libpulse.vapi
+share/zsh/site-functions/_pulseaudio
