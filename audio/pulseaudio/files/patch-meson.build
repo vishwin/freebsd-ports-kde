@@ -1,13 +1,21 @@
---- meson.build.orig	2021-01-24 17:01:02 UTC
+--- meson.build.orig	2021-01-16 17:26:36 UTC
 +++ meson.build
-@@ -612,6 +612,10 @@ endif
+@@ -233,6 +233,7 @@ endforeach
+ # FIXME: move this to the above set
+ if cc.has_header('pthread.h')
+   cdata.set('HAVE_PTHREAD', 1)
++  add_project_link_arguments('-lpthread', language: ['c', 'cpp'])
+ endif
+ 
+ if cc.has_header_symbol('pthread.h', 'PTHREAD_PRIO_INHERIT')
+@@ -611,6 +612,10 @@ if x11_dep.found()
+ endif
  
  # Module dependencies
- 
++
 +if cc.has_header('execinfo.h')
 +  add_project_link_arguments('-lexecinfo', language: ['c', 'cpp'])
 +endif
-+
+ 
  if cc.has_header('sys/soundcard.h')
    cdata.set('HAVE_OSS_OUTPUT', 1)
-   cdata.set('HAVE_OSS_WRAPPER', 1)
