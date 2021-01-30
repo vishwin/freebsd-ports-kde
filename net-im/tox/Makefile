@@ -22,7 +22,7 @@ LIB_DEPENDS=	libvpx.so:multimedia/libvpx		\
 		libsodium.so:security/libsodium		\
 		libopus.so:audio/opus			\
 		libconfig.so:devel/libconfig
-TEST_DEPENDS=	libopencv_core.so:graphics/opencv-core
+TEST_DEPENDS=	libopencv_core.so:graphics/opencv
 
 CONFLICTS=	toxcore-legacy-0.1.*
 

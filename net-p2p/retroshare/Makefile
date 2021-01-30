@@ -24,7 +24,6 @@ LIB_DEPENDS=	libsqlcipher.so:databases/sqlcipher \
 		libgnome-keyring.so:security/libgnome-keyring \
 		libgpgme.so:security/gpgme \
 		libopencv_highgui.so:graphics/opencv \
-		libopencv_imgproc.so:graphics/opencv-core \
 		libavcodec.so:multimedia/ffmpeg \
 		libcurl.so:ftp/curl \
 		libmicrohttpd.so:www/libmicrohttpd \

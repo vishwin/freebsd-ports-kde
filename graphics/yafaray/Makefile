@@ -23,7 +23,7 @@ LIB_DEPENDS=	libboost_system.so:devel/boost-libs \
 		libHalf.so:graphics/ilmbase \
 		libIlmImf.so:graphics/openexr \
 		libopencv_photo.so:graphics/opencv \
-		libopencv_core.so:graphics/opencv-core \
+		libopencv_core.so:graphics/opencv \
 		libpng.so:graphics/png \
 		libtiff.so:graphics/tiff
 

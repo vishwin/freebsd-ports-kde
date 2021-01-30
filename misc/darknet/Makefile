@@ -38,7 +38,7 @@ OPTIONS_DEFAULT_i386=	SSE2
 OPENCV_USES=		pkgconfig
 OPENCV_CMAKE_BOOL=	ENABLE_OPENCV
 OPENCV_LIB_DEPENDS=	libopencv_video.so:graphics/opencv \
-			libopencv_core.so:graphics/opencv-core
+			libopencv_core.so:graphics/opencv
 
 SSE2_DESC=		Use SSE2 instructions
 SSE2_CMAKE_ON=		-DFREEBSD_SIMD="-msse2"

@@ -13,7 +13,7 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 
 BUILD_DEPENDS=	${LOCALBASE}/include/boost/property_tree/ini_parser.hpp:devel/boost-libs
 LIB_DEPENDS=	libnotify.so:devel/libnotify \
-		libopencv_core.so:graphics/opencv-core \
+		libopencv_core.so:graphics/opencv \
 		libopencv_video.so:graphics/opencv
 
 USES=		compiler:c++11-lang desktop-file-utils gl pkgconfig qmake \

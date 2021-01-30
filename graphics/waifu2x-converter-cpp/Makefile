@@ -14,8 +14,7 @@ LICENSE_FILE_BSD2CLAUSE=${WRKSRC}/include/picojson_LICENSE.txt
 LICENSE_FILE_MIT=	${WRKSRC}/LICENSE
 
 BUILD_DEPENDS=	${LOCALBASE}/include/CL/opencl.h:devel/opencl
-LIB_DEPENDS=	libopencv_imgcodecs.so:graphics/opencv \
-		libopencv_imgproc.so:graphics/opencv-core
+LIB_DEPENDS=	libopencv_imgcodecs.so:graphics/opencv
 
 USES=		cmake compiler:c++17-lang
 USE_GITHUB=	yes

@@ -56,7 +56,7 @@ LIB_DEPENDS+=	libcurl.so:ftp/curl			\
 		libgimp-2.0.so:graphics/gimp-app	\
 		libfftw3.so:math/fftw3			\
 		libopencv_video.so:graphics/opencv	\
-		libopencv_core.so:graphics/opencv-core	\
+		libopencv_core.so:graphics/opencv	\
 		libGraphicsMagick.so:graphics/GraphicsMagick
 USES+=		jpeg
 ALL_TARGET=	Mlinux

@@ -21,7 +21,7 @@ LIB_DEPENDS=	libfftw3.so:math/fftw3 \
 		libGraphicsMagick++.so:graphics/GraphicsMagick \
 		libIlmImf.so:graphics/openexr \
 		libImath.so:graphics/ilmbase \
-		libopencv_core.so:graphics/opencv-core \
+		libopencv_core.so:graphics/opencv \
 		libopencv_video.so:graphics/opencv \
 		libpng.so:graphics/png \
 		libtiff.so:graphics/tiff

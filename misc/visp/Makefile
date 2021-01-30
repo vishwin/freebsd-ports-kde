@@ -19,7 +19,7 @@ LIB_DEPENDS=	libblas.so:math/blas \
 		libgsl.so:math/gsl \
 		liblapack.so:math/lapack \
 		libopenblas.so:math/openblas \
-		libopencv_core.so:graphics/opencv-core \
+		libopencv_core.so:graphics/opencv \
 		libopencv_videoio.so:graphics/opencv \
 		libpcl_common.so:graphics/pcl-pointclouds \
 		libqhull.so:math/qhull \

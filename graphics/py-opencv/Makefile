@@ -1,17 +1,15 @@
 # Created by: Martin Matuska <mm@FreeBSD.org>
 # $FreeBSD$
 
-PORTREVISION=	7
-CATEGORIES=	graphics python
-PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
+PORTREVISION=		0
+CATEGORIES=		graphics python
+PKGNAMEPREFIX=		${PYTHON_PKGNAMEPREFIX}
 
-COMMENT=	OpenCV Python library
+COMMENT=		OpenCV Python library
 
-BROKEN_armv7=		fails to build: make[1]: cannot open Makefile
+MASTERDIR=		${.CURDIR:H}/opencv
+PLIST=			${.CURDIR}/pkg-plist
 
-OCV_SLAVE=	python
-OCV_PYTHON=	yes
-MASTERDIR=	${.CURDIR:H}/opencv
-PLIST=		${.CURDIR}/pkg-plist
+_OPENCV_PACKAGE=	python
 
 .include "${MASTERDIR}/Makefile"

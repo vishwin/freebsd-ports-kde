@@ -15,7 +15,7 @@ BROKEN_aarch64=		fails to link: can't create dynamic relocation R_AARCH64_ABS64 
 BROKEN_armv6=		fails to compile: cc: warning: joined argument expects additional value: -mcpu=
 
 BUILD_DEPENDS=	yasm:devel/yasm
-LIB_DEPENDS=	libopencv_core.so:graphics/opencv-core \
+LIB_DEPENDS=	libopencv_core.so:graphics/opencv \
 		libgmp.so:math/gmp \
 		libvdpau.so:multimedia/libvdpau \
 		libhogweed.so:security/nettle

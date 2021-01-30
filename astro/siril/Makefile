@@ -25,7 +25,7 @@ LIB_DEPENDS=	libavformat.so:multimedia/ffmpeg \
 		libfftw3f.so:math/fftw3-float \
 		libgsl.so:math/gsl \
 		liblcms2.so:graphics/lcms2 \
-		libopencv_core.so:graphics/opencv-core \
+		libopencv_core.so:graphics/opencv \
 		libpng.so:graphics/png \
 		libraw.so:graphics/libraw \
 		libtiff.so:graphics/tiff
