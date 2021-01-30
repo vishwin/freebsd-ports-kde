@@ -4,7 +4,7 @@
 PORTNAME=	frei0r
 PORTVERSION=	1.7.0
 DISTVERSIONPREFIX=	plugins-
-PORTREVISION?=	0
+PORTREVISION?=	1
 CATEGORIES=	graphics
 MASTER_SITES?=	https://files.dyne.org/frei0r/releases/
 

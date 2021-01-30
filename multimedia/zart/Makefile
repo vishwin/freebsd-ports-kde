@@ -2,6 +2,7 @@
 
 PORTNAME=	zart
 PORTVERSION=	g20191124
+PORTREVISION=	1
 CATEGORIES=	multimedia
 MASTER_SITES=	https://gmic.eu/files/source/:gmic
 DISTFILES=	gmic_${GMIC_VERSION}.tar.gz:gmic
