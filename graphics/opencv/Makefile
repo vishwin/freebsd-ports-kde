@@ -29,7 +29,7 @@ LIB_DEPENDS=	\
 		libwebp.so:graphics/webp \
 
 
-USES=		cmake compiler:c++14-lang eigen:3 jpeg localbase:ldflags pkgconfig python:3.6+
+USES=		cmake compiler:c++14-lang eigen:3 jpeg localbase:ldflags pkgconfig python:3.6+,build
 USE_GITHUB=	yes
 GH_PROJECT=	opencv_contrib:contrib \
 		ade:ade \
@@ -64,29 +64,17 @@ CMAKE_ARGS=	-DOPENCV_EXTRA_MODULES_PATH="${WRKSRC}/contrib/modules" \
 		-DOPENCV_PYTHON3_INSTALL_PATH=${PYTHON_SITELIBDIR} \
 		-DVULKAN_INCLUDE_DIRS=${LOCALBASE}/include
 
-DATADIR=	${PREFIX}share/${PORTNAME}4
+DATADIR=	${PREFIX}/share/${PORTNAME}4
 
-_OPENCV_PACKAGE?=	base
+OPTIONS_DEFINE=		PYTHON JAVA
+OPTIONS_DEFAULT=	PYTHON
 
-# Subpackages
-_base_CMAKE_OFF=	BUILD_openv_java BUILD_opencv_python3
-_base_USE_PYTHON=	noflavors
+JAVA_CMAKE_BOOL=	BUILD_openv_java
+JAVA_BUILD_DEPENDS=	ant:devel/apache-ant
 
-_java_BUILD_DEPENDS=	ant:devel/apache-ant
-_java_LIB_DEPENDS=	libopencv_ml.so:graphics/opencv
-_java_CMAKE_ON=		BUILD_openv_java
-_java_CMAKE_OFF=	BUILD_opencv_python3
-_java_USE_PYTHON=	noflavors
-
-_python_LIB_DEPENDS=	libopencv_ml.so:graphics/opencv
-_python_USES=		python:3.6+
-_python_USE_PYTHON=	flavors
-_python_CMAKE_ON=	BUILD_opencv_python3
-_python_CMAKE_OFF=	BUILD_openv_java
-
-. for _var in BUILD_DEPENDS RUN_DEPENDS BUILD_DEPENDS CMAKE_ON CMAKE_OFF CMAKE_ARGS USE_PYTHON USES
-${_var}+=		${_${_OPENCV_PACKAGE}_${_var}}
-.endfor
+PYTHON_USES=		python:3.6+
+PYTHON_USE_PYTHON=	noflavors
+PYTHON_CMAKE_BOOL=	BUILD_opencv_python3
 
 post-extract:
 	${MV} ${WRKSRC_contrib} ${WRKSRC}/contrib
