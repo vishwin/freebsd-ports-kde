@@ -22,7 +22,6 @@ LIB_DEPENDS=	libcurl.so:ftp/curl \
 		liblas12.so:devel/liblas12 \
 		libodbc.so:databases/unixODBC \
 		libopencv_core.so:graphics/opencv \
-		libopencv_ml.so:graphics/opencv \
 		libpdal_base.so:math/pdal \
 		libproj.so:graphics/proj \
 		libsvm.so:science/libsvm \
