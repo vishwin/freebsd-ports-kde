@@ -15,7 +15,7 @@ LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual
 
 BUILD_DEPENDS=	${RUN_DEPENDS}
-RUN_DEPENDS=	opencv>0c:graphics/opencv
+RUN_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/opencv.pc:graphics/opencv
 
 USE_PERL5=	configure
 USES=		perl5 pkgconfig
