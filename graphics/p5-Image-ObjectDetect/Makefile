@@ -14,6 +14,8 @@ COMMENT=	Detects objects from picture using opencv
 LICENSE=	ART10 GPLv1+
 LICENSE_COMB=	dual
 
+BROKEN=		OpenCV4 no longer ships OpencCV-1.0 headers
+
 BUILD_DEPENDS=	${RUN_DEPENDS}
 RUN_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/opencv.pc:graphics/opencv
 
