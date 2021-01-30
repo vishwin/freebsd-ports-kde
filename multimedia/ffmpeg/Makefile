@@ -632,12 +632,6 @@ PORTDOCS=	*
 USE_GCC=	yes
 .endif
 
-post-patch:
-# {C,LD}FLAGS safeness
-	@${REINPLACE_CMD} -E \
-		-e 's|require_pkg_config opencv|require_pkg_config opencv-core|g' \
-		${CONFIGURE_WRKSRC}/${CONFIGURE_SCRIPT}
-
 post-install:
 	(cd ${WRKSRC} && ${COPYTREE_SHARE} \
 		"${DOC_FILES}" ${STAGEDIR}${DOCSDIR})
