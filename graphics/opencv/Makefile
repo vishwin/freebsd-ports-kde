@@ -28,7 +28,6 @@ LIB_DEPENDS=	\
 		libtiff.so:graphics/tiff \
 		libwebp.so:graphics/webp \
 
-
 USES=		cmake compiler:c++14-lang eigen:3 jpeg localbase:ldflags pkgconfig python:3.6+,build
 USE_GITHUB=	yes
 GH_PROJECT=	opencv_contrib:contrib \
@@ -38,7 +37,6 @@ GH_PROJECT=	opencv_contrib:contrib \
 GH_TAGNAME=	v0.1.1f:ade \
 		34e4206aef44d50e6bbcd0ab06354b52e7466d26:extra_mod_3rdparty_boost_descr \
 		fccf7cd6a4b12079f73bbfb21745f9babcd4eb1d:extra_mod_3rdparty_vgg_descr
-
 
 CMAKE_ON=	\
 		WITH_EIGEN  \
@@ -58,6 +56,7 @@ CMAKE_ON=	\
 		OPENCV_GENERATE_PKGCONFIG \
 		OPENCV_ENABLE_NONFREE
 CMAKE_OFF=	OPENCV_GENERATE_SETUPVARS \
+		BUILD_opencv_python2 \
 		BUILD_TESTS
 CMAKE_ARGS=	-DOPENCV_EXTRA_MODULES_PATH="${WRKSRC}/contrib/modules" \
 		-DOPENCV_PYTHON3_INSTALL_PATH=${PYTHON_SITELIBDIR} \
