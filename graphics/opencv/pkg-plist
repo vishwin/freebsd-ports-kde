@@ -722,3 +722,5 @@ libdata/pkgconfig/opencv4.pc
 %%DATADIR%%/quality/brisque_range_live.yml
 %%DATADIR%%/valgrind.supp
 %%DATADIR%%/valgrind_3rdparty.supp
+%%JAVA%%share/java/opencv4/libopencv_java451.so
+%%JAVA%%share/java/opencv4/opencv-451.jar
