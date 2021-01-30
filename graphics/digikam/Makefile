@@ -24,7 +24,6 @@ LIB_DEPENDS=	libKF5Sane.so:graphics/libksane \
 		liblcms2.so:graphics/lcms2 \
 		liblensfun.so:graphics/lensfun \
 		liblqr-1.so:graphics/liblqr-1 \
-		libopencv_video.so:graphics/opencv \
 		libopencv_core.so:graphics/opencv \
 		libpgf.so:graphics/libpgf \
 		libpng.so:graphics/png \
