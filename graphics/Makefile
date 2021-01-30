@@ -584,7 +584,6 @@
     SUBDIR += opencolorio-tools
     SUBDIR += opencsg
     SUBDIR += opencv
-    SUBDIR += opencv-core
     SUBDIR += opencv-java
     SUBDIR += opendx
     SUBDIR += openexr
