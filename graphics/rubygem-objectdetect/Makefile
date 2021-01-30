@@ -12,6 +12,8 @@ COMMENT=	Simple library for detecting objects in pictures
 
 LICENSE=	MIT
 
+BROKEN=		OpenCV4 no longer ships OpencCV-1.0 headers
+
 LIB_DEPENDS=	libopencv_video.so:graphics/opencv
 
 USE_RUBY=	yes

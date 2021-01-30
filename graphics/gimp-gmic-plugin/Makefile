@@ -12,6 +12,8 @@ DISTNAME=	${PORTNAME}_${PORTVERSION}
 MAINTAINER=	rm@FreeBSD.org
 COMMENT=	GREYC's Magic Image Converter
 
+BROKEN=		OpenCV4 no longer ships OpencCV-1.0 headers
+
 LIB_DEPENDS=	libGraphicsMagick++.so:graphics/GraphicsMagick \
 		libIlmImf.so:graphics/openexr \
 		libopencv_video.so:graphics/opencv \
