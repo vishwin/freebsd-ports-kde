@@ -25,9 +25,9 @@ LIB_DEPENDS=	libXcursor.so:x11/libXcursor \
 		libxkbcommon.so:x11/libxkbcommon
 BUILD_DEPENDS=	${LOCALBASE}/include/linux/input.h:devel/evdev-proto \
 		Xwayland:x11-servers/xwayland \
-		pnpids>=0.344,1:misc/pnpids
+		hwdata>=0.344,1:misc/hwdata
 RUN_DEPENDS=	Xwayland:x11-servers/xwayland \
-		pnpids>=0.344,1:misc/pnpids
+		hwdata>=0.344,1:misc/hwdata
 
 USES=		cmake compiler:c++11-lib cpe gettext gl gnome kde:5 pkgconfig python:3.5+,run \
 		qt:5 shebangfix tar:xz xorg
