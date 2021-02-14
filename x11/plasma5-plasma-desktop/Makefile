@@ -48,7 +48,7 @@ USE_XORG=	ice sm x11 xcb xcursor xext xfixes xft xi xrender
 
 CMAKE_ON=	WANT_SYNAPTICS
 
-SHEBANG_FILES=	kcms/ksmserver/kconf_update/ksmserver_update_loginMode_value.py
+SHEBANG_FILES=	kcms/ksmserver/kconf_update/*.py
 
 OPTIONS_SUB=	yes
 
