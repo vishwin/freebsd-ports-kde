@@ -2,15 +2,17 @@
 
 PORTNAME=	wezterm
 DISTVERSION=	20210203-095643-70a364eb
+PORTREVISION=	1
 CATEGORIES=	x11
+
+PATCH_SITES=	https://github.com/${GH_ACCOUNT}/${GH_PROJECT}/commit/
+PATCHFILES+=	578b59ad3322.patch:-p1 # https://github.com/wez/wezterm/issues/474
 
 MAINTAINER=	jbeich@FreeBSD.org
 COMMENT=	GPU-accelerated terminal emulator and multiplexer
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE.md
-
-BROKEN_i386=	https://github.com/wez/wezterm/issues/474
 
 LIB_DEPENDS=	libdbus-1.so:devel/dbus \
 		libwayland-egl.so:graphics/wayland \
@@ -488,6 +490,8 @@ CARGO_CRATES=	ab_glyph_rasterizer-0.1.4 \
 		zstd-safe-3.0.0+zstd.1.4.8 \
 		zstd-sys-1.4.19+zstd.1.4.8
 CARGO_USE_GITHUB=	yes
+# XXX https://github.com/rust-lang/cargo/issues/4101
+CARGO_INSTALL_PATH=	${PLIST_FILES:Mbin/*:T}
 
 pre-patch:
 # Adjust whitespace for CARGO_USE_GITHUB regex
@@ -505,11 +509,7 @@ post-patch:
 	@${REINPLACE_CMD} -e 's/"python3"/"${PYTHON_CMD:T}"/' \
 		${WRKSRC}/cargo-crates/xcb-*/build.rs
 
-do-install:
-# XXX https://github.com/rust-lang/cargo/issues/4101
-	${INSTALL_PROGRAM} ${PLIST_FILES:Mbin/*:T:S,^,${CARGO_TARGET_DIR}/${\
-		"${CARGO_BUILD_ARGS:M--release}":?release:debug}/,} \
-		${STAGEDIR}${PREFIX}/bin
+post-install:
 # Install assets similar to ci/deploy.sh
 .for f in ${PORTNAME}.desktop ${PORTNAME}.appdata.xml \
 	icon/terminal.png icon/${PORTNAME}-icon.svg shell-integration/${PORTNAME}.sh
