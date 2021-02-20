@@ -28,10 +28,6 @@ CONFLICTS=	py*-gtk-0* py*-gobject-2.*.[0-6] py*-gobject-2.*.[7-9] \
 PLIST_SUB=	ARCH=${ARCH} UNAME_R=${UNAME_R} VERSION=${PORTVERSION} \
 		OPSYS=${OPSYS:tl} UNAME_M=${UNAME_M}
 
-# Override PYTHON_VERSION from DEPENDS_ARGS
-# ????
-#MAKE_ARGS=	PYTHON_VERSION=${PYTHON_VER}
-
 BINARY_ALIAS=	python3=${PYTHON_CMD}
 
 .if ${SLAVE_PORT} == no
