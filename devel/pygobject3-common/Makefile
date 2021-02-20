@@ -56,17 +56,19 @@ USE_GNOME+=	cairo glib20 introspection
 LIB_DEPENDS+=	libffi.so:devel/libffi
 RUN_DEPENDS+=	pygobject3-common>=0:devel/pygobject3-common
 
-.if ${SLAVE_PORT} == python
+.  if ${SLAVE_PORT} == python
 USES+=		python:3.6+
 USE_PYTHON=	flavors py3kplist
 MESON_ARGS+=	-Dpython=${PYTHON_VERSION}
 BUILD_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}cairo>=0:graphics/py-cairo@${PY_FLAVOR}
 RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}cairo>=0:graphics/py-cairo@${PY_FLAVOR}
-.endif
+.  endif
 
 post-install:
 	@${RM} -r ${STAGEDIR}${PREFIX}/include/pygobject-3.0 \
 		${STAGEDIR}${PREFIX}/libdata/pkgconfig/pygobject-3.0.pc
+	${PYTHON_CMD} -m compileall -d ${PYTHON_SITELIBDIR} ${STAGEDIR}${PYTHON_SITELIBDIR}
+	${PYTHON_CMD} -O -m compileall -d ${PYTHON_SITELIBDIR} ${STAGEDIR}${PYTHON_SITELIBDIR}
 .endif
 
 .include <bsd.port.pre.mk>
