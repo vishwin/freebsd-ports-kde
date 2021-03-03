@@ -62,6 +62,7 @@
     SUBDIR += R-cran-gmp
     SUBDIR += R-cran-gower
     SUBDIR += R-cran-gpclib
+    SUBDIR += R-cran-gsl
     SUBDIR += R-cran-gss
     SUBDIR += R-cran-gtable
     SUBDIR += R-cran-haven
@@ -402,6 +403,8 @@
     SUBDIR += mate-calc
     SUBDIR += math77
     SUBDIR += mathgl
+    SUBDIR += mathics-django
+    SUBDIR += mathicsscript
     SUBDIR += mathmod
     SUBDIR += mathomatic
     SUBDIR += matio
@@ -510,6 +513,7 @@
     SUBDIR += octave-forge-optim
     SUBDIR += octave-forge-optiminterp
     SUBDIR += octave-forge-outliers
+    SUBDIR += octave-forge-parallel
     SUBDIR += octave-forge-plot
     SUBDIR += octave-forge-quaternion
     SUBDIR += octave-forge-queueing
@@ -525,11 +529,13 @@
     SUBDIR += octave-forge-splines
     SUBDIR += octave-forge-statistics
     SUBDIR += octave-forge-stk
+    SUBDIR += octave-forge-strings
     SUBDIR += octave-forge-struct
     SUBDIR += octave-forge-symband
     SUBDIR += octave-forge-symbolic
     SUBDIR += octave-forge-tcl-octave
     SUBDIR += octave-forge-tsa
+    SUBDIR += octave-forge-video
     SUBDIR += octave-forge-zenity
     SUBDIR += octave-forge-zeromq
     SUBDIR += octomap
@@ -782,6 +788,7 @@
     SUBDIR += py-gym
     SUBDIR += py-hdbscan
     SUBDIR += py-hdmedians
+    SUBDIR += py-iminuit
     SUBDIR += py-intspan
     SUBDIR += py-iohexperimenter
     SUBDIR += py-jax
@@ -793,6 +800,7 @@
     SUBDIR += py-libpoly
     SUBDIR += py-luminol
     SUBDIR += py-mathics
+    SUBDIR += py-mathics-scanner
     SUBDIR += py-matplotlib
     SUBDIR += py-matplotlib-scalebar
     SUBDIR += py-matplotlib2

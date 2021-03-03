@@ -227,11 +227,11 @@
     SUBDIR += gtkhtml4
     SUBDIR += guacamole-client
     SUBDIR += guile-www
+    SUBDIR += gurl
     SUBDIR += gwsocket
     SUBDIR += h2o
     SUBDIR += h2o-devel
     SUBDIR += habari
-    SUBDIR += helma
     SUBDIR += hiawatha
     SUBDIR += hiawatha-monitor
     SUBDIR += horde-ansel
@@ -1566,7 +1566,6 @@
     SUBDIR += py-djangorestframework-csv
     SUBDIR += py-djangorestframework-filters
     SUBDIR += py-djangorestframework-xml
-    SUBDIR += py-djangorestframework311
     SUBDIR += py-draftjs-exporter
     SUBDIR += py-drf-yasg
     SUBDIR += py-dtflickr
@@ -1640,6 +1639,7 @@
     SUBDIR += py-html5-parser
     SUBDIR += py-html5lib
     SUBDIR += py-httmock
+    SUBDIR += py-httpbin
     SUBDIR += py-httpcore
     SUBDIR += py-httpie
     SUBDIR += py-httplib2
@@ -1796,7 +1796,6 @@
     SUBDIR += rsstool
     SUBDIR += rt44
     SUBDIR += rt50
-    SUBDIR += rtv
     SUBDIR += rubygem-ace-rails-ap
     SUBDIR += rubygem-actioncable5
     SUBDIR += rubygem-actioncable50
@@ -1876,8 +1875,6 @@
     SUBDIR += rubygem-gitlab-flowdock-git-hook
     SUBDIR += rubygem-gitlab-gollum-lib
     SUBDIR += rubygem-gitlab-gollum-rugged_adapter
-    SUBDIR += rubygem-gitlab-puma
-    SUBDIR += rubygem-gitlab-puma_worker_killer
     SUBDIR += rubygem-gitlab-turbolinks-classic
     SUBDIR += rubygem-goldfinger
     SUBDIR += rubygem-gollum

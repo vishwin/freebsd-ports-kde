@@ -954,6 +954,8 @@ include/wine/windows/wincred.h
 include/wine/windows/wincrypt.h
 include/wine/windows/windef.h
 include/wine/windows/windns.h
+include/wine/windows/windows.foundation.collections.h
+include/wine/windows/windows.foundation.collections.idl
 include/wine/windows/windows.foundation.h
 include/wine/windows/windows.foundation.idl
 %%STAGING%%include/wine/windows/windows.gaming.input.forcefeedback.h
@@ -2490,7 +2492,6 @@ lib/wine/fakedlls/wimgapi.dll
 %%STAGING%%lib/wine/fakedlls/windows.gaming.input.dll
 %%STAGING%%lib/wine/fakedlls/windows.globalization.dll
 %%STAGING%%lib/wine/fakedlls/windows.media.speech.dll
-%%STAGING%%lib/wine/fakedlls/windows.networking.connectivity.dll
 lib/wine/fakedlls/windowscodecs.dll
 lib/wine/fakedlls/windowscodecsext.dll
 lib/wine/fakedlls/wineboot.exe
@@ -3257,7 +3258,6 @@ lib/wine/wimgapi.dll.so
 %%STAGING%%lib/wine/windows.gaming.input.dll.so
 %%STAGING%%lib/wine/windows.globalization.dll.so
 %%STAGING%%lib/wine/windows.media.speech.dll.so
-%%STAGING%%lib/wine/windows.networking.connectivity.dll.so
 lib/wine/windowscodecs.dll.so
 lib/wine/windowscodecs.so
 lib/wine/windowscodecsext.dll.so

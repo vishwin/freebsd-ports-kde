@@ -106,6 +106,7 @@
     SUBDIR += gforth
     SUBDIR += ghc
     SUBDIR += gjs
+    SUBDIR += gleam
     SUBDIR += gnat_util
     SUBDIR += gnatcross-binutils-aarch64
     SUBDIR += gnatcross-sysroot-aarch64
@@ -343,6 +344,7 @@
     SUBDIR += squeak
     SUBDIR += squirrel
     SUBDIR += swi-pl
+    SUBDIR += tauthon
     SUBDIR += tcbasic
     SUBDIR += tcc
     SUBDIR += tcl-manual

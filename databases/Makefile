@@ -165,6 +165,7 @@
     SUBDIR += linux-oracle-instantclient-basic
     SUBDIR += linux-oracle-instantclient-sdk
     SUBDIR += liquibase
+    SUBDIR += litestream
     SUBDIR += lmdb
     SUBDIR += lua-lsqlite3
     SUBDIR += lua-resty-redis
@@ -742,8 +743,8 @@
     SUBDIR += py-alembic
     SUBDIR += py-apsw
     SUBDIR += py-asyncpg
-    SUBDIR += py-bsddb3
     SUBDIR += py-berkeleydb
+    SUBDIR += py-bsddb3
     SUBDIR += py-carbon
     SUBDIR += py-cassandra-driver
     SUBDIR += py-couchdb
