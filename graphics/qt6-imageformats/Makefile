@@ -10,7 +10,8 @@ COMMENT=	Qt6 plugins for additional image formats: TIFF, MNG, TGA, WBMP
 
 BUILD_DEPENDS=	${LOCALBASE}/include/vulkan/vulkan.h:graphics/vulkan-headers
 LIB_DEPENDS=	libjasper.so:graphics/jasper \
-		libwebp.so:graphics/webp
+		libwebp.so:graphics/webp \
+		libtiff.so:graphics/tiff
 
 USES=		cmake compiler:c++17-lang pkgconfig \
 		qt-dist:6

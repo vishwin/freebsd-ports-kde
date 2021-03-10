@@ -88,7 +88,7 @@ DESTDIRNAME=		DESTDIR
 .  if ${_QT_VER:M6}
 DISTNAME=		${_QT_DIST:S,^,qt,:S,$,-everywhere-src-${DISTVERSION},}
 MASTER_SITE_SUBDIR?=	official_releases/qt/${_QT_VERSION:R}/${_QT_VERSION}/submodules/ \
-			official_releases/additional_libraries/qt${_QT_DIST}/${_QT_VERSION:R}/${_QT_VERSION}/
+			official_releases/additional_libraries/${_QT_VERSION:R}/${_QT_VERSION}/
 .  endif
 .  if ${_QT_VER:M5}
 MASTER_SITE_SUBDIR?=	official_releases/qt/${_QT_VERSION:R}/${_QT_VERSION}/submodules/
@@ -143,6 +143,16 @@ EXTRACT_AFTER_ARGS?=	${DISTNAME:S,$,/examples,:S,^,--exclude ,} \
 			--no-same-owner --no-same-permissions
 .  endif # ${_QT_VER:M5}
 
+PLIST_SUB+=		SHORTVER=${DISTVERSION:R} \
+			FULLVER=${DISTVERSION:C/-.*//}
+
+# Handle additional PLIST directories, which should only be used for Qt-dist ports.
+.      for dir in CMAKE ETC
+# Export QT_CMAKEDIR and QT_ETCDIR.
+PLIST_SUB+=		QT_${dir}DIR="${QT_${dir}DIR_REL}"
+.      endfor
+
+
 
 .  if ${_QT_VER:M6}
 CMAKE_ARGS+=		-DINSTALL_ARCHDATADIR=${PREFIX}/${QT_ARCHDIR_REL} \
@@ -161,7 +171,7 @@ CMAKE_ARGS+=		-DINSTALL_ARCHDATADIR=${PREFIX}/${QT_ARCHDIR_REL} \
 			-DINSTALL_TESTSDIR=${PREFIX}/${QT_TESTDIR_REL} \
 			-DINSTALL_TRANSLATIONSDIR=${PREFIX}/${QT_L10NDIR_REL} \
 			-DCMAKE_MODULE_PATH="${LOCALBASE};${PREFIX}/${QT_LIBDIR_REL}" \
-			-DQT_QMAKE_TARGET_MKSPEC:String=freebsd-clang
+			-DQT_QMAKE_TARGET_MKSPEC:String=freebsd-clang \
 			-DCMAKE_PREFIX_PATH=${PREFIX}/${QT_LIBDIR_REL}/cmake \
 			-DCMAKE_MODULE_PATH=${PREFIX}/${QT_LIBDIR_REL}/cmake
 .  endif
@@ -263,16 +273,6 @@ QMAKE_ARGS+=		QT_CONFIG-="${QT_CONFIG:M-*:O:u:C/^-//}"
 # CONFIGURE_ENV and MAKE_ENV). Therefore make all QT_DIST ports
 # RUN_DEPEND on it.
 RUN_DEPENDS+=		qtchooser:misc/qtchooser
-
-PLIST_SUB+=		SHORTVER=${DISTVERSION:R} \
-			FULLVER=${DISTVERSION:C/-.*//}
-
-# Handle additional PLIST directories, which should only be used for Qt-dist ports.
-.      for dir in CMAKE ETC
-# Export QT_CMAKEDIR and QT_ETCDIR.
-PLIST_SUB+=		QT_${dir}DIR="${QT_${dir}DIR_REL}"
-.      endfor
-
 
 .      if ${_QT_VER:M5}
 .        if ${_QT_DIST} == "base"

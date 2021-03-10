@@ -8,6 +8,7 @@ PKGNAMEPREFIX=	qt6-
 MAINTAINER=	kde@FreeBSD.org
 COMMENT=	Qt 6 module that contains unsupported Qt 5 APIs
 
+LIB_DEPENDS=	libicuuc.so:devel/icu
 USES=		cmake compiler:c++17-lang \
 		qt-dist:6
 USE_QT=		base

@@ -50,7 +50,8 @@ CMAKE_OFF=	QT_FEATURE_eglfs \
 		QT_FEATURE_gssapi
 SHEBANG_FILES=	${WRKSRC}/mkspecs/features/uikit/device_destinations.sh \
 		${WRKSRC}/mkspecs/features/uikit/devices.py \
-		${WRKSRC}/mkspecs/features/data/mac/objc_namespace.sh
+		${WRKSRC}/mkspecs/features/data/mac/objc_namespace.sh \
+		${WRKSRC}/util/android/android_emulator_launcher.sh
 USE_LDCONFIG=	${PREFIX}/${QT_LIBDIR_REL}
 
 # post-patch:
@@ -58,7 +59,11 @@ USE_LDCONFIG=	${PREFIX}/${QT_LIBDIR_REL}
 # 	It builds up, but we have to look at the ones that are really necessary.
 #	${FIND} -name "*.cpp" ${WRKSSRC} | xargs ${REINPLACE_CMD} -e "s/Q_OS_LINUX/Q_OS_FREEBSD/g"
 #	${FIND} -name "*.h" ${WRKSSRC} | xargs ${REINPLACE_CMD} -e "s/Q_OS_LINUX/Q_OS_FREEBSD/g"
-
+post-extract:
+	${ECHO} "distc ${DISTVERSION:C/-.*//}"
+	${ECHO} "full ${FULLVER}"
+	${ECHO} "dist ${DISTVERSION}"
+	${ECHO} "plist ${PLIST_SUB}"
 # TODO: do this cleaner
 post-install:
 	${RM} -vr ${STAGEDIR}${PREFIX}/${QT_LIBDIR_REL}/cmake
