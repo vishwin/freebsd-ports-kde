@@ -59,11 +59,6 @@ USE_LDCONFIG=	${PREFIX}/${QT_LIBDIR_REL}
 # 	It builds up, but we have to look at the ones that are really necessary.
 #	${FIND} -name "*.cpp" ${WRKSSRC} | xargs ${REINPLACE_CMD} -e "s/Q_OS_LINUX/Q_OS_FREEBSD/g"
 #	${FIND} -name "*.h" ${WRKSSRC} | xargs ${REINPLACE_CMD} -e "s/Q_OS_LINUX/Q_OS_FREEBSD/g"
-post-extract:
-	${ECHO} "distc ${DISTVERSION:C/-.*//}"
-	${ECHO} "full ${FULLVER}"
-	${ECHO} "dist ${DISTVERSION}"
-	${ECHO} "plist ${PLIST_SUB}"
 # TODO: do this cleaner
 post-install:
 	${RM} -vr ${STAGEDIR}${PREFIX}/${QT_LIBDIR_REL}/cmake
