@@ -612,6 +612,7 @@
     SUBDIR += minerbold
     SUBDIR += minetest
     SUBDIR += minetest_game
+    SUBDIR += minetestmapper
     SUBDIR += minilens
     SUBDIR += mirrormagic
     SUBDIR += miscom
@@ -825,6 +826,7 @@
     SUBDIR += r1q2
     SUBDIR += railroad-rampage
     SUBDIR += rawgl
+    SUBDIR += re3
     SUBDIR += redeclipse
     SUBDIR += redeclipse-data
     SUBDIR += redorblack

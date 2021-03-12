@@ -56,6 +56,7 @@
     SUBDIR += aoi
     SUBDIR += apngasm
     SUBDIR += apngdis
+    SUBDIR += appleseed
     SUBDIR += argyllcms
     SUBDIR += art
     SUBDIR += asciio
@@ -849,6 +850,8 @@
     SUBDIR += py-opencolorio
     SUBDIR += py-openimageio
     SUBDIR += py-openshadinglanguage
+    SUBDIR += py-osmnet
+    SUBDIR += py-pandana
     SUBDIR += py-photocollage
     SUBDIR += py-piexif
     SUBDIR += py-pillow
@@ -897,6 +900,8 @@
     SUBDIR += py-tifffile
     SUBDIR += py-toyplot
     SUBDIR += py-traitsui
+    SUBDIR += py-urbanaccess
+    SUBDIR += py-urbansim
     SUBDIR += py-utm
     SUBDIR += py-vecrec
     SUBDIR += py-visvis
@@ -930,6 +935,7 @@
     SUBDIR += radius-engine
     SUBDIR += rapid-photo-downloader
     SUBDIR += raster3d
+    SUBDIR += rawstudio
     SUBDIR += rawtherapee
     SUBDIR += rayshade
     SUBDIR += reactphysics3d
