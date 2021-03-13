@@ -1378,6 +1378,7 @@
     SUBDIR += libvmdk
     SUBDIR += libvolume_id
     SUBDIR += libvshadow
+    SUBDIR += libvsgpt
     SUBDIR += libvslvm
     SUBDIR += libvterm
     SUBDIR += libwfut
@@ -5420,6 +5421,7 @@
     SUBDIR += reproc
     SUBDIR += resolv_wrapper
     SUBDIR += revive
+    SUBDIR += rgbds
     SUBDIR += rhtvision
     SUBDIR += rinutils
     SUBDIR += riscv32-unknown-elf-gcc
