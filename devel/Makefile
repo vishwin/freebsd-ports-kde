@@ -32,6 +32,7 @@
     SUBDIR += R-cran-classInt
     SUBDIR += R-cran-cli
     SUBDIR += R-cran-clipr
+    SUBDIR += R-cran-clisymbols
     SUBDIR += R-cran-covr
     SUBDIR += R-cran-cpp11
     SUBDIR += R-cran-crayon
@@ -792,6 +793,7 @@
     SUBDIR += gettext
     SUBDIR += gettext-lint
     SUBDIR += gettext-msghack
+    SUBDIR += gettext-po-mode
     SUBDIR += gettext-runtime
     SUBDIR += gettext-tools
     SUBDIR += gflags
@@ -1567,8 +1569,6 @@
     SUBDIR += nini
     SUBDIR += ninja
     SUBDIR += nlohmann-json
-    SUBDIR += node-gyp
-    SUBDIR += node-nan
     SUBDIR += node-thrift
     SUBDIR += notcurses
     SUBDIR += notify-sharp

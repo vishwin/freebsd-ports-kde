@@ -98,6 +98,7 @@
     SUBDIR += R-cran-pls
     SUBDIR += R-cran-polynom
     SUBDIR += R-cran-prodlim
+    SUBDIR += R-cran-proxy
     SUBDIR += R-cran-psych
     SUBDIR += R-cran-quadprog
     SUBDIR += R-cran-qualityTools
@@ -922,6 +923,7 @@
     SUBDIR += rubygem-prime
     SUBDIR += rubygem-rb-gsl
     SUBDIR += rumur
+    SUBDIR += s2geometry
     SUBDIR += saga
     SUBDIR += sage
     SUBDIR += sc
