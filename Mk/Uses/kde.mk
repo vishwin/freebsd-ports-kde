@@ -72,7 +72,7 @@ _KDE_RELNAME=		KDE${_KDE_VERSION}
 
 # === VERSIONS OF THE DIFFERENT COMPONENTS =====================================
 # Current KDE desktop.
-KDE_PLASMA_VERSION?=		5.21.2
+KDE_PLASMA_VERSION?=		5.21.3
 KDE_PLASMA_BRANCH?=		stable
 
 # Current KDE frameworks.
