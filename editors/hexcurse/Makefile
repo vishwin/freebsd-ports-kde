@@ -2,18 +2,20 @@
 # $FreeBSD$
 
 PORTNAME=	hexcurse
-PORTVERSION=	1.55
-PORTREVISION=	1
+PORTVERSION=	1.60.0
+DISTVERSIONPREFIX=	v
 CATEGORIES=	editors
-MASTER_SITES=	https://BSDforge.com/projects/source/editors/hexcurse/
 
-MAINTAINER=	jadawin@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Versatile ncurses-based hex editor
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
 USES=		ncurses
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	LonnyGomes
 
 GNU_CONFIGURE=	yes
 

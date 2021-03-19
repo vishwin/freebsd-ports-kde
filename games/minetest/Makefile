@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	minetest
-PORTVERSION=	5.3.0
+PORTVERSION=	5.4.0
 PORTREVISION=	1
 CATEGORIES=	games
 
@@ -13,14 +13,16 @@ LICENSE=	LGPL21+
 LICENSE_FILE=	${WRKSRC}/doc/lgpl-2.1.txt
 
 LIB_DEPENDS=	libsqlite3.so:databases/sqlite3 \
-		libgmp.so:math/gmp
+		libgmp.so:math/gmp \
+		libjsoncpp.so:devel/jsoncpp
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	minetest
 
 USES=		cmake compiler:c11 iconv:wchar_t
 CMAKE_ARGS=	-DCUSTOM_MANDIR="${PREFIX}/man" \
-		-DCUSTOM_EXAMPLE_CONF_DIR="${PREFIX}/etc"
+		-DCUSTOM_EXAMPLE_CONF_DIR="${PREFIX}/etc" \
+		-DENABLE_SYSTEM_JSONCPP=ON
 
 LDFLAGS_i386=	-Wl,-znotext
 
@@ -65,7 +67,7 @@ NCURSES_USES=		ncurses
 
 LUAJIT_DESC=		LuaJIT support
 LUAJIT_CMAKE_BOOL=	ENABLE_LUAJIT REQUIRE_LUAJIT
-LUAJIT_LIB_DEPENDS=	libluajit-5.1.so:lang/luajit
+LUAJIT_LIB_DEPENDS=	libluajit-5.1.so:lang/luajit-openresty
 
 PGSQL_USES=		pgsql
 PGSQL_CMAKE_BOOL=	ENABLE_POSTGRESQL
@@ -84,10 +86,6 @@ NLS_USES=		gettext
 NLS_LDFLAGS=		-L${LOCALBASE}/lib
 
 .include <bsd.port.options.mk>
-
-.if ${ARCH} == powerpc64
-LUAJIT_LIB_DEPENDS=	libluajit-5.1.so:lang/luajit-openresty
-.endif
 
 .if ${PORT_OPTIONS:MCLIENT} && ${PORT_OPTIONS:MSOUND}
 USES+=		openal
@@ -111,9 +109,7 @@ EXTRA_PATCHES+=	${FILESDIR}/extra-patch-irrlichtdepend
 
 post-extract:
 # make sure no bundled gmp is used
-	@${RM} -rf ${WRKSRC}/lib/gmp
-# bundled jsoncpp is OK, see comment in cmake/Modules/FindJson.cmake
-#    (not sure if it affects FreeBSD, but too lazy to investigate)
+	@${RM} -rf ${WRKSRC}/lib/gmp ${WRKSRC}/lib/jsoncpp
 # bundled lua is OK, there's no option to use system one
 
 post-patch:

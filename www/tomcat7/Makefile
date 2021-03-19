@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	tomcat
-PORTVERSION=	7.0.106
+PORTVERSION=	7.0.108
 PORTREVISION=	0
 CATEGORIES=	www java
 MASTER_SITES=	APACHE/tomcat/tomcat-7/v${PORTVERSION}/bin
@@ -14,7 +14,7 @@ COMMENT=	Open-source Java web server by Apache, 7.x branch
 
 LICENSE=	APACHE20
 
-DEPRECATED=	Tomcat 7 is EOL on 2021-03-31. Please upgrade to a later version.
+DEPRECATED=	Tomcat 7 is EOL on 2021-03-31. Please upgrade to a later version
 EXPIRATION_DATE=	2021-06-30
 
 RUN_DEPENDS=	jsvc:devel/apache-commons-daemon
@@ -75,7 +75,7 @@ post-install:
 
 post-install-HOST_MANAGER-on:
 	(cd ${STAGEDIR}${TOMCAT_HOME}/webapps &&\
-		for f in host-manager/META-INF/context.xml host-manager/WEB-INF/web.xml; do \
+		for f in host-manager/META-INF/context.xml host-manager/WEB-INF/manager.xml host-manager/WEB-INF/web.xml; do \
 			${MV} $$f $$f.sample; done)
 
 post-install-HOST_MANAGER-off:

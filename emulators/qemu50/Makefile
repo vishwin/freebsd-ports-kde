@@ -15,7 +15,7 @@ COMMENT=	QEMU CPU Emulator - 5.0.X branch
 
 LICENSE=	GPLv2
 
-ONLY_FOR_ARCHS=	amd64 i386 powerpc powerpc64
+ONLY_FOR_ARCHS=	amd64 i386 powerpc powerpc64 powerpc64le
 
 LIB_DEPENDS=	libnettle.so:security/nettle \
 		libfontconfig.so:x11-fonts/fontconfig \
@@ -102,7 +102,7 @@ PORTDOCS=	docs index.html interop/.buildinfo interop/* qemu-ga-ref.html qemu-ga-
 WITHOUT_CPU_CFLAGS=yes	#to avoid problems with register allocation
 CFLAGS:=	${CFLAGS:C/-fno-tree-vrp//}
 CFLAGS_amd64+=	-fPIC
-CONFIGURE_ARGS=	--localstatedir=/var --extra-ldflags=-L\"/usr/lib\" \
+CONFIGURE_ARGS=	--localstatedir=/var \
 		--extra-ldflags=-L\"${LOCALBASE}/lib\" --enable-debug \
 		--prefix=${PREFIX} --cc=${CC} --enable-netmap --enable-docs --disable-kvm \
 		--disable-linux-user --disable-linux-aio --disable-xen \

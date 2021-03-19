@@ -1,50 +1,41 @@
---- Telegram/lib_base/base/platform/linux/base_info_linux.cpp.orig	2020-08-10 11:25:13 UTC
+--- Telegram/lib_base/base/platform/linux/base_info_linux.cpp.orig	2021-01-28 15:30:24 UTC
 +++ Telegram/lib_base/base/platform/linux/base_info_linux.cpp
-@@ -13,7 +13,6 @@
- #include <QtCore/QVersionNumber>
+@@ -14,11 +14,6 @@
  #include <QtCore/QDate>
  #include <QtGui/QGuiApplication>
--#include <gnu/libc-version.h>
  
+-// this file is used on both Linux & BSD
+-#ifdef Q_OS_LINUX
+-#include <gnu/libc-version.h>
+-#endif // Q_OS_LINUX
+-
  namespace Platform {
  namespace {
-@@ -72,11 +71,9 @@ QString SystemVersionPretty() {
- 	const auto value = result ? QString::fromLatin1(result) : QString();
- 	const auto list = value.split(':', QString::SkipEmptyParts);
  
--	return "Linux "
-+	return "FreeBSD "
- 		+ (list.isEmpty() ? QString() : list[0] + ' ')
--		+ (IsWayland() ? "Wayland " : "X11 ")
--		+ "glibc "
--		+ GetGlibCVersion();
-+		+ (IsWayland() ? "Wayland " : "X11 ");
+@@ -103,7 +98,7 @@ QString SystemVersionPretty() {
+ 	static const auto result = [&] {
+ 		QStringList resultList{};
+ 
+-#ifdef Q_OS_LINUX
++#if 0
+ 		resultList << "Linux";
+ #else // Q_OS_LINUX
+ 		resultList << QSysInfo::kernelType();
+@@ -186,7 +181,7 @@ QString AutoUpdateKey() {
  }
  
- QString SystemCountry() {
-@@ -94,10 +91,6 @@ QString SystemLanguage() {
- QDate WhenSystemBecomesOutdated() {
- 	if (IsLinux32Bit()) {
- 		return QDate(2020, 9, 1);
--	} else if (const auto version = GetGlibCVersion(); !version.isEmpty()) {
--		if (QVersionNumber::fromString(version) < QVersionNumber(2, 23)) {
--			return QDate(2020, 9, 1); // Older than Ubuntu 16.04.
--		}
- 	}
- 	return QDate();
- }
-@@ -118,14 +111,6 @@ QString AutoUpdateKey() {
- 	} else {
- 		Unexpected("Platform in AutoUpdateKey.");
- 	}
--}
--
--QString GetGlibCVersion() {
--	static const auto result = [&] {
--		const auto version = QString::fromLatin1(gnu_get_libc_version());
--		return QVersionNumber::fromString(version).isNull() ? QString() : version;
--	}();
--	return result;
+ QString GetLibcName() {
+-#ifdef Q_OS_LINUX
++#if 0
+ 	return "glibc";
+ #endif // Q_OS_LINUX
+ 
+@@ -194,7 +189,7 @@ QString GetLibcName() {
  }
  
- bool IsWayland() {
+ QString GetLibcVersion() {
+-#ifdef Q_OS_LINUX
++#if 0
+ 	static const auto result = [&] {
+ 		const auto version = QString::fromLatin1(gnu_get_libc_version());
+ 		return QVersionNumber::fromString(version).isNull() ? QString() : version;

@@ -2,8 +2,8 @@
 
 PORTNAME=	nanovna-saver
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.2.2
-PORTREVISION=	1
+DISTVERSION=	0.3.8
+PORTREVISION=	2
 CATEGORIES=	comms hamradio
 
 MAINTAINER=	hamradio@FreeBSD.org
@@ -26,5 +26,8 @@ USE_GITHUB=	yes
 GH_ACCOUNT=	mihtjel
 
 NO_ARCH=	yes
+
+post-extract:
+	${CP} ${FILESDIR}/Sysctl.py ${WRKSRC}/NanoVNASaver/Hardware/
 
 .include <bsd.port.mk>

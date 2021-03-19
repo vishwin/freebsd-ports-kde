@@ -9,7 +9,7 @@ CATEGORIES=	games
 MASTER_SITES=	SAVANNAH
 DISTFILES=	${PORTNAME}-src-${PORTVERSION}${EXTRACT_SUFX}
 
-MAINTAINER=	tobik@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Role playing game engine
 
 LICENSE=	GPLv2
@@ -24,7 +24,7 @@ USE_SDL=	mixer2 ttf2
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--disable-py-debug \
 		--disable-pyc \
-		--with-py-libs="$$(${PYTHON_CMD}-config --ldflags)" \
+		--with-py-libs="$$(${PYTHON_CMD}-config --ldflags ${_PY_EMBED})" \
 		--with-python=${PYTHON_CMD}
 
 PLIST_DIRS=	${DATADIR}/games
@@ -33,7 +33,17 @@ PLIST_FILES=	bin/adonthell \
 		${DATADIR}/modules/adonthell.py \
 		${DATADIR}/modules/dialogue.py
 
+.include <bsd.port.pre.mk>
+
+# The "--embed" flag was introduced with Python 3.8 and is required because
+# C extensions are no longer linked to libpython since Python 3.8 and onwards.
+#
+# See also https://bugs.python.org/issue36721 for reference.
+.if ${PYTHON_REL} >= 3800
+_PY_EMBED=	--embed
+.endif
+
 post-patch:
 	@${REINPLACE_CMD} 's,adonthell-0.3,adonthell,g' ${WRKSRC}/src/Makefile.in
 
-.include <bsd.port.mk>
+.include <bsd.port.post.mk>

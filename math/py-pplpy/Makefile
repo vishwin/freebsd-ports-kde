@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	pplpy
-DISTVERSION=	0.8.4
+PORTVERSION=	0.8.7
 CATEGORIES=	math python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -17,15 +17,21 @@ BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}gmpy2-devel>0:math/py-gmpy2-devel@${PY_FLA
 LIB_DEPENDS=	libgmp.so:math/gmp	\
 		libmpfr.so:math/mpfr	\
 		libmpc.so:math/mpc	\
+		libpari.so:math/pari	\
 		libppl.so:devel/ppl
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}gmpy2-devel>0:math/py-gmpy2-devel@${PY_FLAVOR}	\
 		${PYTHON_PKGNAMEPREFIX}cysignals>0:devel/py-cysignals@${PY_FLAVOR}
+TEST_DEPENDS=	py.test:devel/py-pytest@${PY_FLAVOR}
 
 USES=		compiler:c++11-lang localbase python:3.6+
 USE_PYTHON=	cython distutils
 
+.if !defined(WITH_DEBUG)
+LDFLAGS+=	-s
+.endif
+
 OPTIONS_DEFINE=		DOCS
-DOCS_BUILD_DEPENDS=	${PY_SPHINX}
+DOCS_BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}sphinx>=0,1:textproc/py-sphinx@${PY_FLAVOR}
 DOCS_USES=		gmake
 PORTDOCS=		*
 
@@ -35,5 +41,8 @@ do-build-DOCS-on:
 post-build-DOCS-on:
 	${MKDIR} ${STAGEDIR}${DOCSDIR}
 	${CP} -R ${WRKSRC}/docs/build/html/* ${STAGEDIR}${DOCSDIR}
+
+do-test: install
+	(cd ${WRKSRC} && py.test)
 
 .include <bsd.port.mk>

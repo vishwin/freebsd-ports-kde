@@ -53,6 +53,7 @@ bin/3dAutoTcorrelate
 bin/3dAutobox
 bin/3dAutomask
 bin/3dBRAIN_VOYAGERtoAFNI
+bin/3dBallMatch
 bin/3dBandpass
 bin/3dBlurInMask
 bin/3dBlurToFWHM
@@ -124,6 +125,8 @@ bin/3dMEMA.R
 bin/3dMEPFM
 bin/3dMEPFM.R
 bin/3dMSE
+bin/3dMSS
+bin/3dMSS.R
 bin/3dMVM
 bin/3dMVM.R
 bin/3dMVM_validator
@@ -367,6 +370,7 @@ bin/@djunct_glue_imgs_vert
 bin/@djunct_json_value.py
 bin/@djunct_modal_smoothing_with_rep
 bin/@djunct_montage_coordinator
+bin/@djunct_overlap_check
 bin/@djunct_slice_space
 bin/@djunct_ssw_intermed_edge_imgs
 bin/@djunct_vol_3slice_select
@@ -435,6 +439,8 @@ bin/MBA
 bin/MBA.R
 bin/MakeColorMap
 bin/MapIcosahedron
+bin/PTA
+bin/PTA.R
 bin/ParseName
 bin/RBA
 bin/RBA.R
@@ -464,11 +470,15 @@ bin/SurfRetinoMap
 bin/SurfSmooth
 bin/SurfToSurf
 bin/SurfaceMetrics
+bin/TRR
+bin/TRR.R
 bin/Vecwarp
 bin/Xphace
 bin/abids_json_info.py
 bin/abids_json_tool.py
 bin/abids_tool.py
+bin/adjunct_apqc_tsnr_no_mask
+bin/adjunct_apqc_tsnr_with_mask
 bin/adjunct_aw_tableize_roi_info.py
 bin/adjunct_calc_mont_dims.py
 bin/adjunct_combine_str.py
@@ -476,6 +486,10 @@ bin/adjunct_is_label.py
 bin/adjunct_make_script_and_rst.py
 bin/adjunct_select_str.py
 bin/adjunct_simplify_cost.py
+bin/adjunct_suma_fs_mask_and_qc
+bin/adjunct_suma_fs_roi_info
+bin/adjunct_tort_plot_dp_align
+bin/adjunct_tort_read_dp_align.py
 bin/adwarp
 bin/afni
 bin/afni_check_omp
@@ -506,7 +520,6 @@ bin/count
 bin/dcm2niix_afni
 bin/demo.fixed.niml.do
 bin/demo.mobile.niml.do
-bin/demoExpt.py
 bin/dicom_hdr
 bin/dicom_hinfo
 bin/dicom_to_raw
@@ -751,10 +764,6 @@ lib/afni/plug_vol2surf.so
 lib/afni/plug_volreg.so
 lib/afni/plug_wavelets.so
 lib/afni/plug_zeropad.so
-%%PYTHON_SITELIBDIR%%/afniRTI/__init__.py
-%%PYTHON_SITELIBDIR%%/afniRTI/experiment.py
-%%PYTHON_SITELIBDIR%%/afniRTI/realtime.py
-%%PYTHON_SITELIBDIR%%/afniRTI/receiver.py
 %%PYTHON_SITELIBDIR%%/afnipy/__init__.py
 %%PYTHON_SITELIBDIR%%/afnipy/abids_lib.py
 %%PYTHON_SITELIBDIR%%/afnipy/afni_base.py
@@ -799,6 +808,7 @@ lib/afni/plug_zeropad.so
 %%PYTHON_SITELIBDIR%%/afnipy/lib_system_check.py
 %%PYTHON_SITELIBDIR%%/afnipy/lib_textdata.py
 %%PYTHON_SITELIBDIR%%/afnipy/lib_timing.py
+%%PYTHON_SITELIBDIR%%/afnipy/lib_tsv.py
 %%PYTHON_SITELIBDIR%%/afnipy/lib_uber_align.py
 %%PYTHON_SITELIBDIR%%/afnipy/lib_uber_proc.py
 %%PYTHON_SITELIBDIR%%/afnipy/lib_uber_skel.py
@@ -903,6 +913,7 @@ lib/afni/plug_zeropad.so
 %%DATADIR%%/funstuff/face_cckung.jpg
 %%DATADIR%%/funstuff/face_ccss.jpg
 %%DATADIR%%/funstuff/face_cesarcaballo.jpg
+%%DATADIR%%/funstuff/face_chat_toutplat_focused.jpg
 %%DATADIR%%/funstuff/face_cheesehead.jpg
 %%DATADIR%%/funstuff/face_chen_gang.jpg
 %%DATADIR%%/funstuff/face_chiaraBagnato.jpg
@@ -1380,6 +1391,7 @@ lib/afni/plug_zeropad.so
 %%DATADIR%%/funstuff/splash_Sunset_VG.jpg
 %%DATADIR%%/funstuff/splash_Traffic_VG.jpg
 %%DATADIR%%/funstuff/splash_UWash.kayakBG.jpg
+%%DATADIR%%/funstuff/splash_UtahCitadel.jpg
 %%DATADIR%%/funstuff/splash_Utah_Dog.jpg
 %%DATADIR%%/funstuff/splash_Utah_Tree.jpg
 %%DATADIR%%/funstuff/splash_Wave_VG.jpg
@@ -1527,6 +1539,7 @@ lib/afni/plug_zeropad.so
 %%DATADIR%%/funstuff/splash_nihfence.jpg
 %%DATADIR%%/funstuff/splash_nihwalk.jpg
 %%DATADIR%%/funstuff/splash_nimhans2020dti.jpg
+%%DATADIR%%/funstuff/splash_nimhans_dti_2020.jpg
 %%DATADIR%%/funstuff/splash_njit_2019.jpg
 %%DATADIR%%/funstuff/splash_okazaki_A.jpg
 %%DATADIR%%/funstuff/splash_onprc_2019.jpg
@@ -1594,6 +1607,7 @@ lib/afni/plug_zeropad.so
 %%DATADIR%%/funstuff/splash_umiami.jpg
 %%DATADIR%%/funstuff/splash_usajapan.jpg
 %%DATADIR%%/funstuff/splash_utah_sulfur.jpg
+%%DATADIR%%/funstuff/splash_utaharch.jpg
 %%DATADIR%%/funstuff/splash_uwm2019.jpg
 %%DATADIR%%/funstuff/splash_vancouver.jpg
 %%DATADIR%%/funstuff/splash_vincent.jpg
@@ -1885,11 +1899,6 @@ lib/afni/plug_zeropad.so
 %%DATADIR%%/shiny/3dMVM_validator_shiny/stat_functions.R
 %%DATADIR%%/shiny/3dMVM_validator_shiny/ui.R
 %%DATADIR%%/shiny/ClustExp_ShinyTemplate/afni_funk.R
-%%DATADIR%%/shiny/ClustExp_ShinyTemplate/data/disco_ttest_GroupTable.csv
-%%DATADIR%%/shiny/ClustExp_ShinyTemplate/data/disco_ttest_StatInfo.csv
-%%DATADIR%%/shiny/ClustExp_ShinyTemplate/data/disco_ttest_p_uncor_0.005_clusters.csv
-%%DATADIR%%/shiny/ClustExp_ShinyTemplate/data/disco_ttest_p_uncor_0.005_mean.csv
-%%DATADIR%%/shiny/ClustExp_ShinyTemplate/data/disco_ttest_p_uncor_0.005_peak.csv
 %%DATADIR%%/shiny/ClustExp_ShinyTemplate/global.R
 %%DATADIR%%/shiny/ClustExp_ShinyTemplate/lib_Rafni.R
 %%DATADIR%%/shiny/ClustExp_ShinyTemplate/server.R

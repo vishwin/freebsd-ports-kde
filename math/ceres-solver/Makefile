@@ -1,11 +1,11 @@
 # $FreeBSD$
 
 PORTNAME=	ceres-solver
-DISTVERSION=	1.14.0
-PORTREVISION=	19
+DISTVERSION=	2.0.0
+PORTREVISION=	1
 CATEGORIES=	math
 
-MAINTAINER=	jbeich@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Nonlinear least squares minimizer
 
 LICENSE=	BSD3CLAUSE
@@ -19,7 +19,7 @@ USE_GITHUB=	yes
 USE_LDCONFIG=	yes
 SHEBANG_FILES=	examples/slam/pose_graph_*/plot_results.py \
 		scripts/make_docs.py
-CMAKE_ON=	CXX11 BUILD_SHARED_LIBS
+CMAKE_ON=	BUILD_SHARED_LIBS
 CMAKE_OFF=	BUILD_BENCHMARKS
 LDFLAGS+=	-Wl,--as-needed # -lccolamd -lcholmod -lrt from suitesparse
 PLIST_SUB=	VERSION=${DISTVERSION:C/rc.*//}
@@ -28,18 +28,18 @@ DOCSDIR=	${PREFIX}/share/doc/${PORTNAME:S/-solver//}
 PORTDOCS=	*
 PORTEXAMPLES=	*
 
-OPTIONS_DEFINE=	CUSTOM_BLAS EXAMPLES DOCS GFLAGS LAPACK SCHUR TEST
+OPTIONS_DEFINE=	CUSTOM_BLAS EXAMPLES DOCS GFLAGS LAPACK OPENMP SCHUR TEST
 OPTIONS_DEFAULT=CUSTOM_BLAS CXSPARSE OPENBLAS OPENMP SCHUR SUITESPARSE
 OPTIONS_RADIO=	LAPACK THREADS
 OPTIONS_RADIO_LAPACK=	ATLAS GOTOBLAS NETLIB OPENBLAS
-OPTIONS_RADIO_THREADS=	OPENMP TBB
 OPTIONS_GROUP=	SPARSE
 OPTIONS_GROUP_SPARSE=	CXSPARSE EIGENSPARSE SUITESPARSE
 
 CUSTOM_BLAS_DESC=	Handcoded BLAS routines instead of Eigen
 CUSTOM_BLAS_CMAKE_BOOL=	CUSTOM_BLAS
 
-DOCS_BUILD_DEPENDS=	sphinx-build:textproc/py-sphinx18
+DOCS_BUILD_DEPENDS=	sphinx-build:textproc/py-sphinx \
+			${PYTHON_PKGNAMEPREFIX}sphinx_rtd_theme>0:textproc/py-sphinx_rtd_theme@${PY_FLAVOR}
 DOCS_USES=		python:build
 DOCS_CMAKE_BOOL=	BUILD_DOCUMENTATION
 
@@ -51,18 +51,14 @@ GFLAGS_LIB_DEPENDS=	libgflags.so:devel/gflags
 GFLAGS_CMAKE_BOOL=	GFLAGS
 
 OPENMP_USES=		compiler:openmp
-OPENMP_CMAKE_BOOL=	OPENMP
+OPENMP_CMAKE_ON=	-DCERES_THREADING_MODEL:STRING="OPENMP"
 .if !exists(/usr/include/omp.h)
-# XXX ports/199603: LLVM openmp in base doesn't support aarch64, armv6, armv7 yet
+# XXX ports/199603: LLVM openmp in base doesn't support armv6, armv7 yet
 OPENMP_VARS=		OPENMP=gcc-
 .endif
 
 SCHUR_DESC=		Fixed-size schur specializations
 SCHUR_CMAKE_BOOL=	SCHUR_SPECIALIZATIONS
-
-TBB_DESC=		Intel threading building blocks
-TBB_LIB_DEPENDS=	libtbb.so:devel/tbb
-TBB_CMAKE_BOOL=		TBB
 
 # XXX Unbundle googletest/googlemock
 TEST_CMAKE_BOOL=	BUILD_TESTING
@@ -71,9 +67,6 @@ TEST_IMPLIES=		GFLAGS
 
 LAPACK_DESC=		Linear Algebra PACKage
 LAPACK_CMAKE_BOOL=	LAPACK
-# Avoid conflict with Ceres threading by using single-threaded BLAS library.
-# BLASLIB from USES=blaslapack cannot be used as it's multi-threaded.
-# https://github.com/xianyi/OpenBLAS/wiki/faq#multi-threaded
 ATLAS_USES=		blaslapack:atlas
 ATLAS_CMAKE_ON=		-DBLA_VENDOR:STRING="ATLAS" \
 			-DBLAS_LIBRARIES:FILEPATH="${LOCALBASE}/lib/libcblas.so" \

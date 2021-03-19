@@ -97,13 +97,21 @@ validate_already_running() {
 prepare_env() {
 export PATH=${seafile_path}/seafile/bin:$PATH
 export LD_LIBRARY_PATH=${seafile_path}/seafile/lib/:${seafile_path}/seafile/lib64:${LD_LIBRARY_PATH}
+export CCNET_CONF_DIR=${seafile_ccnet}
+export SEAFILE_CONF_DIR=${seafile_datadir}
+export SEAFILE_CENTRAL_CONF_DIR=${seafile_conf}
+export PYTHON=%%PREFIX%%/bin/%%PYTHON%%
+export PYTHONPATH=${seafile_path}/seafile/lib/%%PYTHON%%/site-packages:${seafile_path}/seafile/lib64/%%PYTHON%%/site-packages:${seafile_path}/seahub/thirdpart:$PYTHONPATH
+export SEAFILE_RPC_PIPE_PATH=${seafile_path}/runtime
 }
 
 seafile_start() {
 	check_required_before;
 	validate_already_running;
 	prepare_env;
-	test_config;
+# test_config broke in 8.0.x, commenting until this is fixed.
+# https://forum.seafile.com/t/seafile-controller-t-functionality-broken-on-8-x/13738
+#	test_config;
 
 	echo "Starting seafile server, please wait ..."
 

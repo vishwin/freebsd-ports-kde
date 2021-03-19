@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	hdmedians
-PORTVERSION=	0.14
+PORTVERSION=	0.14.2
 CATEGORIES=	math python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -12,13 +12,13 @@ COMMENT=	High-dimensional medians
 LICENSE=	APACHE20
 
 BUILD_DEPENDS=	${PYNUMPY} \
-		${PYTHON_PKGNAMEPREFIX}nose>0:devel/py-nose@${PY_FLAVOR}
+		${PYTHON_PKGNAMEPREFIX}nose>=1.0:devel/py-nose@${PY_FLAVOR}
 RUN_DEPENDS=	${PYNUMPY}
 
-USES=		python
-USE_PYTHON=	autoplist cython distutils
+USES=		python:3.6+
+USE_PYTHON=	distutils cython autoplist
 
 post-install:
-	@${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/hdmedians/geomedian.so
+	@${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/hdmedians/geomedian*.so
 
 .include <bsd.port.mk>

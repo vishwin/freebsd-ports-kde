@@ -3,7 +3,7 @@
 
 PORTNAME=	spidermonkey
 PORTVERSION=	52.9.0
-PORTREVISION=	8
+PORTREVISION=	9
 CATEGORIES=	lang
 MASTER_SITES=	MOZILLA/firefox/releases/${PORTVERSION}esr/source
 PKGNAMESUFFIX=	${SP_VER}
@@ -11,6 +11,8 @@ DISTNAME=	firefox-${PORTVERSION}esr.source
 
 MAINTAINER=	kwm@FreeBSD.org
 COMMENT=	Standalone JavaScript based from Mozilla 52-esr
+
+BROKEN_riscv64=		fails to build: psutil/_psutil_bsd.c:1849:26: incomplete definition of type 'struct inpcb'
 
 BUILD_DEPENDS=	autoconf-2.13:devel/autoconf213
 LIB_DEPENDS=	libnspr4.so:devel/nspr \

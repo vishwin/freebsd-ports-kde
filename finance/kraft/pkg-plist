@@ -13,7 +13,6 @@ share/icons/hicolor/22x22/actions/kraftdice.png
 share/icons/hicolor/32x32/apps/kraft.png
 share/icons/hicolor/48x48/apps/kraft.png
 share/icons/hicolor/scalable/apps/kraft.svg
-share/icons/hicolor/scalable/apps/kraft_catalogue.svg
 %%DATADIR%%/dbinit/mysql/create_schema.sql
 %%DATADIR%%/dbinit/mysql/fill_schema_de.sql
 %%DATADIR%%/dbinit/mysql/fill_schema_en.sql
@@ -32,6 +31,7 @@ share/icons/hicolor/scalable/apps/kraft_catalogue.svg
 %%DATADIR%%/dbmigrate/mysql/19_dbmigrate.sql
 %%DATADIR%%/dbmigrate/mysql/20_dbmigrate.sql
 %%DATADIR%%/dbmigrate/mysql/21_dbmigrate.sql
+%%DATADIR%%/dbmigrate/mysql/22_dbmigrate.sql
 %%DATADIR%%/dbmigrate/mysql/2_dbmigrate.sql
 %%DATADIR%%/dbmigrate/mysql/3_dbmigrate.sql
 %%DATADIR%%/dbmigrate/mysql/4_dbmigrate.sql
@@ -53,6 +53,7 @@ share/icons/hicolor/scalable/apps/kraft_catalogue.svg
 %%DATADIR%%/dbmigrate/sqlite3/19_dbmigrate.sql
 %%DATADIR%%/dbmigrate/sqlite3/20_dbmigrate.sql
 %%DATADIR%%/dbmigrate/sqlite3/21_dbmigrate.sql
+%%DATADIR%%/dbmigrate/sqlite3/22_dbmigrate.sql
 %%DATADIR%%/dbmigrate/sqlite3/2_dbmigrate.sql
 %%DATADIR%%/dbmigrate/sqlite3/3_dbmigrate.sql
 %%DATADIR%%/dbmigrate/sqlite3/4_dbmigrate.sql
@@ -63,15 +64,21 @@ share/icons/hicolor/scalable/apps/kraft_catalogue.svg
 %%DATADIR%%/dbmigrate/sqlite3/9_dbmigrate.sql
 %%DATADIR%%/importfilter/positions/standard_txt.ftr
 %%DATADIR%%/importfilter/positions/woerlein_txt.ftr
+%%DATADIR%%/manual/images/create_new_doc.png
+%%DATADIR%%/manual/images/numbercycles.png
+%%DATADIR%%/manual/kraft-de.html
+%%DATADIR%%/manual/kraft-en.html
+%%DATADIR%%/manual/kraftmanual.css
 %%DATADIR%%/meta/21_meta.xml
 %%DATADIR%%/pics/kraftapp_logo.png
-%%DATADIR%%/pics/kraftsplash.png
 %%DATADIR%%/reports/delivery_receipt.trml
 %%DATADIR%%/reports/images/docdigestdetailview/kraft_customer.png
 %%DATADIR%%/reports/images/docdigestdetailview/postit.png
 %%DATADIR%%/reports/images/identity.png
 %%DATADIR%%/reports/images/lurchie.png
+%%DATADIR%%/reports/invoice.gtmpl
 %%DATADIR%%/reports/invoice.trml
+%%DATADIR%%/reports/kraft.css
 %%DATADIR%%/styles/catalogview.css
 %%DATADIR%%/styles/docdigestview.css
 %%DATADIR%%/styles/docoverview.css
@@ -83,6 +90,7 @@ share/icons/hicolor/scalable/apps/kraft_catalogue.svg
 %%DATADIR%%/styles/systemview.css
 %%DATADIR%%/styles/templcatalog.style
 %%DATADIR%%/tools/erml2pdf.py
+%%DATADIR%%/tools/watermarkpdf.py
 %%DATADIR%%/views/docdigest.thtml
 %%DATADIR%%/views/identity.thtml
 %%DATADIR%%/views/kraftdoc_ro.thtml

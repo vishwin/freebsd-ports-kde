@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	R
-DISTVERSION=	4.0.2
+DISTVERSION=	4.0.4
 CATEGORIES=	math lang
 MASTER_SITES=	CRAN/src/base/R-${PORTVERSION:C|\..*||}
 
@@ -11,7 +11,7 @@ COMMENT=	Language for statistical computing and graphics
 
 LICENSE=	GPLv2
 
-ONLY_FOR_ARCHS=	aarch64 amd64 armv6 armv7 i386 powerpc64
+ONLY_FOR_ARCHS=	aarch64 amd64 armv6 armv7 i386 powerpc64 powerpc64le
 
 BUILD_DEPENDS=	texi2any:print/texinfo
 LIB_DEPENDS=	libcurl.so:ftp/curl \
@@ -51,7 +51,6 @@ OPTIONS_SINGLE_BLAS=	ATLAS NETLIB OPENBLAS RBLAS
 
 OPTIONS_SUB=		YES
 
-ATLAS_DESC=		ATLAS BLAS implementation
 CAIROPANGO_DESC=	Cairo graphics device and Pango multi-language text
 FLANG_DESC=		Use experimental flang Fortran compiler
 GHOSTSCRIPT_DESC=	Graphics device for bitmap files via Ghostscript
@@ -61,7 +60,6 @@ LETTER_DESC=		US letter paper
 MEMPROF_DESC=		Memory profiling via Rprofmem() and tracemem()
 NEEDX11_DESC=		Require X11
 NETLIB_DESC=		Netlib BLAS implementation
-OPENBLAS_DESC=		OpenBLAS BLAS implementation
 PNG_DESC=		PNG graphics device
 RBLAS_DESC=		Use R-bundled BLAS implementation
 RPROF_DESC=		R profiling via Rprof()

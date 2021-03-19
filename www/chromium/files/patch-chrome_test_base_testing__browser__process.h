@@ -1,6 +1,6 @@
---- chrome/test/base/testing_browser_process.h.orig	2020-07-07 21:58:14 UTC
+--- chrome/test/base/testing_browser_process.h.orig	2021-01-18 21:28:52 UTC
 +++ chrome/test/base/testing_browser_process.h
-@@ -118,8 +118,8 @@ class TestingBrowserProcess : public BrowserProcess {
+@@ -125,8 +125,8 @@ class TestingBrowserProcess : public BrowserProcess {
    DownloadRequestLimiter* download_request_limiter() override;
    StartupData* startup_data() override;
  

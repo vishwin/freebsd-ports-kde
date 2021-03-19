@@ -1,9 +1,12 @@
 # $FreeBSD$
 
 PORTNAME=	compute-runtime
-DISTVERSION=	20.37.17906
+DISTVERSION=	21.11.19310
 CATEGORIES=	lang
 PKGNAMEPREFIX=	intel-
+
+PATCH_SITES=	https://github.com/${GH_ACCOUNT}/${GH_PROJECT}/commit/
+PATCHFILES+=	2a423820aaa4.patch:-p1 # https://github.com/intel/compute-runtime/pull/361
 
 MAINTAINER=	jbeich@FreeBSD.org
 COMMENT=	OpenCL implementation for Intel HD 5000 (Gen8) or newer
@@ -17,11 +20,11 @@ ONLY_FOR_ARCHS_REASON=	Only Intel GPUs on x86 are supported
 LIB_DEPENDS=	libigc.so:devel/intel-graphics-compiler \
 		libigdgmm.so:multimedia/gmmlib
 
-USES=		cmake compiler:c++14-lang localbase:ldflags pkgconfig
+USES=		cmake compiler:c++17-lang localbase:ldflags pkgconfig
 USE_GITHUB=	yes
 USE_LDCONFIG=	yes
 GH_ACCOUNT=	intel
-CMAKE_ON=	SKIP_UNIT_TESTS
+CMAKE_ON=	SKIP_UNIT_TESTS SUPPORT_DG1
 CMAKE_ARGS=	-DNEO_OCL_DRIVER_VERSION:STRING="${DISTVERSIONFULL}"
 PLIST_FILES=	bin/ocloc \
 		etc/OpenCL/vendors/intel.icd \

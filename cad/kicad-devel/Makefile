@@ -3,7 +3,7 @@
 
 PORTNAME=	kicad
 DISTVERSION=	r${GIT_SRC_DATE}
-#PORTREVISION=	1
+PORTREVISION=	3
 CATEGORIES=	cad
 PKGNAMESUFFIX=	-devel
 DIST_SUBDIR=		${PORTNAME}
@@ -25,11 +25,10 @@ LIB_DEPENDS=	libboost_thread.so:devel/boost-libs \
 
 CONFLICTS=	kicad-4.*
 
-USE_GITLAB=     yes
-GL_ACCOUNT=     kicad
-GL_PROJECT=     code/kicad
+USE_GITLAB=	yes
+GL_ACCOUNT=	kicad/code
+GL_PROJECT=	kicad
 GL_COMMIT=	${GIT_SRC_HASH}
-WRKSRC=		${WRKDIR}/${PORTNAME}-${GL_COMMIT}-${GL_COMMIT}
 
 CXXFLAGS+=	--std=c++14 -I${WRKSRC} -I${WRKSRC}/include -I${LOCALBASE}/include
 USE_GL=		gl glew glu glut
@@ -71,9 +70,8 @@ CMAKE_ARGS=	-DLOCALBASE="${LOCALBASE}" \
 		-DKICAD_USE_OCE=OFF \
 		-DKICAD_USE_OCC=ON \
 		-DOCC_INCLUDE_DIR=${LOCALBASE}/include/OpenCASCADE
-USE_LDCONFIG=   yes
-INSTALLS_ICONS= yes
-
+USE_LDCONFIG=	yes
+INSTALLS_ICONS=	yes
 
 .include "Makefile.git_rev"
 
@@ -165,10 +163,4 @@ PLIST_DIR_LIST=		lib/kicad
 PLIST_SHAREDDIR_LIST=	share/mimelnk/application \
 			share/mimelnk
 
-.include <bsd.port.pre.mk>
-
-.if ${OPSYS} == FreeBSD && ${CHOSEN_COMPILER_TYPE} == gcc
-IGNORE=		builds only with clang
-.endif
-
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

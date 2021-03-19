@@ -37,7 +37,7 @@ PLIST_SUB=	TILE38_USER=${USERS} \
 		TILE38_RUNDIR=${TILE38_RUNDIR}
 
 do-build:
-	@cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ./build.sh
+	@cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${GO_ENV} ./build.sh
 
 do-install:
 	@${MKDIR} ${STAGEDIR}${TILE38_DBDIR} ${STAGEDIR}${TILE38_RUNDIR}
@@ -45,6 +45,6 @@ do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/tile38-server ${STAGEDIR}${PREFIX}/bin/
 
 do-test:
-	@cd ${WRKSRC} && ./build.sh test
+	@cd ${WRKSRC} && ${SETENV} ${TEST_ENV} ./build.sh test
 
 .include <bsd.port.mk>

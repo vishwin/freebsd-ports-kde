@@ -159,28 +159,26 @@ CMake Error at IGC/CMakeLists.txt:1974 (message):
            if (IGC_IS_FLAG_ENABLED(EnableDPEmulation)) {
                return true;
            }
---- IGC/AdaptorOCL/OCL/sp/gtpin_igc_ocl.h.orig	2019-11-27 01:05:20 UTC
-+++ IGC/AdaptorOCL/OCL/sp/gtpin_igc_ocl.h
-@@ -38,7 +38,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- #define MY_CALLINGSTD  _fastcall
- #define MY_CDECL       _cdecl
+--- IGC/AdaptorOCL/ocl_igc_interface/impl/fcl_ocl_translation_ctx_impl.cpp.orig	2020-11-21 02:52:12 UTC
++++ IGC/AdaptorOCL/ocl_igc_interface/impl/fcl_ocl_translation_ctx_impl.cpp
+@@ -64,7 +64,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  
--#elif defined(ANDROID) || defined (__linux__)
-+#elif defined(__GNUC__)
+ #include <memory>
  
- // Linux, Android
- #define MY_EXTERN_C    extern "C"
---- IGC/CMFE/AdaptorCM/InputArgsWrapper.cpp.orig	2020-08-29 06:30:46 UTC
-+++ IGC/CMFE/AdaptorCM/InputArgsWrapper.cpp
-@@ -55,7 +55,7 @@ void InputArgsWrapper::processSupportDirectories(const
-     return;
+-#if defined(__linux__)
++#if defined(__unix__)
+ #include <dlfcn.h>
+ #else
+ #include <Windows.h>
+@@ -132,7 +132,7 @@ llvm::Optional<std::vector<char>> readBinaryFile(const
+ #if !defined(WDDM_LINUX) && (!defined(IGC_VC_DISABLED) || !IGC_VC_DISABLED)
  
- // TODO: enable this for Windows
--#if __linux__
-+#if !defined(_WIN32)
-   // process files
-   std::error_code EC;
-   SeqStrT IncludeFiles;
+ static std::string detectCmIncludes(llvm::sys::DynamicLibrary &LibInfo) {
+-#if defined(__linux__)
++#if defined(__unix__)
+ #define GetFunctionNameAsStr(s) ((void)s, #s);
+   const char *SymName = GetFunctionNameAsStr(IntelCMClangFECompile);
+   void *FAddr = LibInfo.getAddressOfSymbol(SymName);
 --- IGC/GenISAIntrinsics/GenIntrinsics.h.orig	2020-02-10 06:06:31 UTC
 +++ IGC/GenISAIntrinsics/GenIntrinsics.h
 @@ -67,7 +67,7 @@ namespace GenISAIntrinsic {
@@ -223,6 +221,26 @@ CMake Error at IGC/CMakeLists.txt:1974 (message):
          if (!FCL_IGC_IS_FLAG_ENABLED(DumpToCurrentDir) && g_shaderOutputFolder == "" && !FCL_IGC_IS_FLAG_ENABLED(DumpToCustomDir))
          {
              bool needMkdir = true;
+--- IGC/VectorCompiler/lib/GenXCodeGen/SPIRVWrapper.cpp.orig	2021-03-08 06:23:56 UTC
++++ IGC/VectorCompiler/lib/GenXCodeGen/SPIRVWrapper.cpp
+@@ -48,7 +48,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ #include "llvm/Support/DynamicLibrary.h"
+ #include "llvm/Support/Path.h"
+ #include "llvm/Support/Process.h"
+-#if defined(__linux__)
++#if !defined(_WIN32)
+ #include <dlfcn.h>
+ #endif // __linux__
+ #if defined(_WIN32)
+@@ -172,7 +172,7 @@ Expected<SpirvReadVerifyType *> getSpirvReadVerifyFunc
+   constexpr char *SpirvReadVerifyName = "spirv_read_verify_module";
+ 
+   const std::string SpirvLibPath = findSpirvDLL();
+-#if defined(__linux__)
++#if defined(RTLD_DEEPBIND)
+   // Hack to workaround cmoc crashes during loading of SPIRV library
+   static auto DeepBindHack =
+       dlopen(SpirvLibPath.c_str(), RTLD_NOW | RTLD_DEEPBIND);
 --- IGC/common/LLVMWarningsPop.hpp.orig	2019-11-27 01:05:20 UTC
 +++ IGC/common/LLVMWarningsPop.hpp
 @@ -58,6 +58,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

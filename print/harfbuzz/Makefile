@@ -2,9 +2,10 @@
 # $FreeBSD$
 
 PORTNAME=	harfbuzz
-DISTVERSION=	2.7.2
+DISTVERSION=	2.8.0
 PORTREVISION?=	0
 CATEGORIES=	print
+MASTER_SITES=	https://github.com/harfbuzz/harfbuzz/releases/download/${DISTVERSION}/
 
 MAINTAINER=	desktop@FreeBSD.org
 COMMENT?=	OpenType text shaping engine
@@ -16,15 +17,15 @@ LIB_DEPENDS=	libfreetype.so:print/freetype2 \
 		libgraphite2.so:graphics/graphite2
 
 USES=		compiler:c++11-lib gnome meson \
-		pkgconfig python:build shebangfix
-USE_GITHUB=	yes
+		pkgconfig python:build shebangfix tar:xz
 USE_GNOME=	glib20 introspection:build
 USE_LDCONFIG=	yes
 SHEBANG_GLOB=	*.py
+
 MESON_ARGS=	-Dglib=enabled -Dgobject=enabled -Dgraphite=enabled \
 		-Dfreetype=enabled -Dbenchmark=disabled
 
-PLIST_SUB+=	LIBVER=0.20702.0
+PLIST_SUB+=	LIBVER=0.20800.0
 
 HARFBUZZ_SLAVE?=	no
 

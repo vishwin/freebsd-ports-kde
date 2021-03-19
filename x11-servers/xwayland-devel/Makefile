@@ -2,14 +2,15 @@
 
 PORTNAME=	xwayland
 DISTVERSIONPREFIX=	xorg-server-
-DISTVERSION=	1.20.0-738
-DISTVERSIONSUFFIX=	-gefb3abddd
+DISTVERSION=	1.20.0-875
+DISTVERSIONSUFFIX=	-g376eaadde
 CATEGORIES=	x11-servers
 PKGNAMESUFFIX=	-devel
 
 PATCH_SITES=	https://github.com/${GH_ACCOUNT}/${GH_PROJECT}/commit/
-PATCHFILES+=	9e0086f99b39.patch:-p1 # https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/432
-PATCHFILES+=	5ac296eb6c4e.patch:-p1 # https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/432
+PATCHFILES+=	231720f8b212.patch:-p1 # https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/432
+PATCHFILES+=	48a7bfeb4687.patch:-p1 # https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/432
+PATCHFILES+=	2b3c4983f937.patch:-p1 # https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/432
 
 MAINTAINER=	jbeich@FreeBSD.org
 COMMENT=	X11 server as Wayland client (development snapshot)
@@ -34,7 +35,7 @@ USE_GL=		gbm gl
 USE_XORG=	pixman xau xdmcp xfont2 xkbfile xshmfence xtrans
 GH_ACCOUNT=	freedesktop
 GH_PROJECT=	xorg-xserver
-MESON_ARGS=	-Dxwayland=true \
+MESON_ARGS=	-D${PORTNAME}=true \
 		-Dxorg=false \
 		-Dxnest=false \
 		-Dxvfb=false \
@@ -42,7 +43,10 @@ MESON_ARGS=	-Dxwayland=true \
 		-Dudev_kms=false \
 		-Ddefault_font_path="${DEFAULT_FONTPATH_LIST:ts,}"
 PLIST_FILES=	bin/Xwayland \
-		libdata/pkgconfig/xwayland.pc
+		"@comment lib/xorg/protocol.txt" \
+		libdata/pkgconfig/xwayland.pc \
+		"@comment man/man1/Xserver.1.gz" \
+		man/man1/Xwayland.1.gz
 
 # Keep in sync with xorg-server
 FONTPATH_ROOT?=	${LOCALBASE}/share/fonts
@@ -61,12 +65,5 @@ OPTIONS_DEFINE=	NVIDIA
 NVIDIA_DESC=		EGLStream support for glamor on Xwayland
 NVIDIA_BUILD_DEPENDS=	egl-wayland>0:graphics/egl-wayland
 NVIDIA_MESON_TRUE=	xwayland_eglstream
-
-do-install:
-# Wayland compositors only use the binary
-	${INSTALL_PROGRAM} ${BUILD_WRKSRC}/hw/xwayland/Xwayland \
-		${STAGEDIR}${PREFIX}/bin
-	${INSTALL_DATA} ${BUILD_WRKSRC}/hw/xwayland/xwayland.pc \
-		${STAGEDIR}${PREFIX}/libdata/pkgconfig
 
 .include <bsd.port.mk>

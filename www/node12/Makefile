@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	node
-PORTVERSION=	12.18.4
+PORTVERSION=	12.21.0
 DISTVERSIONPREFIX=	v
 CATEGORIES=	www
 MASTER_SITES=	http://nodejs.org/dist/v${PORTVERSION}/
@@ -15,7 +15,10 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 
 BROKEN_SSL=		libressl libressl-devel
 BROKEN_SSL_REASON=	Node.js 12.x LTS requires OpenSSL 1.1.x or the BUNDLED_SSL option enabled
-ONLY_FOR_ARCHS=		aarch64 amd64 armv6 armv7 i386 powerpc64
+ONLY_FOR_ARCHS=		aarch64 amd64 armv6 armv7 i386 powerpc64 powerpc64le
+
+USES=		compiler:c++11-lib gmake python:2.7,build pkgconfig \
+		localbase shebangfix
 
 OPTIONS_DEFINE=		BUNDLED_SSL DOCS NLS DTRACE
 OPTIONS_DEFAULT=	DTRACE
@@ -32,6 +35,7 @@ OPTIONS_EXCLUDE_aarch64=	DTRACE
 OPTIONS_EXCLUDE_armv6=		DTRACE
 OPTIONS_EXCLUDE_armv7=		DTRACE
 OPTIONS_EXCLUDE_powerpc64=	DTRACE
+OPTIONS_EXCLUDE_powerpc64le=	DTRACE
 
 BUNDLED_SSL_DESC=		Use node.js's bundled OpenSSL implementation
 BUNDLED_SSL_USES_OFF=		ssl
@@ -44,12 +48,9 @@ NLS_LIB_DEPENDS=	libicui18n.so:devel/icu
 
 DTRACE_CONFIGURE_ON=	--with-dtrace
 
-USES=		compiler:c++11-lib gmake python:2.7,build pkgconfig \
-		localbase shebangfix
-
 HAS_CONFIGURE=	yes
 
-CONFLICTS_INSTALL=	node[68]-[0-9]* node10-[0-9]* node-[0-9]*
+CONFLICTS_INSTALL=	node10-[0-9]* node14-[0-9]* node-[0-9]*
 
 CONFIGURE_ARGS=	--prefix=${PREFIX_RELDEST} \
 		--without-npm \
@@ -66,8 +67,8 @@ MAKE_ENV+=	CC.host=${CC} CFLAGS.host="${CFLAGS}" \
 		CXX.host=${CXX} CXXFLAGS.host="${CXXFLAGS}" \
 		LINK.host=${CXX} LDFLAGS.host="${LDFLAGS}"
 
-BUILD_DEPENDS+=	c-ares>=1.16.0:dns/c-ares \
-		libuv>=1.38.0:devel/libuv \
+BUILD_DEPENDS+=	c-ares>=1.16.1:dns/c-ares \
+		libuv>=1.40.0:devel/libuv \
 		libnghttp2>=1.41.0:www/libnghttp2 \
 		objdump:devel/binutils
 LIB_DEPENDS+=	libcares.so:dns/c-ares\
@@ -82,7 +83,7 @@ BROKEN_SSL+=	base
 
 .if ${ARCH} == armv6 || ${ARCH} == armv7
 EXTRA_PATCHES=	${PATCHDIR}/extra-patch-tools_v8__gypfiles_v8.gyp
-.elif defined(PPC_ABI) && ${PPC_ABI} == ELFv2
+.elif (defined(PPC_ABI) && ${PPC_ABI} == ELFv2) || ${ARCH} == powerpc64le
 EXTRA_PATCHES=	${PATCHDIR}/extra-patch-common.gypi
 .endif
 

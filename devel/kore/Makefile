@@ -2,11 +2,11 @@
 # $FreeBSD$
 
 PORTNAME=	kore
-PORTVERSION=	4.0.1
+PORTVERSION=	4.1.0
 CATEGORIES=	devel www
 MASTER_SITES=	https://kore.io/releases/
 
-MAINTAINER=	tobik@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Web application framework for writing web APIs in C
 
 LICENSE=	ISCL

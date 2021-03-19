@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	http-parser
-PORTVERSION=	1.2.1
+PORTVERSION=	1.2.3
 CATEGORIES=	net rubygems
 MASTER_SITES=	RG
 

@@ -1,8 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	puppetserver
-PORTVERSION=	5.3.14
-PORTREVISION=	1
+PORTVERSION=	5.3.16
 CATEGORIES=	sysutils java
 MASTER_SITES=	https://downloads.puppetlabs.com/puppet/
 PKGNAMESUFFIX=	5
@@ -12,6 +11,8 @@ COMMENT=	Puppet Server running in the JVM
 
 LICENSE=	APACHE20
 
+DEPRECATED=	Puppet 5 has reached EOL
+EXPIRATION_DATE=2021-07-01
 BROKEN_FreeBSD_12=	Does not start. See PR 233766
 BROKEN_FreeBSD_13=	Does not start. See PR 233766
 
@@ -27,7 +28,7 @@ NO_ARCH=	yes
 NO_BUILD=	yes
 JAVA_VERSION=	1.8+
 
-CONFLICTS_INSTALL=	puppetserver-* puppetserver6-*
+CONFLICTS_INSTALL=	puppetserver6-* puppetserver7-*
 
 SHEBANG_FILES=  ext/bin/puppetserver
 

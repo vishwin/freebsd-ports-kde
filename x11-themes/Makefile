@@ -8,8 +8,10 @@
     SUBDIR += adapta-gtk-theme
     SUBDIR += adwaita-icon-theme
     SUBDIR += adwaita-qt
+    SUBDIR += ant-dracula-theme
     SUBDIR += arc-gruvbox-theme
     SUBDIR += audacious-skins
+    SUBDIR += canta-gtk-themes
     SUBDIR += classiclooks
     SUBDIR += claws-mail-themes
     SUBDIR += clearlooks
@@ -30,6 +32,9 @@
     SUBDIR += cursor-neutral-white-theme
     SUBDIR += e16-themes
     SUBDIR += emerald-themes
+    SUBDIR += flat-remix-gtk-themes
+    SUBDIR += flat-remix-icon-themes
+    SUBDIR += flatery-icon-themes
     SUBDIR += fluxbox-tenr-styles-pack
     SUBDIR += freebsd-8k-wallpapers
     SUBDIR += freebsd-8k-wallpapers-kde
@@ -55,7 +60,6 @@
     SUBDIR += gnome-icons-ximian-south
     SUBDIR += gnome-themes
     SUBDIR += gnome-themes-extra
-    SUBDIR += gnome-themes-extras
     SUBDIR += greybird-theme
     SUBDIR += gtk-E17-theme
     SUBDIR += gtk-aluminumalloy-cryogenic-theme
@@ -120,8 +124,10 @@
     SUBDIR += metacity-theme-microgui
     SUBDIR += metacity-themes
     SUBDIR += mint-themes
+    SUBDIR += nordic-theme
     SUBDIR += numix-gtk-theme
     SUBDIR += numix-icon-theme
+    SUBDIR += numix-icon-theme-circle
     SUBDIR += openbox-arc-theme
     SUBDIR += papirus-icon-theme
     SUBDIR += plasma5-breeze
@@ -130,6 +136,8 @@
     SUBDIR += plasma5-oxygen
     SUBDIR += plasma5-plasma-workspace-wallpapers
     SUBDIR += plata-theme
+    SUBDIR += pop-gtk-themes
+    SUBDIR += qgnomeplatform
     SUBDIR += qt5-style-plugins
     SUBDIR += qtcurve
     SUBDIR += qtcurve-gtk2

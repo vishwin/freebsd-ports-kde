@@ -1,11 +1,14 @@
 # $FreeBSD$
 
 PORTNAME=	alexandria
-PORTVERSION=	2010.01.16
-PORTREVISION=	48
+PORTVERSION=	1.2
+PORTREVISION=	2
+PORTEPOCH=	1
 CATEGORIES=	devel lisp
 PKGNAMEPREFIX=	cl-
 DISTFILES=	# none
+
+LICENSE=	PD
 
 MAINTAINER=	olgeni@FreeBSD.org
 COMMENT=	Collection of portable public domain utilities for Common Lisp

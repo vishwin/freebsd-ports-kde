@@ -2,15 +2,17 @@
 # $FreeBSD$
 
 PORTNAME=	dyncall
-DISTVERSION=	1.1
+DISTVERSION=	1.2
 CATEGORIES=	devel
-MASTER_SITES=	http://www.dyncall.org/r${DISTVERSION}/ \
+MASTER_SITES=	https://www.dyncall.org/r${DISTVERSION}/ \
 		http://www.potion-studios.com/
 
 MAINTAINER=	tphilipp@potion-studios.com
 COMMENT=	Highly dynamic multi-platform foreign function call interface library
 
 LICENSE=	ISCL
+
+BROKEN_riscv64=		fails to compile: dyncall_callvm.c:75:4: unsupported platform
 
 HAS_CONFIGURE=	yes
 

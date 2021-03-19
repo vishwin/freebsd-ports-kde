@@ -1,20 +1,25 @@
 # $FreeBSD$
 
 PORTNAME=	cordless
-DISTVERSION=	2020-08-30
+DISTVERSION=	2020-10-24
 CATEGORIES=	net-im
 
-MAINTAINER=	vulcan@wired.sh
+MAINTAINER=	lcook@FreeBSD.org
 COMMENT=	Discord TUI client
 
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
+# See: https://github.com/Bios-Marcel/cordless#i-am-closing-down-the-cordless-project
+DEPRECATED=	Unmaintained and dead upstream, uses the old Discord API which notably has got users banned
+EXPIRATION_DATE=	2021-04-22
+
 USES=		go:modules
 USE_GITHUB=	yes
 GH_ACCOUNT=	Bios-Marcel
-GH_TUPLE=	Bios-Marcel:discordemojimap:v1.0.1:bios_marcel_discordemojimap/vendor/github.com/Bios-Marcel/discordemojimap \
-		Bios-Marcel:discordgo:28b4ad667cd5:bios_marcel_discordgo/vendor/github.com/Bios-Marcel/discordgo \
+GH_TUPLE=	\
+		Bios-Marcel:discordemojimap:v1.0.1:bios_marcel_discordemojimap/vendor/github.com/Bios-Marcel/discordemojimap \
+		Bios-Marcel:discordgo:5060bbaaa5a2:bios_marcel_discordgo/vendor/github.com/Bios-Marcel/discordgo \
 		Bios-Marcel:goclipimg:d0f7b06fbe82:bios_marcel_goclipimg/vendor/github.com/Bios-Marcel/goclipimg \
 		Bios-Marcel:shortnotforlong:v1.1.1:bios_marcel_shortnotforlong/vendor/github.com/Bios-Marcel/shortnotforlong \
 		alecthomas:chroma:v0.6.6:alecthomas_chroma/vendor/github.com/alecthomas/chroma \
@@ -22,7 +27,7 @@ GH_TUPLE=	Bios-Marcel:discordemojimap:v1.0.1:bios_marcel_discordemojimap/vendor/
 		danwakefield:fnmatch:cbb64ac3d964:danwakefield_fnmatch/vendor/github.com/danwakefield/fnmatch \
 		dlclark:regexp2:v1.2.0:dlclark_regexp2/vendor/github.com/dlclark/regexp2 \
 		gdamore:encoding:v1.0.0:gdamore_encoding/vendor/github.com/gdamore/encoding \
-		gdamore:tcell:v1.4.0:gdamore_tcell/vendor/github.com/gdamore/tcell \
+		gdamore:tcell:v2.0.0:gdamore_tcell_v2/vendor/github.com/gdamore/tcell/v2 \
 		gen2brain:beeep:e9c15c258e28:gen2brain_beeep/vendor/github.com/gen2brain/beeep \
 		go-sourcemap:sourcemap:v1.0.5:go_sourcemap_sourcemap/vendor/gopkg.in/sourcemap.v1 \
 		go-toast:toast:01e6764cf0a4:go_toast_toast/vendor/github.com/go-toast/toast \

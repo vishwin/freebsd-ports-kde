@@ -1,8 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	strawberry
-DISTVERSION=	0.6.13
-PORTREVISION=	1
+DISTVERSION=	0.9.1
 CATEGORIES=	audio
 MASTER_SITES=	https://github.com/strawberrymusicplayer/${PORTNAME}/releases/download/${DISTVERSION}/ \
 		https://files.jkvinge.net/packages/strawberry/
@@ -30,7 +29,7 @@ USE_QT=		buildtools_build concurrent core dbus gui network \
 USE_XORG=	ice sm x11 xcb xext
 INSTALLS_ICONS=	yes
 
-CMAKE_ARGS=	-DUSE_SYSTEM_TAGLIB=ON -DENABLE_UDISKS2=OFF -DENABLE_XINE=OFF \
+CMAKE_ARGS=	-DUSE_SYSTEM_TAGLIB=ON -DENABLE_UDISKS2=OFF \
 		-DENABLE_GSTREAMER:BOOL=true \
 		-DENABLE_TRANSLATIONS:BOOL=true
 
@@ -44,16 +43,14 @@ TEST_TARGET=	strawberry_test
 # error: member initializer 'transcode_dialog_' does not name a non-static data member or base class
 # transcode_dialog_([=]() {
 
-OPTIONS_DEFINE=		APPLEDEV AUDIOCD IPOD MOODBAR MTPDEV MUSICBRAINZ \
+OPTIONS_DEFINE=		AUDIOCD IPOD MOODBAR MTPDEV MUSICBRAINZ \
 			SUBSONIC TIDAL VLC
 
-APPLEDEV_IMPLIES=	IPOD
 OPTIONS_DEFAULT=	PULSEAUDIO MOODBAR
 
 OPTIONS_MULTI=		SOUND
 OPTIONS_MULTI_SOUND=	ALSA PULSEAUDIO
 
-APPLEDEV_DESC=		Enable support for more recent Apple devices
 AUDIOCD_DESC=		Enable support for Audio CDs
 IPOD_DESC=		Enable support for iPod Classic
 MOODBAR_DESC=		Enable moodbar
@@ -63,11 +60,6 @@ SUBSONIC_DESC=		Enable support for Subsonic music streamer
 TIDAL_DESC=		Enable support for TIDAL music service
 VLC_DESC=		Multimedia support via (lib)vlc
 
-APPLEDEV_CMAKE_BOOL=	ENABLE_IMOBILEDEVICE
-APPLEDEV_LIB_DEPENDS=	libimobiledevice.so:comms/libimobiledevice \
-			libplist.so:devel/libplist \
-			libusbmuxd.so:comms/libusbmuxd
-
 ALSA_CMAKE_BOOL=	ENABLE_ALSA
 ALSA_LIB_DEPENDS=	libasound.so:audio/alsa-lib
 
@@ -75,7 +67,9 @@ AUDIOCD_CMAKE_BOOL=	ENABLE_AUDIOCD
 AUDIOCD_LIB_DEPENDS=	libcdio.so:sysutils/libcdio
 
 IPOD_CMAKE_BOOL=	ENABLE_LIBGPOD
-IPOD_LIB_DEPENDS=	libgpod.so:audio/libgpod
+IPOD_LIB_DEPENDS=	libgpod.so:audio/libgpod \
+			libimobiledevice-1.0.so:comms/libimobiledevice \
+			libplist-2.0.so:devel/libplist
 
 MTPDEV_CMAKE_BOOL=	ENABLE_LIBMTP
 MTPDEV_LIB_DEPENDS=	libmtp.so:multimedia/libmtp

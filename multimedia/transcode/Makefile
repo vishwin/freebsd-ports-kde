@@ -3,7 +3,7 @@
 
 PORTNAME=	transcode
 PORTVERSION=	1.1.7
-PORTREVISION=	44
+PORTREVISION=	45
 CATEGORIES=	multimedia
 MASTER_SITES=	https://bitbucket.org/france/transcode-tcforge/downloads/
 
@@ -34,7 +34,6 @@ OPTIONS_DEFAULT=	LAME DVDREAD JPEG ICONV
 BKTR_DESC=		Bktr capture card support
 POSTPROC_DESC=		Libpostproc support
 DVDREAD_DESC=		Libdvdread support
-LZO_DESC=		LZO compression support
 
 X11_USES=			xorg
 X11_USE=			xorg=xv,xaw,xpm

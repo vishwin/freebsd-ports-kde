@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	saga
-PORTVERSION=	7.7.0
+PORTVERSION=	7.9.0
+PORTREVISION=	3
 CATEGORIES=	math
 MASTER_SITES=	SF/saga-gis/SAGA%20-%20${PORTVERSION:C/\.[[:digit:]]\.[[:digit:]]*$//}/SAGA%20-%20${PORTVERSION}
 
@@ -21,12 +22,11 @@ LIB_DEPENDS=	libcurl.so:ftp/curl \
 		libjasper.so:graphics/jasper \
 		liblas12.so:devel/liblas12 \
 		libodbc.so:databases/unixODBC \
-		libopencv_core.so:graphics/opencv-core \
-		libopencv_ml.so:graphics/opencv \
+		libopencv_core.so:graphics/opencv \
 		libpdal_base.so:math/pdal \
 		libproj.so:graphics/proj \
 		libsvm.so:science/libsvm \
-		libtbb.so:devel/tbb \
+		libtbb.so:devel/onetbb \
 		libtiff.so:graphics/tiff
 RUN_DEPENDS:=	swig:devel/swig
 
@@ -89,8 +89,6 @@ post-extract:
 		${WRKSRC}/src/tools/pointcloud/pointcloud_viewer/Makefile.am \
 		${WRKSRC}/src/tools/statistics/statistics_kriging/Makefile.am \
 		${WRKSRC}/src/tools/tin/tin_viewer/Makefile.am
-	@${REINPLACE_CMD} -e 's|/usr/include/opencv|${LOCALBASE}/include/opencv ${LOCALBASE}/include|g' \
-		${WRKSRC}/src/tools/imagery/imagery_opencv/Makefile.am
 
 post-patch:
 .if ${ARCH} == "powerpc"
@@ -99,11 +97,7 @@ post-patch:
 .endif
 	@${REINPLACE_CMD} -e 's|PORTVERSION|${PORTVERSION}|' \
 		${WRKSRC}/src/saga_core/saga_gui/dlg_about.cpp
-
-post-patch-OPENMP-on:
 	@${REINPLACE_CMD} -e 's|-lgomp|-lomp|' \
-		${WRKSRC}/configure.ac \
-		${WRKSRC}/configure \
 		${WRKSRC}/src/accessories/templates/template4saga-tools/my_tool_library/Makefile
 
 post-configure:

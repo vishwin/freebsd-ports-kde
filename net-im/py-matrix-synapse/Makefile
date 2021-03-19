@@ -3,7 +3,7 @@
 
 PORTNAME=	matrix-synapse
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.19.3
+DISTVERSION=	1.29.0
 CATEGORIES=	net-im python
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
@@ -17,7 +17,7 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}jsonschema>=2.5.1:devel/py-jsonschema@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}frozendict>=1:devel/py-frozendict@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}unpaddedbase64>=1.1.0:devel/py-unpaddedbase64@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}canonicaljson>=1.2.0:devel/py-canonicaljson@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}canonicaljson>=1.4.0:devel/py-canonicaljson@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}signedjson>=1.1.0:security/py-signedjson@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}pynacl>=1.2.1:security/py-pynacl@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}idna>=2.5:dns/py-idna@${PY_FLAVOR} \
@@ -35,7 +35,7 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}jsonschema>=2.5.1:devel/py-jsonschema@${PY_F
 		${PYTHON_PKGNAMEPREFIX}pymacaroons>=0.13.0:security/py-pymacaroons@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}msgpack>=0.5.2:devel/py-msgpack@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}phonenumbers>=8.2.0:devel/py-phonenumbers@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}prometheus-client>=0.2.0:net-mgmt/py-prometheus-client@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}prometheus-client>=0.4.0:net-mgmt/py-prometheus-client@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}attrs>19.1.0:devel/py-attrs@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}netaddr>=0.7.18:net/py-netaddr@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}simplejson>=3.10.0:devel/py-simplejson@${PY_FLAVOR} \
@@ -54,12 +54,14 @@ TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}virtualenv>=15.0:devel/py-virtualenv@${PY_F
 
 USES=		python:3.6+
 USE_GITHUB=	yes
-USE_PYTHON=	autoplist distutils
-
 GH_ACCOUNT=	matrix-org
 GH_PROJECT=	synapse
-
+USE_PYTHON=	autoplist distutils
 USE_RC_SUBR=	synapse
+
+NO_ARCH=	yes
+SUB_FILES=	pkg-message log.config
+SUB_LIST=	PYTHON_CMD=${PYTHON_CMD} DBDIR=${DBDIR} LOGDIR=${LOGDIR} PIDDIR=${PIDDIR} USERS=${USERS}
 
 USERS=		synapse
 GROUPS=		synapse
@@ -68,29 +70,24 @@ DBDIR?=		/var/db/${PORTNAME}
 LOGDIR?=	/var/log/${PORTNAME}
 PIDDIR?=	/var/run/${PORTNAME}
 
-SUB_FILES=	pkg-message log.config
-SUB_LIST=	PYTHON_CMD=${PYTHON_CMD} DBDIR=${DBDIR} LOGDIR=${LOGDIR} PIDDIR=${PIDDIR} USERS=${USERS}
-
 PLIST_FILES=	"@sample ${ETCDIR}/log.config.sample"
-DOCS=README.rst UPGRADE.rst CHANGES.md docs/postgres.md
-PORTDOCS=${DOCS:T}
+DOCS=		README.rst UPGRADE.rst CHANGES.md docs/postgres.md
+PORTDOCS=	${DOCS:T}
 
-NO_ARCH=	yes
+OPTIONS_DEFINE=		DOCS LDAP OIDC  PGSQL REDIS SQLITE URLPREVIEW
+OPTIONS_DEFAULT=	PGSQL SQLITE
 
-OPTIONS_DEFINE=		LDAP PGSQL SQLITE URLPREVIEW OIDC REDIS DOCS
-OPTIONS_DEFAULT=	SQLITE PGSQL DOCS
-
-URLPREVIEW_DESC=	Add dependencies necessary for URL previews
 OIDC_DESC=		Add dependencies for OpenID Connect based logins
 REDIS_DESC=		Add support replication over Redis for synapse workers
+URLPREVIEW_DESC=	Add dependencies necessary for URL previews
 
 LDAP_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}matrix-synapse-ldap3>=0.1:net/py-matrix-synapse-ldap3@${PY_FLAVOR}
-PGSQL_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}psycopg2>2.7:databases/py-psycopg2@${PY_FLAVOR}
-SQLITE_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}sqlite3>0:databases/py-sqlite3@${PY_FLAVOR}
-URLPREVIEW_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}lxml>=3.5.0:devel/py-lxml@${PY_FLAVOR}
 OIDC_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}authlib>=0.14.0:security/py-authlib@${PY_FLAVOR}
+PGSQL_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}psycopg2>2.8:databases/py-psycopg2@${PY_FLAVOR}
 REDIS_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}hiredis>=0:databases/py-hiredis@${PY_FLAVOR} \
 			${PYTHON_PKGNAMEPREFIX}txredisapi>=0:databases/py-txredisapi@${PY_FLAVOR}
+SQLITE_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}sqlite3>0:databases/py-sqlite3@${PY_FLAVOR}
+URLPREVIEW_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}lxml>=3.5.0:devel/py-lxml@${PY_FLAVOR}
 
 do-test:
 	cd ${WRKSRC} && PYTHONPATH="." trial-${PYTHON_VER} tests

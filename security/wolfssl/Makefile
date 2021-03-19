@@ -1,46 +1,47 @@
 # $FreeBSD$
 
 PORTNAME=	wolfssl
-PORTVERSION=	4.5.0
+PORTVERSION=	4.7.0
 CATEGORIES=	security devel
 MASTER_SITES=	https://www.wolfssl.com/ \
 		LOCAL/fox
+
 MAINTAINER=	fox@FreeBSD.org
 COMMENT=	Embedded SSL C-Library
 
 LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BROKEN_mips=	fails to package: pkg-static: Unable to access file libwolfssl.so.3: No such file or directory
-BROKEN_mips64=	fails to package: pkg-static: Unable to access file libwolfssl.so.3: No such file or directory
-
 USES=		libtool zip
 USE_LDCONFIG=	yes
 
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--disable-dependency-tracking \
+		--enable-certgen \
+		--enable-des3 \
 		--enable-dh \
 		--enable-dsa \
 		--enable-dtls \
 		--enable-ecc \
 		--enable-ipv6 \
 		--enable-keygen \
+		--enable-opensslall \
 		--enable-opensslextra \
 		--enable-ripemd \
+		--enable-sessioncerts \
 		--enable-sha512 \
 		--enable-shared \
 		--enable-sni \
 		--enable-ssh \
 		--enable-static \
 		--enable-tls13 \
-		--enable-tls13-draft18 \
-		--enable-tls13-draft22 \
-		--enable-tls13-draft23 \
-		--enable-tls13-draft26 \
-		--enable-tls13-draft28
+		--enable-tls13-draft18
 TEST_TARGET=	check
-PORTDOCS=	*
-OPTIONS_DEFINE=	DOCS
+CFLAGS+=	-DWOLFSSL_ALT_NAMES
+
+OPTIONS_DEFINE=	DEBUG DOCS
+
+DEBUG_CONFIGURE_ON=	--enable-debug
 
 post-configure:
 	@${REINPLACE_CMD} \
@@ -49,7 +50,7 @@ post-configure:
 		-e '/^pkgconfigdir/s|(libdir)|&data|' \
 		${WRKSRC}/Makefile
 
-post-install:
+post-install-DEBUG-off:
 	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libwolfssl.so
 
 .include <bsd.port.mk>

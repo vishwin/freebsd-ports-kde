@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	openssl
-PORTVERSION=	1.1.1h
+PORTVERSION=	1.1.1j
+PORTREVISION=	1
 PORTEPOCH=	1
 CATEGORIES=	security devel
 MASTER_SITES=	https://www.openssl.org/source/ \
@@ -92,7 +93,6 @@ TLS1_DESC=	TLSv1.0 (requires TLS1_1, TLS1_2)
 TLS1_1_DESC=	TLSv1.1 (requires TLS1_2)
 TLS1_2_DESC=	TLSv1.2
 WEAK-SSL-CIPHERS_DESC=	Weak cipher support (unsafe)
-ZLIB_DESC=	zlib compression support
 
 # Upstream default disabled options
 .for _option in ktls md2 rc5 sctp ssl3 zlib weak-ssl-ciphers

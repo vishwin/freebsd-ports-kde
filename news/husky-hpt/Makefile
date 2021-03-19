@@ -6,6 +6,9 @@ COMMENT=	Husky FTN tosser
 
 LICENSE=	GPLv2
 
+BROKEN_FreeBSD_13=	ld: error: duplicate symbol: config
+BROKEN_FreeBSD_14=	ld: error: duplicate symbol: config
+
 LIB_DEPENDS=	libareafix.so:news/husky-areafix \
 		libfidoconfig.so:news/husky-fidoconf \
 		libhusky.so:news/husky-huskylib \
@@ -19,6 +22,8 @@ INFO=		hpt
 MASTERDIR=	${.CURDIR}/../husky
 COMPONENT_SUBDIR=hpt
 MAKE_ARGS=	INFODIR=${PREFIX}/${INFO_PATH}
+
+CFLAGS+=	-fcommon # fix build failure with clang-11 on 13-CURRENT
 
 OPTIONS_DEFINE=	DOCS
 

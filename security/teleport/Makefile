@@ -2,7 +2,7 @@
 
 PORTNAME=	teleport
 DISTVERSIONPREFIX=	v
-DISTVERSION=	4.3.5
+DISTVERSION=	4.3.9
 CATEGORIES=	security
 
 MAINTAINER=	swills@FreeBSD.org
@@ -19,8 +19,8 @@ USES=		compiler gmake go
 
 USE_GITHUB=		yes
 GH_ACCOUNT=		gravitational
-GH_TUPLE=		gravitational:webassets:e65ae13:webassets/webassets
-GH_COMMIT_SHORT=	65669d5d3
+GH_TUPLE=		gravitational:webassets:eac734b:webassets/webassets
+GH_COMMIT_SHORT=	fabee242d
 GH_TAG_COMMIT=		${DISTVERSIONPREFIX}${DISTVERSION}-0-g${GH_COMMIT_SHORT}
 
 USE_RC_SUBR=	teleport
@@ -48,7 +48,7 @@ post-patch:
 
 do-build:
 	@cd ${WRKDIR}/${GO_TELEPORT_SRC_DIR} && \
-		${SETENV} ${MAKE_ENV} ${BUILD_ENV} \
+		${SETENV} ${MAKE_ENV} ${BUILD_ENV} ${GO_ENV} \
 		CGO_ENABLED=1 GOPATH=${WRKDIR} \
 		${GMAKE} full
 

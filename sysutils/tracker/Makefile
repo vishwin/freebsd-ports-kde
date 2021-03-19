@@ -3,6 +3,7 @@
 
 PORTNAME=	tracker
 PORTVERSION=	2.3.4
+PORTREVISION=	2
 CATEGORIES=	sysutils gnome
 MASTER_SITES=	GNOME
 
@@ -15,6 +16,7 @@ LICENSE_FILE=	${WRKSRC}/COPYING.LGPL
 BUILD_DEPENDS=	valac:lang/vala
 LIB_DEPENDS=	libuuid.so:misc/e2fsprogs-libuuid \
 		libsoup-2.4.so:devel/libsoup \
+		libdbus-1.so:devel/dbus \
 		libjson-glib-1.0.so:devel/json-glib \
 		libicutu.so:devel/icu
 
@@ -40,5 +42,10 @@ GLIB_SCHEMAS=	org.freedesktop.Tracker.DB.gschema.xml \
 BINARY_ALIAS=	python3=${PYTHON_CMD}
 
 PLIST_SUB=	LIBVER=0.304.0
+
+# This can be removed after 11.x is no longer supported
+.if exists(/usr/bin/ld.lld) && (${/usr/bin/ld:L:tA} != /usr/bin/ld.lld)
+LDFLAGS+=      -fuse-ld=lld
+.endif
 
 .include <bsd.port.mk>

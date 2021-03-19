@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	libdrm
-PORTVERSION=	2.4.102
+PORTVERSION=	2.4.104
 PORTEPOCH=	1
 CATEGORIES=	graphics x11
 MASTER_SITES=	https://dri.freedesktop.org/libdrm/
@@ -30,8 +30,7 @@ TESTS_DESC=	Install test programs (which are always built)
 OPTIONS_DEFAULT+=	MANPAGES
 .endif
 
-MANPAGES_BUILD_DEPENDS=	${LOCALBASE}/share/xsl/docbook/manpages/docbook.xsl:textproc/docbook-xsl
-MANPAGES_USE=		GNOME=libxslt:build
+MANPAGES_BUILD_DEPENDS=	rst2man:textproc/py-docutils
 MANPAGES_MESON_TRUE=	man-pages
 
 TESTS_MESON_TRUE=	install-test-programs
@@ -45,7 +44,8 @@ MESON_ARGS+=	-Domap=false \
 		-Dfreedreno=false \
 		-Dfreedreno-kgsl=false \
 		-Dvc4=false \
-		-Detnaviv=false
+		-Detnaviv=false \
+		-Dnouveau=false
 
 .include <bsd.port.options.mk>
 

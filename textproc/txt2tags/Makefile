@@ -2,10 +2,10 @@
 # $FreeBSD$
 
 PORTNAME=	txt2tags
-PORTVERSION=	3.6
+PORTVERSION=	3.7
 CATEGORIES=	textproc
 
-MAINTAINER=	lbartoletti@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Convert simply formatted text into markup (e.g., HTML)
 
 LICENSE=	GPLv2

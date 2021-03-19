@@ -3,7 +3,7 @@
 
 PORTNAME=	chemtool
 PORTVERSION=	1.7.20050716
-PORTREVISION=	9
+PORTREVISION=	10
 CATEGORIES=	science
 MASTER_SITES=	http://ruby.chemie.uni-freiburg.de/~martin/chemtool/
 PKGNAMESUFFIX=	-devel
@@ -12,8 +12,11 @@ DISTNAME=	ct17a15
 MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Drawing organic molecules easily and store them (developer version)
 
+BROKEN_FreeBSD_13=	ld: error: duplicate symbol: babelin
+BROKEN_FreeBSD_14=	ld: error: duplicate symbol: babelin
+
 LIB_DEPENDS=	libEMF.so:graphics/libemf
-RUN_DEPENDS=	transfig:print/transfig
+RUN_DEPENDS=	fig2dev:print/fig2dev
 
 USES=		compiler:c++11-lang gettext gmake gnome pkgconfig tar:tgz xorg
 WRKSRC=		${WRKDIR}/${PORTNAME}-1.7alpha15/

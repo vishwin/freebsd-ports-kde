@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	xtl
-DISTVERSION=	0.6.19
+DISTVERSION=	0.7.0
 CATEGORIES=	devel
 PKGNAMESUFFIX=	-quant-stack
 

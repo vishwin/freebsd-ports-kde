@@ -168,6 +168,7 @@ etc/man.d/perl%%PKGNAMESUFFIX%%.conf
 %%PRIV_LIB%%/ExtUtils/MM_MacOS.pm
 %%PRIV_LIB%%/ExtUtils/MM_NW5.pm
 %%PRIV_LIB%%/ExtUtils/MM_OS2.pm
+%%PRIV_LIB%%/ExtUtils/MM_OS390.pm
 %%PRIV_LIB%%/ExtUtils/MM_QNX.pm
 %%PRIV_LIB%%/ExtUtils/MM_UWIN.pm
 %%PRIV_LIB%%/ExtUtils/MM_Unix.pm
@@ -444,6 +445,11 @@ etc/man.d/perl%%PKGNAMESUFFIX%%.conf
 %%PRIV_LIB%%/Test2/API/Breakage.pm
 %%PRIV_LIB%%/Test2/API/Context.pm
 %%PRIV_LIB%%/Test2/API/Instance.pm
+%%PRIV_LIB%%/Test2/API/InterceptResult.pm
+%%PRIV_LIB%%/Test2/API/InterceptResult/Event.pm
+%%PRIV_LIB%%/Test2/API/InterceptResult/Facet.pm
+%%PRIV_LIB%%/Test2/API/InterceptResult/Hub.pm
+%%PRIV_LIB%%/Test2/API/InterceptResult/Squasher.pm
 %%PRIV_LIB%%/Test2/API/Stack.pm
 %%PRIV_LIB%%/Test2/Event.pm
 %%PRIV_LIB%%/Test2/Event/Bail.pm
@@ -719,7 +725,6 @@ etc/man.d/perl%%PKGNAMESUFFIX%%.conf
 %%ARCH_LIB%%/CORE/regnodes.h
 %%ARCH_LIB%%/CORE/sbox32_hash.h
 %%ARCH_LIB%%/CORE/scope.h
-%%ARCH_LIB%%/CORE/stadtx_hash.h
 %%ARCH_LIB%%/CORE/sv.h
 %%ARCH_LIB%%/CORE/thread.h
 %%ARCH_LIB%%/CORE/time64.h
@@ -961,9 +966,16 @@ etc/man.d/perl%%PKGNAMESUFFIX%%.conf
 %%MAN1%%/perl5302delta.1.gz
 %%MAN1%%/perl5303delta.1.gz
 %%MAN1%%/perl5320delta.1.gz
+%%MAN1%%/perl5321delta.1.gz
 %%MAN1%%/perl5330delta.1.gz
 %%MAN1%%/perl5331delta.1.gz
 %%MAN1%%/perl5332delta.1.gz
+%%MAN1%%/perl5333delta.1.gz
+%%MAN1%%/perl5334delta.1.gz
+%%MAN1%%/perl5335delta.1.gz
+%%MAN1%%/perl5336delta.1.gz
+%%MAN1%%/perl5337delta.1.gz
+%%MAN1%%/perl5338delta.1.gz
 %%MAN1%%/perl561delta.1.gz
 %%MAN1%%/perl56delta.1.gz
 %%MAN1%%/perl581delta.1.gz
@@ -1002,6 +1014,7 @@ etc/man.d/perl%%PKGNAMESUFFIX%%.conf
 %%MAN1%%/perldeprecation.1.gz
 %%MAN1%%/perldiag.1.gz
 %%MAN1%%/perldoc.1.gz
+%%MAN1%%/perldocstyle.1.gz
 %%MAN1%%/perldos.1.gz
 %%MAN1%%/perldsc.1.gz
 %%MAN1%%/perldtrace.1.gz
@@ -1025,6 +1038,7 @@ etc/man.d/perl%%PKGNAMESUFFIX%%.conf
 %%MAN1%%/perlfunc.1.gz
 %%MAN1%%/perlgit.1.gz
 %%MAN1%%/perlglossary.1.gz
+%%MAN1%%/perlgov.1.gz
 %%MAN1%%/perlgpl.1.gz
 %%MAN1%%/perlguts.1.gz
 %%MAN1%%/perlhack.1.gz
@@ -1266,6 +1280,7 @@ etc/man.d/perl%%PKGNAMESUFFIX%%.conf
 %%MAN3%%/ExtUtils::MM_MacOS.3.gz
 %%MAN3%%/ExtUtils::MM_NW5.3.gz
 %%MAN3%%/ExtUtils::MM_OS2.3.gz
+%%MAN3%%/ExtUtils::MM_OS390.3.gz
 %%MAN3%%/ExtUtils::MM_QNX.3.gz
 %%MAN3%%/ExtUtils::MM_UWIN.3.gz
 %%MAN3%%/ExtUtils::MM_Unix.3.gz
@@ -1545,6 +1560,10 @@ etc/man.d/perl%%PKGNAMESUFFIX%%.conf
 %%MAN3%%/Test2::API::Breakage.3.gz
 %%MAN3%%/Test2::API::Context.3.gz
 %%MAN3%%/Test2::API::Instance.3.gz
+%%MAN3%%/Test2::API::InterceptResult.3.gz
+%%MAN3%%/Test2::API::InterceptResult::Event.3.gz
+%%MAN3%%/Test2::API::InterceptResult::Hub.3.gz
+%%MAN3%%/Test2::API::InterceptResult::Squasher.3.gz
 %%MAN3%%/Test2::API::Stack.3.gz
 %%MAN3%%/Test2::Event.3.gz
 %%MAN3%%/Test2::Event::Bail.3.gz
@@ -1752,9 +1771,16 @@ etc/man.d/perl%%PKGNAMESUFFIX%%.conf
 %%PRIV_LIB%%/pod/perl5302delta.pod
 %%PRIV_LIB%%/pod/perl5303delta.pod
 %%PRIV_LIB%%/pod/perl5320delta.pod
+%%PRIV_LIB%%/pod/perl5321delta.pod
 %%PRIV_LIB%%/pod/perl5330delta.pod
 %%PRIV_LIB%%/pod/perl5331delta.pod
 %%PRIV_LIB%%/pod/perl5332delta.pod
+%%PRIV_LIB%%/pod/perl5333delta.pod
+%%PRIV_LIB%%/pod/perl5334delta.pod
+%%PRIV_LIB%%/pod/perl5335delta.pod
+%%PRIV_LIB%%/pod/perl5336delta.pod
+%%PRIV_LIB%%/pod/perl5337delta.pod
+%%PRIV_LIB%%/pod/perl5338delta.pod
 %%PRIV_LIB%%/pod/perl561delta.pod
 %%PRIV_LIB%%/pod/perl56delta.pod
 %%PRIV_LIB%%/pod/perl581delta.pod
@@ -1792,6 +1818,7 @@ etc/man.d/perl%%PKGNAMESUFFIX%%.conf
 %%PRIV_LIB%%/pod/perldeprecation.pod
 %%PRIV_LIB%%/pod/perldiag.pod
 %%PRIV_LIB%%/pod/perldoc.pod
+%%PRIV_LIB%%/pod/perldocstyle.pod
 %%PRIV_LIB%%/pod/perldos.pod
 %%PRIV_LIB%%/pod/perldsc.pod
 %%PRIV_LIB%%/pod/perldtrace.pod
@@ -1815,6 +1842,7 @@ etc/man.d/perl%%PKGNAMESUFFIX%%.conf
 %%PRIV_LIB%%/pod/perlfunc.pod
 %%PRIV_LIB%%/pod/perlgit.pod
 %%PRIV_LIB%%/pod/perlglossary.pod
+%%PRIV_LIB%%/pod/perlgov.pod
 %%PRIV_LIB%%/pod/perlgpl.pod
 %%PRIV_LIB%%/pod/perlguts.pod
 %%PRIV_LIB%%/pod/perlhack.pod

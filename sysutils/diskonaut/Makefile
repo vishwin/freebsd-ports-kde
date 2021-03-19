@@ -2,6 +2,7 @@
 
 PORTNAME=	diskonaut
 PORTVERSION=	0.11.0
+PORTREVISION=	4
 CATEGORIES=	sysutils
 
 MAINTAINER=	yuri@FreeBSD.org

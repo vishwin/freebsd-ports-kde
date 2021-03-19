@@ -73,6 +73,7 @@ share/mime/packages/homebank.xml
 %%DATADIR%%/datas/hb-categories-en.csv
 %%DATADIR%%/datas/hb-categories-es.csv
 %%DATADIR%%/datas/hb-categories-fr.csv
+%%DATADIR%%/datas/hb-categories-fr_CA.csv
 %%DATADIR%%/datas/hb-categories-hu.csv
 %%DATADIR%%/datas/hb-categories-it.csv
 %%DATADIR%%/datas/hb-categories-lt.csv
@@ -114,6 +115,8 @@ share/mime/packages/homebank.xml
 %%DATADIR%%/help/images/4.png
 %%DATADIR%%/help/images/50stackbudget.png
 %%DATADIR%%/help/images/50txnstatus.png
+%%DATADIR%%/help/images/53txntype.png
+%%DATADIR%%/help/images/54txnpopmenu.png
 %%DATADIR%%/help/images/5.png
 %%DATADIR%%/help/images/6.png
 %%DATADIR%%/help/images/7.png
@@ -136,7 +139,6 @@ share/mime/packages/homebank.xml
 %%DATADIR%%/help/images/dlg-filter4.png
 %%DATADIR%%/help/images/dlg-filter5.png
 %%DATADIR%%/help/images/dlg-filter6.png
-%%DATADIR%%/help/images/dlg-payee.png
 %%DATADIR%%/help/images/dlg-payee1.png
 %%DATADIR%%/help/images/dlg-payee2.png
 %%DATADIR%%/help/images/dlg-prefs1.png
@@ -233,7 +235,6 @@ share/mime/packages/homebank.xml
 %%DATADIR%%/help/win-statistics.html
 %%DATADIR%%/help/win-trendtime.html
 %%DATADIR%%/help/win-vehiclecost.html
-%%DATADIR%%/icons/hicolor/16x16/actions/hb-ope-future.png
 %%DATADIR%%/icons/hicolor/16x16/status/flt-exclude.png
 %%DATADIR%%/icons/hicolor/16x16/status/flt-inactive.png
 %%DATADIR%%/icons/hicolor/16x16/status/flt-include.png
@@ -242,6 +243,7 @@ share/mime/packages/homebank.xml
 %%DATADIR%%/icons/hicolor/16x16/status/hb-ope-cleared.png
 %%DATADIR%%/icons/hicolor/16x16/status/hb-ope-edit.png
 %%DATADIR%%/icons/hicolor/16x16/status/hb-ope-forced.png
+%%DATADIR%%/icons/hicolor/16x16/status/hb-ope-future.png
 %%DATADIR%%/icons/hicolor/16x16/status/hb-ope-new.png
 %%DATADIR%%/icons/hicolor/16x16/status/hb-ope-reconciled.png
 %%DATADIR%%/icons/hicolor/16x16/status/hb-ope-remind.png
@@ -268,6 +270,7 @@ share/mime/packages/homebank.xml
 %%DATADIR%%/icons/hicolor/24x24/actions/hb-currency.png
 %%DATADIR%%/icons/hicolor/24x24/actions/hb-document-new.png
 %%DATADIR%%/icons/hicolor/24x24/actions/hb-document-open.png
+%%DATADIR%%/icons/hicolor/24x24/actions/hb-document-print.png
 %%DATADIR%%/icons/hicolor/24x24/actions/hb-document-save-as.png
 %%DATADIR%%/icons/hicolor/24x24/actions/hb-document-save.png
 %%DATADIR%%/icons/hicolor/24x24/actions/hb-donate.png
@@ -317,5 +320,8 @@ share/mime/packages/homebank.xml
 %%DATADIR%%/icons/hicolor/scalable/actions/list-collapse-all-symbolic.svg
 %%DATADIR%%/icons/hicolor/scalable/actions/list-expand-all-symbolic.svg
 %%DATADIR%%/icons/hicolor/scalable/actions/list-merge-symbolic.svg
+%%DATADIR%%/icons/hicolor/scalable/actions/text-casesensitive-symbolic.svg
+%%DATADIR%%/icons/hicolor/scalable/actions/text-regularexpression-symbolic.svg
 %%DATADIR%%/icons/hicolor/scalable/actions/toggle-sign-symbolic.svg
+%%DATADIR%%/images/homebank-icon.svg
 %%DATADIR%%/images/splash.png

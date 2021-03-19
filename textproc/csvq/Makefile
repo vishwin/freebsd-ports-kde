@@ -2,10 +2,10 @@
 
 PORTNAME=	csvq
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.13.6
+DISTVERSION=	1.14.0
 CATEGORIES=	textproc
 
-MAINTAINER=	vulcan@wired.sh
+MAINTAINER=	lcook@FreeBSD.org
 COMMENT=	SQL-like query language for csv
 
 LICENSE=	MIT

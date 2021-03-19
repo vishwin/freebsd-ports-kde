@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	django-timezone-field
-DISTVERSION=	4.0
+DISTVERSION=	4.1.1
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -19,6 +19,6 @@ USES=		python:3.5+
 USE_PYTHON=	distutils autoplist
 
 NO_ARCH=		yes
-CONFLICTS_INSTALL=	${PYTHON_PKGNAMEPREFIX}dj22-django-timezone-field
+CONFLICTS_INSTALL=	${PYTHON_PKGNAMEPREFIX}dj31-django-timezone-field
 
 .include <bsd.port.mk>

@@ -5,7 +5,7 @@ PORTNAME=	gstreamer
 PORTVERSION?=	${BASE_PORTVERSION}
 # When chasing a shared library for a plug-in bump the PORTREVISION in the
 # plug-in port instead, like ${category}/gstreamer1-plugin-${PLUGIN}.
-PORTREVISION?=	0
+PORTREVISION?=	2
 CATEGORIES?=	multimedia audio
 MASTER_SITES=	GNOME/sources/gst-plugins-base/${PORTVERSION:R}:base \
 		GNOME/sources/gst-plugins-good/${PORTVERSION:R}:good \
@@ -45,7 +45,6 @@ UGLY_DISTFILE=		${UGLY_DISTNAME}${EXTRACT_SUFX}
 DIST?=		base
 
 USES+=		gettext gmake gnome libtool pathfix pkgconfig python tar:xz
-WANT_GSTREAMER=	yes
 USE_GNOME+=	glib20 introspection:build libxml2
 GNU_CONFIGURE=	yes
 INSTALL_TARGET=	install-strip
@@ -139,6 +138,13 @@ post-patch:
 	@${REINPLACE_CMD} -e 's|/dev/dvd|${DEFAULT_DVD_DEVICE}|g' \
 		${WRKSRC}/ext/resindvd/resindvdbin.c \
 		${WRKSRC}/ext/resindvd/resindvdsrc.c
+# Fix dependency on neon-0.31
+	${REINPLACE_CMD} -e '/neon/s|0.30.99|0.31.99|g' \
+		${WRKSRC}/configure
+# Fix build against OpenCV 4.5.1
+	 ${REINPLACE_CMD} '/opencv/s|4\.2\.0|4.6.0|g' \
+		 ${WRKSRC}/configure
+
 .endif
 .if ${DIST} != ugly
 	@${FIND} ${WRKSRC}/ext ${WRKSRC}/sys \

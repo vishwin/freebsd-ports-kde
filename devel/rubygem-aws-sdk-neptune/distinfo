@@ -1,3 +1,3 @@
-TIMESTAMP = 1600531633
-SHA256 (rubygem/aws-sdk-neptune-1.29.0.gem) = 1399579d094a2658089f4aa7148ba54657fabe0bd807715ac4207f060f0e835a
-SIZE (rubygem/aws-sdk-neptune-1.29.0.gem) = 95232
+TIMESTAMP = 1612519519
+SHA256 (rubygem/aws-sdk-neptune-1.33.0.gem) = 6ad17c33225188541bae82726132068a65af42e2824b1c3c93db3d3d050db8b8
+SIZE (rubygem/aws-sdk-neptune-1.33.0.gem) = 102912

@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	opendnssec
-PORTVERSION=	2.1.6
+PORTVERSION=	2.1.8
 CATEGORIES=	dns
 MASTER_SITES=	http://dist.opendnssec.org/source/
 PKGNAMESUFFIX=	2
@@ -14,11 +14,11 @@ LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
 BUILD_DEPENDS=	ldns>=1.6.16:dns/ldns
-LIB_DEPENDS=	libldns.so:dns/ldns
+LIB_DEPENDS=	libldns.so:dns/ldns \
+		libxml2.so:textproc/libxml2
 
-USES=		ssl gnome
+USES=		ssl gmake
 USE_RC_SUBR=	opendnssec
-USE_GNOME=	libxml2
 
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS=	--localstatedir="${PREFIX}/var" \
@@ -60,7 +60,9 @@ SQLITE_BUILD_DEPENDS=	sqlite3>=3.3.9:databases/sqlite3
 SOFTHSM_CONFIGURE_ON=	--with-pkcs11-softhsm=${LOCALBASE}/lib/softhsm/libsofthsm2.so
 SOFTHSM_RUN_DEPENDS=	softhsm2>=2.5.0:security/softhsm2
 
-post-patch:
+INSTALL_TARGET=		install-strip
+
+pre-build:
 	${REINPLACE_CMD} -e "s|\(-lcrypto\)|-L${OPENSSLLIB} \1|g" \
 		${WRKSRC}/configure
 

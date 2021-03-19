@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	grass
-PORTVERSION=	7.8.3
+PORTVERSION=	7.8.5
+PORTREVISION=	3
 CATEGORIES=	databases geography
 MASTER_SITES=	https://grass.osgeo.org/%SUBDIR%/ \
 		http://grass.cict.fr/%SUBDIR%/ \
@@ -25,6 +26,7 @@ LICENSE=	GPLv2+
 LICENSE_FILE=	${WRKSRC}/GPL.TXT
 
 BROKEN_sparc64=	Does not configure on sparc64
+BROKEN_i386=	Does not configure on i386: Could not determine External PROJ major version
 
 BUILD_DEPENDS=	${PY_NUMPY} \
 		${PYTHON_SITELIBDIR}/six.py:devel/py-six@${PY_FLAVOR}
@@ -67,6 +69,7 @@ CONFIGURE_ARGS=	--with-includes=${LOCALBASE}/include \
 		--with-proj-share=${LOCALBASE}/share/proj \
 		--with-proj-includes=${LOCALBASE}/include \
 		--with-proj-libs=${LOCALBASE}/lib \
+		--with-proj=${LOCALBASE}/bin/proj \
 		--with-geos=${LOCALBASE}/bin/geos-config \
 		--with-gdal=${LOCALBASE}/bin/gdal-config \
 		--with-pthread=yes \
@@ -132,12 +135,6 @@ ZSTD_CONFIGURE_WITH=	zstd
 ZSTD_LIB_DEPENDS=	libzstd.so:archivers/zstd
 
 .include <bsd.port.pre.mk>
-
-.if ${ARCH} == "aarch64" || ${ARCH} == "riscv64"
-PLIST_SUB+=	WOSBRK="@comment "
-.else
-PLIST_SUB+=	WOSBRK=""
-.endif
 
 .if ${ARCH} == "i386" && ${OSVERSION} < 1200000
 # clang 7.x and 8.x do not build properly on 11i386

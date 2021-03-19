@@ -16,7 +16,7 @@ LIB_DEPENDS=	libsequoia_ffi.so:security/sequoia
 BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cffi>=1:devel/py-cffi@${PY_FLAVOR}
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cffi>=1:devel/py-cffi@${PY_FLAVOR}
 
-USES=		python
+USES=		python:3.4+
 USE_PYTHON=	distutils autoplist concurrent
 USE_GITLAB=	yes
 
@@ -28,6 +28,6 @@ GL_COMMIT=	383133f6be990237044900a4df676488bf8dd71e
 CFLAGS+=	-I${LOCALBASE}/include
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}/_sequoia.abi3.so
+	${STRIP_CMD} ${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}/_sequoia.abi3*.so
 
 .include <bsd.port.mk>

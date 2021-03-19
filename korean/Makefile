@@ -11,6 +11,7 @@
     SUBDIR += d2coding-ttf
     SUBDIR += engdic
     SUBDIR += fcitx-hangul
+    SUBDIR += fcitx5-hangul
     SUBDIR += h2ps
     SUBDIR += hanyangfonts
     SUBDIR += hcode
@@ -26,7 +27,6 @@
     SUBDIR += ko.TeX-fonts-extra
     SUBDIR += libhangul
     SUBDIR += libreoffice
-    SUBDIR += man-doc
     SUBDIR += munhwafonts-cid
     SUBDIR += nabi
     SUBDIR += nanumcoding-ttf

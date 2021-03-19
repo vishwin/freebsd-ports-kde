@@ -1,5 +1,5 @@
-TIMESTAMP = 1600871122
-SHA256 (dmgk-modules2tuple-v2.2.1_GH0.tar.gz) = b89220b24d577052b392166a69f826cf2acfa23b3a883b16f2e145739952fde5
-SIZE (dmgk-modules2tuple-v2.2.1_GH0.tar.gz) = 66999
-SHA256 (sergi-go-diff-v1.1.0_GH0.tar.gz) = 3d4362670655e970366d555418f3c8d179c217c0499ef5573ab7176352229451
-SIZE (sergi-go-diff-v1.1.0_GH0.tar.gz) = 43552
+TIMESTAMP = 1613754833
+SHA256 (go/ports-mgmt_modules2tuple/modules2tuple-v2.2.3/v2.2.3.mod) = 25501d9914a23a753d43704da9ea36da3b23dc2aeec6f723ae3ce4047fb520b1
+SIZE (go/ports-mgmt_modules2tuple/modules2tuple-v2.2.3/v2.2.3.mod) = 90
+SHA256 (go/ports-mgmt_modules2tuple/modules2tuple-v2.2.3/v2.2.3.zip) = b5f2392615ed071bb3c9d335a851dd9d7224ac9f78d7f1170eef41c07841265e
+SIZE (go/ports-mgmt_modules2tuple/modules2tuple-v2.2.3/v2.2.3.zip) = 99004

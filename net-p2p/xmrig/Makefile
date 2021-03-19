@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	xmrig
-PORTVERSION=	6.3.4
+PORTVERSION=	6.10.0
 DISTVERSIONPREFIX=	v
 CATEGORIES=	net-p2p
 
@@ -16,6 +16,7 @@ BROKEN_aarch64=	fails to compile: src/common/cpu/BasicCpuInfo_arm.cpp:30:13: fat
 BROKEN_armv6=	fails to build: /nxb-bin/usr/lib/clang/8.0.0/include/ia32intrin.h:48:10: error: use of undeclared identifier '__builtin_ia32_readeflags_u32'
 BROKEN_armv7=	fails to build: /nxb-bin/usr/lib/clang/8.0.0/include/ia32intrin.h:48:10: error: use of undeclared identifier '__builtin_ia32_readeflags_u32'
 BROKEN_powerpc64=	fails to compile: g++9: error: unrecognized command line option '-maes'; did you mean '-mads'?
+BROKEN_riscv64=		fails to compile: /nxb-bin/usr/lib/clang/11.0.0/include/cpuid.h:11:2: error: this header is for x86 only
 
 USES=		cmake compiler:c++11-lang ssl
 USE_GITHUB=	yes
@@ -31,26 +32,17 @@ OPTIONS_DEFAULT=	HWLOC MICROHTTPD
 HWLOC_DESC=		Portable hardware locality
 MICROHTTPD_DESC=	Build with libmicrohttpd support
 
-HWLOC_LIB_DEPENDS+=		libhwloc.so:devel/hwloc
+HWLOC_LIB_DEPENDS+=		libhwloc.so.15:devel/hwloc2
+HWLOC_CMAKE_OFF=		-DWITH_HWLOC=OFF
 MICROHTTPD_LIB_DEPENDS+=	libmicrohttpd.so:www/libmicrohttpd \
 				libuv.so:devel/libuv
+MICROHTTPD_CMAKE_OFF=		-DWITH_HTTPD=OFF
 
 STATIC_PREVENTS=	HWLOC MICROHTTPD
 STATIC_PREVENTS_MSG=	hwloc and libmicrohttpd support cannot be built static
 
 STATIC_BUILD_DEPENDS+=	${LOCALBASE}/lib/libuv.a:devel/libuv
-
-post-patch-HWLOC-off:
-	@${REINPLACE_CMD} -e 's|\(.*WITH_HWLOC.*\)\(ON\)|\1OFF|' \
-		${WRKSRC}/CMakeLists.txt
-
-post-patch-MICROHTTPD-off:
-	@${REINPLACE_CMD} -e 's|\(.*WITH_HTTPD.*\)\(ON\)|\1OFF|' \
-		${WRKSRC}/CMakeLists.txt
-
-post-patch-STATIC-on:
-	@${REINPLACE_CMD} -e 's|\(.*BUILD_STATIC.*\)\(OFF\)|\1ON|' \
-		${WRKSRC}/CMakeLists.txt
+STATIC_CMAKE_ON=	-DBUILD_STATIC=ON
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKDIR}/.build/${PORTNAME} ${STAGEDIR}${PREFIX}/bin

@@ -4,7 +4,7 @@
 PORTNAME=	mypaint
 DISTVERSIONPREFIX=v
 DISTVERSION=	2.0.0
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	graphics
 
 PATCH_SITES=	https://github.com/garynthompson/${PORTNAME}/commit/
@@ -34,7 +34,7 @@ USE_GITHUB=	yes
 GH_ACCOUNT=	mypaint
 
 USE_GNOME=	gtk30 pygobject3 cairo librsvg2:run
-USE_PYTHON=	distutils py3kplist
+USE_PYTHON=	distutils py3kplist noflavors
 PYDISTUTILS_BUILD_TARGET=	build build_ext
 CFLAGS+=	${CFLAGS_${CHOSEN_COMPILER_TYPE}}
 CFLAGS_gcc=	-std=c99
@@ -47,7 +47,7 @@ OPTIONS_DEFAULT_amd64=	OPENMP
 OPENMP_USES=			compiler:openmp
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mypaint/lib/_mypaintlib.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mypaint/lib/_mypaintlib*.so
 
 .include <bsd.port.options.mk>
 

@@ -2,33 +2,23 @@
 # $FreeBSD$
 
 PORTNAME=	fzf
-PORTVERSION=	0.22.0
+PORTVERSION=	0.25.1
+PORTREVISION=	1
 CATEGORIES=	textproc
 
-MAINTAINER=	sascha@root-login.org
+MAINTAINER=	dmgk@FreeBSD.org
 COMMENT=	Blazing fast command-line fuzzy finder
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES=		compiler go:modules
+USES=		go:modules
 
-USE_GITHUB=	yes
-GH_ACCOUNT=	junegunn
-GH_TUPLE=	\
-		gdamore:encoding:v1.0.0:gdamore_encoding/vendor/github.com/gdamore/encoding \
-		gdamore:tcell:v1.3.0:gdamore_tcell/vendor/github.com/gdamore/tcell \
-		golang:crypto:69ecbb4d6d5d:golang_crypto/vendor/golang.org/x/crypto \
-		golang:sync:cd5d95a43a6e:golang_sync/vendor/golang.org/x/sync \
-		golang:sys:d101bd2416d5:golang_sys/vendor/golang.org/x/sys \
-		golang:text:v0.3.2:golang_text/vendor/golang.org/x/text \
-		lucasb-eyer:go-colorful:v1.0.3:lucasb_eyer_go_colorful/vendor/github.com/lucasb-eyer/go-colorful \
-		mattn:go-isatty:v0.0.12:mattn_go_isatty/vendor/github.com/mattn/go-isatty \
-		mattn:go-runewidth:v0.0.8:mattn_go_runewidth/vendor/github.com/mattn/go-runewidth \
-		mattn:go-shellwords:v1.0.9:mattn_go_shellwords/vendor/github.com/mattn/go-shellwords \
-		saracen:walker:324a081bae7e:saracen_walker/vendor/github.com/saracen/walker
+# go get -d github.com/junegunn/fzf@$(make -V PORTVERSION)
+GO_MODULE=	github.com/junegunn/fzf@v0.0.0-20210203133252-6654239c9466
+GO_BUILDFLAGS=	-ldflags="-X main.revision=${COMMIT_ID} -s -w"
 
-GO_BUILDFLAGS=	-ldflags="-X main.revision=334a4fa -w"
+COMMIT_ID=	6654239
 
 SUB_FILES=	pkg-message
 PLIST_FILES=	bin/fzf man/man1/fzf.1.gz

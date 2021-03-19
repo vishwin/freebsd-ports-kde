@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	kubectl
-PORTVERSION=	1.19.2
+PORTVERSION=	1.20.2
 DISTVERSIONPREFIX=	v
 CATEGORIES=	sysutils
 
@@ -18,7 +18,7 @@ GH_ACCOUNT=	kubernetes
 GH_PROJECT=	kubernetes
 
 # The vendored golang/sys fails to build on aarch64
-GOLANG_SYS_V=	9fbb57f87de9
+GOLANG_SYS_V=	22da62e12c0c
 GH_TUPLE=	golang:sys:${GOLANG_SYS_V}:golang_sys/vendor/golang.org/x/sys_${GOLANG_SYS_V}
 
 GO_PKGNAME=	k8s.io/kubernetes
@@ -32,8 +32,22 @@ GO_BUILDFLAGS=	-ldflags="-X k8s.io/component-base/version.gitMajor=${PORTVERSION
 
 PLIST_FILES=	bin/${PORTNAME}
 
+OPTIONS_DEFINE=		BASH ZSH
+OPTIONS_DEFAULT=	BASH ZSH
+
+BASH_PLIST_FILES=	share/bash-completion/completions/${PORTNAME}
+ZSH_PLIST_FILES=	share/zsh/site-functions/_${PORTNAME}
+
 post-extract:
 	${RM} -r ${WRKSRC}/vendor/golang.org/x/sys
 	${MV} ${WRKSRC}/vendor/golang.org/x/sys_${GOLANG_SYS_V} ${WRKSRC}/vendor/golang.org/x/sys
+
+post-install-BASH-on:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/bash-completion/completions
+	${STAGEDIR}${PREFIX}/bin/${PORTNAME} completion bash > ${STAGEDIR}${PREFIX}/share/bash-completion/completions/${PORTNAME}
+
+post-install-ZSH-on:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/share/zsh/site-functions
+	${STAGEDIR}${PREFIX}/bin/${PORTNAME} completion zsh > ${STAGEDIR}${PREFIX}/share/zsh/site-functions/_${PORTNAME}
 
 .include <bsd.port.mk>

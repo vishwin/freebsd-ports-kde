@@ -479,10 +479,13 @@ man/man7/paperless.7.gz
 %%WWWDIR%%/static/djangoql/css/syntax_help.css
 %%WWWDIR%%/static/djangoql/img/completion_example.png
 %%WWWDIR%%/static/djangoql/img/completion_example_scaled.png
+%%WWWDIR%%/static/djangoql/img/loading.gif
 %%WWWDIR%%/static/djangoql/js/completion.js
 %%WWWDIR%%/static/djangoql/js/completion_admin.js
 %%WWWDIR%%/static/djangoql/js/completion_admin_toggle.js
+%%WWWDIR%%/static/djangoql/js/completion_admin_toggle_off.js
 %%WWWDIR%%/static/djangoql/js/lib/lexer.js
+%%WWWDIR%%/static/djangoql/js/lib/LRUCache.js
 %%WWWDIR%%/static/documents/img/gif.png
 %%WWWDIR%%/static/documents/img/image.png
 %%WWWDIR%%/static/documents/img/jpg.png
@@ -525,7 +528,7 @@ man/man7/paperless.7.gz
 %%WWWDIR%%/static/rest_framework/js/coreapi-0.1.1.js
 %%WWWDIR%%/static/rest_framework/js/csrf.js
 %%WWWDIR%%/static/rest_framework/js/default.js
-%%WWWDIR%%/static/rest_framework/js/jquery-3.4.1.min.js
+%%WWWDIR%%/static/rest_framework/js/jquery-3.5.1.min.js
 %%WWWDIR%%/static/rest_framework/js/prettify-min.js
 @dir(paperless,paperless) %%WWWDIR%%/static
 @dir(paperless,paperless,0700) /var/db/paperless/consume/input

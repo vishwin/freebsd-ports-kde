@@ -4,7 +4,7 @@
 PORTNAME=	retroshare
 DISTVERSIONPREFIX=	v
 DISTVERSION=	0.6.4
-PORTREVISION=	4
+PORTREVISION=	5
 CATEGORIES=	net-p2p
 
 PATCH_SITES=	https://github.com/${GH_ACCOUNT}/${GH_PROJECT}/commit/
@@ -12,6 +12,8 @@ PATCHFILES=	428b331d8efe.patch:-p1
 
 MAINTAINER=	peter@netkey.at
 COMMENT=	Private and secure decentralised communication platform
+
+BROKEN=		Doesn't build with libmicrohttpd 0.9.71 - PR: 250100
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
@@ -22,7 +24,6 @@ LIB_DEPENDS=	libsqlcipher.so:databases/sqlcipher \
 		libgnome-keyring.so:security/libgnome-keyring \
 		libgpgme.so:security/gpgme \
 		libopencv_highgui.so:graphics/opencv \
-		libopencv_imgproc.so:graphics/opencv-core \
 		libavcodec.so:multimedia/ffmpeg \
 		libcurl.so:ftp/curl \
 		libmicrohttpd.so:www/libmicrohttpd \

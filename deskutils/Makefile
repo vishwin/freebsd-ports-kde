@@ -19,13 +19,17 @@
     SUBDIR += belcard
     SUBDIR += bigyear
     SUBDIR += bijiben
+    SUBDIR += birdtray
     SUBDIR += bitcollider
     SUBDIR += cairo-dock
     SUBDIR += cairo-dock-plugins
     SUBDIR += caja-extensions
     SUBDIR += cal
     SUBDIR += calcurse
+    SUBDIR += calendar
+    SUBDIR += calendar-data
     SUBDIR += calibre
+    SUBDIR += calindori
     SUBDIR += cartotheque
     SUBDIR += cfiles
     SUBDIR += charmtimetracker
@@ -34,6 +38,7 @@
     SUBDIR += clipmenu
     SUBDIR += clipnotify
     SUBDIR += conkyforecast
+    SUBDIR += coolreader
     SUBDIR += copyq
     SUBDIR += countdown
     SUBDIR += dailystrips
@@ -44,6 +49,7 @@
     SUBDIR += dstask
     SUBDIR += easystroke
     SUBDIR += egroupware
+    SUBDIR += elementary-calendar
     SUBDIR += fasd
     SUBDIR += fbreader
     SUBDIR += fet
@@ -67,6 +73,7 @@
     SUBDIR += gnome-initial-setup
     SUBDIR += gnome-maps
     SUBDIR += gnome-photos
+    SUBDIR += gnome-pomodoro
     SUBDIR += gnome-screenshot
     SUBDIR += gnome-search-tool
     SUBDIR += gnome-shell-extension-audio-output-switcher
@@ -115,6 +122,7 @@
     SUBDIR += howm
     SUBDIR += hs-arbtt
     SUBDIR += ical
+    SUBDIR += itinerary
     SUBDIR += jjclient
     SUBDIR += jlj
     SUBDIR += just
@@ -125,13 +133,13 @@
     SUBDIR += kdeconnect-kde
     SUBDIR += kdepim
     SUBDIR += kdepim-addons
-    SUBDIR += kdepim-apps-libs
     SUBDIR += kdepim-runtime
     SUBDIR += keditbookmarks
     SUBDIR += kfind
     SUBDIR += kmail
     SUBDIR += kmail-account-wizard
     SUBDIR += knotes
+    SUBDIR += kongress
     SUBDIR += kontact
     SUBDIR += korganizer
     SUBDIR += kruler
@@ -151,6 +159,7 @@
     SUBDIR += lumina-screenshot
     SUBDIR += lumina-textedit
     SUBDIR += lxqt-notificationd
+    SUBDIR += mate-indicator-applet
     SUBDIR += mate-notification-daemon
     SUBDIR += mate-utils
     SUBDIR += mbox-importer
@@ -167,7 +176,6 @@
     SUBDIR += noti
     SUBDIR += notification-daemon
     SUBDIR += notify-osd
-    SUBDIR += orage
     SUBDIR += osmo
     SUBDIR += owncloudclient
     SUBDIR += p5-Data-ICal
@@ -198,6 +206,7 @@
     SUBDIR += py-pystash
     SUBDIR += py-send2trash
     SUBDIR += py-taskw
+    SUBDIR += py-term-background
     SUBDIR += py-todoman
     SUBDIR += py-vdirsyncer
     SUBDIR += py-vobject
@@ -214,6 +223,7 @@
     SUBDIR += shutter
     SUBDIR += simpleagenda
     SUBDIR += sliderule
+    SUBDIR += sowon
     SUBDIR += spice-gtk
     SUBDIR += synapse
     SUBDIR += syncthingtray
@@ -245,7 +255,6 @@
     SUBDIR += xfce4-notes-plugin
     SUBDIR += xfce4-notifyd
     SUBDIR += xfce4-tumbler
-    SUBDIR += xfce4-volumed
     SUBDIR += xfce4-volumed-pulse
     SUBDIR += xfce4-xkb-plugin
     SUBDIR += xmdiary

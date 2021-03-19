@@ -2,7 +2,7 @@
 
 PORTNAME=	iio-oscilloscope
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.11
+DISTVERSION=	0.14
 DISTVERSIONSUFFIX=	-master
 CATEGORIES=	misc
 
@@ -22,11 +22,12 @@ LIB_DEPENDS=	libad9361.so:misc/libad9361-iio \
 		libjansson.so:devel/jansson \
 		libmatio.so:math/matio
 
-USES=		cmake gnome localbase:ldflags pkgconfig
-USE_GITHUB=	yes
-GH_ACCOUNT=	analogdevicesinc
+USES=		cmake compiler:c11 gnome localbase:ldflags pkgconfig
 USE_GNOME=	atk cairo gdkpixbuf2 gtk20 libxml2 pango
 USE_LDCONFIG=	yes
+
+USE_GITHUB=	yes
+GH_ACCOUNT=	analogdevicesinc
 
 LDFLAGS+=	-lm -lexecinfo
 

@@ -2,9 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	libtorrent-rasterbar
-DISTVERSION=	1.2.10
+DISTVERSION=	2.0.2
 CATEGORIES=	net-p2p
-MASTER_SITES=	https://github.com/arvidn/libtorrent/releases/download/libtorrent-${DISTVERSION}/
+MASTER_SITES=	https://github.com/arvidn/libtorrent/releases/download/v${DISTVERSION}/
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	C++ library implementing a BitTorrent client
@@ -16,14 +16,14 @@ LIB_DEPENDS=	libboost_chrono.so:devel/boost-libs \
 		libboost_random.so:devel/boost-libs \
 		libboost_system.so:devel/boost-libs
 
-USES=		cmake iconv:wchar_t libtool localbase:ldflags pathfix pkgconfig python:test shebangfix ssl
+USES=		cmake compiler:c++11-lib iconv:wchar_t libtool localbase:ldflags pathfix pkgconfig python:test shebangfix ssl
 SHEBANG_FILES=	test/socks.py test/web_server.py
 USE_LDCONFIG=	yes
 
 LDFLAGS+=	${ICONV_LIB}
 
 SHLIB_VER=	10
-PLIST_SUB+=	SHLIB_VER="${SHLIB_VER}"
+PLIST_SUB+=	SHLIB_VER="${SHLIB_VER}" SO_VER="${DISTVERSION}"
 
 DOCFILES=	AUTHORS ChangeLog
 PORTDOCS=	${DOCFILES} docs/*
@@ -37,23 +37,8 @@ LOGGING_DESC=		Enable logging to disk
 EXAMPLES_CMAKE_BOOL=	build_examples
 LOGGING_CMAKE_BOOL=	logging
 
-.include <bsd.port.options.mk>
-
-.if !${ARCH:Mpowerpc*} && ${OPSYS}_${OSREL:R} == FreeBSD_13 && ${OSVERSION} < 1300093
-# workaroud for the clang-10 compiler failure: https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=244830
-# on powerpc, llvm 9 crashes with segfault, while 10 works https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=243958
-# on powerpc64 elfv1, clang doesn't work at all (no support for elfv1), on elfv2 clang from base works ok
-LLVM_VER=	90
-BUILD_DEPENDS+=	clang${LLVM_VER}:devel/llvm${LLVM_VER}
-CPP=		clang-cpp${LLVM_VER}
-CC=		clang${LLVM_VER}
-CXX=		clang++${LLVM_VER}
-.else
-USES+=		compiler:c++11-lang
-.endif
-
 post-patch:
-	@${REINPLACE_CMD} -e 's|return "python3";|return "${PYTHON_CMD}";|' \
+	@${REINPLACE_CMD} -e 's|ret.push_back("python3");|ret.push_back("${PYTHON_CMD}");|' \
 		${WRKSRC}/test/setup_transfer.cpp
 
 post-install:

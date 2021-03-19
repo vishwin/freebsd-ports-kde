@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	gcc
-PORTVERSION=	9.3.1.s20200918
+PORTVERSION=	9.3.1.s20210312
 CATEGORIES=	lang
 MASTER_SITES=	GCC/snapshots/${DIST_VERSION}
 PKGNAMESUFFIX=	${SUFFIX}-devel
@@ -41,14 +41,12 @@ CPE_VERSION=	${GCC_VERSION}
 DIST_VERSION=	${PORTVERSION:C/([0-9]+).*\.s([0-9]+)/\1-\2/}
 GCC_VERSION=	${PORTVERSION:C/(.+)\.s[0-9]{8}/\1/}
 SUFFIX=		${PORTVERSION:C/([0-9]+).*/\1/}
-SSP_UNSAFE=	yes
 CFLAGS:=	${CFLAGS:N-mretpoline}
 CXXFLAGS:=	${CXXFLAGS:N-mretpoline}
 
-OPTIONS_DEFINE=		BOOTSTRAP GRAPHITE PLUGINS
-OPTIONS_DEFAULT=	BOOTSTRAP PLUGINS
+OPTIONS_DEFINE=		BOOTSTRAP
+OPTIONS_DEFAULT=	BOOTSTRAP
 BOOTSTRAP_DESC=		Build using a full bootstrap
-GRAPHITE_DESC=		Support for Graphite loop optimizations
 
 .if exists(/usr/lib32/libc.so)
 OPTIONS_DEFINE_amd64+=		MULTILIB
@@ -60,8 +58,6 @@ MULTILIB_CONFIGURE_ENABLE=	multilib
 .else
 CONFIGURE_ARGS+=	--disable-multilib
 .endif
-
-PLUGINS_CONFIGURE_ENABLE=	plugin
 
 .include <bsd.port.pre.mk>
 
@@ -96,6 +92,7 @@ BINMODE=	755
 .endif
 CONFIGURE_ARGS+=--disable-nls \
 		--enable-gnu-indirect-function \
+		--enable-plugin \
 		--libdir=${TARGLIB} \
 		--libexecdir=${LIBEXEC} \
 		--program-suffix=${SUFFIX} \
@@ -105,7 +102,8 @@ CONFIGURE_ARGS+=--disable-nls \
 		--with-ld=${LOCALBASE}/bin/ld \
 		${ICONV_CONFIGURE_ARG} \
 		--with-pkgversion="FreeBSD Ports Collection" \
-		--with-system-zlib
+		--with-system-zlib \
+		--without-zstd
 MAKE_ARGS+=	MAKEINFOFLAGS="--no-split"
 USE_LDCONFIG=	${TARGLIB}
 PLIST_SUB+=	GCC_VERSION=${GCC_VERSION} \
@@ -124,11 +122,6 @@ INFO+=		gcc${SUFFIX}/libquadmath \
 .endif
 SUB_FILES=	pkg-message
 SUB_LIST+=	TARGLIB=${TARGLIB}
-
-.if ${PORT_OPTIONS:MGRAPHITE}
-LIB_DEPENDS+=	libisl.so:devel/isl
-CONFIGURE_ARGS+=--with-isl=${LOCALBASE}
-.endif
 
 CONFIGURE_ARGS+=--enable-languages=${LANGUAGES}
 

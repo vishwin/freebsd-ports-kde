@@ -1,4 +1,4 @@
-@postunexec if [ ! -s %D/%%ETCDIR%%/proxy.pac ]; then rm -f %D/%%ETCDIR%%/proxy.pac; fi
+@rmempty %%ETCDIR%%/proxy.pac
 bin/traffic_cache_tool
 bin/traffic_crashlog
 bin/traffic_ctl
@@ -146,6 +146,7 @@ libexec/trafficserver/remap_purge.so
 libexec/trafficserver/remap_stats.so
 libexec/trafficserver/s3_auth.so
 libexec/trafficserver/server_push_preload.so
+libexec/trafficserver/slice.so
 libexec/trafficserver/ssl_cert_loader.so
 libexec/trafficserver/sslheaders.so
 libexec/trafficserver/stale_while_revalidate.so

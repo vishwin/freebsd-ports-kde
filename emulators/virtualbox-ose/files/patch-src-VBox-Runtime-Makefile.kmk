@@ -1,6 +1,6 @@
---- src/VBox/Runtime/Makefile.kmk.orig	2020-05-13 19:44:16 UTC
+--- src/VBox/Runtime/Makefile.kmk.orig	2021-01-07 15:41:50 UTC
 +++ src/VBox/Runtime/Makefile.kmk
-@@ -173,6 +173,11 @@ $(IPRT_OUT_DIR)/oiddb.h.ts +| $(IPRT_OUT_DIR)/oiddb.h:
+@@ -177,6 +177,11 @@ $(IPRT_OUT_DIR)/oiddb.h.ts +| $(IPRT_OUT_DIR)/oiddb.h:
  
  
  #

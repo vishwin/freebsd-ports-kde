@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	sqlitebrowser
-PORTVERSION=	3.12.0
+PORTVERSION=	3.12.1
+PORTREVISION=	3
 DISTVERSIONPREFIX=	v
 CATEGORIES=	databases
 
@@ -23,6 +24,8 @@ USE_QT=		core concurrent gui network printsupport testlib widgets \
 USE_GITHUB=	yes
 
 INSTALLS_ICONS=	yes
+
+PORTSCOUT=	ignore:continuous
 
 post-patch:
 	@${REINPLACE_CMD} -e 's|%%DATADIR%%|${DATADIR}|' \

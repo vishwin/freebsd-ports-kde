@@ -3,6 +3,7 @@
 
 PORTNAME=	file-roller
 PORTVERSION=	3.38.0
+PORTREVISION=	1
 PORTEPOCH=	1
 CATEGORIES=	archivers gnome
 MASTER_SITES=	GNOME
@@ -46,7 +47,6 @@ FORMATS_DESC=	Additional compression formats support
 ARJ_DESC=	ARJ archive support
 ARJ_RUN_DEPENDS=	arj:archivers/arj
 
-LZO_DESC=	LZO compression support
 LZO_RUN_DEPENDS=	lzop:archivers/lzop
 
 RAR_DESC=	RAR archive support

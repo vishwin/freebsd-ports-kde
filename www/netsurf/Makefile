@@ -3,11 +3,12 @@
 
 PORTNAME=	netsurf
 PORTVERSION=	3.10
+PORTREVISION=	1
 CATEGORIES=	www
 MASTER_SITES=	http://download.netsurf-browser.org/netsurf/releases/source/
 DISTNAME=	${PORTNAME}-${PORTVERSION}-src
 
-MAINTAINER=	ports@FreeBSD.org
+MAINTAINER=	nc@FreeBSD.org
 COMMENT=	Lightweight web browser
 
 LICENSE=	GPLv2 MIT

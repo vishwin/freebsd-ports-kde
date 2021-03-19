@@ -5,8 +5,7 @@
 #       to commit it.  I (ler) don't have access to all the ARCH's
 
 PORTNAME=	lsof
-DISTVERSION=	4.93.2
-PORTREVISION=	12
+DISTVERSION=	4.94.0
 PORTEPOCH=	8
 CATEGORIES=	sysutils
 
@@ -18,7 +17,7 @@ LICENSE_NAME=	lsof
 LICENSE_FILE=	${FILESDIR}/LICENSE
 LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
 
-USES=		shebangfix tar:bzip2
+USES=		compiler shebangfix tar:bzip2
 
 HAS_CONFIGURE=	yes
 
@@ -33,7 +32,6 @@ AIM_CFLAGS=	-DAIM
 BOOKE_DESC=	Set for BOOKE hardware
 BOOKE_CFLAGS=	-DBOOKE
 
-CFLAGS+=	-fcommon
 CFLAGS_powerpc=	-DAIM
 CFLAGS_powerpcspe=	-DBOOKE
 
@@ -45,10 +43,10 @@ CONFIGURE_SCRIPT=	Configure
 CONFIGURE_ARGS=	-n freebsd
 CONFIGURE_ENV=	LSOF_CC="${CC}" FREEBSD_SYS="${SRC_BASE}/sys"
 
-# PPC64 needs -lzpool for reasons unknown.  If someone can
+# GCC needs -lzfs -lzpool for reasons unknown.  If someone can
 # figure out why, I (ler) am all ears.
-.if ${ARCH} == powerpc64 || ${ARCH} == powerpc
-CONFIGURE_ENV+=	LSOF_CFGL="-lzpool"
+.if ${CHOSEN_COMPILER_TYPE} == gcc
+CONFIGURE_ENV+=	LSOF_CFGL="-lzfs -lzpool"
 . endif
 
 .if !exists(${SRC_BASE}/sys/kern/kern_lockf.c)

@@ -1,6 +1,6 @@
---- content/common/user_agent.cc.orig	2020-07-07 21:57:37 UTC
+--- content/common/user_agent.cc.orig	2021-01-18 21:28:57 UTC
 +++ content/common/user_agent.cc
-@@ -198,6 +198,14 @@ std::string BuildOSCpuInfoFromOSVersionAndCpuType(cons
+@@ -213,6 +213,14 @@ std::string BuildOSCpuInfoFromOSVersionAndCpuType(cons
    );
  #endif
  

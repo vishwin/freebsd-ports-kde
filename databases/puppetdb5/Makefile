@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	puppetdb
-PORTVERSION=	5.2.18
+PORTVERSION=	5.2.19
 CATEGORIES=	databases java
 MASTER_SITES=	https://downloads.puppetlabs.com/puppetdb/
 PKGNAMESUFFIX=	5
@@ -11,11 +11,14 @@ COMMENT=	PuppetDB storeconfigs backend
 
 LICENSE=	APACHE20
 
+DEPRECATED=	Puppet 5 has reached EOL
+EXPIRATION_DATE=2021-07-01
+
 RUN_DEPENDS=	bash:shells/bash
 
 USE_RC_SUBR=	puppetdb
 
-CONFLICTS_INSTALL=	puppetdb4-* puppetdb5-*
+CONFLICTS_INSTALL=	puppetdb6-* puppetdb7-*
 USES=		shebangfix
 SHEBANG_FILES=	ext/bin/puppetdb \
 		ext/cli/anonymize \

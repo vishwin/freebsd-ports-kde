@@ -3,7 +3,7 @@
 
 PORTNAME=	octave
 PORTVERSION=	${OCTAVE_VERSION}
-PORTREVISION=	3
+PORTREVISION=	2
 CATEGORIES=	math
 MASTER_SITES=	GNU
 
@@ -104,7 +104,7 @@ ATLAS_USES=		blaslapack:atlas
 
 post-patch:
 	${REINPLACE_CMD} 's+"makeinfo"+"${LOCALBASE}/bin/makeinfo"+' ${WRKSRC}/libinterp/corefcn/help.cc
-	${REINPLACE_CMD} 's/"-qt$$qt_version"/"-qt=qt$$qt_version"/' ${WRKSRC}/configure
+	${REINPLACE_CMD} 's/"-qt=$$qt_version"/"-qt=qt$$qt_version"/' ${WRKSRC}/configure
 
 post-install:
 	(cd ${STAGEDIR}${DATADIR} && ${LN} -s ${PORTVERSION}/imagelib  .)

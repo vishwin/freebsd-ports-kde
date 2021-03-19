@@ -9,6 +9,8 @@ COMMENT=	Network stack testing tool
 
 LICENSE=	GPLv2
 
+BROKEN_FreeBSD_11=	TCP Fast Open struct changes
+
 USES=		bison python:run uidfix
 USE_GITHUB=	yes
 GH_ACCOUNT=	freebsd-net
@@ -20,6 +22,9 @@ PORTDOCS=	README
 PORTEXAMPLES=	tests
 
 OPTIONS_DEFINE=	DOCS EXAMPLES
+
+# XXX Static libraries with PIE are currently unsupported.
+MAKE_ARGS+=	WITHOUT_PIE=true
 
 pre-build:
 	${INSTALL_DATA} ${FILESDIR}/Makefile ${FILESDIR}/Makefile.inc ${WRKSRC}

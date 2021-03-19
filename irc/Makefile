@@ -15,6 +15,7 @@
     SUBDIR += bitlbee-steam
     SUBDIR += bnc
     SUBDIR += bopm
+    SUBDIR += catgirl
     SUBDIR += cgiirc
     SUBDIR += ctrlproxy
     SUBDIR += cwirc
@@ -106,6 +107,7 @@
     SUBDIR += sirc
     SUBDIR += smartirc4net
     SUBDIR += smuxi
+    SUBDIR += soju
     SUBDIR += srain
     SUBDIR += srvx
     SUBDIR += thales

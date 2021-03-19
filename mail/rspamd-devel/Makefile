@@ -1,8 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	rspamd
-PORTVERSION=	2.6.a1.20200402
-PORTREVISION=	3
+PORTVERSION=	2.8.a1.20210310
 CATEGORIES=	mail
 PKGNAMESUFFIX=	-devel
 
@@ -18,7 +17,7 @@ LIB_DEPENDS=	libpcre.so:devel/pcre \
 BUILD_DEPENDS=	ragel:devel/ragel
 RUN_DEPENDS=	ca_root_nss>=3.*:security/ca_root_nss
 
-USES=		cmake gnome perl5 pkgconfig sqlite ssl
+USES=		cmake gnome perl5 pkgconfig sqlite ssl compiler:c++17-lang
 USE_LDCONFIG=	yes
 USE_PERL5=	build run
 USE_GNOME=	glib20
@@ -35,6 +34,7 @@ OPTIONS_DEFAULT_armv7=		LUAJIT
 OPTIONS_DEFAULT_i386=		LUAJIT
 OPTIONS_DEFAULT_powerpc=	LUAJIT
 OPTIONS_DEFAULT_powerpc64=	LUAJIT
+OPTIONS_DEFAULT_powerpc64le=	LUAJIT
 OPTIONS_SUB=	yes
 
 BLAS_DESC=	Use OpenBLAS to accelerate KANN
@@ -57,13 +57,14 @@ CMAKE_ARGS+=	-DCONFDIR=${PREFIX}/etc/rspamd \
 		-DDEBUG=ON \
 		-DGIT_ID=${GH_TAGNAME}
 USE_GITHUB=	yes
-GH_TAGNAME=	76a1fb0
+GH_TAGNAME=	ba5b677
 
 DEBUG_FLAGS=	-g -O0
 
 USE_RC_SUBR=	rspamd
 
 BLAS_CMAKE_ON=	-DENABLE_BLAS=ON
+BLAS_LIB_DEPENDS=	libblis.so:math/blis liblapack.so:math/lapack
 BLAS_USES=	blaslapack:openblas
 
 GPERF_CMAKE_ON=	-DENABLE_GPERF_TOOLS=ON
@@ -72,8 +73,9 @@ GPERF_LIB_DEPENDS=	libprofiler.so:devel/google-perftools
 HYPERSCAN_CMAKE_ON=	-DENABLE_HYPERSCAN=ON
 HYPERSCAN_LIB_DEPENDS=	libhs.so:devel/hyperscan
 
+LUAJIT_CMAKE_OFF=	-DENABLE_LUAJIT=OFF
 LUAJIT_LIB_DEPENDS=	libluajit-5.1.so:lang/luajit
-LUAJIT_USES_OFF=	lua:51
+LUAJIT_USES_OFF=	lua:51+
 
 CGP_RUN_DEPENDS+=	\
 	p5-AnyEvent-HTTP>=0:www/p5-AnyEvent-HTTP \
@@ -83,7 +85,7 @@ CGP_RUN_DEPENDS+=	\
 
 .include <bsd.port.options.mk>
 
-.if ${ARCH} == powerpc64
+.if ${ARCH:Mpowerpc*}
 LUAJIT_LIB_DEPENDS=	libluajit-5.1.so:lang/luajit-openresty
 USES+=		compiler:gcc-c++11-lib
 .else

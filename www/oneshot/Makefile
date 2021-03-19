@@ -2,10 +2,10 @@
 
 PORTNAME=	oneshot
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.2.0
+DISTVERSION=	1.3.1
 CATEGORIES=	www
 
-MAINTAINER=	vulcan@wired.sh
+MAINTAINER=	lcook@FreeBSD.org
 COMMENT=	First-come-first-serve single-fire HTTP server
 
 LICENSE=	MIT

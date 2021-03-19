@@ -3,32 +3,34 @@ implements libnm-compatible API required by Phosh and GNOME.
 
 meson.build:134:0: ERROR: Dependency "libnm" not found, tried pkgconfig
 
---- meson.build.orig	2020-08-03 08:10:28 UTC
+--- meson.build.orig	2020-12-18 14:53:37 UTC
 +++ meson.build
-@@ -131,9 +131,9 @@ libhandy_dep = dependency('libhandy-0.0',
+@@ -131,11 +131,11 @@ libhandy_dep = dependency('libhandy-1',
    fallback: ['libhandy', 'libhandy_dep'],
    default_options: ['introspection=disabled']
    )
 -libnm_dep = dependency('libnm', version: '>= 1.14')
 +libnm_dep = dependency('libnm', version: '>= 1.14', required: false)
  libpolkit_agent_dep = dependency('polkit-agent-1', version: '>= 0.105')
+ # TODO: make optional for elogind?
+ libsystemd_dep = dependency('libsystemd', version: '>= 241')
 -network_agent_dep = dependency('libsecret-1')
 +network_agent_dep = dependency('libsecret-1', required: false)
  upower_glib_dep = dependency('upower-glib', version: '>=0.99.1')
  wayland_client_dep = dependency('wayland-client', version: '>=1.14')
  wayland_protos_dep = dependency('wayland-protocols', version: '>=1.12')
---- src/meson.build.orig	2020-08-03 08:10:28 UTC
+--- src/meson.build.orig	2020-10-28 08:27:41 UTC
 +++ src/meson.build
-@@ -50,8 +50,6 @@ libphosh_tool_sources = [
+@@ -52,8 +52,6 @@ libphosh_tool_sources = [
    'app-list-model.h',
    'background.c',
    'background.h',
 -  'connectivity-info.c',
 -  'connectivity-info.h',
-   'favorite-list-model.c',
-   'favorite-list-model.h',
-   'feedback-manager.c',
-@@ -92,8 +90,6 @@ libphosh_sources = [
+   'docked-info.c',
+   'docked-info.h',
+   'docked-manager.c',
+@@ -102,8 +100,6 @@ libphosh_sources = [
    'bt-info.h',
    'bt-manager.c',
    'bt-manager.h',
@@ -37,7 +39,7 @@ meson.build:134:0: ERROR: Dependency "libnm" not found, tried pkgconfig
    'fader.c',
    'fader.h',
    'feedbackinfo.c',
-@@ -110,8 +106,6 @@ libphosh_sources = [
+@@ -120,8 +116,6 @@ libphosh_sources = [
    'lockscreen.h',
    'monitor-manager.c',
    'monitor-manager.h',
@@ -46,8 +48,8 @@ meson.build:134:0: ERROR: Dependency "libnm" not found, tried pkgconfig
    'osk-manager.c',
    'osk-manager.h',
    'panel.c',
-@@ -144,10 +138,6 @@ libphosh_sources = [
-   'toplevel-thumbnail.h',
+@@ -158,10 +152,6 @@ libphosh_sources = [
+   'torch-manager.h',
    'toplevel.c',
    'toplevel.h',
 -  'wifiinfo.c',
@@ -57,35 +59,25 @@ meson.build:134:0: ERROR: Dependency "libnm" not found, tried pkgconfig
    'wwaninfo.c',
    'wwaninfo.h',
    phosh_settings_sources,
---- src/panel.c.orig	2020-08-03 08:10:28 UTC
-+++ src/panel.c
-@@ -13,7 +13,6 @@
- #include "config.h"
- 
- #include "bt-info.h"
--#include "connectivity-info.h"
- #include "panel.h"
- #include "shell.h"
- #include "session.h"
-@@ -371,7 +370,6 @@ phosh_panel_class_init (PhoshPanelClass *klass)
-       NULL, G_TYPE_NONE, 0);
- 
-   g_type_ensure (PHOSH_TYPE_BT_INFO);
--  g_type_ensure (PHOSH_TYPE_CONNECTIVITY_INFO);
-   g_type_ensure (PHOSH_TYPE_SETTINGS);
- 
-   gtk_widget_class_set_template_from_resource (widget_class,
---- src/shell.c.orig	2020-09-18 11:42:34 UTC
+--- src/shell.c.orig	2021-02-09 20:00:21 UTC
 +++ src/shell.c
-@@ -48,7 +48,6 @@
- #include "session.h"
- #include "system-prompter.h"
+@@ -29,7 +29,6 @@
+ #include "background-manager.h"
+ #include "bt-info.h"
+ #include "bt-manager.h"
+-#include "connectivity-info.h"
+ #include "docked-info.h"
+ #include "docked-manager.h"
+ #include "fader.h"
+@@ -62,7 +61,6 @@
+ #include "torch-manager.h"
+ #include "torch-info.h"
  #include "util.h"
 -#include "wifiinfo.h"
  #include "wwaninfo.h"
  #include "wwan/phosh-wwan-ofono.h"
  #include "wwan/phosh-wwan-mm.h"
-@@ -90,7 +89,6 @@ typedef struct
+@@ -105,7 +103,6 @@ typedef struct
    PhoshIdleManager *idle_manager;
    PhoshOskManager  *osk_manager;
    PhoshToplevelManager *toplevel_manager;
@@ -93,7 +85,7 @@ meson.build:134:0: ERROR: Dependency "libnm" not found, tried pkgconfig
    PhoshPolkitAuthAgent *polkit_auth_agent;
    PhoshScreenSaverManager *screen_saver_manager;
    PhoshNotifyManager *notify_manager;
-@@ -344,7 +342,6 @@ phosh_shell_dispose (GObject *object)
+@@ -351,7 +348,6 @@ phosh_shell_dispose (GObject *object)
    g_clear_object (&priv->notify_manager);
    g_clear_object (&priv->screen_saver_manager);
    g_clear_object (&priv->polkit_auth_agent);
@@ -101,15 +93,23 @@ meson.build:134:0: ERROR: Dependency "libnm" not found, tried pkgconfig
    g_clear_object (&priv->toplevel_manager);
    g_clear_object (&priv->osk_manager);
    g_clear_object (&priv->idle_manager);
-@@ -494,7 +491,6 @@ static void
- type_setup (void)
+@@ -510,7 +506,6 @@ type_setup (void)
  {
-   phosh_battery_info_get_type();
--  phosh_wifi_info_get_type();
-   phosh_wwan_info_get_type();
+   g_type_ensure (PHOSH_TYPE_BATTERY_INFO);
+   g_type_ensure (PHOSH_TYPE_BT_INFO);
+-  g_type_ensure (PHOSH_TYPE_CONNECTIVITY_INFO);
+   g_type_ensure (PHOSH_TYPE_DOCKED_INFO);
+   g_type_ensure (PHOSH_TYPE_FEEDBACK_INFO);
+   g_type_ensure (PHOSH_TYPE_MEDIA_PLAYER);
+@@ -518,7 +513,6 @@ type_setup (void)
+   g_type_ensure (PHOSH_TYPE_ROTATE_INFO);
+   g_type_ensure (PHOSH_TYPE_SETTINGS);
+   g_type_ensure (PHOSH_TYPE_TORCH_INFO);
+-  g_type_ensure (PHOSH_TYPE_WIFI_INFO);
+   g_type_ensure (PHOSH_TYPE_WWAN_INFO);
  }
  
-@@ -784,21 +780,6 @@ phosh_shell_get_monitor_manager (PhoshShell *self)
+@@ -869,21 +863,6 @@ phosh_shell_get_monitor_manager (PhoshShell *self)
    return priv->monitor_manager;
  }
  

@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	mate-screensaver
-PORTVERSION=	1.24.0
+PORTVERSION=	1.24.1
 CATEGORIES=	x11 mate
 MASTER_SITES=	MATE
 DIST_SUBDIR=	mate
@@ -40,8 +40,6 @@ SCREENSAVER_DIR=	share/applications/screensavers
 
 OPTIONS_DEFINE=	PAM
 OPTIONS_DEFAULT=PAM
-PAM_DESC=	Pluggable Authentication Module support
-
 OPTIONS_SUB=	yes
 
 PAM_RUN_DEPENDS=	pam_helper:security/pam_helper

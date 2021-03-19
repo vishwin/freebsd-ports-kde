@@ -1,15 +1,15 @@
---- base/debug/stack_trace_posix.cc.orig	2020-03-16 18:39:41 UTC
+--- base/debug/stack_trace_posix.cc.orig	2021-01-18 21:28:44 UTC
 +++ base/debug/stack_trace_posix.cc
 @@ -35,7 +35,7 @@
  #include <AvailabilityMacros.h>
  #endif
  
--#if defined(OS_LINUX)
-+#if defined(OS_LINUX) || defined(OS_BSD)
+-#if defined(OS_LINUX) || defined(OS_CHROMEOS)
++#if defined(OS_LINUX) || defined(OS_CHROMEOS) || defined(OS_BSD)
  #include "base/debug/proc_maps_linux.h"
  #endif
  
-@@ -697,7 +697,11 @@ class SandboxSymbolizeHelper {
+@@ -696,7 +696,11 @@ class SandboxSymbolizeHelper {
            // Skip regions with empty file names.
            continue;
          }

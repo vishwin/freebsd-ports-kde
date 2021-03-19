@@ -78,23 +78,23 @@ _USE_GNOME_ALL+= atk cairo \
 		gnomevfs2 gtk-update-icon-cache gtk20 gtkhtml3 \
 		gtksharp20 gtksourceview2 gvfs libartlgpl2 libbonobo \
 		libbonoboui libglade2 libgnome \
-		libgnomecanvas libgnomekbd \
-		libgnomeui libgsf libgtkhtml libidl librsvg2 libwnck \
+		libgnomecanvas \
+		libgnomeui libgsf libidl librsvg2 libwnck \
 		libxml2 libxslt \
-		orbit2 pango pangox-compat pygobject pygtk2 \
+		orbit2 pango pangox-compat \
 		vte
 
 # GNOME 3 components
 _USE_GNOME_ALL+=dconf evolutiondataserver3 gnomecontrolcenter3 gnomedesktop3 \
 		gnomemenus3 gsound gtk30 gtkhtml4 gtksourceview3 \
 		gtksourceview4 libgda5 \
-		libgda5-ui libwnck3 metacity nautilus3 \
+		libgda5-ui libgnomekbd libwnck3 metacity nautilus3 \
 		pygobject3 vte3
 
 # C++ bindings
-_USE_GNOME_ALL+=atkmm cairomm gconfmm26 glibmm gtkmm20 gtkmm24 \
+_USE_GNOME_ALL+=atkmm cairomm gconfmm26 glibmm gtkmm24 \
 		gtkmm30 gtksourceviewmm3 libgdamm5 \
-		libgtksourceviewmm libxml++26 libsigc++12 libsigc++20 \
+		libgtksourceviewmm libxml++26 libsigc++20 \
 		pangomm
 
 # glib-mkenums often fails with C locale
@@ -140,9 +140,6 @@ gsound_LIB_DEPENDS=	libgsound.so:audio/gsound
 gsound_RUN_DEPENDS=	gsound-play:audio/gsound
 gsound_USE_GNOME_IMPL=	glib20
 
-gtkmm20_LIB_DEPENDS=	libgtkmm-2.0.so:x11-toolkits/gtkmm20
-gtkmm20_USE_GNOME_IMPL=	libsigc++12 gtk20
-
 gtkmm24_LIB_DEPENDS=	libgtkmm-2.4.so:x11-toolkits/gtkmm24
 gtkmm24_USE_GNOME_IMPL=	glibmm cairomm atkmm pangomm gtk20
 
@@ -157,8 +154,6 @@ libgdamm5_USE_GNOME_IMPL=	libgda5 glibmm
 
 libgtksourceviewmm_LIB_DEPENDS=		libgtksourceviewmm-2.0.so:x11-toolkits/libgtksourceviewmm
 libgtksourceviewmm_USE_GNOME_IMPL=	gtksourceview2 gtkmm24
-
-libsigc++12_LIB_DEPENDS=	libsigc-1.2.so:devel/libsigc++12
 
 libsigc++20_LIB_DEPENDS=	libsigc-2.0.so:devel/libsigc++20
 
@@ -247,9 +242,6 @@ libbonoboui_USE_GNOME_IMPL=	libgnomecanvas libgnome
 libgnomeui_LIB_DEPENDS=		libgnomeui-2.so:x11-toolkits/libgnomeui
 libgnomeui_USE_GNOME_IMPL=	libbonoboui
 
-libgtkhtml_LIB_DEPENDS=	libgtkhtml-2.so:www/libgtkhtml
-libgtkhtml_USE_GNOME_IMPL=libxslt gnomevfs2
-
 gnomedesktop3_LIB_DEPENDS=	libgnome-desktop-3.so:x11/gnome-desktop
 gnomedesktop3_USE_GNOME_IMPL=	gtk30
 
@@ -265,13 +257,22 @@ vte_USE_GNOME_IMPL=	gtk20
 vte3_LIB_DEPENDS=	libvte-2.91.so:x11-toolkits/vte3
 vte3_USE_GNOME_IMPL=	gtk30
 
+# Use librsvg2-rust where lang/rust is available
+.if ${LIBRSVG2_DEFAULT:Mrust}
+librsvg2_BUILD_DEPENDS=	librsvg2-rust>=0:graphics/librsvg2-rust
+librsvg2_LIB_DEPENDS=	librsvg-2.so:graphics/librsvg2-rust
+librsvg2_RUN_DEPENDS=	librsvg2-rust>=0:graphics/librsvg2-rust
+.else
+librsvg2_BUILD_DEPENDS=	librsvg2>=0:graphics/librsvg2
 librsvg2_LIB_DEPENDS=	librsvg-2.so:graphics/librsvg2
+librsvg2_RUN_DEPENDS=	librsvg2>=0:graphics/librsvg2
+.endif
 librsvg2_USE_GNOME_IMPL=libgsf gdkpixbuf2 pango
 
 nautilus3_LIB_DEPENDS=	libnautilus-extension.so:x11-fm/nautilus
 nautilus3_USE_GNOME_IMPL=gnomedesktop3 libxml2
 
-metacity_LIB_DEPENDS=	libmetacity-private.so:x11-wm/metacity
+metacity_LIB_DEPENDS=	libmetacity.so:x11-wm/metacity
 
 gnomecontrolcenter3_BUILD_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/gnome-keybindings.pc:sysutils/gnome-control-center
 gnomecontrolcenter3_RUN_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/gnome-keybindings.pc:sysutils/gnome-control-center
@@ -295,17 +296,9 @@ gtksourceview4_USE_GNOME_IMPL=gtk30 libxml2
 libgsf_LIB_DEPENDS=	libgsf-1.so:devel/libgsf
 libgsf_USE_GNOME_IMPL=	glib20 libxml2
 
-pygobject_BUILD_DEPENDS=	pygobject-codegen-2.0:devel/py-gobject
-pygobject_RUN_DEPENDS=		pygobject-codegen-2.0:devel/py-gobject
-pygobject_USE_GNOME_IMPL=	glib20
-
 pygobject3_BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}gobject3>=0:devel/py-gobject3@${PY_FLAVOR}
 pygobject3_RUN_DEPENDS=		${PYTHON_PKGNAMEPREFIX}gobject3>=0:devel/py-gobject3@${PY_FLAVOR}
 pygobject3_USE_GNOME_IMPL=	glib20
-
-pygtk2_BUILD_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/pygtk-2.0.pc:x11-toolkits/py-gtk2
-pygtk2_RUN_DEPENDS=	${LOCALBASE}/libdata/pkgconfig/pygtk-2.0.pc:x11-toolkits/py-gtk2
-pygtk2_USE_GNOME_IMPL=	libglade2 pygobject
 
 intltool_BUILD_DEPENDS=	${LOCALBASE}/bin/intltool-extract:textproc/intltool
 

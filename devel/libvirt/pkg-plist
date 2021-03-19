@@ -2,6 +2,7 @@ bin/virsh
 bin/virt-admin
 bin/virt-host-validate
 bin/virt-pki-validate
+bin/virt-ssh-helper
 %%QEMU%%bin/virt-qemu-run
 bin/virt-xml-validate
 %%BHYVE%%sbin/virtbhyved
@@ -33,6 +34,14 @@ man/man7/virkeyname-win32.7.gz
 man/man8/libvirtd.8.gz
 man/man8/virtlockd.8.gz
 man/man8/virtlogd.8.gz
+man/man8/virtnetworkd.8.gz
+man/man8/virtproxyd.8.gz
+man/man8/virtsecretd.8.gz
+man/man8/virtstoraged.8.gz
+man/man8/virtvboxd.8.gz
+%%BHYVE%%man/man8/virtbhyved.8.gz
+%%QEMU%%man/man8/virtqemud.8.gz
+%%XEN%%man/man8/virtxend.8.gz
 @sample %%ETCDIR%%/libvirt-admin.conf.sample
 @sample %%ETCDIR%%/libvirt.conf.sample
 @sample %%ETCDIR%%/libvirtd.conf.sample
@@ -134,8 +143,10 @@ share/augeas/lenses/virtvboxd.aug
 %%DATADIR%%/api/libvirt-api.xml
 %%DATADIR%%/api/libvirt-lxc-api.xml
 %%DATADIR%%/api/libvirt-qemu-api.xml
+%%DATADIR%%/cpu_map/arm_FT-2000plus.xml
 %%DATADIR%%/cpu_map/arm_Falkor.xml
 %%DATADIR%%/cpu_map/arm_Kunpeng-920.xml
+%%DATADIR%%/cpu_map/arm_Tengyun-S2500.xml
 %%DATADIR%%/cpu_map/arm_ThunderX299xx.xml
 %%DATADIR%%/cpu_map/arm_cortex-a53.xml
 %%DATADIR%%/cpu_map/arm_cortex-a57.xml
@@ -161,6 +172,7 @@ share/augeas/lenses/virtvboxd.aug
 %%DATADIR%%/cpu_map/x86_Cooperlake.xml
 %%DATADIR%%/cpu_map/x86_Dhyana.xml
 %%DATADIR%%/cpu_map/x86_EPYC-IBPB.xml
+%%DATADIR%%/cpu_map/x86_EPYC-Rome.xml
 %%DATADIR%%/cpu_map/x86_EPYC.xml
 %%DATADIR%%/cpu_map/x86_Haswell-IBRS.xml
 %%DATADIR%%/cpu_map/x86_Haswell-noTSX-IBRS.xml
@@ -188,6 +200,7 @@ share/augeas/lenses/virtvboxd.aug
 %%DATADIR%%/cpu_map/x86_Skylake-Server-IBRS.xml
 %%DATADIR%%/cpu_map/x86_Skylake-Server-noTSX-IBRS.xml
 %%DATADIR%%/cpu_map/x86_Skylake-Server.xml
+%%DATADIR%%/cpu_map/x86_Snowridge.xml
 %%DATADIR%%/cpu_map/x86_Westmere-IBRS.xml
 %%DATADIR%%/cpu_map/x86_Westmere.xml
 %%DATADIR%%/cpu_map/x86_athlon.xml
@@ -209,6 +222,7 @@ share/augeas/lenses/virtvboxd.aug
 %%DATADIR%%/cpu_map/x86_vendors.xml
 %%DATADIR%%/schemas/basictypes.rng
 %%DATADIR%%/schemas/capability.rng
+%%DATADIR%%/schemas/cpu.rng
 %%DATADIR%%/schemas/cputypes.rng
 %%DATADIR%%/schemas/domain.rng
 %%DATADIR%%/schemas/domainbackup.rng
@@ -268,6 +282,7 @@ share/augeas/lenses/virtvboxd.aug
 %%NLS%%share/locale/sv/LC_MESSAGES/libvirt.mo
 %%NLS%%share/locale/ta/LC_MESSAGES/libvirt.mo
 %%NLS%%share/locale/te/LC_MESSAGES/libvirt.mo
+%%NLS%%share/locale/tr/LC_MESSAGES/libvirt.mo
 %%NLS%%share/locale/uk/LC_MESSAGES/libvirt.mo
 %%NLS%%share/locale/vi/LC_MESSAGES/libvirt.mo
 %%NLS%%share/locale/zh_CN/LC_MESSAGES/libvirt.mo

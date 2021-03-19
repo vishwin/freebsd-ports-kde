@@ -2,8 +2,8 @@
 # $FreeBSD$
 #
 # PROVIDE: kea
-# REQUIRE: netif routing
-# KEYWORD: nojail shutdown
+# REQUIRE: NETWORK netif routing %%REQ_MYSQL%% %%REQ_PGSQL%%
+# KEYWORD: shutdown
 
 #
 # Add the following to /etc/rc.conf[.local] to enable this service

@@ -1,10 +1,11 @@
 # $FreeBSD$
 
 PORTNAME=	devilutionX
-PORTVERSION=	1.0.1
+PORTVERSION=	1.1.0
+PORTREVISION=	2
 CATEGORIES=	games
 
-MAINTAINER=	benny.goemans@gmail.com
+MAINTAINER=	eduardo@FreeBSD.org
 COMMENT=	Diablo I engine for modern operating systems
 
 LICENSE=	UNLICENSE
@@ -25,17 +26,16 @@ CMAKE_ARGS=	-DCMAKE_INSTALL_SHAREDIR:PATH=${PREFIX}/share \
 		-DGIT_TAG=${PORTVERSION}
 
 .if defined(WITH_DEBUG)
-CMAKE_ON=	NIGHTLY_BUILD
+CMAKE_ON=	DEBUG
 .else
 CMAKE_ON=	BINARY_RELEASE
 .endif
 
-CXXFLAGS+=	-DTTF_FONT_PATH=\\\"${LOCALBASE}/share/fonts/CharisSIL/CharisSIL-B.ttf\\\"
+CXXFLAGS+=	-DTTF_FONT_NAME=\\\"${LOCALBASE}/share/fonts/CharisSIL/CharisSIL-B.ttf\\\"
 
 PLIST_FILES=	bin/devilutionx \
 		share/applications/devilutionx.desktop \
-		share/icons/hicolor/16x16/apps/devilutionx.png \
-		share/icons/hicolor/32x32/apps/devilutionx.png \
-		share/icons/hicolor/48x48/apps/devilutionx.png
+		share/icons/hicolor/512x512/apps/devilutionx.png \
+		share/icons/hicolor/512x512/apps/devilutionx_solid.png
 
 .include <bsd.port.mk>

@@ -2,10 +2,10 @@
 # $FreeBSD$
 
 PORTNAME=	mysqlwsrep
-PORTVERSION?=	5.7.30
+PORTVERSION?=	5.7.31
 DISTVERSIONPREFIX?=	wsrep_
-DISTVERSIONSUFFIX?=	-25.22
-PORTREVISION?=	0
+DISTVERSIONSUFFIX?=	-25.23
+PORTREVISION?=	1
 CATEGORIES=	databases
 MASTER_SITES+=	SF/boost/boost/1.59.0:boost
 PKGNAMESUFFIX=	57-server
@@ -99,6 +99,7 @@ SUB_FILES=	my.cnf.sample
 USERS=		mysql
 GROUPS=		mysql
 
+USE_CXXSTD=     c++11
 USE_LDCONFIG+=	${PREFIX}/lib/mysql/plugin
 
 MMAN1=		my_print_defaults.1 \
@@ -183,6 +184,12 @@ LDFLAGS+=	-L${LOCALBASE}/lib
 .  if ${CHOSEN_COMPILER_TYPE} == clang
 CXXFLAGS+=	-Wno-c++11-narrowing
 .  endif
+.endif
+
+# Plugin innodb_memcached requires -fcommon to avoid duplicate symbol linker
+# error with llmv11.
+.if (${OPSYS} == FreeBSD && ${OSVERSION} >= 1300109) || ${CHOSEN_COMPILER_TYPE} == gcc
+CFLAGS+=	-fcommon
 .endif
 
 post-extract:

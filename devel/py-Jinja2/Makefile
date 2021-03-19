@@ -3,6 +3,7 @@
 
 PORTNAME=	Jinja2
 PORTVERSION=	2.11.2
+PORTREVISION=	1
 CATEGORIES=	devel python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -14,12 +15,12 @@ COMMENT?=	Fast and easy to use stand-alone template engine
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE.rst
 
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}MarkupSafe>=0.23:textproc/py-MarkupSafe@${PY_FLAVOR}
-TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}MarkupSafe>=0.23:textproc/py-MarkupSafe@${PY_FLAVOR}
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}markupsafe>=0.23:textproc/py-markupsafe@${PY_FLAVOR}
+TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}markupsafe>=0.23:textproc/py-markupsafe@${PY_FLAVOR}
 
 NO_ARCH=	yes
 .if empty(PKGNAMESUFFIX)
-USES=		python
+USES=		python:2.7+
 USE_PYTHON=	autoplist distutils
 .endif
 .if ${PKGNAMESUFFIX} == -doc

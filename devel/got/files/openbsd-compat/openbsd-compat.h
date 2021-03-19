@@ -48,15 +48,13 @@
 	STAILQ_CONCAT(head1, head2)
 
 /*
- * <libgen.h>
+ * <fcntl.h>
  */
-#undef basename
-#undef dirname
-#define basename(path)	basename_const(path)
-#define dirname(path)	dirname_const(path)
+#define open(...)	open_posix(__VA_ARGS__)
+#define openat(...)	openat_posix(__VA_ARGS__)
 
-char	*basename(const char *);
-char	*dirname(const char *);
+int	open_posix(const char *path, int flags, ...);
+int	openat_posix(int fd, const char *path, int flags, ...);
 
 /*
  * <stdlib.h>

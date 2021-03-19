@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	homebank
-PORTVERSION=	5.3.2
+PORTVERSION=	5.5
 CATEGORIES=	finance
 MASTER_SITES=	http://homebank.free.fr/public/
 

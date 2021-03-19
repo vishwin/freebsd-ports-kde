@@ -2,20 +2,20 @@
 # $FreeBSD$
 
 PORTNAME=	ardour6
-PORTVERSION=	6.2.0
+PORTVERSION=	6.5.0
+PORTREVISION=	1
 CATEGORIES=	audio
 MASTER_SITES=	https://github.com/beerml/ardour_releases/raw/master/
 # The original master side points to the latest release only:
 # MASTER_SITES=	https://community.ardour.org/srctar/
 DISTNAME=	Ardour-${PORTVERSION}
 
-MAINTAINER=	beerml@sigma6audio.de
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Multichannel digital audio workstation
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-BROKEN=		Does not build with glib 2.66.0
 BROKEN_aarch64=		fails to configure: Could not find the program gas,as,gcc
 
 BUILD_DEPENDS=	lv2>=1.18.0:audio/lv2 \
@@ -41,6 +41,7 @@ LIB_DEPENDS=	libserd-0.so:devel/serd \
 		libcurl.so:ftp/curl \
 		libogg.so:audio/libogg \
 		libFLAC.so:audio/flac \
+		libSoundTouch.so:audio/soundtouch \
 		libwebsockets.so:net/libwebsockets
 
 USES=		compiler:c++11-lang desktop-file-utils gettext gnome \
@@ -56,7 +57,7 @@ BINARY_ALIAS+=	gas=${CC}
 PLIST_SUB=	ARDOURVERSION=${PORTVERSION}
 
 CONFIGURE_ARGS=	--optimize --ptformat --freedesktop --no-phone-home \
-		--with-backends=jack,dummy --internal-shared-libs
+		--with-backends=jack,dummy --internal-shared-libs --no-vst3
 
 post-patch:
 	@${REINPLACE_CMD} -e 's/obj\.use            = '\''libsmf libpbd'\''/obj\.use            = '\''libsmf_internal libpbd'\''/g' ${WRKSRC}/libs/evoral/wscript
@@ -105,11 +106,10 @@ post-install:
 .include <bsd.port.pre.mk>
 
 .if ${ARCH} == "i386"
-WITH_ARCH_FLAGS=	--arch='-msse -mfpmath=sse' --dist-target=i386
+# only support for i686 or better
+WITH_ARCH_FLAGS=	--arch='-msse -mfpmath=sse -march=i686 -DARCH_X86' --dist-target=i686
 .elif ${ARCH} == "amd64"
-WITH_ARCH_FLAGS=	--arch='-msse -mfpmath=sse' --dist-target=x86_64
-.elif ${ARCH:Mpowerpc*}
-LLD_UNSAFE=	yes
+WITH_ARCH_FLAGS=	--arch='-msse -mfpmath=sse -DARCH_X86' --dist-target=x86_64
 .endif
 
 .if defined(WITH_ARCH_FLAGS)

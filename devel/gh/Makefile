@@ -2,10 +2,10 @@
 
 PORTNAME=	gh
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.0.0
+DISTVERSION=	1.7.0
 CATEGORIES=	devel
 
-MAINTAINER=	vulcan@wired.sh
+MAINTAINER=	lcook@FreeBSD.org
 COMMENT=	GitHub's official command line tool
 
 LICENSE=	MIT
@@ -17,43 +17,54 @@ USES=		go:modules
 USE_GITHUB=	yes
 GH_ACCOUNT=	cli
 GH_PROJECT=	${GH_ACCOUNT}
-GH_TUPLE=	AlecAivazis:survey:v2.1.1:survey_v2/vendor/github.com/AlecAivazis/survey/v2 \
+GH_TUPLE=	AlecAivazis:survey:v2.2.7:alecaivazis_survey_v2/vendor/github.com/AlecAivazis/survey/v2 \
 		MakeNowJust:heredoc:v1.0.0:makenowjust_heredoc/vendor/github.com/MakeNowJust/heredoc \
 		alecthomas:chroma:v0.7.3:alecthomas_chroma/vendor/github.com/alecthomas/chroma \
 		briandowns:spinner:v1.11.1:briandowns_spinner/vendor/github.com/briandowns/spinner \
 		charmbracelet:glamour:1246d13c1684:charmbracelet_glamour/vendor/github.com/charmbracelet/glamour \
+		cli:browser:v1.0.0:cli_browser/vendor/github.com/cli/browser \
+		cli:oauth:v0.8.0:cli_oauth/vendor/github.com/cli/oauth \
+		cli:safeexec:v1.0.0:cli_safeexec/vendor/github.com/cli/safeexec \
 		cli:shurcooL-graphql:0f7232a2bf7e:cli_shurcool_graphql/vendor/github.com/shurcooL/graphql \
 		cpuguy83:go-md2man:v2.0.0:cpuguy83_go_md2man_v2/vendor/github.com/cpuguy83/go-md2man/v2 \
 		danwakefield:fnmatch:cbb64ac3d964:danwakefield_fnmatch/vendor/github.com/danwakefield/fnmatch \
+		davecgh:go-spew:v1.1.1:davecgh_go_spew/vendor/github.com/davecgh/go-spew \
 		dlclark:regexp2:v1.2.0:dlclark_regexp2/vendor/github.com/dlclark/regexp2 \
+		enescakir:emoji:v1.0.0:enescakir_emoji/vendor/github.com/enescakir/emoji \
 		fatih:color:v1.7.0:fatih_color/vendor/github.com/fatih/color \
-		go-yaml:yaml:eeeca48fe776:go_yaml_yaml_1/vendor/gopkg.in/yaml.v3 \
-		go-yaml:yaml:v2.2.8:go_yaml_yaml/vendor/gopkg.in/yaml.v2 \
-		golang:crypto:5c72a883971a:golang_crypto/vendor/golang.org/x/crypto \
+		go-yaml:yaml:496545a6307b:go_yaml_yaml/vendor/gopkg.in/yaml.v3 \
+		golang:crypto:9e8e0b390897:golang_crypto/vendor/golang.org/x/crypto \
 		golang:net:ab3426394381:golang_net/vendor/golang.org/x/net \
-		golang:sys:669c56c373c4:golang_sys/vendor/golang.org/x/sys \
-		golang:text:v0.3.3:golang_text/vendor/golang.org/x/text \
-		google:goterm:555d40f:google_goterm/vendor/github.com/google/goterm \
+		golang:sync:112230192c58:golang_sync/vendor/golang.org/x/sync \
+		golang:sys:4bcb84eeeb78:golang_sys/vendor/golang.org/x/sys \
+		golang:text:v0.3.4:golang_text/vendor/golang.org/x/text \
+		google:go-cmp:v0.5.2:google_go_cmp/vendor/github.com/google/go-cmp \
 		google:shlex:e7afc7fbc510:google_shlex/vendor/github.com/google/shlex \
 		hashicorp:go-version:v1.2.1:hashicorp_go_version/vendor/github.com/hashicorp/go-version \
 		henvic:httpretty:v0.0.6:henvic_httpretty/vendor/github.com/henvic/httpretty \
+		inconshreveable:mousetrap:v1.0.0:inconshreveable_mousetrap/vendor/github.com/inconshreveable/mousetrap \
+		itchyny:astgen-go:0da0671862a3:itchyny_astgen_go/vendor/github.com/itchyny/astgen-go \
+		itchyny:gojq:v0.12.1:itchyny_gojq/vendor/github.com/itchyny/gojq \
+		itchyny:timefmt-go:v0.1.1:itchyny_timefmt_go/vendor/github.com/itchyny/timefmt-go \
 		kballard:go-shellquote:95032a82bc51:kballard_go_shellquote/vendor/github.com/kballard/go-shellquote \
 		lucasb-eyer:go-colorful:v1.0.3:lucasb_eyer_go_colorful/vendor/github.com/lucasb-eyer/go-colorful \
-		mattn:go-colorable:v0.1.7:mattn_go_colorable/vendor/github.com/mattn/go-colorable \
+		mattn:go-colorable:v0.1.8:mattn_go_colorable/vendor/github.com/mattn/go-colorable \
 		mattn:go-isatty:v0.0.12:mattn_go_isatty/vendor/github.com/mattn/go-isatty \
 		mattn:go-runewidth:v0.0.9:mattn_go_runewidth/vendor/github.com/mattn/go-runewidth \
 		mgutz:ansi:d51e80ef957d:mgutz_ansi/vendor/github.com/mgutz/ansi \
 		microcosm-cc:bluemonday:v1.0.2:microcosm_cc_bluemonday/vendor/github.com/microcosm-cc/bluemonday \
 		mitchellh:go-homedir:v1.1.0:mitchellh_go_homedir/vendor/github.com/mitchellh/go-homedir \
 		muesli:reflow:v0.1.0:muesli_reflow/vendor/github.com/muesli/reflow \
-		muesli:termenv:v0.6.0:muesli_termenv/vendor/github.com/muesli/termenv \
+		muesli:termenv:v0.7.4:muesli_termenv/vendor/github.com/muesli/termenv \
 		olekukonko:tablewriter:v0.0.4:olekukonko_tablewriter/vendor/github.com/olekukonko/tablewriter \
+		pmezard:go-difflib:v1.0.0:pmezard_go_difflib/vendor/github.com/pmezard/go-difflib \
 		rivo:uniseg:v0.1.0:rivo_uniseg/vendor/github.com/rivo/uniseg \
 		russross:blackfriday:v2.0.1:russross_blackfriday_v2/vendor/github.com/russross/blackfriday/v2 \
-		shurcooL:githubv4:f27d2ca7f6d5:shurcool_githubv4/vendor/github.com/shurcooL/githubv4 \
+		shurcooL:githubv4:d292edc3691b:shurcool_githubv4/vendor/github.com/shurcooL/githubv4 \
 		shurcooL:sanitized_anchor_name:v1.0.0:shurcool_sanitized_anchor_name/vendor/github.com/shurcooL/sanitized_anchor_name \
-		spf13:cobra:v1.0.0:spf13_cobra/vendor/github.com/spf13/cobra \
+		spf13:cobra:v1.1.1:spf13_cobra/vendor/github.com/spf13/cobra \
 		spf13:pflag:v1.0.5:spf13_pflag/vendor/github.com/spf13/pflag \
+		stretchr:testify:v1.6.1:stretchr_testify/vendor/github.com/stretchr/testify \
 		yuin:goldmark:v1.2.0:yuin_goldmark/vendor/github.com/yuin/goldmark
 
 _BUILD_VERSION=	${DISTVERSION}
@@ -62,8 +73,8 @@ _BUILD_DATE=	$$(date +%Y-%m-%d)
 GO_TARGET=	./cmd/${PORTNAME}
 GO_BUILDFLAGS=	-ldflags "\
 		-s -w \
-		-X github.com/${GH_ACCOUNT}/${GH_PROJECT}/command.Version=${_BUILD_VERSION} \
-		-X github.com/${GH_ACCOUNT}/${GH_PROJECT}/command.BuildDate=${_BUILD_DATE}"
+		-X github.com/${GH_ACCOUNT}/${GH_PROJECT}/internal/build.Version=${_BUILD_VERSION} \
+		-X github.com/${GH_ACCOUNT}/${GH_PROJECT}/internal/build.Date=${_BUILD_DATE}"
 
 _DOCS=		README.md docs/gh-vs-hub.md docs/releasing.md \
 		docs/command-line-syntax.md docs/source.md
@@ -75,9 +86,6 @@ OPTIONS_SUB=		yes
 
 COMPLETIONS_DESC=	Build and install shell completions for bash, fish and zsh
 MANPAGES_DESC=		Build and install auto-generated manpages
-
-pre-build:
-	${LN} -sf ${WRKSRC_muesli_termenv}/termenv_linux.go ${WRKSRC_muesli_termenv}/termenv_freebsd.go
 
 do-build-COMPLETIONS-on:
 .for SHELL in bash fish zsh

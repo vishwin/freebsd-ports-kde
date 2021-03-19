@@ -1,9 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	beancount
-PORTVERSION=	2.3.2
+PORTVERSION=	2.3.3
 CATEGORIES=	finance
-DISTNAME=	${PORTVERSION}
 DIST_SUBDIR=	${PORTNAME}
 
 MAINTAINER=	nivit@FreeBSD.org
@@ -29,11 +28,11 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}beautifulsoup>=0:www/py-beautifulsoup@${PY_F
 		${PYTHON_PKGNAMEPREFIX}python-magic>=0:devel/py-python-magic@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}requests>=0:www/py-requests@${PY_FLAVOR}
 
-USES=		python:3.5+
+USES=		compiler:c11 python:3.5+
 USE_GITHUB=	yes
 USE_PYTHON=	autoplist distutils noflavors
 
 post-install:
-	@${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/${PORTNAME}/parser/_parser.so
+	@${STRIP_CMD} ${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}/${PORTNAME}/parser/_parser*.so
 
 .include <bsd.port.mk>

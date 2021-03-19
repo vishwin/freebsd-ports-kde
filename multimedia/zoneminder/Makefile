@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	zoneminder
-PORTVERSION=	1.34.9
+PORTVERSION=	1.34.21
 PORTREVISION=	1
 CATEGORIES=	multimedia
 
@@ -10,7 +10,7 @@ COMMENT=	Complete security camera solution, fully web based with image analysis
 
 LICENSE=	GPLv2
 
-ONLY_FOR_ARCHS=	aarch64 amd64 i386
+ONLY_FOR_ARCHS=	aarch64 amd64 i386 powerpc64
 
 ZM_DEPENDS=	p5-DBI>=0:databases/p5-DBI \
 		p5-DBD-mysql>=0:databases/p5-DBD-mysql \
@@ -46,7 +46,7 @@ GH_TUPLE=	zoneminder:crud:0bd63fb:crud \
 USE_RC_SUBR=	zoneminder
 USE_PHP=	json pdo_mysql session gd sockets ctype opcache openssl hash
 
-OPTIONS_DEFINE=	NLS V4L DOCS
+OPTIONS_DEFINE=	NLS V4L
 OPTIONS_SUB=	yes
 NLS_USES=	gettext
 NLS_CONFIGURE_ENABLE=	nls
@@ -54,6 +54,7 @@ V4L_BUILD_DEPENDS=	${LOCALBASE}/include/linux/videodev2.h:multimedia/v4l_compat
 V4L_LIB_DEPENDS=	libv4l2.so:multimedia/libv4l
 
 PLIST_SUB=	WWWOWN="${WWWOWN}" WWWGRP="${WWWGRP}"
+SUB_FILES=	pkg-message
 
 SHEBANG_FILES=	scripts/zmaudit.pl.in \
 		scripts/zmcamtool.pl.in \
@@ -71,8 +72,6 @@ SHEBANG_FILES=	scripts/zmaudit.pl.in \
 		scripts/zmx10.pl.in \
 		scripts/zmonvif-probe.pl.in \
 		scripts/zmrecover.pl.in
-
-PORTDOCS=	README.FreeBSD
 
 CMAKE_ARGS+=	-DZM_PERL_MM_PARMS=INSTALLDIRS=site \
 		-DZM_CONFIG_DIR=${PREFIX}/etc \
@@ -102,8 +101,6 @@ PKGMESSAGE=	${WRKDIR}/pkg-message
 post-extract:
 	${CP} -R ${WRKSRC_crud}/* ${WRKSRC}/web/api/app/Plugin/Crud
 	${CP} -R ${WRKSRC_crud_plugin}/* ${WRKSRC}/web/api/app/Plugin/CakePHP-Enum-Behavior
-	${CP} ${FILESDIR}/README.FreeBSD ${WRKSRC}
-	${CP} ${FILESDIR}/README.FreeBSD ${PKGMESSAGE}
 	${REINPLACE_CMD} -e 's|/dev/shm|/tmp|g' ${WRKSRC}/scripts/ZoneMinder/lib/ZoneMinder/ConfigData.pm.in
 
 post-patch:
@@ -121,9 +118,5 @@ pre-install:
 	${MKDIR} ${STAGEDIR}/var/db/zoneminder
 	${MKDIR} ${STAGEDIR}/var/run/zm
 	${MKDIR} ${STAGEDIR}/var/tmp/zm
-
-post-install-DOCS-on:
-	${MKDIR} ${STAGEDIR}${DOCSDIR}
-	cd ${WRKSRC} && ${INSTALL_DATA} ${PORTDOCS} ${STAGEDIR}${DOCSDIR}
 
 .include <bsd.port.post.mk>

@@ -3,7 +3,7 @@
 
 PORTNAME=	syslog-ng
 DISTVERSION=	3.27.1
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	sysutils
 MASTER_SITES=	https://github.com/balabit/syslog-ng/releases/download/syslog-ng-${DISTVERSION}/
 .if !defined(MASTERDIR)
@@ -12,6 +12,9 @@ PKGNAMESUFFIX=	327
 
 MAINTAINER=	cy@FreeBSD.org
 COMMENT=	Powerful syslogd replacement
+
+DEPRECATED=		Not officially supported by upstream
+EXPIRATION_DATE=	2021-03-31
 
 BROKEN_sparc64=		fails to link: Internal error: Segmentation fault (program ld)
 

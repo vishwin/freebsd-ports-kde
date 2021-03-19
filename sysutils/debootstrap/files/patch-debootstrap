@@ -1,4 +1,4 @@
---- debootstrap.orig	2019-07-06 11:22:30 UTC
+--- debootstrap.orig	2020-03-13 02:03:08 UTC
 +++ debootstrap
 @@ -1,4 +1,4 @@
 -#!/bin/sh
@@ -15,7 +15,7 @@
  	fi
  fi
  
-@@ -498,13 +498,7 @@ fi
+@@ -516,13 +516,7 @@ fi
  
  ###########################################################################
  
@@ -30,14 +30,14 @@
  	HOST_ARCH=$(cat "$DEBOOTSTRAP_DIR/arch")
  fi
  HOST_OS="$HOST_ARCH"
-@@ -524,6 +518,11 @@ if [ -z "$HOST_OS" ]; then
+@@ -542,6 +536,11 @@ if [ -z "$HOST_OS" ]; then
  			HOST_OS=freebsd
  		;;
  	esac
 +fi
 +
 +if [ "$HOST_OS" = "freebsd" -a -z "$HOST_ARCH" ]; then
-+	HOST_ARCH=kfreebsd-`/sbin/sysctl -n hw.machine_arch`
++	HOST_ARCH=`/sbin/sysctl -n hw.machine_arch`
 +	EXTRACTOR_OVERRIDE=ar
  fi
  

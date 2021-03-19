@@ -1,11 +1,12 @@
 # $FreeBSD$
 
 PORTNAME=	libgcrypt
-PORTVERSION=	1.8.5
+PORTVERSION=	1.9.2
+PORTREVISION=	1
 CATEGORIES=	security
 MASTER_SITES=	GNUPG
 
-MAINTAINER=	cpm@FreeBSD.org
+MAINTAINER=	cy@FreeBSD.org
 COMMENT=	General purpose cryptographic library based on the code from GnuPG
 
 LICENSE=	GPLv2+ LGPL21+
@@ -36,6 +37,10 @@ OPTIONS_DEFINE=	DOCS
 
 .if ${ARCH} == "powerpc"
 CONFIGURE_ARGS+=	--disable-asm
+.endif
+
+.if ${ARCH} == "armv6"
+CONFIGURE_ARGS+=	--disable-jent-support
 .endif
 
 post-patch:

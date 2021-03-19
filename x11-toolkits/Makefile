@@ -6,9 +6,9 @@
     SUBDIR += SoXt
     SUBDIR += Xaw3d
     SUBDIR += Xmt
+    SUBDIR += amtk
     SUBDIR += blt
     SUBDIR += bwidget
-    SUBDIR += c++-gtk-utils
     SUBDIR += color-widgets-qt5
     SUBDIR += ctk
     SUBDIR += fltk
@@ -26,7 +26,6 @@
     SUBDIR += gnustep-back
     SUBDIR += gnustep-gui
     SUBDIR += granite
-    SUBDIR += gstreamer-plugins-pango
     SUBDIR += gstreamer1-plugins-gtk
     SUBDIR += gstreamer1-plugins-pango
     SUBDIR += gtk-layer-shell
@@ -37,6 +36,7 @@
     SUBDIR += gtk30
     SUBDIR += gtkada
     SUBDIR += gtkada3
+    SUBDIR += gtkd
     SUBDIR += gtkdatabox
     SUBDIR += gtkextra
     SUBDIR += gtkglarea2
@@ -44,7 +44,6 @@
     SUBDIR += gtkglextmm
     SUBDIR += gtkimageview
     SUBDIR += gtkmathview
-    SUBDIR += gtkmm20
     SUBDIR += gtkmm24
     SUBDIR += gtkmm30
     SUBDIR += gtksourceview2
@@ -83,7 +82,6 @@
     SUBDIR += libwnck
     SUBDIR += libwnck3
     SUBDIR += libxaw3dxft
-    SUBDIR += libxfce4gui
     SUBDIR += linux-c7-gtk2
     SUBDIR += linux-c7-gtk3
     SUBDIR += linux-c7-openmotif
@@ -99,6 +97,7 @@
     SUBDIR += nanogui
     SUBDIR += neXtaw
     SUBDIR += ntk
+    SUBDIR += nuklear
     SUBDIR += ocaml-lablgtk2
     SUBDIR += ocaml-labltk
     SUBDIR += open-motif
@@ -118,7 +117,6 @@
     SUBDIR += p5-Gtk2-Ex-Simple-List
     SUBDIR += p5-Gtk2-Ex-Utils
     SUBDIR += p5-Gtk2-GladeXML
-    SUBDIR += p5-Gtk2-Html2
     SUBDIR += p5-Gtk2-ImageView
     SUBDIR += p5-Gtk2-PathButtonBar
     SUBDIR += p5-Gtk2-TrayIcon
@@ -152,6 +150,7 @@
     SUBDIR += p5-Tk-ToolBar
     SUBDIR += p5-Tk-WaitBox
     SUBDIR += pango
+    SUBDIR += pangolin
     SUBDIR += pangomm
     SUBDIR += pangox-compat
     SUBDIR += pangoxsl
@@ -159,14 +158,13 @@
     SUBDIR += plib
     SUBDIR += py-AnyQt
     SUBDIR += py-Pmw
-    SUBDIR += py-SquareMap
     SUBDIR += py-easygui
     SUBDIR += py-fltk
-    SUBDIR += py-gtk2
     SUBDIR += py-guietta
     SUBDIR += py-qt5-chart
     SUBDIR += py-qt5-gui
     SUBDIR += py-qt5-quick
+    SUBDIR += py-qt5-quick3d
     SUBDIR += py-qt5-quickwidgets
     SUBDIR += py-qt5-widgets
     SUBDIR += py-tkinter

@@ -1,14 +1,15 @@
 # $FreeBSD$
 
 PORTNAME=	bc
-PORTVERSION=	3.1.5
+PORTVERSION=	3.3.4
 CATEGORIES=	math lang
 PKGNAMEPREFIX=	gh-
 
 MAINTAINER=	se@FreeBSD.org
 COMMENT=	GNU compatible bc/dc calculator
 
-LICENSE=	BSD2CLAUSE
+LICENSE=	BSD2CLAUSE MIT
+LICENSE_COMB=	multi
 LICENSE_FILE=	${WRKSRC}/LICENSE.md
 
 USES=		compiler
@@ -33,8 +34,8 @@ pre-build:
 do-install:
 		${INSTALL_PROGRAM} ${WRKSRC}/bin/bc ${STAGEDIR}${PREFIX}/bin/
 		${LN} ${STAGEDIR}${PREFIX}/bin/bc ${STAGEDIR}${PREFIX}/bin/dc
-		${INSTALL_MAN} ${WRKSRC}/manuals/bc.1 ${STAGEDIR}${MANPREFIX}/man/man1
-		${INSTALL_MAN} ${WRKSRC}/manuals/dc.1 ${STAGEDIR}${MANPREFIX}/man/man1
+		${INSTALL_MAN} ${WRKSRC}/manuals/bc.1 ${STAGEDIR}${MANPREFIX}/share/man/man1
+		${INSTALL_MAN} ${WRKSRC}/manuals/dc.1 ${STAGEDIR}${MANPREFIX}/share/man/man1
 		${MKDIR} ${STAGEDIR}${PREFIX}/share/nls/C
 		${WRKSRC}/locale_install.sh ${STAGEDIR}${PREFIX}/share/nls/%L/%N.cat ${PORTNAME}
 		${MV} ${STAGEDIR}${PREFIX}/share/nls/en_US/bc.cat ${STAGEDIR}${PREFIX}/share/nls/C/

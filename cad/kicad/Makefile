@@ -2,10 +2,11 @@
 # $FreeBSD$
 
 PORTNAME=	kicad
-PORTVERSION=	5.1.6
+PORTVERSION=	5.1.9
 PORTREVISION=	1
 PORTEPOCH=	2
 CATEGORIES=	cad
+MASTER_SITES=	https://gitlab.com/${PORTNAME}/code/${PORTNAME}/-/archive/${DISTVERSION}/
 
 MAINTAINER=	cmt@FreeBSD.org
 COMMENT=	Schematic and PCB editing software
@@ -23,13 +24,9 @@ LIB_DEPENDS=	libboost_thread.so:devel/boost-libs	\
 
 CONFLICTS=	kicad-devel-r201*
 
-USE_GITHUB=	yes
-GH_ACCOUNT=	KiCad
-GH_PROJECT=	kicad-source-mirror
-
 USES=		cmake:noninja compiler:c++11-lib desktop-file-utils gl \
 		gnome pkgconfig python:3.5+ shared-mime-info shebangfix ssl \
-		tar:xz xorg
+		tar:bz2 xorg
 SHEBANG_FILES=	pcbnew/python/plugins/touch_slider_wizard.py
 
 USE_XORG=	ice x11 xext
@@ -64,12 +61,6 @@ DOXYGEN_BUILD_DEPENDS=	doxygen:devel/doxygen
 DOXYGEN_IMPLIES=	DOCS
 DOXYGEN_ALL_TARGET=	all doxygen-docs
 DOXYGEN_PORTDOCS=	doxygen
-
-# The CheckCXXSymbolExists module has been shipped with CMake since 3.0 times.
-# The ancient implementation that this bundled module uses, no longer works
-# because it uses CMake internals that have gone away in 3.11.
-post-extract:
-	${RM} ${WRKSRC}/CMakeModules/CheckCXXSymbolExists.cmake
 
 pre-configure:
 	${REINPLACE_CMD} -e 's|/usr/share/kicad|${DATADIR}|'		\

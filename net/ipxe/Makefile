@@ -2,10 +2,11 @@
 # $FreeBSD$
 
 PORTNAME=	ipxe
-DISTVERSION=	20200722
+DISTVERSION=	g20201129
+PORTEPOCH=	1
 CATEGORIES=	net
 
-MAINTAINER=	tobik@FreeBSD.org
+MAINTAINER=	egypcio@FreeBSD.org
 COMMENT=	Open source network boot firmware
 
 LICENSE=	GPLv2
@@ -15,9 +16,9 @@ ONLY_FOR_ARCHS_REASON=	not yet ported to anything other than amd64/i386
 
 USES=		gmake perl5 shebangfix
 USE_BINUTILS=	yes
-USE_GCC=	yes
+USE_GCC=	yes:build
 USE_GITHUB=	yes
-GH_TAGNAME=	b76052335788d0ad2c4b0bded116c3b02dd4bbc2
+GH_TAGNAME=	13a6d17
 USE_PERL5=	build
 SHEBANG_FILES=	util/geniso util/gensdsk
 MAKE_ARGS=	AR=${AR} \
@@ -130,5 +131,3 @@ do-install-EFI-on:
 .endfor
 
 .include <bsd.port.post.mk>
-
-RUN_DEPENDS:=	${RUN_DEPENDS:Ngcc*}

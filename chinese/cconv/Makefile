@@ -20,13 +20,9 @@ USES=		autoreconf iconv libtool
 GH_ACCOUNT=	xiaoyjy
 USE_GITHUB=	yes
 
-post-patch:
-	@${REINPLACE_CMD} -e 's|unicode.h||; s|libcconv_la_LDFLAGS|cconv_LDFLAGS|' ${WRKSRC}/Makefile.in
-	@${REINPLACE_CMD} -e 's|UTF-TW|UTF8-TW|g' ${WRKSRC}/main.c
-
 .include <bsd.port.pre.mk>
 
-.if ! empty(ICONV_LIB)
+.if !empty(ICONV_LIB)
 CONFIGURE_ENV+=	ICONV_DIR=${ICONV_PREFIX}
 .endif
 

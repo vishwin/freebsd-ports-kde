@@ -2,18 +2,16 @@
 # $FreeBSD$
 
 PORTNAME=	soundtouch
-PORTVERSION=	1.9.2
-PORTREVISION=	7
+DISTVERSION=	2.2
 CATEGORIES=	audio
-MASTER_SITES=	http://www.surina.net/soundtouch/
 
 MAINTAINER=	crees@FreeBSD.org
 COMMENT=	Open-source audio processing library
 
 LICENSE=	LGPL21
 
-WRKSRC=		${WRKDIR}/${PORTNAME}
-
+USE_GITLAB=	yes
+GL_COMMIT=	762f56024b7ade81f6565903161dffec0ad4741e
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
 
@@ -29,7 +27,7 @@ OPTIONS_DEFAULT_i386=	${MACHINE_CPU:tu:MSSE}
 INTEGER_SAMPLES_DESC=	Use integer sample format
 INTEGER_SAMPLES_CONFIGURE_ENABLE=	integer-samples
 OPENMP_CONFIGURE_ENABLE=openmp
-OPENMP_USES=		compiler:gcc-c++11-lib
+OPENMP_USES=		compiler:openmp
 SSE_CONFIGURE_ENABLE=	x86-optimizations
 SSE_USES=		compiler:c++11-lang
 
@@ -41,10 +39,11 @@ post-patch:
 		's|^INCLUDES|AM_CPPFLAGS| ; \
 		 s|$$(prefix)/doc|$$(datadir)/doc|' \
 		${WRKSRC}/config/am_include.mk
-.for i in SoundStretch SoundTouch
 	@${REINPLACE_CMD} -e \
 		's|-O[0-9]||;s|-fcheck-new||' \
-		${WRKSRC}/source/${i}/Makefile.am
-.endfor
+		${WRKSRC}/source/SoundTouch/Makefile.am
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libSoundTouch.so.1.0.0
 
 .include <bsd.port.mk>

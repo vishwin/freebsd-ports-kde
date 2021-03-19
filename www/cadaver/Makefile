@@ -8,7 +8,7 @@ CATEGORIES=	www
 MASTER_SITES=	http://www.webdav.org/cadaver/ \
 		http://www.tcbug.org/
 
-MAINTAINER=	jpaetzel@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Commandline client for DAV
 
 LIB_DEPENDS=	libneon.so:www/neon
@@ -63,7 +63,9 @@ CONFIGURE_ARGS+=--disable-nls \
 		--without-libintl-prefix
 .endif
 
+NEON_VERSION=	31
+
 post-patch:
-	@${REINPLACE_CMD} 's,27 28 29,& 30,' ${WRKSRC}/configure
+	@${REINPLACE_CMD} 's,27 28 29,& ${NEON_VERSION},' ${WRKSRC}/configure
 
 .include <bsd.port.mk>

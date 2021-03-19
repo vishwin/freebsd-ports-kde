@@ -1,8 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	django-prometheus
-PORTVERSION=	1.1.0
-PORTREVISION=	2
+PORTVERSION=	2.1.0
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -13,13 +12,13 @@ COMMENT=	Export Django monitoring metrics for Prometheus.io
 LICENSE=	APACHE20
 
 BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pytest-runner>0:devel/py-pytest-runner@${PY_FLAVOR}
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}django22>=1.11:www/py-django22@${PY_FLAVOR} \
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}django22>=2.2:www/py-django22@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}prometheus-client>=0.7:net-mgmt/py-prometheus-client@${PY_FLAVOR}
 
-USES=		python:3.5+
+USES=		python:3.6+
 USE_PYTHON=	autoplist distutils
 
-CONFLICTS_INSTALL=	${PYTHON_PKGNAMEPREFIX}dj22-django-prometheus
+CONFLICTS_INSTALL=	${PYTHON_PKGNAMEPREFIX}dj31-django-prometheus
 
 NO_ARCH=		yes
 

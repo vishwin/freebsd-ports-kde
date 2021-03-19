@@ -2,8 +2,8 @@
 # $FreeBSD$
 
 PORTNAME?=		mysql
-PORTVERSION=		8.0.21
-PORTREVISION?=		2
+PORTVERSION=		8.0.23
+PORTREVISION?=		0
 CATEGORIES=		databases
 MASTER_SITES=		MYSQL/MySQL-8.0
 PKGNAMESUFFIX?=		80-server
@@ -17,7 +17,7 @@ LICENSE=		GPLv2
 WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}${DISTVERSIONSUFFIX}
 
 SLAVEDIRS=	databases/mysql80-client
-USES=		bison:build cmake:noninja compiler:c++14-lang cpe \
+USES=		bison:build cmake:noninja compiler:c++17-lang cpe \
 		groff:run libedit localbase ncurses perl5 pkgconfig shebangfix ssl
 
 USE_CXXSTD=	c++14
@@ -37,7 +37,8 @@ LIB_DEPENDS+=	libcurl.so:ftp/curl \
 LIB_DEPENDS_aarch64=	libunwind.so:devel/libunwind
 LIB_DEPENDS_amd64=	libunwind.so:devel/libunwind
 LIB_DEPENDS_i386=	libunwind.so:devel/libunwind
-LIB_DEPENDS_powerpc64=	libunwind.so:devel/libunwind
+LIB_DEPENDS_powerpc64=		libunwind.so:devel/libunwind
+LIB_DEPENDS_powerpc64le=	libunwind.so:devel/libunwind
 
 BUILD_DEPENDS=	liblz4>0:archivers/liblz4 \
 		${BUILD_DEPENDS_${ARCH}}
@@ -45,6 +46,7 @@ BUILD_DEPENDS_aarch64=	libunwind>0:devel/libunwind
 BUILD_DEPENDS_amd64=	libunwind>0:devel/libunwind
 BUILD_DEPENDS_i386=	libunwind>0:devel/libunwind
 BUILD_DEPENDS_powerpc64=	libunwind>0:devel/libunwind
+BUILD_DEPENDS_powerpc64le=	libunwind>0:devel/libunwind
 
 CMAKE_BUILD_TYPE=	Release
 CFLAGS+=		-fPIC
@@ -94,7 +96,7 @@ CMAKE_ARGS+=	-DWITHOUT_MROONGA_STORAGE_ENGINE=1 \
 SHEBANG_FILES=	scripts/*.pl* scripts/*.sh
 
 .ifdef USE_MYSQL
-.error You have `USE_MYSQL' variable defined either in environment or in make(1) arguments. Please undefine and try again.
+IGNORE=		You have `USE_MYSQL' variable defined either in environment or in make(1) arguments. Please undefine and try again.
 .endif
 
 SUB_LIST=	MY_DBDIR=${MY_DBDIR} \
@@ -118,7 +120,7 @@ CONFLICTS_INSTALL=	mysql8[1-9]-server-* \
 
 USE_RC_SUBR=	mysql-server
 
-SUB_FILES=	my.cnf.sample
+SUB_FILES=	my.cnf.sample pkg-message
 
 USERS=		mysql
 GROUPS=		mysql
@@ -183,10 +185,19 @@ SUB_LIST+=	LEGACY_LIMITS="" MODERN_LIMITS="@comment "
 
 .include <bsd.port.pre.mk>
 
-.if ${CHOSEN_COMPILER_TYPE} == clang && ${OPSYS} == FreeBSD && ${OSVERSION} >= 1300109
-BUILD_DEPENDS+=		clang${LLVM_DEFAULT}:devel/llvm${LLVM_DEFAULT}
-CC=			${LOCALBASE}/bin/clang${LLVM_DEFAULT}
+.if ${CHOSEN_COMPILER_TYPE} == clang && ${OPSYS} == FreeBSD && ${OSVERSION} >= 1300109 || ${ARCH} == "i386"
+BUILD_DEPENDS+=	clang${LLVM_DEFAULT}:devel/llvm${LLVM_DEFAULT}
+CC=		${LOCALBASE}/bin/clang${LLVM_DEFAULT}
+CPP=		${LOCALBASE}/bin/clang${LLVM_DEFAULT}
 CXX=		${LOCALBASE}/bin/clang++${LLVM_DEFAULT}
+.endif
+
+.if ${ARCH} == "i386" && ${OSVERSION} < 1200000
+# clang 7.x and 8.x do not build properly on 11i386
+CPP=		clang-cpp${LLVM_DEFAULT}
+CC=		clang${LLVM_DEFAULT}
+CXX=		clang++${LLVM_DEFAULT}
+BUILD_DEPENDS+=	clang${LLVM_DEFAULT}:devel/llvm${LLVM_DEFAULT}
 .endif
 
 post-extract:

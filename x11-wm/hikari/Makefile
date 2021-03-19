@@ -1,7 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	hikari
-DISTVERSION=	2.2.0
+DISTVERSION=	2.2.2
+PORTREVISION=	2
 CATEGORIES=	x11-wm
 MASTER_SITES=	https://hikari.acmelabs.space/releases/
 
@@ -13,16 +14,15 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 
 BUILD_DEPENDS=	evdev-proto>0:devel/evdev-proto \
 		wayland-protocols>=1.14:graphics/wayland-protocols \
-		wlroots>=0.9.0<0.12.0:x11-toolkits/wlroots
-LIB_DEPENDS=	libepoll-shim.so:devel/libepoll-shim \
-		libinput.so:x11/libinput \
+		wlroots>=0.9.0<0.13.0:x11-toolkits/wlroots
+LIB_DEPENDS=	libinput.so:x11/libinput \
 		libucl.so:textproc/libucl \
 		libwayland-server.so:graphics/wayland \
 		libwlroots.so:x11-toolkits/wlroots \
 		libxkbcommon.so:x11/libxkbcommon
 
 USES=		compiler:c11 gnome pkgconfig xorg
-USE_GNOME=	cairo glib20 pango
+USE_GNOME=	cairo pango
 USE_XORG=	pixman
 
 MAKE_ARGS+=	${WITH_DEBUG:DDEBUG=YES} \

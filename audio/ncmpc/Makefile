@@ -2,9 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	ncmpc
-PORTVERSION=	0.38
+PORTVERSION=	0.41
 CATEGORIES=	audio
-MASTER_SITES=	http://www.musicpd.org/download/ncmpc/0/
+MASTER_SITES=	https://www.musicpd.org/download/ncmpc/0/
 
 MAINTAINER=	laurent@nilio.ca
 COMMENT=	Ncurses client for the musicpd
@@ -33,11 +33,11 @@ DOCS_MESON_TRUE=	html_manual
 
 LYRICS_MESON_TRUE=	lyrics_screen
 
-MANPAGES_BUILD_DEPENDS=	${PY_SPHINX}
+MANPAGES_BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}sphinx>=0,1:textproc/py-sphinx@${PY_FLAVOR}
 MANPAGES_MAKE_ENV=	PYTHON=${PYTHON_CMD} \
 			SPHINX=sphinx-build-${PYTHON_VER}
 MANPAGES_MESON_TRUE=	manual
-MANPAGES_USES=		python:build
+MANPAGES_USES=		python:build,3.6+
 
 NLS_LDFLAGS=		-lintl
 NLS_MESON_ENABLED=	nls

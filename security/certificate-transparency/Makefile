@@ -3,7 +3,7 @@
 
 PORTNAME=	certificate-transparency
 PORTVERSION=	20161015
-PORTREVISION=	45
+PORTREVISION=	46
 CATEGORIES=	security
 
 MAINTAINER=	ports@FreeBSD.org
@@ -13,6 +13,9 @@ LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
 BROKEN=		inherits generated classes which is prohitited by protobuf. See PR 246530 for detail
+
+DEPRECATED=	Broken for more than 6 months
+EXPIRATION_DATE=2021-04-20
 
 LIB_DEPENDS=	libevent.so:devel/libevent \
 		libevhtp.so:www/libevhtp \

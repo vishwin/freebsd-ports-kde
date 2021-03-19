@@ -1,9 +1,9 @@
 # $FreeBSD$
 
 PORTNAME=	varnish
-PORTVERSION=	6.4.0
+PORTVERSION=	6.5.1
 DISTVERSIONPREFIX=	varnish-
-PORTREVISION=	1
+PORTREVISION=	0
 CATEGORIES=	www
 PKGNAMESUFFIX=	6
 
@@ -14,7 +14,7 @@ LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
 BUILD_DEPENDS=	rst2man:textproc/py-docutils@${PY_FLAVOR} \
-		${PY_SPHINX}
+		${PYTHON_PKGNAMEPREFIX}sphinx>=0,1:textproc/py-sphinx@${PY_FLAVOR}
 LIB_DEPENDS=	libpcre.so:devel/pcre
 
 USES=		autoreconf compiler cpe gmake libedit libtool ncurses pathfix \

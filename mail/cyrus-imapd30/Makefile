@@ -1,7 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	cyrus-imapd
-PORTVERSION=	3.0.14
+PORTVERSION=	3.0.15
 #PORTREVISION=	0
 CATEGORIES=	mail
 MASTER_SITES=	https://github.com/cyrusimap/cyrus-imapd/releases/download/${PORTNAME}-${PORTVERSION}/
@@ -12,6 +12,8 @@ COMMENT=	Cyrus mail server, supporting POP3 and IMAP4 protocols
 
 LICENSE=	BSD4CLAUSE
 LICENSE_FILE=	${WRKSRC}/COPYING
+
+BROKEN_riscv64=		fails to build: lib/imapopts.c: Error 1
 
 LIB_DEPENDS=	libsasl2.so:security/cyrus-sasl2 \
 		libicuuc.so:devel/icu \

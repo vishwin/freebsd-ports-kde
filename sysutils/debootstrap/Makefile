@@ -3,27 +3,27 @@
 
 PORTNAME=	debootstrap
 PORTVERSION=	1.0.123
+PORTREVISION=	4
 CATEGORIES=	sysutils
-MASTER_SITES=	DEBIAN/pool/main/d/${PORTNAME}
+MASTER_SITES=	DEBIAN
 DISTNAME=	${PORTNAME}_${PORTVERSION}
 
-MAINTAINER=	lifanov@FreeBSD.org
-COMMENT=	Install Debian base system into a directory
+MAINTAINER=	trasz@FreeBSD.org
+COMMENT=	Install Debian or Ubuntu base system into a directory
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/debian/copyright
 
 RUN_DEPENDS=	wget:ftp/wget \
-		bash:shells/bash
+		bash:shells/bash \
+		gpgv2:security/gnupg \
+		${LOCALBASE}/share/keyrings/ubuntu-archive-keyring.gpg:security/ubuntu-keyring
 
 WRKSRC=		${WRKDIR}/${PORTNAME}
 NO_BUILD=	yes
 NO_ARCH=	yes
 USES=		gmake perl5
 USE_PERL5=	run
-
-ONLY_FOR_ARCHS=	i386 amd64
-ONLY_FOR_ARCHS_REASON=	Debian GNU/kFreeBSD available only for i386 and amd64
 
 post-patch:
 	@${REINPLACE_CMD} -e 's,%%PREFIX%%,${PREFIX},g' \
@@ -35,6 +35,12 @@ post-patch:
 	@${REINPLACE_CMD} -e 's,%%LOCALBASE%%,${LOCALBASE},g' \
 		${WRKSRC}/Makefile \
 		${WRKSRC}/debootstrap
+	@${REINPLACE_CMD} -e 's,gpgv,gpgv2,g' \
+		${WRKSRC}/Makefile \
+		${WRKSRC}/debootstrap \
+		${WRKSRC}/functions
+	@${FIND} ${WRKSRC}/scripts -type f | \
+		${XARGS} ${REINPLACE_CMD} -e 's,/usr/share/keyrings,${LOCALBASE}/share/keyrings,g'
 
 post-install:
 	${INSTALL_MAN} ${WRKSRC}/debootstrap.8 \

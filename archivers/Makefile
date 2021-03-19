@@ -17,13 +17,13 @@
     SUBDIR += bzip2
     SUBDIR += c-blosc
     SUBDIR += cabextract
+    SUBDIR += cmdpack
     SUBDIR += dact
     SUBDIR += deb2targz
     SUBDIR += deco
     SUBDIR += deutex
     SUBDIR += dpkg
     SUBDIR += dzip
-    SUBDIR += ecm
     SUBDIR += engrampa
     SUBDIR += erlang-snappy
     SUBDIR += fastjar
@@ -36,6 +36,7 @@
     SUBDIR += grzip
     SUBDIR += gtar
     SUBDIR += gzip
+    SUBDIR += gzip-hpp
     SUBDIR += gzrecover
     SUBDIR += ha
     SUBDIR += hlextract
@@ -65,7 +66,7 @@
     SUBDIR += libpar2
     SUBDIR += librtfcomp
     SUBDIR += libunrar
-    SUBDIR += libunrar5
+    SUBDIR += libunrar6
     SUBDIR += libzip
     SUBDIR += linux-c7-lz4
     SUBDIR += lizard
@@ -86,6 +87,7 @@
     SUBDIR += minizip
     SUBDIR += mscompress
     SUBDIR += mtf
+    SUBDIR += nfpm
     SUBDIR += nomarch
     SUBDIR += nwreckdum
     SUBDIR += ocaml-bz2
@@ -148,10 +150,6 @@
     SUBDIR += php-lz4
     SUBDIR += php-snappy
     SUBDIR += php-zstd
-    SUBDIR += php72-bz2
-    SUBDIR += php72-phar
-    SUBDIR += php72-zip
-    SUBDIR += php72-zlib
     SUBDIR += php73-bz2
     SUBDIR += php73-phar
     SUBDIR += php73-zip
@@ -160,6 +158,10 @@
     SUBDIR += php74-phar
     SUBDIR += php74-zip
     SUBDIR += php74-zlib
+    SUBDIR += php80-bz2
+    SUBDIR += php80-phar
+    SUBDIR += php80-zip
+    SUBDIR += php80-zlib
     SUBDIR += pigz
     SUBDIR += pixz
     SUBDIR += plzip
@@ -176,7 +178,6 @@
     SUBDIR += py-lz4
     SUBDIR += py-lzma
     SUBDIR += py-lzstring
-    SUBDIR += py-pyliblzma
     SUBDIR += py-python-lhafile
     SUBDIR += py-python-lzo
     SUBDIR += py-python-snappy
@@ -256,6 +257,7 @@
     SUBDIR += zoo
     SUBDIR += zopfli
     SUBDIR += zstd
+    SUBDIR += zstr
     SUBDIR += zutils
 
 .include <bsd.port.subdir.mk>

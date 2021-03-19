@@ -2,14 +2,14 @@
 # $FreeBSD$
 
 PORTNAME=	sord
-PORTVERSION=	0.16.4
+PORTVERSION=	0.16.6
 CATEGORIES=	devel
 MASTER_SITES=	http://download.drobilla.net/
 
 PATCH_SITES=	https://github.com/drobilla/sord/commit/
 PATCHFILES=	dcf051c4c1e8.patch:-p1
 
-MAINTAINER=	beerml@sigma6audio.de
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Lightweight C library for storing RDF data in memory
 
 LICENSE=	ISCL

@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	gcc
-PORTVERSION=	11.0.0.s20200920
+PORTVERSION=	11.0.1.s20210307
 CATEGORIES=	lang
 MASTER_SITES=	GCC/snapshots/${DIST_VERSION}
 PKGNAMESUFFIX=	${SUFFIX}-devel
@@ -14,7 +14,7 @@ COMMENT=	GNU Compiler Collection 11
 LICENSE=	GPLv3 GPLv3RLE
 LICENSE_COMB=	multi
 
-ONLY_FOR_ARCHS=	aarch64 amd64 arm armv6 armv7 i386 powerpc powerpc64
+ONLY_FOR_ARCHS=	aarch64 amd64 arm armv6 armv7 i386 powerpc powerpc64 powerpc64le
 
 LIB_DEPENDS=	libgmp.so:math/gmp \
 		libmpfr.so:math/mpfr \
@@ -39,12 +39,11 @@ CPE_VERSION=	${GCC_VERSION}
 DIST_VERSION=	${PORTVERSION:C/([0-9]+).*\.s([0-9]+)/\1-\2/}
 GCC_VERSION=	${PORTVERSION:C/(.+)\.s[0-9]{8}/\1/}
 SUFFIX=		${PORTVERSION:C/([0-9]+).*/\1/}
-SSP_UNSAFE=	yes
 CFLAGS:=	${CFLAGS:N-mretpoline}
 CXXFLAGS:=	${CXXFLAGS:N-mretpoline}
 
-OPTIONS_DEFINE=		BOOTSTRAP GRAPHITE PLUGINS
-OPTIONS_DEFAULT=	BOOTSTRAP PLUGINS
+OPTIONS_DEFINE=		BOOTSTRAP GRAPHITE
+OPTIONS_DEFAULT=	BOOTSTRAP
 BOOTSTRAP_DESC=		Build using a full bootstrap
 GRAPHITE_DESC=		Support for Graphite loop optimizations
 
@@ -59,8 +58,6 @@ MULTILIB_CONFIGURE_ENABLE=	multilib
 CONFIGURE_ARGS+=	--disable-multilib
 .endif
 
-PLUGINS_CONFIGURE_ENABLE=	plugin
-
 .include <bsd.port.pre.mk>
 
 .if ${ARCH} == amd64
@@ -70,12 +67,14 @@ CONFIGURE_TARGET=	x86_64-portbld-${OPSYS:tl}${OSREL}
 CONFIGURE_ENV+=	UNAME_m="powerpc64"
 . if defined(PPC_ABI) && ${PPC_ABI} == ELFv2
 CONFIGURE_ARGS+=	--with-abi=elfv2
-. else
-USE_GCC=	yes
 . endif
+USE_GCC=	yes
+
+.elif ${ARCH} == powerpc64le
+USE_GCC=	yes
 .endif
 
-LANGUAGES:=	c,c++,objc,fortran
+LANGUAGES:=	c,c++,objc,fortran,jit
 TARGLIB=	${PREFIX}/lib/gcc${SUFFIX}
 TARGLIB32=	${PREFIX}/lib32	# The version information is added later
 LIBEXEC=	${PREFIX}/libexec/gcc${SUFFIX}
@@ -93,6 +92,8 @@ BINMODE=	755
 .endif
 CONFIGURE_ARGS+=--disable-nls \
 		--enable-gnu-indirect-function \
+		--enable-host-shared \
+		--enable-plugin \
 		--libdir=${TARGLIB} \
 		--libexecdir=${LIBEXEC} \
 		--program-suffix=${SUFFIX} \
@@ -102,7 +103,8 @@ CONFIGURE_ARGS+=--disable-nls \
 		--with-ld=${LOCALBASE}/bin/ld \
 		${ICONV_CONFIGURE_ARG} \
 		--with-pkgversion="FreeBSD Ports Collection" \
-		--with-system-zlib
+		--with-system-zlib \
+		--without-zstd
 MAKE_ARGS+=	MAKEINFOFLAGS="--no-split"
 USE_LDCONFIG=	${TARGLIB}
 PLIST_SUB+=	GCC_VERSION=${GCC_VERSION} \
@@ -114,6 +116,7 @@ INFO=		gcc${SUFFIX}/cpp \
 		gcc${SUFFIX}/gccinstall \
 		gcc${SUFFIX}/gccint \
 		gcc${SUFFIX}/gfortran \
+		gcc${SUFFIX}/libgccjit \
 		gcc${SUFFIX}/libgomp
 .if ${ARCH} == amd64 || ${ARCH} == i386
 INFO+=		gcc${SUFFIX}/libquadmath \

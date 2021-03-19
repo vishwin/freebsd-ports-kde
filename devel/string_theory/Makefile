@@ -1,10 +1,10 @@
 # $FreeBSD$
 
 PORTNAME=	string_theory
-PORTVERSION=	3.3
+PORTVERSION=	3.4
 CATEGORIES=	devel
 
-MAINTAINER=	tobik@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Modern C++ library for string manipulation and storage
 
 LICENSE=	MIT

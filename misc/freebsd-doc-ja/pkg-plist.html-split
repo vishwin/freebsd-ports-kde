@@ -112,9 +112,10 @@
 %%DOCSDIR%%/%%DOCLANG%%/books/handbook/boot-shutdown.html
 %%DOCSDIR%%/%%DOCLANG%%/books/handbook/boot-splash.html
 %%DOCSDIR%%/%%DOCLANG%%/books/handbook/boot.html
-%%DOCSDIR%%/%%DOCLANG%%/books/handbook/bsdinstall-final-warning.html
+%%DOCSDIR%%/%%DOCLANG%%/books/handbook/bsdinstall-fetching-distribution.html
 %%DOCSDIR%%/%%DOCLANG%%/books/handbook/bsdinstall-hardware.html
 %%DOCSDIR%%/%%DOCLANG%%/books/handbook/bsdinstall-install-trouble.html
+%%DOCSDIR%%/%%DOCLANG%%/books/handbook/bsdinstall-network.html
 %%DOCSDIR%%/%%DOCLANG%%/books/handbook/bsdinstall-partitioning.html
 %%DOCSDIR%%/%%DOCLANG%%/books/handbook/bsdinstall-post.html
 %%DOCSDIR%%/%%DOCLANG%%/books/handbook/bsdinstall-pre.html
@@ -133,7 +134,6 @@
 %%DOCSDIR%%/%%DOCLANG%%/books/handbook/configtuning-virtual-hosts.html
 %%DOCSDIR%%/%%DOCLANG%%/books/handbook/consoles.html
 %%DOCSDIR%%/%%DOCLANG%%/books/handbook/creating-cds.html
-%%DOCSDIR%%/%%DOCLANG%%/books/handbook/crypt.html
 %%DOCSDIR%%/%%DOCLANG%%/books/handbook/current-stable.html
 %%DOCSDIR%%/%%DOCLANG%%/books/handbook/desktop-browsers.html
 %%DOCSDIR%%/%%DOCLANG%%/books/handbook/desktop-finance.html
@@ -172,7 +172,6 @@
 %%DOCSDIR%%/%%DOCLANG%%/books/handbook/kernelconfig-devices.html
 %%DOCSDIR%%/%%DOCLANG%%/books/handbook/kernelconfig-trouble.html
 %%DOCSDIR%%/%%DOCLANG%%/books/handbook/kernelconfig.html
-%%DOCSDIR%%/%%DOCLANG%%/books/handbook/l10n-basics.html
 %%DOCSDIR%%/%%DOCLANG%%/books/handbook/l10n-compiling.html
 %%DOCSDIR%%/%%DOCLANG%%/books/handbook/l10n.html
 %%DOCSDIR%%/%%DOCLANG%%/books/handbook/lang-setup.html
@@ -235,7 +234,6 @@
 %%DOCSDIR%%/%%DOCLANG%%/books/handbook/quotas.html
 %%DOCSDIR%%/%%DOCLANG%%/books/handbook/raid.html
 %%DOCSDIR%%/%%DOCLANG%%/books/handbook/scanners.html
-%%DOCSDIR%%/%%DOCLANG%%/books/handbook/securing-freebsd.html
 %%DOCSDIR%%/%%DOCLANG%%/books/handbook/security-accounting.html
 %%DOCSDIR%%/%%DOCLANG%%/books/handbook/security-advisories.html
 %%DOCSDIR%%/%%DOCLANG%%/books/handbook/security-intro.html

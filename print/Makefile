@@ -20,11 +20,8 @@
     SUBDIR += c2ps
     SUBDIR += catdvi
     SUBDIR += cdlabelgen
-    SUBDIR += cloud-print-connector
-    SUBDIR += cloudprint
     SUBDIR += cups
     SUBDIR += cups-bjnp
-    SUBDIR += cups-cloud-print
     SUBDIR += cups-filters
     SUBDIR += cups-fxlinuxprint
     SUBDIR += cups-pdf
@@ -56,6 +53,7 @@
     SUBDIR += foomatic-db-engine
     SUBDIR += foomatic-db-hpijs
     SUBDIR += foomatic-filters
+    SUBDIR += fpc-libcups
     SUBDIR += fpdf
     SUBDIR += freetype
     SUBDIR += freetype2
@@ -89,7 +87,6 @@
     SUBDIR += html2ps
     SUBDIR += hyperlatex
     SUBDIR += indexinfo
-    SUBDIR += jabref
     SUBDIR += kde_poster
     SUBDIR += latex-beamer
     SUBDIR += latex-biber
@@ -108,6 +105,7 @@
     SUBDIR += libspectre
     SUBDIR += lilypond
     SUBDIR += lilypond-devel
+    SUBDIR += limereport
     SUBDIR += linux-c7-cups-libs
     SUBDIR += linux-c7-freetype
     SUBDIR += linux-c7-harfbuzz
@@ -117,6 +115,7 @@
     SUBDIR += magicfilter
     SUBDIR += makeindex
     SUBDIR += mftrace
+    SUBDIR += miktex
     SUBDIR += min12xxw
     SUBDIR += mp-a4
     SUBDIR += mp-letter
@@ -164,6 +163,7 @@
     SUBDIR += pkfonts400
     SUBDIR += pkfonts600
     SUBDIR += pnm2ppa
+    SUBDIR += posterazor
     SUBDIR += print-manager
     SUBDIR += ps2eps
     SUBDIR += pscal
@@ -202,6 +202,7 @@
     SUBDIR += rubygem-color
     SUBDIR += rubygem-color-tools
     SUBDIR += rubygem-pdf-core
+    SUBDIR += rubygem-pdf-core07
     SUBDIR += rubygem-pdf-reader
     SUBDIR += rubygem-pdf-writer
     SUBDIR += rubygem-prawn
@@ -209,10 +210,13 @@
     SUBDIR += rubygem-prawn-flexible-table
     SUBDIR += rubygem-prawn-format
     SUBDIR += rubygem-prawn-graph
+    SUBDIR += rubygem-prawn-icon
     SUBDIR += rubygem-prawn-js
     SUBDIR += rubygem-prawn-layout
     SUBDIR += rubygem-prawn-security
     SUBDIR += rubygem-prawn-svg
+    SUBDIR += rubygem-prawn-table
+    SUBDIR += rubygem-prawn-templates
     SUBDIR += rubygem-prawn_shapes
     SUBDIR += rubygem-rbpdf
     SUBDIR += rubygem-rbpdf-font
@@ -252,7 +256,6 @@
     SUBDIR += txtbdf2ps
     SUBDIR += typetools
     SUBDIR += utopia
-    SUBDIR += xfce4-print
     SUBDIR += xmbibtex
     SUBDIR += xpdfopen
     SUBDIR += xreader

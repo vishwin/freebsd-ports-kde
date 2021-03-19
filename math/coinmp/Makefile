@@ -7,7 +7,7 @@ PORTREVISION=	3
 CATEGORIES=	math
 MASTER_SITES=	http://www.coin-or.org/download/source/CoinMP/
 
-MAINTAINER=	cpm@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Optimization library with support for COIN-OR CLP, CBC, and CGL
 
 LICENSE=	CPL
@@ -18,7 +18,7 @@ LICENSE_PERMS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
 CONFLICTS=	clp-[0-9]* ogdf-[0-9]*
 
 GNU_CONFIGURE=	yes
-USES=	libtool pathfix pkgconfig tar:tgz
+USES=	compiler:c++11-lang libtool pathfix pkgconfig tar:tgz
 USE_LDCONFIG=	yes
 CXXFLAGS+=	-ffast-math
 

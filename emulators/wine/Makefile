@@ -2,8 +2,9 @@
 # $FreeBSD$
 
 PORTNAME=	wine
-DISTVERSION=	5.0.2
+DISTVERSION=	5.0.3
 PORTEPOCH=	1
+PORTREVISION=	1
 CATEGORIES=	emulators
 MASTER_SITES=	SF/${PORTNAME}/Source \
 		http://mirrors.ibiblio.org/wine/source/5.0/
@@ -22,9 +23,10 @@ LIB_DEPENDS=	libFAudio.so:audio/faudio \
 		libxml2.so:textproc/libxml2
 
 USES=		bison desktop-file-utils gmake localbase pkgconfig shebangfix tar:xz
+USE_GCC=	yes
 
-CONFLICTS_INSTALL=	wine-staging-[0-9]* wine-devel-[0-9]* i386-wine-[0-9]* \
-			i386-wine-staging-[0-9]* i386-wine-devel-[0-9]*
+CONFLICTS_INSTALL=	wine-devel-[0-9]* \
+			i386-wine-[0-9]* i386-wine-devel-[0-9]*
 
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS+=--verbose \
@@ -35,12 +37,12 @@ CONFIGURE_ARGS+=--verbose \
 		--without-gphoto --without-gsm --without-gstreamer \
 		--without-inotify \
 		--without-krb5 \
+		--without-mingw \
 		--without-opencl \
 		--without-osmesa \
 		--with-oss \
 		--without-pulse \
 		--without-sane \
-		--without-sdl \
 		--without-tiff \
 		--without-udev \
 		--without-unwind \
@@ -57,12 +59,13 @@ SUB_FILES=	pkg-message
 
 PORTDATA=	l_intl.nls wine.inf
 
-OPTIONS_DEFINE=	CUPS DOCS DOSBOX GCC GNUTLS HAL LDAP LIBXSLT MPG123 OPENAL V4L VKD3D VULKAN WINEMAKER X11 GECKO MONO
-OPTIONS_DEFAULT=GCC GNUTLS X11
+OPTIONS_DEFINE=	CUPS DOCS DOSBOX GNUTLS LDAP LIBXSLT MPG123 OPENAL SDL V4L VKD3D VULKAN WINEMAKER X11 GECKO MONO
+OPTIONS_DEFAULT=GNUTLS X11
 OPTIONS_SUB=	yes
 
 DOSBOX_DESC=	Use DOSBox to run MS-DOS programs
 LIBXSLT_DESC=	Use libxslt (only used by msxml3.dll)
+SDL_DESC=	Use SDL for gamepad support (XInput only)
 VKD3D_DESC=	Direct3D 12 support via Vulkan
 VULKAN_DESC=	Vulkan API support
 WINEMAKER_DESC=	Fully support winemaker (requires Perl)
@@ -76,16 +79,10 @@ CUPS_LIB_DEPENDS=	libcups.so:print/cups
 
 DOSBOX_RUN_DEPENDS=	dosbox:emulators/dosbox
 
-GCC_USE=		gcc=yes
-GCC_USES_OFF=		compiler:c11
-
 GECKO_RUN_DEPENDS=	${DATADIR}/gecko/wine-gecko-2.47.1-x86.msi:emulators/wine-gecko
 
 GNUTLS_CONFIGURE_WITH=	gnutls
 GNUTLS_LIB_DEPENDS=	libgnutls.so:security/gnutls
-
-HAL_CONFIGURE_WITH=	hal
-HAL_LIB_DEPENDS=	libhal.so:sysutils/hal
 
 LDAP_CONFIGURE_WITH=	ldap
 LDAP_USE=		OPENLDAP=yes
@@ -100,6 +97,10 @@ MPG123_LIB_DEPENDS=	libmpg123.so:audio/mpg123
 
 OPENAL_CONFIGURE_WITH=	openal
 OPENAL_USES=		openal
+
+SDL_CONFIGURE_WITH=	sdl
+SDL_USES=		sdl
+SDL_USE=		SDL=sdl2
 
 V4L_CONFIGURE_WITH=	v4l2
 V4L_BUILD_DEPENDS=	${LOCALBASE}/include/linux/videodev2.h:multimedia/v4l_compat
@@ -142,10 +143,9 @@ X11_LIB_DEPENDS=	libfontconfig.so:x11-fonts/fontconfig \
 CONFIGURE_ARGS+=	--enable-win64 --libdir=${PREFIX}/lib
 PLIST_SUB+=		WINE32="@comment " WINE64=""
 
-# Wine assumes a WoW64 package is available, however WoW64 is not yet
-# available on FreeBSD. Also fix the desktop file.
+# Wine assumes a WoW64 package is available, which is not the case on
+# FreeBSD yet.
 post-patch:
-	${REINPLACE_CMD} 's|/wine|/wine64|g' ${WRKSRC}/tools/wineapploader.in
 	${REINPLACE_CMD} '/Exec/s|wine|wine64|g' ${WRKSRC}/loader/wine.desktop
 
 .else

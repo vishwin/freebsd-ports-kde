@@ -2,10 +2,10 @@
 
 PORTNAME=	hblock
 DISTVERSIONPREFIX=	v
-DISTVERSION=	2.1.6
+DISTVERSION=	3.2.1
 CATEGORIES=	net
 
-MAINTAINER=	vulcan@wired.sh
+MAINTAINER=	lcook@FreeBSD.org
 COMMENT=	Adblocker using automatically generated hosts file
 
 LICENSE=	MIT
@@ -20,18 +20,28 @@ NO_ARCH=	yes
 NO_BUILD=	yes
 
 PLIST_FILES=	bin/${PORTNAME}
-PORTDOCS=	README.md
+PORTDOCS=	PACKAGES.md README.md SOURCES.md
 
-OPTIONS_DEFINE=	DOCS
+OPTIONS_DEFINE=		DOCS MANPAGES
+OPTIONS_DEFAULT=	MANPAGES
+OPTIONS_SUB=		yes
+
+MANPAGES_PLIST_FILES=	man/man1/${PORTNAME}.1.gz
 
 post-patch:
-	@${REINPLACE_CMD} -e '/hosts/!s|/etc|${PREFIX}/etc|g' ${WRKSRC}/${PORTNAME}
+	@${REINPLACE_CMD} \
+		-e 's,$${ETCDIR?}\/hosts,/etc/hosts,g' \
+		-e '/hosts/!s,/etc,${PREFIX}/etc,g' \
+		${WRKSRC}/${PORTNAME} ${WRKSRC}/${PORTNAME}.1
 
 do-install:
 	${INSTALL_SCRIPT} ${WRKSRC}/${PORTNAME} ${STAGEDIR}${PREFIX}/bin
 
 post-install-DOCS-on:
 	@${MKDIR} ${STAGEDIR}${DOCSDIR}
-	${INSTALL_DATA} ${WRKSRC}/${PORTDOCS} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${PORTDOCS:S|^|${WRKSRC}/|} ${STAGEDIR}${DOCSDIR}
+
+post-install-MANPAGES-on:
+	${INSTALL_MAN} ${WRKSRC}/${PORTNAME}.1 ${STAGEDIR}${MAN1PREFIX}/man/man1
 
 .include <bsd.port.mk>

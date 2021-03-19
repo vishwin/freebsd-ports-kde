@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	nss
-PORTVERSION=	3.57
+PORTVERSION=	3.63
 CATEGORIES=	security
 MASTER_SITES=	MOZILLA/security/${PORTNAME}/releases/${DISTNAME:tu:C/[-.]/_/g}_RTM/src
 
@@ -45,8 +45,8 @@ INSTALL_BINS=	certutil cmsutil crlutil derdump makepqg \
 		ssltap strsclnt symkeyutil vfychain vfyserv
 
 OPTIONS_DEFINE=	DEBUG
+OPTIONS_DEFINE_powerpc=		VSX
 OPTIONS_DEFINE_powerpc64=	VSX
-OPTIONS_DEFINE_powerpc=	VSX
 
 VSX_CFLAGS=	-DUSE_PPC_CRYPTO
 VSX_DESC=	Use VSX optimized routines (POWER8 or newer)
@@ -58,6 +58,10 @@ MAKE_ENV+=	BUILD_OPT=1
 BINS=		${DIST}/${OPSYS}${OSREL}_OPT.OBJ
 .else
 BINS=		${DIST}/${OPSYS}${OSREL}_DBG.OBJ
+.endif
+
+.if ${ARCH} == armv6
+MAKE_ENV+=	NSS_DISABLE_ARM32_NEON=1
 .endif
 
 .if ${ARCH} == powerpc64 || ${ARCH} == powerpc
@@ -94,7 +98,7 @@ post-patch:
 		${FIND} . -name "*.c" -o -name "*.h" | \
 		${XARGS} ${REINPLACE_CMD} -e 's|"nspr.h"|<nspr.h>|'
 
-.if ${ARCH} == powerpc64 || ${ARCH} == powerpc
+.if ${ARCH:Mpowerpc*}
 pre-build:
 	@cd ${WRKSRC}/lib/freebl/scripts && ./gen.sh
 .endif
