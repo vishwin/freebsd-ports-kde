@@ -2190,6 +2190,7 @@ share/locale/it/LC_MESSAGES/knetattach5.mo
 share/locale/it/LC_MESSAGES/org.kde.plasma.emojier.mo
 share/locale/it/LC_MESSAGES/plasma_applet_org.kde.desktopcontainment.mo
 share/locale/it/LC_MESSAGES/plasma_applet_org.kde.panel.mo
+share/locale/it/LC_MESSAGES/plasma_applet_org.kde.plasma.keyboardlayout.mo
 share/locale/it/LC_MESSAGES/plasma_applet_org.kde.plasma.kicker.mo
 share/locale/it/LC_MESSAGES/plasma_applet_org.kde.plasma.kickoff.mo
 share/locale/it/LC_MESSAGES/plasma_applet_org.kde.plasma.kimpanel.mo

@@ -1469,6 +1469,7 @@ share/locale/uz@cyrillic/LC_MESSAGES/kwin.mo
 share/locale/uz@cyrillic/LC_MESSAGES/kwin_clients.mo
 share/locale/vi/LC_MESSAGES/kcm_kwindecoration.mo
 share/locale/vi/LC_MESSAGES/kcm_kwinrules.mo
+share/locale/vi/LC_MESSAGES/kcmkwinscreenedges.mo
 share/locale/vi/LC_MESSAGES/kcmkwm.mo
 share/locale/vi/LC_MESSAGES/kwin.mo
 share/locale/vi/LC_MESSAGES/kwin_clients.mo
