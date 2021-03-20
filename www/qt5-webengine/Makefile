@@ -150,11 +150,19 @@ pre-configure:
 # Link in ${PYTHON_CMD} to ${CONFIGURE_WRKSRC}/bin -- the scripts hardcode 'python'
 # in too many places to reasonably patch. So just link in ${PYTHON_CMD} to work around
 # $LOCALBASE/bin/python being python3 if the default versions is set to 3.x.
-	${MKDIR} ${CONFIGURE_WRKSRC}/bin && ${LN} -s ${PYTHON_CMD} ${CONFIGURE_WRKSRC}/bin/python
+	${MKDIR} ${CONFIGURE_WRKSRC}/bin && ${CP} ${FILESDIR}/python ${CONFIGURE_WRKSRC}/bin
+	${REINPLACE_CMD} 's+@@PYTHON@@+${PYTHON_CMD}+' ${CONFIGURE_WRKSRC}/bin/python
+	chmod 755 ${CONFIGURE_WRKSRC}/bin/python
 # Unbundle a few dependencies.
 	${PYTHON_CMD} ${WRKSRC}/src/3rdparty/chromium/build/linux/unbundle/replace_gn_files.py \
 		--system-libraries libwebp libxml libxslt yasm
 # Rerun syncqt.pl -- otherwise the resulting package misses some forwarding headers.
 	cd ${WRKSRC} && ${QT_BINDIR}/syncqt.pl -version ${QT5_VERSION}
+
+keep-patches:
+	${FILESDIR}/python3-keep-patches ${WRKSRC} > ${FILESDIR}/python3.patch
+
+apply-patches:
+	( cd ${WRKSRC} ; patch -p0 < ${FILESDIR}/python3.patch )
 
 .include <bsd.port.post.mk>

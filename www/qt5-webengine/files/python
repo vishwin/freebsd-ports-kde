@@ -1,0 +1,26 @@
+#! /bin/sh
+#
+# For each invocation of python, figure out which files were created
+
+LOG=/tmp/qwe-logs/$$
+NOW=`date`
+
+# ( cd ${WRKDIR} ; find . -type f | sort > ${LOG}.pre )
+# sleep 1
+
+if /usr/local/bin/python3.7 "$@" > ${LOG}.stdout 2> ${LOG}.stderr
+then
+	# rm ${LOG}.pre
+	cat ${LOG}.stdout
+	cat ${LOG}.stderr >&2
+	rm ${LOG}.stdout ${LOG}.stderr
+	exit 0
+fi
+/usr/local/bin/python2.7 "$@"
+R=$?
+
+# sleep 1
+# ( cd ${WRKDIR} ; find . -type f | sort > ${LOG}.post )
+
+( echo "$$ $NOW" ; echo "=== PYTHON2 required $0" ; echo "$@" ; echo "===" ) > ${LOG}.log
+exit $R
