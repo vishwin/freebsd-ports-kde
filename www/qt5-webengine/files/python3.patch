@@ -75,6 +75,34 @@
      number_of_targets = len(targets)
      if number_of_targets > 1:
          raise Exception(
+--- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/web_idl/constructor.py.orig	2021-03-20
++++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/web_idl/constructor.py	2021-03-20
+@@ -84,12 +84,19 @@
+ 
+     def __init__(self, ir, constructors, owner):
+         assert isinstance(ir, ConstructorGroup.IR)
+-        assert isinstance(constructors, (list, tuple))
+-        assert all(
+-            isinstance(constructor, Constructor)
+-            for constructor in constructors)
+-        assert all(constructor.identifier == ir.identifier
+-                   for constructor in constructors)
++        try:
++            assert isinstance(constructors, (list, tuple))
++            assert all(
++                isinstance(constructor, Constructor)
++                for constructor in constructors)
++            assert all(constructor.identifier == ir.identifier
++                       for constructor in constructors)
++        except:
++            print(type(constructors))
++            print(constructors)
++            print(list(isinstance(constructor, Constructor)
++                for constructor in constructors))
++            raise
+ 
+         components = functools.reduce(
+             lambda s, constructor: s.union(constructor.components),
 --- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/web_idl/dictionary.py.orig	2021-03-20
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/web_idl/dictionary.py	2021-03-20
 @@ -18,6 +18,9 @@
@@ -87,11 +115,12 @@
  
  class Dictionary(UserDefinedType, WithExtendedAttributes,
                   WithCodeGeneratorInfo, WithExposure, WithComponent,
-@@ -34,11 +37,20 @@
+@@ -34,11 +37,21 @@
                       extended_attributes=None,
                       component=None,
                       debug_info=None):
-+            if isinstance(own_members,type(bogus_gen(0))):
++            # Ideally, hunt down where the map() is getting into the system
++            if isinstance(own_members,type(bogus_gen(0))) or isinstance(own_members,map):
 +                own_members = list(own_members)
              assert isinstance(is_partial, bool)
              assert inherited is None or isinstance(inherited, RefById)
@@ -111,6 +140,18 @@
  
              kind = (IRMap.IR.Kind.PARTIAL_DICTIONARY
                      if is_partial else IRMap.IR.Kind.DICTIONARY)
+--- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/web_idl/exposure.py.orig	2021-03-20
++++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/web_idl/exposure.py	2021-03-20
+@@ -9,7 +9,8 @@
+     """Represents a runtime-enabled feature."""
+ 
+     def __init__(self, value):
+-        str.__init__(self, value)
++        super(str,self).__init__()
++        self._value = value
+         self._is_context_dependent = (
+             RuntimeEnabledFeatures.is_context_dependent(self))
+ 
 --- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/web_idl/extended_attribute.py.orig	2021-03-20
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/web_idl/extended_attribute.py	2021-03-20
 @@ -169,11 +169,20 @@
@@ -139,6 +180,145 @@
  
          sorted_ext_attrs = sorted(
              extended_attributes or [], key=lambda x: x.key)
+--- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/web_idl/idl_compiler.py.orig	2021-03-20
++++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/web_idl/idl_compiler.py	2021-03-20
+@@ -344,6 +344,8 @@
+ 
+     def _merge_interface_like_irs(self, old_irs_to_merge):
+         for old_ir, irs_to_be_merged in old_irs_to_merge:
++            if isinstance(old_ir, filter):
++                old_ir=list(old_ir)
+             new_ir = make_copy(old_ir)
+             self._ir_map.add(new_ir)
+             for ir in irs_to_be_merged:
+--- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/web_idl/idl_type.py.orig	2021-03-20
++++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/web_idl/idl_type.py	2021-03-20
+@@ -1127,8 +1127,17 @@
+                  extended_attributes=None,
+                  debug_info=None,
+                  pass_key=None):
+-        assert isinstance(member_types, (list, tuple))
+-        assert all(isinstance(member, IdlType) for member in member_types)
++        if isinstance(member_types, map):
++            member_types = list(member_types)
++        try:
++            assert isinstance(member_types, (list, tuple))
++            assert all(isinstance(member, IdlType) for member in member_types)
++        except:
++            print(type(member_types))
++            print(member_types)
++            print(list(isinstance(member, IdlType) for member in member_types))
++            raise
++
+         IdlType.__init__(
+             self,
+             is_optional=is_optional,
+--- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/web_idl/ir_builder.py.orig	2021-03-20
++++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/web_idl/ir_builder.py	2021-03-20
+@@ -166,7 +166,7 @@
+         child_nodes = list(node.GetChildren())
+         extended_attributes = self._take_extended_attributes(child_nodes)
+ 
+-        members = map(self._build_interface_member, child_nodes)
++        members = list(map(self._build_interface_member, child_nodes))
+         attributes = []
+         constants = []
+         operations = []
+@@ -308,7 +308,7 @@
+         child_nodes = list(node.GetChildren())
+         inherited = self._take_inheritance(child_nodes)
+         extended_attributes = self._take_extended_attributes(child_nodes)
+-        own_members = map(self._build_dictionary_member, child_nodes)
++        own_members = list(map(self._build_dictionary_member, child_nodes))
+ 
+         return Dictionary.IR(
+             identifier=Identifier(node.GetName()),
+@@ -342,7 +342,7 @@
+ 
+         child_nodes = list(node.GetChildren())
+         extended_attributes = self._take_extended_attributes(child_nodes)
+-        members = map(self._build_interface_member, child_nodes)
++        members = list(map(self._build_interface_member, child_nodes))
+         constants = []
+         operations = []
+         for member in members:
+@@ -462,8 +462,8 @@
+                 assert len(child_nodes) == 1
+                 child = child_nodes[0]
+                 if child.GetClass() == 'Arguments':
+-                    arguments = map(build_extattr_argument,
+-                                    child.GetChildren())
++                    arguments = list(map(build_extattr_argument,
++                                    child.GetChildren()))
+                 elif child.GetClass() == 'Call':
+                     assert len(child.GetChildren()) == 1
+                     grand_child = child.GetChildren()[0]
+@@ -492,7 +492,7 @@
+ 
+         assert node.GetClass() == 'ExtAttributes'
+         return ExtendedAttributes(
+-            filter(None, map(build_extended_attribute, node.GetChildren())))
++            list(filter(None, map(build_extended_attribute, node.GetChildren()))))
+ 
+     def _build_inheritance(self, node):
+         assert node.GetClass() == 'Inherit'
+@@ -512,7 +512,7 @@
+ 
+     def _build_iterable(self, node):
+         assert node.GetClass() == 'Iterable'
+-        types = map(self._build_type, node.GetChildren())
++        types = list(map(self._build_type, node.GetChildren()))
+         if len(types) == 1:
+             types.insert(0, None)
+         assert len(types) == 2
+@@ -547,7 +547,7 @@
+         elif type_token == 'integer':
+             idl_type = factory.simple_type(name='long', debug_info=debug_info)
+             assert isinstance(value_token, str)
+-            value = long(value_token, base=0)
++            value = int(value_token, base=0)
+             literal = value_token
+         elif type_token == 'float':
+             idl_type = factory.simple_type(
+@@ -582,7 +582,7 @@
+ 
+     def _build_maplike(self, node):
+         assert node.GetClass() == 'Maplike'
+-        types = map(self._build_type, node.GetChildren())
++        types = list(map(self._build_type, node.GetChildren()))
+         assert len(types) == 2
+         return Maplike(
+             key_type=types[0],
+@@ -685,7 +685,7 @@
+ 
+         def build_union_type(node, extended_attributes):
+             return self._idl_type_factory.union_type(
+-                member_types=map(self._build_type, node.GetChildren()),
++                member_types=list(map(self._build_type, node.GetChildren())),
+                 is_optional=is_optional,
+                 extended_attributes=extended_attributes,
+                 debug_info=self._build_debug_info(node))
+--- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/web_idl/make_copy.py.orig	2021-03-20
++++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/web_idl/make_copy.py	2021-03-20
+@@ -16,7 +16,7 @@
+         memo = dict()
+ 
+     if (obj is None
+-            or isinstance(obj, (bool, int, long, float, complex, basestring))):
++            or isinstance(obj, (bool, int, float, complex, str))):
+         # Do not make a copy if the object is of an immutable primitive type
+         # (or its subclass).
+         #
+@@ -27,6 +27,9 @@
+ 
+     if hasattr(obj, 'make_copy'):
+         return obj.make_copy(memo=memo)
++
++    if isinstance(obj, filter):
++        obj = list(obj)
+ 
+     memoizable = obj.__hash__ is not None
+ 
 --- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/core/css/make_style_shorthands.py.orig	2021-03-20
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/core/css/make_style_shorthands.py	2021-03-20
 @@ -53,10 +53,10 @@
@@ -285,3 +465,59 @@
  {{symbol_export}}extern const blink::QualifiedName& {{attr|symbol}}Attr;
  {% endfor %}
  
+--- ./src/3rdparty/chromium/third_party/devtools-frontend/src/scripts/build/build_release_applications.py.orig	2021-03-20
++++ ./src/3rdparty/chromium/third_party/devtools-frontend/src/scripts/build/build_release_applications.py	2021-03-20
+@@ -11,7 +11,7 @@
+ - Builds app.html referencing the application script.
+ """
+ 
+-from cStringIO import StringIO
++from io import StringIO
+ from os import path
+ from os.path import join
+ import copy
+@@ -164,7 +164,7 @@
+             resource_name = path.normpath(resource_name).replace('\\', '/')
+             output.write('self.Runtime.cachedResources["%s"] = "' % resource_name)
+             resource_content = read_file(path.join(self.application_dir, resource_name))
+-            resource_content += resource_source_url(resource_name).encode('utf-8')
++            resource_content += resource_source_url(resource_name) # .encode('utf-8')
+             resource_content = resource_content.replace('\\', '\\\\')
+             resource_content = resource_content.replace('\n', '\\n')
+             resource_content = resource_content.replace('"', '\\"')
+@@ -191,7 +191,7 @@
+     def _concatenate_application_script(self, output):
+         output.write('Root.allDescriptors.push(...%s);' % self._release_module_descriptors())
+         if self.descriptors.extends:
+-            output.write('Root.applicationDescriptor.modules.push(...%s);' % json.dumps(self.descriptors.application.values()))
++            output.write('Root.applicationDescriptor.modules.push(...%s);' % json.dumps(list(self.descriptors.application.values())))
+         else:
+             output.write('Root.applicationDescriptor = %s;' % self.descriptors.application_json())
+ 
+--- ./src/3rdparty/chromium/third_party/devtools-frontend/src/scripts/build/modular_build.py.orig	2021-03-20
++++ ./src/3rdparty/chromium/third_party/devtools-frontend/src/scripts/build/modular_build.py	2021-03-20
+@@ -40,7 +40,7 @@
+     try:
+         return json.loads(read_file(filename))
+     except:
+-        print 'ERROR: Failed to parse %s' % filename
++        print( 'ERROR: Failed to parse %s' % filename )
+         raise
+ 
+ 
+@@ -68,9 +68,13 @@
+ 
+     def application_json(self):
+         result = dict()
+-        result['modules'] = self.application.values()
++        result['modules'] = list(self.application.values())
+         result['has_html'] = self.has_html
+-        return json.dumps(result)
++        try:
++            return json.dumps(result)
++        except:
++            print(repr(result))
++            raise
+ 
+     def all_compiled_files(self):
+         files = collections.OrderedDict()
