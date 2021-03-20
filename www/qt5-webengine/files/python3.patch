@@ -1,0 +1,287 @@
+--- ./src/3rdparty/chromium/mojo/public/tools/mojom/mojom/generate/module.py.orig	2021-03-20
++++ ./src/3rdparty/chromium/mojo/public/tools/mojom/mojom/generate/module.py	2021-03-20
+@@ -281,6 +281,8 @@
+   def __eq__(self, rhs):
+     return isinstance(rhs, BuiltinValue) and self.value == rhs.value
+ 
++  def __hash__(self):
++    return hash(self.value)
+ 
+ class ConstantValue(NamedValue):
+   def __init__(self, module, parent_kind, constant):
+@@ -291,6 +293,8 @@
+   def name(self):
+     return self.constant.name
+ 
++  def __hash__(self):
++    return hash(self.constant.name)
+ 
+ class EnumValue(NamedValue):
+   def __init__(self, module, enum, field):
+@@ -307,6 +311,8 @@
+   def name(self):
+     return self.field.name
+ 
++  def __hash__(self):
++    return hash( ( self.field.name, self.enum ) )
+ 
+ class Constant(object):
+   def __init__(self, mojom_name=None, kind=None, value=None, parent_kind=None):
+@@ -362,6 +368,9 @@
+                  self.attributes) == (rhs.mojom_name, rhs.kind, rhs.ordinal,
+                                       rhs.default, rhs.attributes))
+ 
++  def __hash__(self):
++    return hash( (self.mojom_name, self.kind, self.ordinal, self.default,
++                 0 if self.attributes is None else self.attributes.values()) )
+ 
+ class StructField(Field):
+   pass
+--- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/idl_definitions.py.orig	2021-03-20
++++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/idl_definitions.py	2021-03-20
+@@ -394,7 +394,7 @@
+             else:
+                 raise ValueError('Unrecognized node class: %s' % child_class)
+ 
+-        if len(filter(None, [self.iterable, self.maplike, self.setlike])) > 1:
++        if len(list(filter(None, [self.iterable, self.maplike, self.setlike]))) > 1:
+             raise ValueError(
+                 'Interface can only have one of iterable<>, maplike<> and setlike<>.'
+             )
+@@ -510,6 +510,15 @@
+ 
+     def accept(self, visitor):
+         visitor.visit_attribute(self)
++
++    def __lt__(self, other):
++        if not isinstance(other, IdlAttribute):
++            raise TypeError("mismatch")
++        if self.name is None and other.name is None:
++            return False
++        if self.name is None:
++            return True
++        return self.name < other.name
+ 
+ 
+ ################################################################################
+--- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/idl_reader.py.orig	2021-03-20
++++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/idl_reader.py	2021-03-20
+@@ -56,7 +56,7 @@
+        - Otherwise, an IDL file is invalid.
+     """
+     targets = (
+-        definitions.interfaces.values() + definitions.dictionaries.values())
++        list(definitions.interfaces.values()) + list(definitions.dictionaries.values()))
+     number_of_targets = len(targets)
+     if number_of_targets > 1:
+         raise Exception(
+--- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/web_idl/dictionary.py.orig	2021-03-20
++++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/web_idl/dictionary.py	2021-03-20
+@@ -18,6 +18,9 @@
+ from .reference import RefById
+ from .user_defined_type import UserDefinedType
+ 
++def bogus_gen(n):
++    yield 1
++    yield n
+ 
+ class Dictionary(UserDefinedType, WithExtendedAttributes,
+                  WithCodeGeneratorInfo, WithExposure, WithComponent,
+@@ -34,11 +37,20 @@
+                      extended_attributes=None,
+                      component=None,
+                      debug_info=None):
++            if isinstance(own_members,type(bogus_gen(0))):
++                own_members = list(own_members)
+             assert isinstance(is_partial, bool)
+             assert inherited is None or isinstance(inherited, RefById)
+-            assert isinstance(own_members, (list, tuple)) and all(
+-                isinstance(member, DictionaryMember.IR)
+-                for member in own_members)
++            try:
++                assert isinstance(own_members, (list, tuple)) and all(
++                    isinstance(member, DictionaryMember.IR)
++                    for member in own_members)
++            except:
++                print(type(own_members))
++                print(own_members)
++                print(isinstance(member, DictionaryMember.IR)
++                    for member in own_members)
++                raise
+ 
+             kind = (IRMap.IR.Kind.PARTIAL_DICTIONARY
+                     if is_partial else IRMap.IR.Kind.DICTIONARY)
+--- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/web_idl/extended_attribute.py.orig	2021-03-20
++++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/web_idl/extended_attribute.py	2021-03-20
+@@ -169,11 +169,20 @@
+     """
+ 
+     def __init__(self, extended_attributes=None):
+-        assert (extended_attributes is None
+-                or isinstance(extended_attributes, ExtendedAttributes)
+-                or (isinstance(extended_attributes, (list, tuple)) and all(
+-                    isinstance(attr, ExtendedAttribute)
+-                    for attr in extended_attributes)))
++        if isinstance(extended_attributes, filter):
++            extended_attributes = list(extended_attributes)
++        try:
++            assert (extended_attributes is None
++                    or isinstance(extended_attributes, ExtendedAttributes)
++                    or (isinstance(extended_attributes, (list, tuple)) and all(
++                        isinstance(attr, ExtendedAttribute)
++                        for attr in extended_attributes)))
++        except:
++            print(type(extended_attributes))
++            print(extended_attributes)
++            print(isinstance(attr, ExtendedAttribute)
++                        for attr in extended_attributes)
++            raise
+ 
+         sorted_ext_attrs = sorted(
+             extended_attributes or [], key=lambda x: x.key)
+--- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/core/css/make_style_shorthands.py.orig	2021-03-20
++++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/core/css/make_style_shorthands.py	2021-03-20
+@@ -53,10 +53,10 @@
+ 
+         self._longhand_dictionary = defaultdict(list)
+         for property_ in json5_properties.shorthands:
+-            property_['longhand_enum_keys'] = map(enum_key_for_css_property,
+-                                                  property_['longhands'])
+-            property_['longhand_property_ids'] = map(id_for_css_property,
+-                                                     property_['longhands'])
++            property_['longhand_enum_keys'] = list(map(enum_key_for_css_property,
++                                                  property_['longhands']))
++            property_['longhand_property_ids'] = list(map(id_for_css_property,
++                                                     property_['longhands']))
+             for longhand_enum_key in property_['longhand_enum_keys']:
+                 self._longhand_dictionary[longhand_enum_key].append(property_)
+ 
+--- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/core/css/properties/make_css_property_instances.py.orig	2021-03-20
++++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/core/css/properties/make_css_property_instances.py	2021-03-20
+@@ -42,8 +42,8 @@
+         aliases = self._css_properties.aliases
+ 
+         # Lists of PropertyClassData.
+-        self._property_classes_by_id = map(self.get_class, properties)
+-        self._alias_classes_by_id = map(self.get_class, aliases)
++        self._property_classes_by_id = list(map(self.get_class, properties))
++        self._alias_classes_by_id = list(map(self.get_class, aliases))
+ 
+         # Sort by enum value.
+         self._property_classes_by_id.sort(key=lambda t: t.enum_value)
+--- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/gperf.py.orig	2021-03-20
++++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/gperf.py	2021-03-20
+@@ -93,7 +93,7 @@
+     # Since we're passing the input file on stdin, remove it from the args.
+     gperf_args.remove(infile)
+ 
+-    open(args.output_file, 'wb').write(
++    open(args.output_file, 'w').write(
+         generate_gperf(gperf_path,
+                        open(infile).read(), gperf_args))
+ 
+--- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/in_generator.py.orig	2021-03-20
++++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/in_generator.py	2021-03-20
+@@ -78,7 +78,7 @@
+     def __init__(self, in_files):
+         super(Writer, self).__init__(in_files)
+ 
+-        if isinstance(in_files, basestring):
++        if isinstance(in_files, str):
+             in_files = [in_files]
+         if in_files:
+             self.in_file = InFile.load_from_files(in_files, self.defaults,
+--- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/make_runtime_features.py.orig	2021-03-20
++++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/make_runtime_features.py	2021-03-20
+@@ -138,7 +138,7 @@
+                 except Exception:
+                     # If trouble unpickling, overwrite
+                     pass
+-        with open(os.path.abspath(file_name), 'w') as pickle_file:
++        with open(os.path.abspath(file_name), 'wb') as pickle_file:
+             pickle.dump(features_map, pickle_file)
+ 
+     def _template_inputs(self):
+--- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/element_factory.cc.tmpl.orig	2021-03-20
++++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/element_factory.cc.tmpl	2021-03-20
+@@ -26,7 +26,7 @@
+ 
+ static {{namespace}}FunctionMap* g_{{namespace|lower}}_constructors = nullptr;
+ 
+-{% for tag in tags|sort if not tag.noConstructor %}
++{% for tag in tags|sort(attribute='name') if not tag.noConstructor %}
+ static {{namespace}}Element* {{namespace}}{{tag.name.to_upper_camel_case()}}Constructor(
+     Document& document, const CreateElementFlags flags) {
+   {% if tag.runtimeEnabled %}
+@@ -52,7 +52,7 @@
+   // Empty array initializer lists are illegal [dcl.init.aggr] and will not
+   // compile in MSVC. If tags list is empty, add check to skip this.
+   static const Create{{namespace}}FunctionMapData data[] = {
+-  {% for tag in tags|sort if not tag.noConstructor %}
++  {% for tag in tags|sort(attribute='name') if not tag.noConstructor %}
+     { {{cpp_namespace}}::{{tag|symbol}}Tag, {{namespace}}{{tag.name.to_upper_camel_case()}}Constructor },
+   {% endfor %}
+   };
+--- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/element_type_helpers.cc.tmpl.orig	2021-03-20
++++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/element_type_helpers.cc.tmpl	2021-03-20
+@@ -21,7 +21,7 @@
+     const char* name;
+     HTMLElementType type;
+   } kTags[] = {
+-    {% for tag in tags|sort %}
++    {% for tag in tags|sort(attribute='name') %}
+     { "{{tag.name}}", HTMLElementType::k{{tag.js_interface}} },
+     {% endfor %}
+   };
+@@ -41,7 +41,7 @@
+   if (it == html_type_map.end())
+     return HTMLElementType::kHTMLUnknownElement;
+ 
+-  {% for tag in tags|sort %}
++  {% for tag in tags|sort(attribute='name') %}
+   {% if tag.runtimeEnabled %}
+   if (tagName == "{{tag.name}}") {
+     if (!RuntimeEnabledFeatures::{{tag.runtimeEnabled}}Enabled(document)) {
+--- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/element_type_helpers.h.tmpl.orig	2021-03-20
++++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/element_type_helpers.h.tmpl	2021-03-20
+@@ -15,7 +15,7 @@
+ class Document;
+ 
+ // Type checking.
+-{% for tag in tags|sort if not tag.multipleTagNames and not tag.noTypeHelpers %}
++{% for tag in tags|sort(attribute='name') if not tag.multipleTagNames and not tag.noTypeHelpers %}
+ class {{tag.interface}};
+ template <>
+ inline bool IsElementOfType<const {{tag.interface}}>(const Node& node) {
+--- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/macros.tmpl.orig	2021-03-20
++++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/macros.tmpl	2021-03-20
+@@ -54,8 +54,12 @@
+ switch (data[{{index}}]) {
+     {% endif %}
+     {% for char, value in trie.items()|sort %}
++{% if value is string %}
++XXX {{ char }} "{{value}}"
++{% else %}
+ case '{{char}}':
+     {{ trie_switch(value, index + 1, return_macro, lowercase_data) | indent(4) }}
++{% endif %}
+     {% endfor %}
+ }
+ break;
+--- ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/make_qualified_names.h.tmpl.orig	2021-03-20
++++ ./src/3rdparty/chromium/third_party/blink/renderer/build/scripts/templates/make_qualified_names.h.tmpl	2021-03-20
+@@ -24,12 +24,12 @@
+ {{symbol_export}}extern const WTF::AtomicString& {{namespace_prefix}}NamespaceURI;
+ 
+ // Tags
+-{% for tag in tags|sort %}
++{% for tag in tags|sort(attribute='name') %}
+ {{symbol_export}}extern const blink::{{namespace}}QualifiedName& {{tag|symbol}}Tag;
+ {% endfor %}
+ 
+ // Attributes
+-{% for attr in attrs|sort %}
++{% for attr in attrs|sort(attribute='name') %}
+ {{symbol_export}}extern const blink::QualifiedName& {{attr|symbol}}Attr;
+ {% endfor %}
+ 
