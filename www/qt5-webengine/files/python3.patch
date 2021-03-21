@@ -20,7 +20,7 @@
 +        if struct.fields:
 +            for f in struct.fields:
 +                print("Fields:" + str(f.Repr()))
-+        # raise ValueError("foo")
++        raise ValueError("foo")
 +
      param_counts = [0]
      for version in struct.versions:
