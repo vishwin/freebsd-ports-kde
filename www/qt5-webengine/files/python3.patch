@@ -10,7 +10,20 @@
  {%-     set type = field.kind|cpp_wrapper_param_type_new %}
 --- ./src/3rdparty/chromium/mojo/public/tools/bindings/generators/mojom_cpp_generator.py.orig	2021-03-20
 +++ ./src/3rdparty/chromium/mojo/public/tools/bindings/generators/mojom_cpp_generator.py	2021-03-20
-@@ -930,6 +930,15 @@
+@@ -201,10 +201,11 @@
+   def __init__(self, fields, params):
+     self._fields = fields
+     self._params = set(params)
++    self._actualparams = [field for field in self._fields if field in self._params]
+ 
+   @property
+   def params(self):
+-    return [field for field in self._fields if field in self._params]
++    return self._actualparams
+ 
+   @property
+   def fields(self):
+@@ -930,6 +931,15 @@
             for field in struct.fields):
        return [StructConstructor(struct.fields, [])]
  
@@ -26,7 +39,7 @@
      param_counts = [0]
      for version in struct.versions:
        if param_counts[-1] != version.num_fields:
-@@ -937,8 +946,20 @@
+@@ -937,8 +947,20 @@
  
      ordinal_fields = sorted(
          struct.fields, key=lambda field: field.ordinal or "")
