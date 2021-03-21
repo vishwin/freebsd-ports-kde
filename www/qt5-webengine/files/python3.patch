@@ -1,3 +1,16 @@
+--- ./src/3rdparty/chromium/mojo/public/tools/bindings/generators/mojom_cpp_generator.py.orig	2021-03-20
++++ ./src/3rdparty/chromium/mojo/public/tools/bindings/generators/mojom_cpp_generator.py	2021-03-20
+@@ -930,6 +930,10 @@
+            for field in struct.fields):
+       return [StructConstructor(struct.fields, [])]
+ 
++    if struct.mojom_name == "FilePath":
++        print(struct)
++        raise ValueError("foo")
++
+     param_counts = [0]
+     for version in struct.versions:
+       if param_counts[-1] != version.num_fields:
 --- ./src/3rdparty/chromium/mojo/public/tools/mojom/mojom/generate/module.py.orig	2021-03-20
 +++ ./src/3rdparty/chromium/mojo/public/tools/mojom/mojom/generate/module.py	2021-03-20
 @@ -281,6 +281,8 @@
@@ -75,6 +88,35 @@
      number_of_targets = len(targets)
      if number_of_targets > 1:
          raise Exception(
+--- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/utilities.py.orig	2021-03-20
++++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/utilities.py	2021-03-20
+@@ -210,7 +210,7 @@
+ 
+ def load_interfaces_info_overall_pickle(info_dir):
+     with open(os.path.join(info_dir,
+-                           'interfaces_info.pickle')) as interface_info_file:
++                           'interfaces_info.pickle'), "rb") as interface_info_file:
+         return pickle.load(interface_info_file)
+ 
+ 
+@@ -238,7 +238,7 @@
+     interfaces_info = load_interfaces_info_overall_pickle(info_dir)
+     with open(
+             os.path.join(info_dir, 'core',
+-                         'component_info_core.pickle')) as component_info_file:
++                         'component_info_core.pickle'), "rb") as component_info_file:
+         component_info = pickle.load(component_info_file)
+     return ComponentInfoProviderCore(interfaces_info, component_info)
+ 
+@@ -247,7 +247,7 @@
+     interfaces_info = load_interfaces_info_overall_pickle(info_dir)
+     with open(
+             os.path.join(info_dir, 'core',
+-                         'component_info_core.pickle')) as component_info_file:
++                         'component_info_core.pickle'), "rb") as component_info_file:
+         component_info_core = pickle.load(component_info_file)
+     with open(
+             os.path.join(
 --- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/web_idl/constructor.py.orig	2021-03-20
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/web_idl/constructor.py	2021-03-20
 @@ -84,12 +84,21 @@
