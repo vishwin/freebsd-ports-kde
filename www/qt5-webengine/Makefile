@@ -159,10 +159,40 @@ pre-configure:
 # Rerun syncqt.pl -- otherwise the resulting package misses some forwarding headers.
 	cd ${WRKSRC} && ${QT_BINDIR}/syncqt.pl -version ${QT5_VERSION}
 
+# Do this once at the start of the build
+create-gn:
+	# This builds gn all on its own, and errors out because of the blep
+	${REINPLACE_CMD} 's+-f Makefile *$$+-f Makefile sub-buildtools-make_first+' ${CONFIGURE_WRKSRC}/Makefile
+	-cd ${CONFIGURE_WRKSRC} && ${MAKE} sub-src-make_first
+	${REINPLACE_CMD} 's+-f Makefile sub-buildtools-make_first$$+-f Makefile+' ${CONFIGURE_WRKSRC}/Makefile
+
+# Then apply the Python3 patches
+apply-patches:
+	( cd ${WRKSRC} ; patch -p0 < ${FILESDIR}/python3.patch )
+
+fail-build:
+	# Builds 21376 targets, but fails because the generated headers aren't good
+	-${MAKE} build
+	true
+
+extract-headers:
+	# Extract the previously-generated (with Python2) headers
+	tar x -m --no-same-permissions -C ${CONFIGURE_WRKSRC} -f /tmp/mojom-generated.tgz
+	# Fix permissions gummed up by the tarball
+	find ${CONFIGURE_WRKSRC}/src/core/release/gen/extensions/common/mojom -type f -exec chmod 400 {} \;
+
+good-build:
+	# Build 18587 targets, now with the properly-generated headers
+	${MAKE} build
+
+python3: create-gn apply-patches fail-build extract-headers good-build
+
+
 keep-patches:
 	${FILESDIR}/python3-keep-patches ${WRKSRC} > ${FILESDIR}/python3.patch
 
-apply-patches:
-	( cd ${WRKSRC} ; patch -p0 < ${FILESDIR}/python3.patch )
+# Use this after a Python2 build, to keep the generated code &c
+keep-generated:
+	cd ${CONFIGURE_WRKSRC} && tar czf /tmp/webengine-generated.tgz --exclude '*jumbo*.cc' src/core/release/{resources,gen,pyproto}
 
 .include <bsd.port.post.mk>
