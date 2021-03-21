@@ -4,7 +4,7 @@
    }
  
  {% for constructor in struct|struct_constructors %}
-+/* XXX {{ constructor.params }} */
++/* XXX {{ constructor }} {{ constructor.params|length }} {{ constructor.params }} */
    {% if constructor.params|length == 1 %}explicit {% endif %}{{struct.name}}(
  {%-   for field in constructor.params %}
  {%-     set type = field.kind|cpp_wrapper_param_type_new %}
@@ -43,7 +43,7 @@
 +            print("_param:" + str(c._params))
 +            print("Fields:" + str(c.fields))
 +            print("_field:" + str(c._fields))
-+        raise ValueError("Filepath")
++        # raise ValueError("Filepath")
 +    return constructor_list
  
    def _GetContainerValidateParamsCtorArgs(self, kind):
