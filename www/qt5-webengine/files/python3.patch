@@ -316,6 +316,49 @@
          IdlType.__init__(
              self,
              is_optional=is_optional,
+--- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/web_idl/interface.py.orig	2021-03-20
++++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/web_idl/interface.py	2021-03-20
+@@ -194,9 +194,9 @@
+         self._legacy_window_aliases = tuple(ir.legacy_window_aliases)
+         self._indexed_and_named_properties = None
+         if ir.indexed_and_named_properties:
+-            operations = filter(
++            operations = list(filter(
+                 lambda x: x.is_indexed_or_named_property_operation,
+-                self._operations)
++                self._operations))
+             self._indexed_and_named_properties = IndexedAndNamedProperties(
+                 ir.indexed_and_named_properties, operations, owner=self)
+         self._stringifier = None
+@@ -206,8 +206,8 @@
+             attributes = [None]
+             if ir.stringifier.attribute:
+                 attr_id = ir.stringifier.attribute.identifier
+-                attributes = filter(lambda x: x.identifier == attr_id,
+-                                    self._attributes)
++                attributes = list(filter(lambda x: x.identifier == attr_id,
++                                    self._attributes))
+             assert len(attributes) == 1
+             self._stringifier = Stringifier(
+                 ir.stringifier,
+@@ -427,9 +427,14 @@
+ 
+     def __init__(self, ir, operations, owner):
+         assert isinstance(ir, IndexedAndNamedProperties.IR)
+-        assert isinstance(operations, (list, tuple))
+-        assert all(
+-            isinstance(operation, Operation) for operation in operations)
++        try:
++            assert isinstance(operations, (list, tuple))
++            assert all(
++                isinstance(operation, Operation) for operation in operations)
++        except:
++            print(type(operations))
++            print(operations)
++            print(isinstance(operation, Operation) for operation in operations)
+ 
+         WithOwner.__init__(self, owner)
+         WithDebugInfo.__init__(self, ir)
 --- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/web_idl/ir_builder.py.orig	2021-03-20
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/web_idl/ir_builder.py	2021-03-20
 @@ -166,7 +166,7 @@
