@@ -189,7 +189,7 @@
 -        assert all(constructor.identifier == ir.identifier
 -                   for constructor in constructors)
 +        if isinstance(constructors, filter):
-+            constructors = list(constructor)
++            constructors = list(constructors)
 +        try:
 +            assert isinstance(constructors, (list, tuple))
 +            assert all(
