@@ -10,7 +10,7 @@
  {%-     set type = field.kind|cpp_wrapper_param_type_new %}
 --- ./src/3rdparty/chromium/mojo/public/tools/bindings/generators/mojom_cpp_generator.py.orig	2021-03-20
 +++ ./src/3rdparty/chromium/mojo/public/tools/bindings/generators/mojom_cpp_generator.py	2021-03-20
-@@ -930,6 +930,14 @@
+@@ -930,6 +930,15 @@
             for field in struct.fields):
        return [StructConstructor(struct.fields, [])]
  
@@ -19,21 +19,36 @@
 +        print("Versions:" + str(struct.versions))
 +        if struct.fields:
 +            for f in struct.fields:
++                print("FieldR:" + str(f))
 +                print("Fields:" + str(f.Repr()))
-+        raise ValueError("foo")
++        # raise ValueError("foo")
 +
      param_counts = [0]
      for version in struct.versions:
        if param_counts[-1] != version.num_fields:
-@@ -937,7 +945,7 @@
+@@ -937,8 +946,21 @@
  
      ordinal_fields = sorted(
          struct.fields, key=lambda field: field.ordinal or "")
 -    return (StructConstructor(struct.fields, ordinal_fields[:param_count])
-+    return list(StructConstructor(struct.fields, ordinal_fields[:param_count])
++    constructor_list = list(StructConstructor(struct.fields, ordinal_fields[:param_count])
              for param_count in param_counts)
++    if struct.mojom_name == "FilePath":
++        print(param_counts)
++        print(ordinal_fields)
++        print(constructor_list)
++        for c in constructor_list:
++            print("ConR:" + str(c))
++            print("Cons:" + str(c.Repr()))
++            print("Params:" + str(c.params))
++            print("_param:" + str(c._params))
++            print("Fields:" + str(c.fields))
++            print("_field:" + str(c._fields))
++        raise ValueError("Filepath")
++    return constructor_list
  
    def _GetContainerValidateParamsCtorArgs(self, kind):
+     if mojom.IsStringKind(kind):
 --- ./src/3rdparty/chromium/mojo/public/tools/mojom/mojom/generate/module.py.orig	2021-03-20
 +++ ./src/3rdparty/chromium/mojo/public/tools/mojom/mojom/generate/module.py	2021-03-20
 @@ -281,6 +281,8 @@
