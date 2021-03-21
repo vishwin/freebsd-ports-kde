@@ -1,16 +1,29 @@
 --- ./src/3rdparty/chromium/mojo/public/tools/bindings/generators/mojom_cpp_generator.py.orig	2021-03-20
 +++ ./src/3rdparty/chromium/mojo/public/tools/bindings/generators/mojom_cpp_generator.py	2021-03-20
-@@ -930,6 +930,10 @@
+@@ -930,6 +930,14 @@
             for field in struct.fields):
        return [StructConstructor(struct.fields, [])]
  
 +    if struct.mojom_name == "FilePath":
 +        print(struct)
-+        raise ValueError("foo")
++        print("Versions:" + str(struct.versions))
++        if struct.fields:
++            for f in struct.fields:
++                print("Fields:" + str(f.Repr()))
++        # raise ValueError("foo")
 +
      param_counts = [0]
      for version in struct.versions:
        if param_counts[-1] != version.num_fields:
+@@ -937,7 +945,7 @@
+ 
+     ordinal_fields = sorted(
+         struct.fields, key=lambda field: field.ordinal or "")
+-    return (StructConstructor(struct.fields, ordinal_fields[:param_count])
++    return list(StructConstructor(struct.fields, ordinal_fields[:param_count])
+             for param_count in param_counts)
+ 
+   def _GetContainerValidateParamsCtorArgs(self, kind):
 --- ./src/3rdparty/chromium/mojo/public/tools/mojom/mojom/generate/module.py.orig	2021-03-20
 +++ ./src/3rdparty/chromium/mojo/public/tools/mojom/mojom/generate/module.py	2021-03-20
 @@ -281,6 +281,8 @@
@@ -50,6 +63,52 @@
  
  class StructField(Field):
    pass
+@@ -392,9 +401,9 @@
+   ReferenceKind.AddSharedProperty('name')
+   ReferenceKind.AddSharedProperty('native_only')
+   ReferenceKind.AddSharedProperty('custom_serializer')
+-  ReferenceKind.AddSharedProperty('fields')
+-  ReferenceKind.AddSharedProperty('enums')
+-  ReferenceKind.AddSharedProperty('constants')
++  # ReferenceKind.AddSharedProperty('fields')
++  # ReferenceKind.AddSharedProperty('enums')
++  # ReferenceKind.AddSharedProperty('constants')
+   ReferenceKind.AddSharedProperty('attributes')
+ 
+   def __init__(self, mojom_name=None, module=None, attributes=None):
+@@ -411,6 +420,32 @@
+     self.enums = []
+     self.constants = []
+     self.attributes = attributes
++    if mojom_name == "FilePath":
++        print("Created FilePath")
++
++  @property
++  def fields(self):
++    return self.shared_definition["fields"]
++
++  @fields.setter
++  def fields(self, s):
++    self.shared_definition["fields"] = list(s)
++
++  @property
++  def enums(self):
++    return self.shared_definition["enums"]
++
++  @enums.setter
++  def enums(self, s):
++    self.shared_definition["enums"] = list(s)
++
++  @property
++  def constants(self):
++    return self.shared_definition["constants"]
++
++  @constants.setter
++  def constants(self, s):
++    self.shared_definition["constants"] = list(s)
+ 
+   def Repr(self, as_ref=True):
+     if as_ref:
 --- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/idl_definitions.py.orig	2021-03-20
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/idl_definitions.py	2021-03-20
 @@ -394,7 +394,7 @@
