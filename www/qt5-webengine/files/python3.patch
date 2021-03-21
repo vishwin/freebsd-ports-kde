@@ -1,3 +1,13 @@
+--- ./src/3rdparty/chromium/mojo/public/tools/bindings/generators/cpp_templates/wrapper_class_declaration.tmpl.orig	2021-03-20
++++ ./src/3rdparty/chromium/mojo/public/tools/bindings/generators/cpp_templates/wrapper_class_declaration.tmpl	2021-03-20
+@@ -37,6 +37,7 @@
+   }
+ 
+ {% for constructor in struct|struct_constructors %}
++/* XXX {{ constructor.params }} */
+   {% if constructor.params|length == 1 %}explicit {% endif %}{{struct.name}}(
+ {%-   for field in constructor.params %}
+ {%-     set type = field.kind|cpp_wrapper_param_type_new %}
 --- ./src/3rdparty/chromium/mojo/public/tools/bindings/generators/mojom_cpp_generator.py.orig	2021-03-20
 +++ ./src/3rdparty/chromium/mojo/public/tools/bindings/generators/mojom_cpp_generator.py	2021-03-20
 @@ -930,6 +930,14 @@
