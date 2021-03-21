@@ -26,7 +26,7 @@
      param_counts = [0]
      for version in struct.versions:
        if param_counts[-1] != version.num_fields:
-@@ -937,8 +946,21 @@
+@@ -937,8 +946,20 @@
  
      ordinal_fields = sorted(
          struct.fields, key=lambda field: field.ordinal or "")
@@ -39,7 +39,6 @@
 +        print(constructor_list)
 +        for c in constructor_list:
 +            print("ConR:" + str(c))
-+            print("Cons:" + str(c.Repr()))
 +            print("Params:" + str(c.params))
 +            print("_param:" + str(c._params))
 +            print("Fields:" + str(c.fields))
