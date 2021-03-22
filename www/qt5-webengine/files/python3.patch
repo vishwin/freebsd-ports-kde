@@ -355,7 +355,16 @@
              is_optional=is_optional,
 --- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/web_idl/interface.py.orig	2021-03-20
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/web_idl/interface.py	2021-03-20
-@@ -163,8 +163,8 @@
+@@ -123,6 +123,8 @@
+             self.maplike = maplike
+             self.setlike = setlike
+ 
++            print(f"IR id={identifier} ops={operations}")
++
+         def iter_all_members(self):
+             for attribute in self.attributes:
+                 yield attribute
+@@ -163,8 +165,8 @@
          self._constructor_groups = tuple([
              ConstructorGroup(
                  group_ir,
@@ -366,7 +375,7 @@
                  owner=self) for group_ir in ir.constructor_groups
          ])
          assert len(self._constructor_groups) <= 1
-@@ -175,8 +175,8 @@
+@@ -175,8 +177,8 @@
          self._named_constructor_groups = tuple([
              ConstructorGroup(
                  group_ir,
@@ -377,7 +386,7 @@
                  owner=self) for group_ir in ir.named_constructor_groups
          ])
          self._operations = tuple([
-@@ -186,28 +186,28 @@
+@@ -186,28 +188,30 @@
          self._operation_groups = tuple([
              OperationGroup(
                  group_ir,
@@ -401,7 +410,9 @@
          self._stringifier = None
          if ir.stringifier:
 -            operations = filter(lambda x: x.is_stringifier, self._operations)
++            print(f"Interface {ir.identifier} applying stringifier")
 +            operations = list(filter(lambda x: x.is_stringifier, self._operations))
++            print(f".. ops {operations}")
              assert len(operations) == 1
              attributes = [None]
              if ir.stringifier.attribute:
@@ -413,7 +424,7 @@
              assert len(attributes) == 1
              self._stringifier = Stringifier(
                  ir.stringifier,
-@@ -427,9 +427,14 @@
+@@ -427,9 +431,14 @@
  
      def __init__(self, ir, operations, owner):
          assert isinstance(ir, IndexedAndNamedProperties.IR)
