@@ -355,7 +355,39 @@
              is_optional=is_optional,
 --- ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/web_idl/interface.py.orig	2021-03-20
 +++ ./src/3rdparty/chromium/third_party/blink/renderer/bindings/scripts/web_idl/interface.py	2021-03-20
-@@ -194,9 +194,9 @@
+@@ -163,8 +163,8 @@
+         self._constructor_groups = tuple([
+             ConstructorGroup(
+                 group_ir,
+-                filter(lambda x: x.identifier == group_ir.identifier,
+-                       self._constructors),
++                list(filter(lambda x: x.identifier == group_ir.identifier,
++                       self._constructors)),
+                 owner=self) for group_ir in ir.constructor_groups
+         ])
+         assert len(self._constructor_groups) <= 1
+@@ -175,8 +175,8 @@
+         self._named_constructor_groups = tuple([
+             ConstructorGroup(
+                 group_ir,
+-                filter(lambda x: x.identifier == group_ir.identifier,
+-                       self._named_constructors),
++                list(filter(lambda x: x.identifier == group_ir.identifier,
++                       self._named_constructors)),
+                 owner=self) for group_ir in ir.named_constructor_groups
+         ])
+         self._operations = tuple([
+@@ -186,28 +186,28 @@
+         self._operation_groups = tuple([
+             OperationGroup(
+                 group_ir,
+-                filter(lambda x: x.identifier == group_ir.identifier,
+-                       self._operations),
++                list(filter(lambda x: x.identifier == group_ir.identifier,
++                       self._operations)),
+                 owner=self) for group_ir in ir.operation_groups
+         ])
+         self._exposed_constructs = tuple(ir.exposed_constructs)
          self._legacy_window_aliases = tuple(ir.legacy_window_aliases)
          self._indexed_and_named_properties = None
          if ir.indexed_and_named_properties:
@@ -367,7 +399,10 @@
              self._indexed_and_named_properties = IndexedAndNamedProperties(
                  ir.indexed_and_named_properties, operations, owner=self)
          self._stringifier = None
-@@ -206,8 +206,8 @@
+         if ir.stringifier:
+-            operations = filter(lambda x: x.is_stringifier, self._operations)
++            operations = list(filter(lambda x: x.is_stringifier, self._operations))
+             assert len(operations) == 1
              attributes = [None]
              if ir.stringifier.attribute:
                  attr_id = ir.stringifier.attribute.identifier
