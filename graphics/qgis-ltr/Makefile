@@ -4,7 +4,7 @@
 PORTNAME=	qgis
 DISTVERSIONPREFIX=	final-
 DISTVERSION=	3_10_14
-PORTREVISION=	3
+PORTREVISION=	4
 CATEGORIES=	graphics geography
 PKGNAMESUFFIX=	-ltr
 
@@ -18,6 +18,9 @@ COMMENT=	Free and Open Source Geographic Information System
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/doc/LICENSE
+
+DEPRECATED=	Uses EOL Python 2.7 via www/qt5-webengine
+EXPIRATION_DATE=2021-06-23
 
 BUILD_DEPENDS=	gpsbabel>=1.5.4:astro/gpsbabel \
 		opencl>=0:devel/opencl \

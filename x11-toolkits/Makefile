@@ -215,7 +215,6 @@
     SUBDIR += swt
     SUBDIR += tepl
     SUBDIR += termit
-    SUBDIR += tile
     SUBDIR += tix
     SUBDIR += tk-wrapper
     SUBDIR += tk85

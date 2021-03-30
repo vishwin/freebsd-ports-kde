@@ -1501,7 +1501,6 @@
     SUBDIR += py-django-i18nfield
     SUBDIR += py-django-jquery-js
     SUBDIR += py-django-js-asset
-    SUBDIR += py-django-jsonfield
     SUBDIR += py-django-jsonview
     SUBDIR += py-django-ldapdb
     SUBDIR += py-django-libsass
@@ -1781,6 +1780,7 @@
     SUBDIR += quark
     SUBDIR += qutebrowser
     SUBDIR += radicale
+    SUBDIR += rearx
     SUBDIR += redmine4
     SUBDIR += rejik
     SUBDIR += reportmagic
@@ -2254,6 +2254,7 @@
     SUBDIR += vdr-plugin-live
     SUBDIR += vdradmin-am
     SUBDIR += vertx
+    SUBDIR += vger
     SUBDIR += vimb
     SUBDIR += visitors
     SUBDIR += volta
@@ -2279,6 +2280,7 @@
     SUBDIR += webstone
     SUBDIR += webstone-ssl
     SUBDIR += webtrees
+    SUBDIR += webtrees20
     SUBDIR += wgetpaste
     SUBDIR += wikicalc
     SUBDIR += wordpress

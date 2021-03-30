@@ -64,6 +64,7 @@
     SUBDIR += ffmpeg2theora
     SUBDIR += ffmpegthumbnailer
     SUBDIR += ffms2
+    SUBDIR += filebot
     SUBDIR += flvmeta
     SUBDIR += flvstreamer
     SUBDIR += flvtool++
@@ -155,6 +156,8 @@
     SUBDIR += kodi-addon-screensaver.matrixtrails
     SUBDIR += kodi-addon-screensaver.stars
     SUBDIR += kodi-addon-visualization.fishbmc
+    SUBDIR += kodi-addon-visualization.shadertoy
+    SUBDIR += kodi-addon-visualization.spectrum
     SUBDIR += kvazaar
     SUBDIR += l-smash
     SUBDIR += libaacs
@@ -193,6 +196,7 @@
     SUBDIR += libquvi09
     SUBDIR += librav1e
     SUBDIR += librespot
+    SUBDIR += librist
     SUBDIR += librtmp
     SUBDIR += libtheora
     SUBDIR += libtuner
@@ -378,6 +382,7 @@
     SUBDIR += tautulli
     SUBDIR += tcmplex-panteltje
     SUBDIR += termplay
+    SUBDIR += tinyobjloader
     SUBDIR += tivodecode
     SUBDIR += totem
     SUBDIR += totem-pl-parser

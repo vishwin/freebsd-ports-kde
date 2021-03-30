@@ -32,6 +32,7 @@
     SUBDIR += R-cran-classInt
     SUBDIR += R-cran-cli
     SUBDIR += R-cran-clipr
+    SUBDIR += R-cran-clisymbols
     SUBDIR += R-cran-covr
     SUBDIR += R-cran-cpp11
     SUBDIR += R-cran-crayon
@@ -792,6 +793,7 @@
     SUBDIR += gettext
     SUBDIR += gettext-lint
     SUBDIR += gettext-msghack
+    SUBDIR += gettext-po-mode
     SUBDIR += gettext-runtime
     SUBDIR += gettext-tools
     SUBDIR += gflags
@@ -929,7 +931,6 @@
     SUBDIR += hpx
     SUBDIR += hs-ShellCheck
     SUBDIR += hs-alex
-    SUBDIR += hs-c2hs
     SUBDIR += hs-cabal-install
     SUBDIR += hs-cpphs
     SUBDIR += hs-darcs
@@ -975,6 +976,7 @@
     SUBDIR += include-what-you-use
     SUBDIR += indicators
     SUBDIR += inifiled
+    SUBDIR += inih
     SUBDIR += inilib
     SUBDIR += inilike
     SUBDIR += iniparser
@@ -1018,6 +1020,7 @@
     SUBDIR += jsoncpp
     SUBDIR += jsonnet
     SUBDIR += jsonrpc-glib
+    SUBDIR += juce
     SUBDIR += judy
     SUBDIR += jwasm
     SUBDIR += kBuild
@@ -1377,6 +1380,7 @@
     SUBDIR += libvirt-java
     SUBDIR += libvmdk
     SUBDIR += libvolume_id
+    SUBDIR += libvsgpt
     SUBDIR += libvshadow
     SUBDIR += libvslvm
     SUBDIR += libvterm
@@ -4107,6 +4111,7 @@
     SUBDIR += py-azure-datalake-store
     SUBDIR += py-azure-functions-devops-build
     SUBDIR += py-azure-graphrbac
+    SUBDIR += py-azure-identity
     SUBDIR += py-azure-keyvault
     SUBDIR += py-azure-keyvault-administration
     SUBDIR += py-azure-loganalytics
@@ -4399,6 +4404,7 @@
     SUBDIR += py-filebytes
     SUBDIR += py-filedepot
     SUBDIR += py-filemagic
+    SUBDIR += py-filetype
     SUBDIR += py-first
     SUBDIR += py-five.globalrequest
     SUBDIR += py-fixtures
@@ -4488,6 +4494,7 @@
     SUBDIR += py-hg-evolve
     SUBDIR += py-hglib
     SUBDIR += py-hgtools
+    SUBDIR += py-hidraw
     SUBDIR += py-holidays
     SUBDIR += py-http-prompt
     SUBDIR += py-humanize
@@ -5202,6 +5209,7 @@
     SUBDIR += py-urwid
     SUBDIR += py-urwid-readline
     SUBDIR += py-urwidtrees
+    SUBDIR += py-us
     SUBDIR += py-user_agents
     SUBDIR += py-userpath
     SUBDIR += py-uvloop

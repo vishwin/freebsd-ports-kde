@@ -2,7 +2,8 @@
 
 PORTNAME=	deno
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.8.0
+DISTVERSION=	1.8.2
+PORTREVISION=	1
 CATEGORIES=	www
 
 MAINTAINER=	mikael@FreeBSD.org
@@ -25,8 +26,7 @@ USE_GNOME=	glib20
 
 MAKE_JOBS_UNSAFE=	yes
 
-WRKSRC=		${WRKDIR}/${PORTNAME}-${PORTVERSION}
-RUSTY_VERS=	0.20.0
+RUSTY_VERS=	0.21.0
 
 CARGO_ENV+=	CLANG_BASE_PATH=/usr \
 		GN=${PREFIX}/bin/gn \
@@ -43,7 +43,6 @@ CARGO_CRATES=	Inflector-0.11.4 \
 		ahash-0.4.7 \
 		ahash-0.7.2 \
 		aho-corasick-0.7.15 \
-		align-data-0.1.0 \
 		alloc-no-stdlib-2.0.1 \
 		alloc-stdlib-0.2.1 \
 		ansi_term-0.11.0 \
@@ -60,12 +59,10 @@ CARGO_CRATES=	Inflector-0.11.4 \
 		auto_impl-0.4.1 \
 		autocfg-1.0.1 \
 		base64-0.11.0 \
-		base64-0.12.3 \
 		base64-0.13.0 \
 		bit-set-0.5.2 \
 		bit-vec-0.6.3 \
 		bitflags-1.2.1 \
-		bitvec-0.19.4 \
 		block-0.1.6 \
 		block-buffer-0.9.0 \
 		brotli-3.3.0 \
@@ -103,9 +100,9 @@ CARGO_CRATES=	Inflector-0.11.4 \
 		dissimilar-1.0.2 \
 		dlopen-0.1.8 \
 		dlopen_derive-0.1.4 \
-		dprint-core-0.35.1 \
-		dprint-plugin-json-0.8.0 \
-		dprint-plugin-markdown-0.5.1 \
+		dprint-core-0.35.2 \
+		dprint-plugin-json-0.9.0 \
+		dprint-plugin-markdown-0.6.0 \
 		dprint-plugin-typescript-0.41.0 \
 		dprint-swc-ecma-ast-view-0.10.0 \
 		either-1.6.1 \
@@ -130,7 +127,6 @@ CARGO_CRATES=	Inflector-0.11.4 \
 		fsevent-2.0.2 \
 		fsevent-sys-3.0.2 \
 		fslock-0.1.6 \
-		funty-1.1.0 \
 		futures-0.3.12 \
 		futures-channel-0.3.12 \
 		futures-core-0.3.12 \
@@ -190,15 +186,14 @@ CARGO_CRATES=	Inflector-0.11.4 \
 		kernel32-sys-0.2.2 \
 		khronos-egl-3.0.0 \
 		lazy_static-1.4.0 \
-		lexical-core-0.7.4 \
 		libc-0.2.86 \
 		libloading-0.6.7 \
 		linked-hash-map-0.5.4 \
 		lock_api-0.4.2 \
 		log-0.4.14 \
 		lru-cache-0.1.2 \
-		lsp-types-0.86.0 \
-		lspower-0.6.1 \
+		lsp-types-0.88.0 \
+		lspower-0.8.4 \
 		lspower-macros-0.2.0 \
 		malloc_buf-0.0.6 \
 		match_cfg-0.1.0 \
@@ -212,8 +207,7 @@ CARGO_CRATES=	Inflector-0.11.4 \
 		naga-0.3.1 \
 		new_debug_unreachable-1.0.4 \
 		nibble_vec-0.1.0 \
-		nix-0.19.1 \
-		nom-6.1.0 \
+		nix-0.20.0 \
 		notify-5.0.0-pre.5 \
 		ntapi-0.3.6 \
 		num-bigint-0.2.6 \
@@ -255,7 +249,6 @@ CARGO_CRATES=	Inflector-0.11.4 \
 		quick-error-1.2.3 \
 		quote-0.6.13 \
 		quote-1.0.8 \
-		radium-0.5.3 \
 		radix_fmt-1.0.0 \
 		radix_trie-0.2.1 \
 		rand-0.7.3 \
@@ -282,8 +275,8 @@ CARGO_CRATES=	Inflector-0.11.4 \
 		ron-0.6.4 \
 		rustc_version-0.2.3 \
 		rustls-0.19.0 \
-		rusty_v8-0.20.0 \
-		rustyline-7.1.0 \
+		rusty_v8-0.21.0 \
+		rustyline-8.0.0 \
 		rustyline-derive-0.4.0 \
 		ryu-1.0.5 \
 		same-file-1.0.6 \
@@ -311,7 +304,6 @@ CARGO_CRATES=	Inflector-0.11.4 \
 		spirv_cross-0.23.0 \
 		spirv_headers-1.5.0 \
 		stable_deref_trait-1.2.0 \
-		static_assertions-1.1.0 \
 		storage-map-0.3.0 \
 		string_cache-0.8.1 \
 		string_cache_codegen-0.5.1 \
@@ -342,7 +334,6 @@ CARGO_CRATES=	Inflector-0.11.4 \
 		syn-0.15.44 \
 		syn-1.0.60 \
 		sys-info-0.8.0 \
-		tap-1.0.0 \
 		tempfile-3.2.0 \
 		termcolor-1.1.2 \
 		text-size-1.1.0 \
@@ -354,13 +345,13 @@ CARGO_CRATES=	Inflector-0.11.4 \
 		time-0.1.44 \
 		tinyvec-1.1.1 \
 		tinyvec_macros-0.1.0 \
-		tokio-1.2.0 \
+		tokio-1.4.0 \
 		tokio-macros-1.1.0 \
 		tokio-rustls-0.22.0 \
-		tokio-stream-0.1.3 \
+		tokio-stream-0.1.5 \
 		tokio-test-0.4.0 \
 		tokio-tungstenite-0.13.0 \
-		tokio-util-0.6.3 \
+		tokio-util-0.6.5 \
 		toml-0.5.8 \
 		tower-layer-0.3.1 \
 		tower-service-0.3.1 \
@@ -375,8 +366,10 @@ CARGO_CRATES=	Inflector-0.11.4 \
 		trust-dns-server-0.20.0 \
 		try-lock-0.2.3 \
 		tungstenite-0.12.0 \
+		twoway-0.2.1 \
 		typenum-1.12.0 \
 		ucd-trie-0.1.3 \
+		unchecked-index-0.2.2 \
 		unicase-2.6.0 \
 		unicode-bidi-0.3.4 \
 		unicode-normalization-0.1.17 \
@@ -417,8 +410,7 @@ CARGO_CRATES=	Inflector-0.11.4 \
 		winreg-0.6.2 \
 		winreg-0.7.0 \
 		winres-0.1.11 \
-		wio-0.2.2 \
-		wyz-0.2.0
+		wio-0.2.2
 
 post-patch:
 	${REINPLACE_CMD} "s|%%LOCALBASE%%|${LOCALBASE}|" \

@@ -29,7 +29,6 @@
     SUBDIR += amavisd-milter
     SUBDIR += amavisd-new
     SUBDIR += apache-xml-security-c
-    SUBDIR += apg
     SUBDIR += apkid
     SUBDIR += arirang
     SUBDIR += arpCounterattack
@@ -1050,6 +1049,7 @@
     SUBDIR += rubygem-bcrypt
     SUBDIR += rubygem-bcrypt-ruby
     SUBDIR += rubygem-bcrypt_pbkdf
+    SUBDIR += rubygem-bcrypt_pbkdf10
     SUBDIR += rubygem-cose
     SUBDIR += rubygem-devise-two-factor
     SUBDIR += rubygem-devise-two-factor-rails5
@@ -1273,6 +1273,7 @@
     SUBDIR += tthsum
     SUBDIR += u2f-devd
     SUBDIR += uacme
+    SUBDIR += ubuntu-keyring
     SUBDIR += unhide
     SUBDIR += unicornscan
     SUBDIR += vanguards-tor
@@ -1296,6 +1297,7 @@
     SUBDIR += wolfssh
     SUBDIR += wolfssl
     SUBDIR += wpa_supplicant
+    SUBDIR += wpa_supplicant-devel
     SUBDIR += xca
     SUBDIR += xinetd
     SUBDIR += xml-security

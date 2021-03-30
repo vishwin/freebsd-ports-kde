@@ -252,6 +252,7 @@
     SUBDIR += gu-aspell
     SUBDIR += gutenmark
     SUBDIR += gv-aspell
+    SUBDIR += halibut
     SUBDIR += heirloom-doctools
     SUBDIR += hevea
     SUBDIR += hhm
@@ -1272,6 +1273,7 @@
     SUBDIR += py-elasticsearch-async
     SUBDIR += py-elasticsearch-curator
     SUBDIR += py-elasticsearch-dsl
+    SUBDIR += py-elasticsearch-dsl6
     SUBDIR += py-elasticsearch5
     SUBDIR += py-elasticsearch6
     SUBDIR += py-elementpath
@@ -1337,6 +1339,7 @@
     SUBDIR += py-ocrmypdf
     SUBDIR += py-openpyxl
     SUBDIR += py-openstackdocstheme
+    SUBDIR += py-orange3-text
     SUBDIR += py-os-api-ref
     SUBDIR += py-packageurl-python
     SUBDIR += py-pager
@@ -1493,6 +1496,7 @@
     SUBDIR += re_graph
     SUBDIR += redet
     SUBDIR += redisearch
+    SUBDIR += redisearch16
     SUBDIR += redland
     SUBDIR += redland-bindings
     SUBDIR += refdb
