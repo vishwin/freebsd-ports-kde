@@ -10,8 +10,8 @@
 @dir %%QT_LIBDIR%%/cmake/Qt6UiTools
 %%QT_BINDIR%%/assistant
 %%QT_BINDIR%%/designer
-%%QT_BINDIR%%/l%%CMAKE_BUILD_TYPE%%
-%%QT_BINDIR%%/l%%CMAKE_BUILD_TYPE%%-pro
+%%QT_BINDIR%%/lrelease
+%%QT_BINDIR%%/lrelease-pro
 %%QT_BINDIR%%/lconvert
 %%QT_BINDIR%%/linguist
 %%QT_BINDIR%%/lprodump
