@@ -83,6 +83,7 @@
     SUBDIR += gtk-xfce-engine
     SUBDIR += gtk3-oxygen-engine
     SUBDIR += gtk3-unico-engine
+    SUBDIR += icewm-extra-themes
     SUBDIR += icon-naming-utils
     SUBDIR += icons-human-azul
     SUBDIR += icons-tango
@@ -136,6 +137,7 @@
     SUBDIR += plasma5-oxygen
     SUBDIR += plasma5-plasma-workspace-wallpapers
     SUBDIR += plata-theme
+    SUBDIR += pop-gtk-themes
     SUBDIR += qgnomeplatform
     SUBDIR += qt5-style-plugins
     SUBDIR += qtcurve

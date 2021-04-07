@@ -1,8 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	openvas
-DISTVERSION=	20.8.0
-PORTREVISION=	1
+DISTVERSION=	20.8.1
 DISTVERSIONPREFIX=	v
 CATEGORIES=	security
 
@@ -26,6 +25,7 @@ RUN_DEPENDS=	redis-server:databases/redis \
 		${PYTHON_PKGNAMEPREFIX}impacket>=0:net/py-impacket@${PY_FLAVOR}
 USE_GITHUB=	yes
 GH_ACCOUNT=	greenbone
+GH_PROJECT=	${PORTNAME}-scanner
 
 USES=		bison cmake gnome pkgconfig python:3.5+
 USE_GNOME=	glib20

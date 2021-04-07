@@ -84,6 +84,10 @@
     SUBDIR += backuppc-devel
     SUBDIR += backuppc4
     SUBDIR += backupuser
+    SUBDIR += bacula11-client
+    SUBDIR += bacula11-client-static
+    SUBDIR += bacula11-docs
+    SUBDIR += bacula11-server
     SUBDIR += bacula9-client
     SUBDIR += bacula9-client-static
     SUBDIR += bacula9-docs
@@ -141,6 +145,7 @@
     SUBDIR += byobu
     SUBDIR += catfish
     SUBDIR += cbsd
+    SUBDIR += cbsd-mq-router
     SUBDIR += ccd2iso
     SUBDIR += cciss_vol_status
     SUBDIR += ccze
@@ -358,6 +363,7 @@
     SUBDIR += flog
     SUBDIR += flowgger
     SUBDIR += fluent-bit
+    SUBDIR += fluxengine
     SUBDIR += fonteditfs
     SUBDIR += foremost
     SUBDIR += fortunelock
@@ -521,6 +527,7 @@
     SUBDIR += ipad_charge
     SUBDIR += ipdbtools
     SUBDIR += ipfs-go
+    SUBDIR += ipfs-go-fs-repo-migrations
     SUBDIR += ipget
     SUBDIR += ipmitool
     SUBDIR += ipsc
@@ -738,6 +745,7 @@
     SUBDIR += munin-master
     SUBDIR += munin-node
     SUBDIR += muse
+    SUBDIR += mxkill
     SUBDIR += mybashburn
     SUBDIR += myrescue
     SUBDIR += n98-magerun
@@ -817,6 +825,7 @@
     SUBDIR += p5-Filesys-DiskUsage
     SUBDIR += p5-Filesys-Statvfs
     SUBDIR += p5-Filesys-ZFS
+    SUBDIR += p5-Filesys-ZFS-Stat
     SUBDIR += p5-Fuse
     SUBDIR += p5-Fuse-Simple
     SUBDIR += p5-Giovanni
@@ -937,6 +946,7 @@
     SUBDIR += plasma5-ksysguard
     SUBDIR += plasma5-libksysguard
     SUBDIR += plasma5-plasma-disks
+    SUBDIR += plasma5-plasma-systemmonitor
     SUBDIR += plasma5-polkit-kde-agent-1
     SUBDIR += plasma5-powerdevil
     SUBDIR += plasma5-systemsettings
@@ -955,7 +965,6 @@
     SUBDIR += powermon
     SUBDIR += pp
     SUBDIR += pprotectd
-    SUBDIR += prelink
     SUBDIR += prips
     SUBDIR += procenv
     SUBDIR += procmap
@@ -1031,12 +1040,12 @@
     SUBDIR += py-pytsk
     SUBDIR += py-pywatchman
     SUBDIR += py-pyznap
+    SUBDIR += py-qmk
     SUBDIR += py-queuelib
     SUBDIR += py-ranger
     SUBDIR += py-rdiff-backup
     SUBDIR += py-resolve-march-native
     SUBDIR += py-salt
-    SUBDIR += py-salt-2019
     SUBDIR += py-scandir
     SUBDIR += py-scarab
     SUBDIR += py-supervisor
@@ -1115,9 +1124,11 @@
     SUBDIR += rubygem-capistrano-ext
     SUBDIR += rubygem-capistrano-harrow
     SUBDIR += rubygem-chef
+    SUBDIR += rubygem-chef15
     SUBDIR += rubygem-chef-api
     SUBDIR += rubygem-chef-bin
     SUBDIR += rubygem-chef-config
+    SUBDIR += rubygem-chef-config15
     SUBDIR += rubygem-chef-dk
     SUBDIR += rubygem-chef-telemetry
     SUBDIR += rubygem-chef-utils
@@ -1159,6 +1170,7 @@
     SUBDIR += rubygem-mothra
     SUBDIR += rubygem-murder
     SUBDIR += rubygem-ohai
+    SUBDIR += rubygem-ohai15
     SUBDIR += rubygem-parallel
     SUBDIR += rubygem-puppet_forge
     SUBDIR += rubygem-puppetfile-resolver
@@ -1198,6 +1210,7 @@
     SUBDIR += rundeck3
     SUBDIR += runit
     SUBDIR += runit-faster
+    SUBDIR += runj
     SUBDIR += runwhen
     SUBDIR += rw
     SUBDIR += s-tui
@@ -1227,6 +1240,7 @@
     SUBDIR += screenie
     SUBDIR += scterc
     SUBDIR += sd-agent
+    SUBDIR += sd-mux-ctrl
     SUBDIR += sdparm
     SUBDIR += seatd
     SUBDIR += seatools
@@ -1287,7 +1301,6 @@
     SUBDIR += symlinks
     SUBDIR += symon
     SUBDIR += synergy
-    SUBDIR += synergy-1
     SUBDIR += sysctlbyname-improved-kmod
     SUBDIR += sysctlinfo-kmod
     SUBDIR += sysgather
@@ -1379,6 +1392,7 @@
     SUBDIR += u-boot-orangepi-plus-2e
     SUBDIR += u-boot-orangepi-r1
     SUBDIR += u-boot-orangepi-zero
+    SUBDIR += u-boot-orangepi-zero-plus
     SUBDIR += u-boot-pandaboard
     SUBDIR += u-boot-pcduino3
     SUBDIR += u-boot-pine-h64
@@ -1416,7 +1430,6 @@
     SUBDIR += udfclient
     SUBDIR += uefi-edk2-bhyve
     SUBDIR += uefi-edk2-bhyve-csm
-    SUBDIR += uefi-edk2-bhyve-devel
     SUBDIR += uefi-edk2-qemu
     SUBDIR += ufetch
     SUBDIR += ufs_copy
@@ -1455,6 +1468,7 @@
     SUBDIR += vimpager
     SUBDIR += virt-what
     SUBDIR += virtualmin
+    SUBDIR += vivid
     SUBDIR += vm-bhyve
     SUBDIR += vmdktool
     SUBDIR += vmtouch

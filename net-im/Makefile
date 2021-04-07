@@ -61,6 +61,7 @@
     SUBDIR += libqmatrixclient
     SUBDIR += libqtelegram-ae
     SUBDIR += libquotient
+    SUBDIR += libsignal-client
     SUBDIR += libsignon-glib
     SUBDIR += libstrophe
     SUBDIR += licq
@@ -135,6 +136,7 @@
     SUBDIR += quaternion
     SUBDIR += qxmpp-qt5
     SUBDIR += ricochet
+    SUBDIR += rubygem-discordrb-webhooks
     SUBDIR += rubygem-discordrb-webhooks-blackst0ne
     SUBDIR += rubygem-hipchat
     SUBDIR += rubygem-lita

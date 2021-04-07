@@ -77,8 +77,8 @@ BINARY_ALIAS+=	python3=${PYTHON_CMD}
 BUNDLE_LIBS=	yes
 
 BUILD_DEPENDS+=	llvm${LLVM_DEFAULT}>0:devel/llvm${LLVM_DEFAULT} \
-				rust-cbindgen>=0.15.0:devel/rust-cbindgen \
-				${RUST_DEFAULT}>=1.50:lang/${RUST_DEFAULT} \
+				rust-cbindgen>=0.16.0:devel/rust-cbindgen \
+				${RUST_DEFAULT}>=1.51.0:lang/${RUST_DEFAULT} \
 				node:www/node
 LIB_DEPENDS+=	libdrm.so:graphics/libdrm
 MOZ_EXPORT+=	${CONFIGURE_ENV} \
@@ -241,7 +241,11 @@ MOZ_OPTIONS+=	--disable-libproxy
 .endif
 
 .if ${PORT_OPTIONS:MLTO}
+.if ${ARCH} == powerpc64le
+MOZ_OPTIONS+=	--enable-lto=thin
+.else
 MOZ_OPTIONS+=	--enable-lto=cross
+.endif
 .endif
 
 .if ${PORT_OPTIONS:MALSA}

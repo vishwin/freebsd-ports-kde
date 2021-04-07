@@ -2,8 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	ffmpeg
-PORTVERSION=	4.3.1
-PORTREVISION=	10
+PORTVERSION=	4.3.2
+PORTREVISION=	1
 PORTEPOCH=	1
 CATEGORIES=	multimedia audio net
 MASTER_SITES=	https://ffmpeg.org/releases/
@@ -627,10 +627,13 @@ DOC_FILES=	Changelog CREDITS INSTALL.md LICENSE.md MAINTAINERS \
 DOC_DOCFILES=	APIchanges *.txt
 PORTDOCS=	*
 
-.include <bsd.port.options.mk>
+.include <bsd.port.pre.mk>
 
-.if ${ARCH} == powerpc64 && ${PORT_OPTIONS:MLTO}
-USE_GCC=	yes
+.if ${ARCH} == powerpc64 && ${PORT_OPTIONS:MLTO} && ${CHOSEN_COMPILER_TYPE} == clang
+CPP=		${LOCALBASE}/bin/clang-cpp${LLVM_DEFAULT}
+CC=		${LOCALBASE}/bin/clang${LLVM_DEFAULT}
+BUILD_DEPENDS+=	${LOCALBASE}/bin/clang${LLVM_DEFAULT}:devel/llvm${LLVM_DEFAULT}
+LLD_UNSAFE=	yes
 .endif
 
 post-install:
@@ -639,4 +642,4 @@ post-install:
 	(cd ${WRKSRC}/doc && ${COPYTREE_SHARE} \
 		"${DOC_DOCFILES}" ${STAGEDIR}${DOCSDIR})
 
-.include <bsd.port.mk>
+.include <bsd.port.post.mk>

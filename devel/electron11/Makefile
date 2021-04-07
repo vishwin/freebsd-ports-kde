@@ -3,6 +3,7 @@
 PORTNAME=	electron
 DISTVERSIONPREFIX=	v
 DISTVERSION=	${ELECTRON_VER:S/-beta./.b/}
+PORTREVISION=	1
 CATEGORIES=	devel java
 MASTER_SITES=	https://commondatastorage.googleapis.com/chromium-browser-official/:chromium_official \
 		https://commondatastorage.googleapis.com/chromium-nodejs/:chromium_node \
@@ -63,7 +64,7 @@ USE_GITHUB=	yes
 GH_TAGNAME=	${DISTVERSIONPREFIX}${ELECTRON_VER}
 GH_TUPLE=	nodejs:node:v${NODE_VER}:node \
 		nodejs:nan:${NAN_VER}:nan
-USE_GL=		gl glesv2
+USE_GL=		gbm gl glesv2
 USE_GNOME=	atk cairo gdkpixbuf2 gtk30 libxml2 libxslt pango
 USE_JAVA=	yes
 JAVA_VERSION=	1.8
@@ -130,7 +131,7 @@ NODE_VER=			12.18.3
 # See ${WRKSRC}/electron/DEPS for NAN_VER
 NAN_VER=			2c4ee8a32a299eada3cd6e468bbd0a473bfea96d
 
-YARN_TIMESTAMP=	1612596580
+YARN_TIMESTAMP=	1613819499
 
 GN_ARGS+=		clang_use_chrome_plugins=false \
 			enable_hangout_services_extension=true \

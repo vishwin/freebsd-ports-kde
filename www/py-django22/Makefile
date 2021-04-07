@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	django
-PORTVERSION=	2.2.18
+PORTVERSION=	2.2.19
 CATEGORIES=	www python
 MASTER_SITES=	CHEESESHOP \
 		https://www.djangoproject.com/m/releases/${PORTVERSION}/
@@ -37,6 +37,9 @@ CONFLICTS_INSTALL=	${PYTHON_PKGNAMEPREFIX}django111 ${PYTHON_PKGNAMEPREFIX}djang
 			${PYTHON_PKGNAMEPREFIX}django31
 
 CPE_VENDOR=	djangoproject
+
+# Upstream archive contains files with UTF-8 names
+EXTRACT_CMD=	${SETENV} LC_ALL=en_US.UTF-8 /usr/bin/bsdtar
 
 OPTIONS_DEFINE=	DOCS HTMLDOCS
 OPTIONS_GROUP=	DATABASE
