@@ -1,4 +1,3 @@
-
 PORTNAME=	plasma-workspace
 DISTVERSION=	${KDE_PLASMA_VERSION}
 CATEGORIES=	x11 kde kde-plasma

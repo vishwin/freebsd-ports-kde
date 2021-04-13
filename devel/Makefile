@@ -1,4 +1,3 @@
-
     COMMENT = Development utilities
 
     SUBDIR += 9base
@@ -275,8 +274,6 @@
     SUBDIR += bugzilla50
     SUBDIR += build
     SUBDIR += buildstream
-    SUBDIR += buildtool
-    SUBDIR += buildtool-doc
     SUBDIR += bullet
     SUBDIR += busybee
     SUBDIR += byacc
@@ -726,7 +723,6 @@
     SUBDIR += gammaray
     SUBDIR += gauche-readline
     SUBDIR += gaul
-    SUBDIR += gb
     SUBDIR += gbump
     SUBDIR += gcc-arm-embedded
     SUBDIR += gcc-msp430-ti-toolchain
@@ -1633,7 +1629,6 @@
     SUBDIR += opengrok
     SUBDIR += openocd
     SUBDIR += openwince-include
-    SUBDIR += openzz
     SUBDIR += orc
     SUBDIR += osc
     SUBDIR += ossp-al
@@ -4485,6 +4480,7 @@
     SUBDIR += py-grpcio-tools
     SUBDIR += py-gs_api_client
     SUBDIR += py-gtfslib
+    SUBDIR += py-guppy3
     SUBDIR += py-gyp
     SUBDIR += py-hash_ring
     SUBDIR += py-heapdict
@@ -6705,6 +6701,7 @@
     SUBDIR += rubygem-useragent
     SUBDIR += rubygem-uuid
     SUBDIR += rubygem-uuidtools
+    SUBDIR += rubygem-valid
     SUBDIR += rubygem-validatable
     SUBDIR += rubygem-validate_email
     SUBDIR += rubygem-validate_url
@@ -6808,7 +6805,6 @@
     SUBDIR += sope2
     SUBDIR += sope4
     SUBDIR += sord
-    SUBDIR += sourcenav
     SUBDIR += sparc64-gcc
     SUBDIR += sparc64-xtoolchain-gcc
     SUBDIR += spark

@@ -1,4 +1,3 @@
-
     COMMENT = System utilities
 
     SUBDIR += 3dm
@@ -212,7 +211,6 @@
     SUBDIR += coreos-ct
     SUBDIR += coreutils
     SUBDIR += cpdup
-    SUBDIR += cpu
     SUBDIR += cpu-x
     SUBDIR += cpuburn
     SUBDIR += cpuid

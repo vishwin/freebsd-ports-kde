@@ -1,4 +1,3 @@
-
     COMMENT = Ports related to the World Wide Web
 
     SUBDIR += R-cran-RgoogleMaps
@@ -1555,6 +1554,7 @@
     SUBDIR += py-django22
     SUBDIR += py-django30
     SUBDIR += py-django31
+    SUBDIR += py-django32
     SUBDIR += py-django_compressor
     SUBDIR += py-djangocms-admin-style
     SUBDIR += py-djangoql

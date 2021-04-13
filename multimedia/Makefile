@@ -1,4 +1,3 @@
-
     COMMENT = Multimedia software
 
     SUBDIR += Bento4
@@ -208,6 +207,7 @@
     SUBDIR += libva-vdpau-driver
     SUBDIR += libvdpau
     SUBDIR += libvdpau-va-gl
+    SUBDIR += libvlcpp
     SUBDIR += libvpx
     SUBDIR += libx264
     SUBDIR += libxine
@@ -281,6 +281,7 @@
     SUBDIR += omxplayer
     SUBDIR += openh264
     SUBDIR += openshot
+    SUBDIR += opentoonz
     SUBDIR += oscam
     SUBDIR += p5-Audio-M4P
     SUBDIR += p5-FFmpeg-Command

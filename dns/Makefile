@@ -1,4 +1,3 @@
-
     COMMENT = Domain Name Service tools
 
     SUBDIR += adns
@@ -13,7 +12,6 @@
     SUBDIR += bindgraph
     SUBDIR += bundy
     SUBDIR += c-ares
-    SUBDIR += checkdns
     SUBDIR += cli53
     SUBDIR += coredns
     SUBDIR += credns
@@ -46,7 +44,6 @@
     SUBDIR += dnshistory
     SUBDIR += dnsjava
     SUBDIR += dnsmasq
-    SUBDIR += dnsmasq-devel
     SUBDIR += dnsmax-perl
     SUBDIR += dnsproxy
     SUBDIR += dnsrecon
@@ -82,7 +79,6 @@
     SUBDIR += idnkit
     SUBDIR += idnkit2
     SUBDIR += inadyn
-    SUBDIR += inadyn-mt
     SUBDIR += ipcheck
     SUBDIR += ironsides
     SUBDIR += kadnode

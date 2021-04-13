@@ -1,4 +1,3 @@
-
     COMMENT = Biology
 
     SUBDIR += abyss
@@ -53,7 +52,6 @@
     SUBDIR += gmap
     SUBDIR += gperiodic
     SUBDIR += graphlan
-    SUBDIR += grappa
     SUBDIR += groopm
     SUBDIR += haplohseq
     SUBDIR += hhsuite
@@ -68,7 +66,6 @@
     SUBDIR += jalview
     SUBDIR += jellyfish
     SUBDIR += kallisto
-    SUBDIR += lagan
     SUBDIR += lamarc
     SUBDIR += libbigwig
     SUBDIR += libgtextutils
@@ -87,6 +84,7 @@
     SUBDIR += ncbi-blast+
     SUBDIR += ncbi-cxx-toolkit
     SUBDIR += ncbi-toolkit
+    SUBDIR += ncbi-vdb
     SUBDIR += ngs-sdk
     SUBDIR += p5-AcePerl
     SUBDIR += p5-Bio-ASN1-EntrezGene
@@ -115,7 +113,6 @@
     SUBDIR += pear-merger
     SUBDIR += phrap
     SUBDIR += phred
-    SUBDIR += phylip
     SUBDIR += phyml
     SUBDIR += picard-tools
     SUBDIR += plink

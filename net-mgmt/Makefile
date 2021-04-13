@@ -1,4 +1,3 @@
-
     COMMENT = Network management tools
 
     SUBDIR += 2ping
@@ -53,6 +52,7 @@
     SUBDIR += coovachilli
     SUBDIR += cowpatty
     SUBDIR += cricket
+    SUBDIR += crmsh
     SUBDIR += darkstat
     SUBDIR += devmon
     SUBDIR += devmon-templates
@@ -375,7 +375,9 @@
     SUBDIR += unifi-poller
     SUBDIR += unifi5
     SUBDIR += unifi6
+    SUBDIR += victoria-metrics
     SUBDIR += virt-viewer
+    SUBDIR += vmutils
     SUBDIR += wdiag
     SUBDIR += whatmask
     SUBDIR += wifimgr
