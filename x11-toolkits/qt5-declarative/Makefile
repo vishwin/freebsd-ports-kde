@@ -21,11 +21,19 @@ QT_BINARIES=	yes
 QT_DEFINES=	ACCESSIBILITY
 QT_CONFIG=	accessibility accessibility-atspi-bridge
 
+TOOLS=		qml qmlcachegen qmleasing qmlformat qmlimportscanner qmllint qmlmin \
+		qmlplugindump qmlpreview qmlprofiler qmlscene qmltestrunner qmltyperegistrar
 post-patch:
 # qtdeclarative.pro wants to run python, replace that with PYTHON_CMD
 	${REINPLACE_CMD} '/py_out/s#python#${PYTHON_CMD}#g' \
 		${WRKSRC}/qtdeclarative.pro
 	${REINPLACE_CMD} 's,python,${PYTHON_CMD},g' \
 		${WRKSRC}/src/3rdparty/masm/masm.pri
+
+post-install:
+
+.for t in ${TOOLS}
+	${RLN} ${STAGEDIR}${QT_BINDIR}/${t} ${STAGEDIR}${PREFIX}/bin/${t}5
+.endfor
 
 .include <bsd.port.mk>

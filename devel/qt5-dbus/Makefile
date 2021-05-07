@@ -41,6 +41,7 @@ post-install:
 	@cd ${WRKSRC}/src/tools/${t} && \
 		${SETENV} ${MAKE_ENV} ${MAKE} ${MAKE_FLAGS} ${MAKEFILE} \
 		${MAKE_ARGS} ${INSTALL_TARGET}
+	${RLN} ${STAGEDIR}${QT_BINDIR}/${t} ${STAGEDIR}${PREFIX}/bin/${t}5
 .endfor
 
 .include <bsd.port.mk>

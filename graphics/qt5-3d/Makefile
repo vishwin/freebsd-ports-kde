@@ -15,4 +15,7 @@ USE_QT=		concurrent core declarative gui network buildtools_build
 
 QT_BINARIES=	yes
 
+post-install:
+	${RLN} ${STAGEDIR}${QT_BINDIR}/qgltf ${STAGEDIR}${PREFIX}/bin/qgltf5
+
 .include <bsd.port.mk>

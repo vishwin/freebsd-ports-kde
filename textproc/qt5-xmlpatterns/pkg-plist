@@ -412,8 +412,10 @@
 %%QT_LIBDIR%%/libQt5XmlPatterns.so.%%FULLVER%%
 %%DEBUG%%%%QT_LIBDIR%%/libQt5XmlPatterns.so.%%FULLVER%%.debug
 %%QT_BINDIR%%/xmlpatterns
+bin/xmlpatterns5
 %%DEBUG%%%%QT_BINDIR%%/xmlpatterns.debug
 %%QT_BINDIR%%/xmlpatternsvalidator
+bin/xmlpatternsvalidator5
 %%DEBUG%%%%QT_BINDIR%%/xmlpatternsvalidator.debug
 %%QT_MKSPECDIR%%/modules/qt_lib_xmlpatterns.pri
 %%QT_MKSPECDIR%%/modules/qt_lib_xmlpatterns_private.pri

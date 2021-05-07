@@ -1,3 +1,4 @@
 %%QT_BINDIR%%/qdbusviewer
+bin/qdbusviewer5
 %%DEBUG%%%%QT_BINDIR%%/qdbusviewer.debug
 share/pixmaps/qdbusviewer-qt5.png

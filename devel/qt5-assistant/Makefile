@@ -25,5 +25,6 @@ _QT5_ADDITIONAL_LINK=	help
 post-install:
 	${INSTALL_DATA} ${INSTALL_WRKSRC}/images/assistant-128.png \
 		${STAGEDIR}${PREFIX}/share/pixmaps/assistant-qt5.png
+	${RLN} ${STAGEDIR}${QT_BINDIR}/${PORTNAME} ${STAGEDIR}${PREFIX}/bin/${PORTNAME}5
 
 .include <bsd.port.mk>

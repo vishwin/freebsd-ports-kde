@@ -110,5 +110,6 @@ post-install:
 		${SETENV} ${MAKE_ENV} ${MAKE} ${MAKE_FLAGS} ${MAKEFILE} \
 		${MAKE_ARGS} ${INSTALL_TARGET}
 .endfor
+	${RLN} ${STAGEDIR}${QT_BINDIR}/qvkgen ${STAGEDIR}${PREFIX}/bin/qvkgen5
 
 .include <bsd.port.mk>

@@ -12,4 +12,7 @@ USE_QT=		core declarative network buildtools_build
 
 QT_BINARIES=	yes
 
+post-install:
+	${RLN} ${STAGEDIR}${QT_BINDIR}/qscxmlc ${STAGEDIR}${PREFIX}/bin/qscxmlc5
+
 .include <bsd.port.mk>

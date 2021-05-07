@@ -310,6 +310,7 @@
 %%QT_CMAKEDIR%%/Qt5WaylandCompositor/Qt5WaylandCompositor_ShmServerBufferIntegrationPlugin.cmake
 %%QT_CMAKEDIR%%/Qt5WaylandCompositor/Qt5WaylandCompositor_VulkanServerBufferIntegrationPlugin.cmake
 %%QT_BINDIR%%/qtwaylandscanner
+bin/qtwaylandscanner5
 %%DEBUG%%%%QT_BINDIR%%/qtwaylandscanner.debug
 %%QT_LIBDIR%%/libQt5WaylandClient.prl
 %%QT_LIBDIR%%/libQt5WaylandClient.so

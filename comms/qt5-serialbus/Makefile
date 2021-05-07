@@ -11,4 +11,7 @@ USES=		compiler:c++11-lib qmake qt-dist:5,serialbus
 USE_QT=		core network serialport buildtools_build
 QT_BINARIES=	yes
 
+post-install:
+	${RLN} ${STAGEDIR}${QT_BINDIR}/canbusutil ${STAGEDIR}${PREFIX}/bin/canbusutil5
+
 .include <bsd.port.mk>

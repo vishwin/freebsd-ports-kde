@@ -22,5 +22,6 @@ QT_BINARIES=	yes
 post-install:
 	${INSTALL_DATA} ${BUILD_WRKSRC}/images/qdbusviewer-128.png \
 		${STAGEDIR}${PREFIX}/share/pixmaps/qdbusviewer-qt5.png
+	${RLN} ${STAGEDIR}${QT_BINDIR}/${PORTNAME} ${STAGEDIR}${PREFIX}/bin/${PORTNAME}5
 
 .include <bsd.port.mk>

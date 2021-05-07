@@ -77,4 +77,6 @@ post-install:
 	${REINPLACE_CMD} "/#define QT_NO_/d" ${WRKDIR}/qconfig.h
 	${MV} ${WRKDIR}/qconfig.h ${STAGEDIR}${PREFIX}/${QT_INCDIR_REL}/QtCore/qconfig.h
 
+	${RLN} ${STAGEDIR}${QT_BINDIR}/qlalr ${STAGEDIR}${PREFIX}/bin/qlalr5
+
 .include <bsd.port.post.mk>

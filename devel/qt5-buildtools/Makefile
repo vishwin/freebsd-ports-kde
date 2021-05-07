@@ -39,5 +39,8 @@ post-install:
 .endfor
 	${INSTALL_SCRIPT} ${WRKSRC}/bin/syncqt.pl \
 		${STAGEDIR}${PREFIX}/${QT_BINDIR_REL}/syncqt.pl
+	${RLN} ${STAGEDIR}${QT_BINDIR}/syncqt.pl ${STAGEDIR}${PREFIX}/bin/syncqt5.pl
+	${RLN} ${STAGEDIR}${QT_BINDIR}/moc ${STAGEDIR}${PREFIX}/bin/moc5
+	${RLN} ${STAGEDIR}${QT_BINDIR}/rcc ${STAGEDIR}${PREFIX}/bin/rcc5
 
 .include <bsd.port.mk>

@@ -188,8 +188,10 @@
 %%QT_CMAKEDIR%%/Qt5Quick3DUtils/Qt5Quick3DUtilsConfig.cmake
 %%QT_CMAKEDIR%%/Qt5Quick3DUtils/Qt5Quick3DUtilsConfigVersion.cmake
 %%QT_BINDIR%%/balsam
+bin/balsam5
 %%DEBUG%%%%QT_BINDIR%%/balsam.debug
 %%QT_BINDIR%%/meshdebug
+bin/meshdebug5
 %%DEBUG%%%%QT_BINDIR%%/meshdebug.debug
 %%QT_LIBDIR%%/libQt5Quick3D.prl
 %%QT_LIBDIR%%/libQt5Quick3D.so

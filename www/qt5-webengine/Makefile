@@ -154,4 +154,7 @@ pre-configure:
 # Rerun syncqt.pl -- otherwise the resulting package misses some forwarding headers.
 	cd ${WRKSRC} && ${QT_BINDIR}/syncqt.pl -version ${QT5_VERSION}
 
+post-install:
+	${RLN} ${STAGEDIR}${QT_BINDIR}/qwebengine_convert_dict ${STAGEDIR}${PREFIX}/bin/qwebengine_convert_dict5
+
 .include <bsd.port.post.mk>

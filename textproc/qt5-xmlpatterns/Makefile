@@ -11,4 +11,8 @@ USE_QT=		core declarative network buildtools_build
 
 QT_BINARIES=	yes
 
+post-install:
+	${RLN} ${STAGEDIR}${QT_BINDIR}/${PORTNAME} ${STAGEDIR}${PREFIX}/bin/${PORTNAME}5
+	${RLN} ${STAGEDIR}${QT_BINDIR}/${PORTNAME}validator ${STAGEDIR}${PREFIX}/bin/${PORTNAME}validator5
+
 .include <bsd.port.mk>

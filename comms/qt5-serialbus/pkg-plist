@@ -1,3 +1,4 @@
+bin/canbusutil5
 %%QT_BINDIR%%/canbusutil
 %%DEBUG%%%%QT_BINDIR%%/canbusutil.debug
 %%QT_INCDIR%%/QtSerialBus/%%FULLVER%%/QtSerialBus/private/qcanbusdevice_p.h
