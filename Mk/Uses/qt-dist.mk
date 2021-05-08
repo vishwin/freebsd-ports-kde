@@ -204,15 +204,6 @@ QMAKE_ARGS+=		QT_CONFIG+="${QT_CONFIG:N-*:O:u}"
 QMAKE_ARGS+=		QT_CONFIG-="${QT_CONFIG:M-*:O:u:C/^-//}"
 .  endif
 
-# Add a RUN_DEPENDS on misc/qtchooser to select the binaries.
-# The binaries of both supported Qt versions are installed to
-# ${LOCALBASE}/lib/qt${_QT_VER}/bin. The port misc/qtchooser installs
-# wrapper binaries into ${LOCALBASE}/bin, and chooses the correct
-# one depending on the value of QT_SELECT (which we pass to both
-# CONFIGURE_ENV and MAKE_ENV). Therefore make all QT_DIST ports
-# RUN_DEPEND on it.
-RUN_DEPENDS+=		qtchooser:misc/qtchooser
-
 PLIST_SUB+=		SHORTVER=${DISTVERSION:R} \
 			FULLVER=${DISTVERSION:C/-.*//}
 
@@ -353,11 +344,9 @@ _sub_need_remove=	\#\#
 _sub_need_add=		\#\#
 _sub_need_remove=	
 .    endif
-# Handle misc/qtchooser wrapper installation and deinstallation
 # If a port installs Qt version-specific binaries (e.g. "designer" which 
 # existed as a Qt4 application and exists as a Qt5 application and will 
-# probably be a Qt6 application) which should have a qtchooser-based wrapper, 
-# the port should set `QT_BINARIES=yes`.
+# probably be a Qt6 application) the port should set `QT_BINARIES=yes`.
 .    if defined(QT_BINARIES)
 _sub_need_bin=
 .    else
