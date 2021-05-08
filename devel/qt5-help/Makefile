@@ -13,9 +13,4 @@ USE_QT=		core gui network sql widgets \
 
 QT_BINARIES=	yes
 
-post-install:
-.for t in qcollectiongenerator qhelpgenerator
-	${RLN} ${STAGEDIR}${QT_BINDIR}/${t} ${STAGEDIR}${PREFIX}/bin/${t}5
-.endfor
-
 .include <bsd.port.mk>

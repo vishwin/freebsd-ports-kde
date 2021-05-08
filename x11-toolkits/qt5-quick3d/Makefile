@@ -11,8 +11,6 @@ USES=		compiler:c++11-lang qmake qt-dist:5
 USE_QT=		core declarative gui network opengl \
 		buildtools_build
 
-post-install:
-	${RLN} ${STAGEDIR}${QT_BINDIR}/balsam ${STAGEDIR}${PREFIX}/bin/balsam5
-	${RLN} ${STAGEDIR}${QT_BINDIR}/meshdebug ${STAGEDIR}${PREFIX}/bin/meshdebug5
+QT_BINARIES=	yes
 
 .include <bsd.port.mk>

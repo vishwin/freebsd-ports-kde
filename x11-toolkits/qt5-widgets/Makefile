@@ -68,6 +68,4 @@ post-install:
 	${INSTALL_DATA} ${BUILD_WRKSRC}/dialogs/images/qtlogo-64.png \
 		${STAGEDIR}${PREFIX}/share/pixmaps/qt5logo.png
 
-	${RLN} ${STAGEDIR}${QT_BINDIR}/uic ${STAGEDIR}${PREFIX}/bin/uic5
-
 .include <bsd.port.mk>

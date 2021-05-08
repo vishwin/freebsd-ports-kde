@@ -415,5 +415,14 @@ qt-post-install:
 	@${ECHO_CMD} "${PREFIX}/${QT_MKSPECDIR_REL}/modules/qt_config_${QT_MODNAME}.pri" \
 		>> ${TMPPLIST}
 .    endif # ${QT_CONFIG:N-*}
+post-stage:
+.    if defined(QT_BINARIES)
+	@${MKDIR} ${STAGEDIR}${QT_BINDIR}
+	( cd ${STAGEDIR}${QT_BINDIR} && for t in `${LS}`; do \
+		if [ "$$t" != "syncqt.pl" ]; then \
+			${RLN} ${STAGEDIR}${QT_BINDIR}/$$t ${STAGEDIR}${PREFIX}/bin/"$$t"5; \
+			fi \
+	done)
+.    endif # defined(QT_BINARIES)
 .  endif # M5
 .endif # defined(_QT_DIST_MK_INCLUDED)

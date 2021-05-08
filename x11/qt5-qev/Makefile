@@ -11,7 +11,4 @@ USE_QT=		core widgets
 
 QT_BINARIES=	yes
 
-post-install:
-	${RLN} ${STAGEDIR}${QT_BINDIR}/${PORTNAME} ${STAGEDIR}${PREFIX}/bin/${PORTNAME}5
-
 .include <bsd.port.mk>

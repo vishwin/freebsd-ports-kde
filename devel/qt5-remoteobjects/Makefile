@@ -14,7 +14,4 @@ USE_QT=		core declarative network \
 
 QT_BINARIES=	yes
 
-post-install:
-	${RLN} ${STAGEDIR}${QT_BINDIR}/repc ${STAGEDIR}${PREFIX}/bin/repc5
-
 .include <bsd.port.mk>

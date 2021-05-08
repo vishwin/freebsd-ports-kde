@@ -1,4 +1,5 @@
 %%QT_BINDIR%%/qdoc
+bin/qdoc5
 %%DEBUG%%%%QT_BINDIR%%/qdoc.debug
 %%QT_CMAKEDIR%%/Qt5DocTools/Qt5DocToolsConfig.cmake
 %%QT_CMAKEDIR%%/Qt5DocTools/Qt5DocToolsConfigVersion.cmake

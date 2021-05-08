@@ -24,6 +24,5 @@ QT_BINARIES=	yes
 post-install:
 	${INSTALL_DATA} ${BUILD_WRKSRC}/images/icons/linguist-128-32.png \
 		${STAGEDIR}${PREFIX}/share/pixmaps/linguist-qt5.png
-	${RLN} ${STAGEDIR}${QT_BINDIR}/${PORTNAME} ${STAGEDIR}${PREFIX}/bin/${PORTNAME}5
 
 .include <bsd.port.mk>

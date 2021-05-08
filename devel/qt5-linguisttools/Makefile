@@ -22,12 +22,6 @@ post-install:
 .for f in lrelease lupdate
 	${INSTALL_MAN} ${WRKSRC}/src/linguist/${f}/${f}.1 \
 		${STAGEDIR}${MANPREFIX}/man/man1
-	${RLN} ${STAGEDIR}${QT_BINDIR}/${f} ${STAGEDIR}${PREFIX}/bin/${f}5
-	${RLN} ${STAGEDIR}${QT_BINDIR}/${f} ${STAGEDIR}${PREFIX}/bin/${f}-pro5
-.endfor
-
-.for f in lconvert lprodump
-	${RLN} ${STAGEDIR}${QT_BINDIR}/${f} ${STAGEDIR}${PREFIX}/bin/${f}5
 .endfor
 
 .include <bsd.port.mk>

@@ -24,7 +24,4 @@ USE_XORG=       x11 xcomposite
 
 QT_BINARIES=	yes
 
-post-install:
-	${RLN} ${STAGEDIR}${QT_BINDIR}/qtwaylandscanner ${STAGEDIR}${PREFIX}/bin/qtwaylandscanner5
-
 .include <bsd.port.mk>

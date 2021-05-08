@@ -40,6 +40,5 @@ post-install:
 	# The generated .pc file refers to a nonexistent other .pc file
 	${REINPLACE_CMD} -e '/^Requires/s/Qt5UiPlugin//' \
 		${STAGEDIR}${PREFIX}/libdata/pkgconfig/Qt5Designer.pc
-	${RLN} ${STAGEDIR}${QT_BINDIR}/${PORTNAME} ${STAGEDIR}${PREFIX}/bin/${PORTNAME}5
 
 .include <bsd.port.mk>
