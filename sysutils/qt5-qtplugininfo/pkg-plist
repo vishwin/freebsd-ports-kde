@@ -1,3 +1,4 @@
 %%QT_BINDIR%%/qtplugininfo
 bin/qtplugininfo5
+bin/qtplugininfo-qt5
 %%DEBUG%%%%QT_BINDIR%%/qtplugininfo.debug

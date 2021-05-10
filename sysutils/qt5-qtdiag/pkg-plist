@@ -1,3 +1,4 @@
 %%QT_BINDIR%%/qtdiag
 bin/qtdiag5
+bin/qtdiag-qt5
 %%DEBUG%%%%QT_BINDIR%%/qtdiag.debug

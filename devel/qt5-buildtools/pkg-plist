@@ -1,7 +1,9 @@
 %%QT_BINDIR%%/moc
 bin/moc5
+bin/moc-qt5
 %%DEBUG%%%%QT_BINDIR%%/moc.debug
 bin/rcc5
+bin/rcc-qt5
 %%QT_BINDIR%%/rcc
 %%DEBUG%%%%QT_BINDIR%%/rcc.debug
 %%QT_BINDIR%%/syncqt.pl

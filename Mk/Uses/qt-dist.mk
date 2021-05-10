@@ -410,6 +410,7 @@ post-stage:
 	( cd ${STAGEDIR}${QT_BINDIR} && for t in `${LS}`; do \
 		if [ "$$t" != "syncqt.pl" ]; then \
 			${RLN} ${STAGEDIR}${QT_BINDIR}/$$t ${STAGEDIR}${PREFIX}/bin/"$$t"5; \
+			${RLN} ${STAGEDIR}${QT_BINDIR}/$$t ${STAGEDIR}${PREFIX}/bin/"$$t"-qt5; \
 		fi \
 	done)
 .    endif # defined(QT_BINARIES)
