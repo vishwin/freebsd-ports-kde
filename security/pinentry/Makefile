@@ -102,6 +102,7 @@ USE_QT=		core gui widgets buildtools_build
 PLIST_FILES=	bin/pinentry-qt5
 CONFIGURE_ARGS+=--enable-pinentry-qt5 \
 		--program-suffix=5
+BINARY_ALIAS=	moc=moc5
 .else
 CONFIGURE_ARGS+=--disable-pinentry-qt --disable-pinentry-qt5
 .endif
