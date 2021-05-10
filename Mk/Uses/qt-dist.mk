@@ -172,7 +172,7 @@ _EXTRA_PATCHES_QT5=	${PORTSDIR}/devel/${_QT_RELNAME}/files/extrapatch-mkspecs_fe
 			${PORTSDIR}/devel/${_QT_RELNAME}/files/extrapatch-mkspecs_features_qt__module.prf \
 			${PORTSDIR}/devel/${_QT_RELNAME}/files/extrapatch-mkspecs_common_bsd_bsd.conf \
 			${PORTSDIR}/devel/${_QT_RELNAME}/files/extrapatch-mkspecs_freebsd-clang_qmake.conf
-.        if ${ARCH:Mmips*} || (${ARCH:Mpowerpc*} && !exists(/usr/bin/clang)) || ${ARCH} == sparc64
+.    if ${ARCH:Mmips*} || (${ARCH:Mpowerpc*} && !exists(/usr/bin/clang)) || ${ARCH} == sparc64
 _EXTRA_PATCHES_QT5+=	${PORTSDIR}/devel/${_QT_RELNAME}/files/extra-patch-mkspecs_common_g++-base.conf \
 			${PORTSDIR}/devel/${_QT_RELNAME}/files/extra-patch-mkspecs_common_gcc-base.conf \
 			${PORTSDIR}/devel/${_QT_RELNAME}/files/extrapatch-mkspecs_freebsd-g++_qmake.conf
@@ -239,7 +239,7 @@ _QT_TOOLS+=		${UIC}
 _QT5_BASE=		core dbus gui network sql widgets
 _QT5_ADDITIONAL_LINK?=	# Ensure definition
 
-.if ${_QT_VER:M5}
+.      if ${_QT_VER:M5}
 post-patch: gcc-post-patch
 gcc-post-patch:
 	${REINPLACE_CMD} 's|%%LOCALBASE%%|${LOCALBASE}|g' \
@@ -250,7 +250,7 @@ gcc-post-patch:
 		${WRKSRC}/mkspecs/common/g++-base.conf \
 		${WRKSRC}/mkspecs/common/bsd/bsd.conf \
 		${WRKSRC}/mkspecs/freebsd-g++/qmake.conf
-.endif
+.      endif
 
 pre-configure: qtbase-pre-configure
 qtbase-pre-configure:
@@ -410,7 +410,7 @@ post-stage:
 	( cd ${STAGEDIR}${QT_BINDIR} && for t in `${LS}`; do \
 		if [ "$$t" != "syncqt.pl" ]; then \
 			${RLN} ${STAGEDIR}${QT_BINDIR}/$$t ${STAGEDIR}${PREFIX}/bin/"$$t"5; \
-			fi \
+		fi \
 	done)
 .    endif # defined(QT_BINARIES)
 .  endif # M5
