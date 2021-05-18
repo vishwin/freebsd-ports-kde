@@ -165,8 +165,6 @@
 %%QT_CMAKEDIR%%/Qt5WebEngineWidgets/Qt5WebEngineWidgetsConfig.cmake
 %%QT_CMAKEDIR%%/Qt5WebEngineWidgets/Qt5WebEngineWidgetsConfigVersion.cmake
 %%QT_BINDIR%%/qwebengine_convert_dict
-bin/qwebengine_convert_dict5
-bin/qwebengine_convert_dict-qt5
 @comment %%DEBUG%%%%QT_BINDIR%%/qwebengine_convert_dict.debug
 %%QT_LIBDIR%%/libQt5Pdf.prl
 %%QT_LIBDIR%%/libQt5Pdf.so

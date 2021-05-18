@@ -30,10 +30,4 @@ post-patch:
 	${REINPLACE_CMD} 's,python,${PYTHON_CMD},g' \
 		${WRKSRC}/src/3rdparty/masm/masm.pri
 
-post-install:
-
-.for t in ${TOOLS}
-	${RLN} ${STAGEDIR}${QT_BINDIR}/${t} ${STAGEDIR}${PREFIX}/bin/${t}5
-.endfor
-
 .include <bsd.port.mk>

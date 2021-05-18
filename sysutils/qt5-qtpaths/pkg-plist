@@ -1,4 +1,2 @@
 %%QT_BINDIR%%/qtpaths
-bin/qtpaths5
-bin/qtpaths-qt5
 %%DEBUG%%%%QT_BINDIR%%/qtpaths.debug

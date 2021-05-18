@@ -75,12 +75,8 @@
 %%QT_LIBDIR%%/libQt5DBus.so.%%FULLVER%%
 %%DEBUG%%%%QT_LIBDIR%%/libQt5DBus.so.%%FULLVER%%.debug
 %%QT_BINDIR%%/qdbuscpp2xml
-bin/qdbuscpp2xml5
-bin/qdbuscpp2xml-qt5
 %%DEBUG%%%%QT_BINDIR%%/qdbuscpp2xml.debug
 %%QT_BINDIR%%/qdbusxml2cpp
-bin/qdbusxml2cpp5
-bin/qdbusxml2cpp-qt5
 %%DEBUG%%%%QT_BINDIR%%/qdbusxml2cpp.debug
 %%QT_MKSPECDIR%%/modules/qt_lib_dbus.pri
 %%QT_MKSPECDIR%%/modules/qt_lib_dbus_private.pri

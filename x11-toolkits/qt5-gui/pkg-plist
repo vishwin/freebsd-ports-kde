@@ -853,8 +853,6 @@
 %%X11%%%%QT_CMAKEDIR%%/Qt5XkbCommonSupport/Qt5XkbCommonSupportConfig.cmake
 %%X11%%%%QT_CMAKEDIR%%/Qt5XkbCommonSupport/Qt5XkbCommonSupportConfigVersion.cmake
 %%QT_BINDIR%%/qvkgen
-bin/qvkgen5
-bin/qvkgen-qt5
 %%DEBUG%%%%QT_BINDIR%%/qvkgen.debug
 %%X11%%%%QT_LIBDIR%%/libQt5AccessibilitySupport.a
 %%X11%%%%QT_LIBDIR%%/libQt5AccessibilitySupport.prl

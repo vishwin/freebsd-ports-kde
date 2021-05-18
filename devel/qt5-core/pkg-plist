@@ -748,8 +748,6 @@
 %%QT_CMAKEDIR%%/Qt5Core/Qt5CoreConfigVersion.cmake
 %%QT_CMAKEDIR%%/Qt5Core/Qt5CoreMacros.cmake
 %%QT_BINDIR%%/qlalr
-bin/qlalr5
-bin/qlalr-qt5
 %%DEBUG%%%%QT_BINDIR%%/qlalr.debug
 %%QT_LIBDIR%%/libQt5Core.prl
 %%QT_LIBDIR%%/libQt5Core.so

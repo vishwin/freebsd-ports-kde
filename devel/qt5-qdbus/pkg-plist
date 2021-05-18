@@ -1,4 +1,2 @@
 %%QT_BINDIR%%/qdbus
-bin/qdbus5
-bin/qdbus-qt5
 %%DEBUG%%%%QT_BINDIR%%/qdbus.debug

@@ -64,8 +64,6 @@
 %%QT_CMAKEDIR%%/Qt5RepParser/Qt5RepParserConfig.cmake
 %%QT_CMAKEDIR%%/Qt5RepParser/Qt5RepParserConfigVersion.cmake
 %%QT_BINDIR%%/repc
-bin/repc5
-bin/repc-qt5
 %%DEBUG%%%%QT_BINDIR%%/repc.debug
 %%QT_LIBDIR%%/libQt5RemoteObjects.prl
 %%QT_LIBDIR%%/libQt5RemoteObjects.so

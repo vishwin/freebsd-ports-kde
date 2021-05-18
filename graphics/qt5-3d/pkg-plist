@@ -1192,8 +1192,6 @@
 %%QT_CMAKEDIR%%/Qt53DRender/Qt53DRender_OpenGLRendererPlugin.cmake
 %%QT_CMAKEDIR%%/Qt53DRender/Qt53DRender_Scene2DPlugin.cmake
 %%QT_BINDIR%%/qgltf
-bin/qgltf5
-bin/qgltf-qt5
 %%DEBUG%%%%QT_BINDIR%%/qgltf.debug
 %%QT_LIBDIR%%/libQt53DAnimation.prl
 %%QT_LIBDIR%%/libQt53DAnimation.so
