@@ -22,6 +22,9 @@ USE_GL=		gl
 USE_GNOME=	atkmm gtk20 gtkmm24 libsigc++20
 USE_LDCONFIG=	yes
 
+# Makefile directly calls 'qmake' binary. Give it such.
+BINARY_ALIAS=	qmake=${QMAKE}
+
 post-patch:
 	@${REINPLACE_CMD} -e ' \
 		s|PREFIX = |PREFIX ?= |; \
