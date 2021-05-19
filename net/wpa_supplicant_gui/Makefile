@@ -36,6 +36,10 @@ OPTIONS_DEFINE=	DEBUG NLS
 
 NLS_PLIST_FILES=	${DATADIR_REL}/translations/wpa_gui_de.qm
 
+# The makefile directly calls 'qmake', give it such.
+BINARY_ALIAS=	qmake=${QMAKE} \
+		lrelease=${LRELEASE}
+
 post-patch:
 	@${REINPLACE_CMD} -e \
 		'/^Exec/s|=.*|=${PREFIX}/sbin/wpa_gui|' \
