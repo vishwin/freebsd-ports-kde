@@ -34,6 +34,8 @@ WRKSRC=		${WRKDIR}/${PORTNAME}${PORTVERSION:R}-${PORTVERSION}
 WEBPLUGIN_DIR=		${PREFIX}/lib/djview4/plugins
 WEBPLUGIN_FILES=	nsdejavu.so
 
+BINARY_ALIAS=	qmake=${QMAKE}
+
 post-patch:
 # Use prebuilt icons, without using conversion tool
 	@${REINPLACE_CMD} -e 's/conversion_tool=[[:alpha:]]*/conversion_tool=no/' \
