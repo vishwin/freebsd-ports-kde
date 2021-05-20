@@ -17,6 +17,8 @@ NO_ARCH=	yes
 
 DATADIR=	${PREFIX}/share/smplayer
 
+BINARY_ALIAS=	rcc=${RCC}
+
 post-patch:
 	@${REINPLACE_CMD} -e 's|PREFIX=/usr/local|PREFIX=${PREFIX}|g' \
 		${WRKSRC}/Makefile
