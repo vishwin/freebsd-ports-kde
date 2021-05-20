@@ -32,6 +32,8 @@ OPTIONS_DEFINE=	DOCS EXAMPLES
 PORTDOCS=	*
 PORTEXAMPLES=	*
 
+BINARY_ALIAS=	qmake=${QMAKE}
+
 post-extract:
 	@${RM} -r ${WRKSRC}/src/midisharelight
 
