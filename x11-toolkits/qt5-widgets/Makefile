@@ -67,5 +67,6 @@ post-install:
 .endfor
 	${INSTALL_DATA} ${BUILD_WRKSRC}/dialogs/images/qtlogo-64.png \
 		${STAGEDIR}${PREFIX}/share/pixmaps/qt5logo.png
+	${RLN} ${STAGEDIR}${QT_BINDIR}/uic ${STAGEDIR}${PREFIX}/bin/uic-qt5
 
 .include <bsd.port.mk>
