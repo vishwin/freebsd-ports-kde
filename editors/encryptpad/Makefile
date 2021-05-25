@@ -23,7 +23,8 @@ GH_PROJECT=	EncryptPad
 
 USE_GL=		gl
 USE_QT=		core gui widgets buildtools_build qmake_build
-BINARY_ALIAS=	python=${PYTHON_CMD}
+BINARY_ALIAS=	python=${PYTHON_CMD} \
+		qmake=${QMAKE}
 
 PORTDOCS=	*
 
