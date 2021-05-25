@@ -65,9 +65,12 @@ CONFIGURE_ENV=	GPERF="${LOCALBASE}/bin/gperf" \
 		JAVA_HOME=${JAVA_HOME} \
 		MAKEINFO=${LOCALBASE}/bin/makeinfo \
 		MKINFO=${LOCALBASE}/bin/makeinfo \
-		MOC_QTVER=${LOCALBASE}/bin/moc \
-		UIC_QTVER=${LOCALBASE}/bin/uic \
-		RCC_QTVER=${LOCALBASE}/bin/rcc \
+		MOC_QTVER=${MOC} \
+		UIC_QTVER=${UIC} \
+		RCC_QTVER=${RCC} \
+		LRELEASE_QTVER=${LRELEASE} \
+		QCOLLECTIONGENERATOR_QTVER=${QCOLLECTIONGENERATOR} \
+		QHELPGENERATOR_QTVER=${QHELPGENERATOR} \
 		ac_cv_type_max_align_t=yes \
 		ac_cv_path_SED=${LOCALBASE}/bin/gsed
 

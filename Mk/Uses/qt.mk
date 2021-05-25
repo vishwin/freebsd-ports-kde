@@ -81,6 +81,9 @@ MOC?=			${QT_BINDIR}/moc
 RCC?=			${QT_BINDIR}/rcc
 UIC?=			${QT_BINDIR}/uic
 QMAKE?=			${QT_BINDIR}/qmake
+QCOLLECTIONGENERATOR?=	${QT_BINDIR}/qcollectiongenerator
+QHELPGENERATOR?=	${QT_BINDIR}/qhelpgenerator
+
 # Needed to redefine the qmake target for internal Qt configuration.
 _QMAKE?=		${QMAKE}
 QMAKESPECNAME?=		freebsd-${QMAKE_COMPILER}
