@@ -3,11 +3,8 @@
 PORTNAME=	gecode
 DISTVERSIONPREFIX=	release-
 DISTVERSION=	6.3.0
-PORTREVISION=	1
+PORTREVISION=	4
 CATEGORIES=	math
-
-PATCH_SITES=	https://github.com/${GH_ACCOUNT}/${PORTNAME}/commit/
-PATCHFILES=	3b86d0dabc371d5976c5dafef0fc7f6c5f92640b.patch:-p1 # https://github.com/Gecode/gecode/pull/102: Fix MOC invocation in gist folder
 
 MAINTAINER=	yuri@FreeBSD.org
 COMMENT=	Generic Constraint Development Environment
@@ -18,7 +15,7 @@ LICENSE_COMB=	multi
 NOT_FOR_ARCHS=		aarch64 armv6 armv7 mips mips64
 NOT_FOR_ARCHS_REASON=	needs code written to specify rounding control mechanism in Boost.Numeric.Interval
 
-USES=		bison:alias compiler:c++11-lang gmake perl5
+USES=		bison:build compiler:c++11-lang gmake perl5
 USE_PERL5=	build
 USE_LDCONFIG=	yes
 
@@ -27,7 +24,7 @@ CONFIGURE_ARGS=	--disable-examples
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	Gecode
-GH_TAGNAME=	96ca4cc # 6.3.0 branch is ready for a long time, but hasn't been tagged yet
+GH_TAGNAME=	0916a1a # 6.3.0 branch is ready for a long time, but hasn't been tagged yet
 
 DATADIR=	${PREFIX}/share/minizinc/gecode # it only installs the MiniZinc library into DATADIR
 

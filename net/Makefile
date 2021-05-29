@@ -23,6 +23,7 @@
     SUBDIR += appkonference
     SUBDIR += aprsc
     SUBDIR += aquantia-atlantic-kmod
+    SUBDIR += arataga
     SUBDIR += arp-scan
     SUBDIR += arp-sk
     SUBDIR += arpdig
@@ -92,6 +93,7 @@
     SUBDIR += corosync3
     SUBDIR += courier-authlib-ldap
     SUBDIR += courier-sox
+    SUBDIR += cpp-pcp-client
     SUBDIR += cppzmq
     SUBDIR += croc
     SUBDIR += cryptcat

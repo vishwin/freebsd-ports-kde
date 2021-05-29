@@ -133,6 +133,7 @@
     SUBDIR += kf5-kwayland
     SUBDIR += kf5-kwindowsystem
     SUBDIR += kf5-plasma-framework
+    SUBDIR += kitty
     SUBDIR += konsole
     SUBDIR += lavalauncher
     SUBDIR += lemonbar
@@ -234,6 +235,7 @@
     SUBDIR += mxascii
     SUBDIR += mxico
     SUBDIR += nezd
+    SUBDIR += nfy
     SUBDIR += numlockx
     SUBDIR += nvidia-driver
     SUBDIR += nvidia-driver-304
@@ -296,6 +298,7 @@
     SUBDIR += roxterm
     SUBDIR += rsibreak
     SUBDIR += rubygem-gnome
+    SUBDIR += runner
     SUBDIR += rxvt-unicode
     SUBDIR += sakura
     SUBDIR += sbxkb
@@ -319,6 +322,7 @@
     SUBDIR += smproxy
     SUBDIR += sprop
     SUBDIR += squeekboard
+    SUBDIR += srandrd
     SUBDIR += sselp
     SUBDIR += stalonetray
     SUBDIR += startup-notification
