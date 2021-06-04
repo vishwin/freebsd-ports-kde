@@ -1,8 +1,9 @@
 PORTNAME=	ksysguard
-DISTVERSION=	5.21.90 #${KDE_PLASMA_VERSION}
+DISTVERSION=	${KDE_PLASMA_VERSION}
 PKGNAMEPREFIX=	plasma5-
 CATEGORIES=	sysutils kde
-MASTER_SITES=	KDE/unstable/${PORTNAME}/${DISTVERSION}/
+MASTER_SITES=	KDE/stable/${PORTNAME}/${DISTVERSION}/
+DIST_SUBDIR=	KDE/plasma/${KDE_PLASMA_VERSION}
 
 MAINTAINER=	kde@FreeBSD.org
 COMMENT=	Plasma5 utility to track and control the running processes
