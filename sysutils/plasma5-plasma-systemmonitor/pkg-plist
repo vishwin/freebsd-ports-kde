@@ -18,14 +18,14 @@ bin/plasma-systemmonitor
 %%QT_QMLDIR%%/org/kde/ksysguard/page/SectionControl.qml
 %%QT_QMLDIR%%/org/kde/ksysguard/page/libPagePlugin.so
 %%QT_QMLDIR%%/org/kde/ksysguard/page/qmldir
+%%QT_QMLDIR%%/org/kde/ksysguard/table/BaseCellDelegate.qml
 %%QT_QMLDIR%%/org/kde/ksysguard/table/BaseTableView.qml
-%%QT_QMLDIR%%/org/kde/ksysguard/table/BasicCellDelegate.qml
-%%QT_QMLDIR%%/org/kde/ksysguard/table/CellBackground.qml
 %%QT_QMLDIR%%/org/kde/ksysguard/table/ColumnConfigurationDialog.qml
 %%QT_QMLDIR%%/org/kde/ksysguard/table/FirstCellDelegate.qml
 %%QT_QMLDIR%%/org/kde/ksysguard/table/KillDialog.qml
 %%QT_QMLDIR%%/org/kde/ksysguard/table/LineChartCellDelegate.qml
 %%QT_QMLDIR%%/org/kde/ksysguard/table/TableViewHeader.qml
+%%QT_QMLDIR%%/org/kde/ksysguard/table/TextCellDelegate.qml
 %%QT_QMLDIR%%/org/kde/ksysguard/table/TreeDecoration.qml
 %%QT_QMLDIR%%/org/kde/ksysguard/table/UserCellDelegate.qml
 %%QT_QMLDIR%%/org/kde/ksysguard/table/libTablePlugin.so

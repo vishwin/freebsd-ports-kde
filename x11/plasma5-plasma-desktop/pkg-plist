@@ -346,6 +346,8 @@ share/doc/HTML/it/kcontrol/joystick/index.cache.bz2
 share/doc/HTML/it/kcontrol/joystick/index.docbook
 share/doc/HTML/it/kcontrol/kcmaccess/index.cache.bz2
 share/doc/HTML/it/kcontrol/kcmaccess/index.docbook
+share/doc/HTML/it/kcontrol/kcmactivities/index.cache.bz2
+share/doc/HTML/it/kcontrol/kcmactivities/index.docbook
 share/doc/HTML/it/kcontrol/kcmlaunchfeedback/index.cache.bz2
 share/doc/HTML/it/kcontrol/kcmlaunchfeedback/index.docbook
 share/doc/HTML/it/kcontrol/kcmsmserver/index.cache.bz2
@@ -2052,12 +2054,15 @@ share/locale/ja/LC_MESSAGES/kcm_activities5.mo
 share/locale/ja/LC_MESSAGES/kcm_baloofile.mo
 share/locale/ja/LC_MESSAGES/kcm_componentchooser.mo
 share/locale/ja/LC_MESSAGES/kcm_desktoppaths.mo
+share/locale/ja/LC_MESSAGES/kcm_keys.mo
+share/locale/ja/LC_MESSAGES/kcm_landingpage.mo
 share/locale/ja/LC_MESSAGES/kcm_launchfeedback.mo
 share/locale/ja/LC_MESSAGES/kcm_search.mo
 share/locale/ja/LC_MESSAGES/kcm_smserver.mo
 share/locale/ja/LC_MESSAGES/kcm_solid_actions.mo
 share/locale/ja/LC_MESSAGES/kcm_splashscreen.mo
 share/locale/ja/LC_MESSAGES/kcm_touchpad.mo
+share/locale/ja/LC_MESSAGES/kcm_users.mo
 share/locale/ja/LC_MESSAGES/kcm_workspace.mo
 share/locale/ja/LC_MESSAGES/kcmaccess.mo
 share/locale/ja/LC_MESSAGES/kcmkclock.mo
@@ -2068,6 +2073,7 @@ share/locale/ja/LC_MESSAGES/knetattach5.mo
 share/locale/ja/LC_MESSAGES/org.kde.plasma.emojier.mo
 share/locale/ja/LC_MESSAGES/plasma_applet_org.kde.desktopcontainment.mo
 share/locale/ja/LC_MESSAGES/plasma_applet_org.kde.panel.mo
+share/locale/ja/LC_MESSAGES/plasma_applet_org.kde.plasma.keyboardlayout.mo
 share/locale/ja/LC_MESSAGES/plasma_applet_org.kde.plasma.kicker.mo
 share/locale/ja/LC_MESSAGES/plasma_applet_org.kde.plasma.kickoff.mo
 share/locale/ja/LC_MESSAGES/plasma_applet_org.kde.plasma.kimpanel.mo
@@ -2161,6 +2167,7 @@ share/locale/ko/LC_MESSAGES/kcm_baloofile.mo
 share/locale/ko/LC_MESSAGES/kcm_componentchooser.mo
 share/locale/ko/LC_MESSAGES/kcm_desktoppaths.mo
 share/locale/ko/LC_MESSAGES/kcm_keys.mo
+share/locale/ko/LC_MESSAGES/kcm_landingpage.mo
 share/locale/ko/LC_MESSAGES/kcm_launchfeedback.mo
 share/locale/ko/LC_MESSAGES/kcm_search.mo
 share/locale/ko/LC_MESSAGES/kcm_smserver.mo
@@ -2178,6 +2185,7 @@ share/locale/ko/LC_MESSAGES/knetattach5.mo
 share/locale/ko/LC_MESSAGES/org.kde.plasma.emojier.mo
 share/locale/ko/LC_MESSAGES/plasma_applet_org.kde.desktopcontainment.mo
 share/locale/ko/LC_MESSAGES/plasma_applet_org.kde.panel.mo
+share/locale/ko/LC_MESSAGES/plasma_applet_org.kde.plasma.keyboardlayout.mo
 share/locale/ko/LC_MESSAGES/plasma_applet_org.kde.plasma.kicker.mo
 share/locale/ko/LC_MESSAGES/plasma_applet_org.kde.plasma.kickoff.mo
 share/locale/ko/LC_MESSAGES/plasma_applet_org.kde.plasma.kimpanel.mo
@@ -2924,18 +2932,6 @@ share/locale/sk/LC_MESSAGES/kcmaccess.mo
 share/locale/sk/LC_MESSAGES/kcmkclock.mo
 share/locale/sk/LC_MESSAGES/kcmkeyboard.mo
 share/locale/sk/LC_MESSAGES/kcmmouse.mo
-share/locale/sl/LC_MESSAGES/kcm_landingpage.mo
-share/locale/sv/LC_MESSAGES/kcm_landingpage.mo
-share/locale/ta/LC_MESSAGES/kcm_landingpage.mo
-share/locale/ta/LC_MESSAGES/kcm_touchpad.mo
-share/locale/uk/LC_MESSAGES/kcm_landingpage.mo
-share/locale/vi/LC_MESSAGES/kcm_landingpage.mo
-share/locale/zh_CN/LC_MESSAGES/kcm_landingpage.mo
-share/plasma/shells/org.kde.plasma.desktop/contents/updates/digitalclock_rename_timezonedisplay_key.js
-share/plasma/shells/org.kde.plasma.desktop/contents/updates/klipper_clear_config.js
-share/qlogging-categories5/kcm_kded.categories
-share/qlogging-categories5/kcm_keyboard.categories
-share/qlogging-categories5/kcm_mouse.categories
 share/locale/sk/LC_MESSAGES/kcmqtquicksettings.mo
 share/locale/sk/LC_MESSAGES/knetattach5.mo
 share/locale/sk/LC_MESSAGES/org.kde.plasma.emojier.mo
@@ -2968,6 +2964,7 @@ share/locale/sl/LC_MESSAGES/kcm_baloofile.mo
 share/locale/sl/LC_MESSAGES/kcm_componentchooser.mo
 share/locale/sl/LC_MESSAGES/kcm_desktoppaths.mo
 share/locale/sl/LC_MESSAGES/kcm_keys.mo
+share/locale/sl/LC_MESSAGES/kcm_landingpage.mo
 share/locale/sl/LC_MESSAGES/kcm_launchfeedback.mo
 share/locale/sl/LC_MESSAGES/kcm_search.mo
 share/locale/sl/LC_MESSAGES/kcm_smserver.mo
@@ -3183,6 +3180,7 @@ share/locale/sv/LC_MESSAGES/kcm_baloofile.mo
 share/locale/sv/LC_MESSAGES/kcm_componentchooser.mo
 share/locale/sv/LC_MESSAGES/kcm_desktoppaths.mo
 share/locale/sv/LC_MESSAGES/kcm_keys.mo
+share/locale/sv/LC_MESSAGES/kcm_landingpage.mo
 share/locale/sv/LC_MESSAGES/kcm_launchfeedback.mo
 share/locale/sv/LC_MESSAGES/kcm_search.mo
 share/locale/sv/LC_MESSAGES/kcm_smserver.mo
@@ -3223,8 +3221,10 @@ share/locale/ta/LC_MESSAGES/kcm5_joystick.mo
 share/locale/ta/LC_MESSAGES/kcm5_kded.mo
 share/locale/ta/LC_MESSAGES/kcm_componentchooser.mo
 share/locale/ta/LC_MESSAGES/kcm_desktoppaths.mo
+share/locale/ta/LC_MESSAGES/kcm_landingpage.mo
 share/locale/ta/LC_MESSAGES/kcm_launchfeedback.mo
 share/locale/ta/LC_MESSAGES/kcm_smserver.mo
+share/locale/ta/LC_MESSAGES/kcm_touchpad.mo
 share/locale/ta/LC_MESSAGES/kcmaccess.mo
 share/locale/ta/LC_MESSAGES/kcmkclock.mo
 share/locale/ta/LC_MESSAGES/kcmkeyboard.mo
@@ -3374,6 +3374,7 @@ share/locale/uk/LC_MESSAGES/kcm_baloofile.mo
 share/locale/uk/LC_MESSAGES/kcm_componentchooser.mo
 share/locale/uk/LC_MESSAGES/kcm_desktoppaths.mo
 share/locale/uk/LC_MESSAGES/kcm_keys.mo
+share/locale/uk/LC_MESSAGES/kcm_landingpage.mo
 share/locale/uk/LC_MESSAGES/kcm_launchfeedback.mo
 share/locale/uk/LC_MESSAGES/kcm_search.mo
 share/locale/uk/LC_MESSAGES/kcm_smserver.mo
@@ -3444,6 +3445,7 @@ share/locale/vi/LC_MESSAGES/kcm_baloofile.mo
 share/locale/vi/LC_MESSAGES/kcm_componentchooser.mo
 share/locale/vi/LC_MESSAGES/kcm_desktoppaths.mo
 share/locale/vi/LC_MESSAGES/kcm_keys.mo
+share/locale/vi/LC_MESSAGES/kcm_landingpage.mo
 share/locale/vi/LC_MESSAGES/kcm_launchfeedback.mo
 share/locale/vi/LC_MESSAGES/kcm_search.mo
 share/locale/vi/LC_MESSAGES/kcm_smserver.mo
@@ -3520,6 +3522,7 @@ share/locale/zh_CN/LC_MESSAGES/kcm_baloofile.mo
 share/locale/zh_CN/LC_MESSAGES/kcm_componentchooser.mo
 share/locale/zh_CN/LC_MESSAGES/kcm_desktoppaths.mo
 share/locale/zh_CN/LC_MESSAGES/kcm_keys.mo
+share/locale/zh_CN/LC_MESSAGES/kcm_landingpage.mo
 share/locale/zh_CN/LC_MESSAGES/kcm_launchfeedback.mo
 share/locale/zh_CN/LC_MESSAGES/kcm_search.mo
 share/locale/zh_CN/LC_MESSAGES/kcm_smserver.mo
@@ -3581,6 +3584,11 @@ share/locale/zh_TW/LC_MESSAGES/plasma_applet_org.kde.desktopcontainment.mo
 share/locale/zh_TW/LC_MESSAGES/plasma_applet_org.kde.panel.mo
 share/locale/zh_TW/LC_MESSAGES/plasma_applet_org.kde.plasma.kicker.mo
 share/locale/zh_TW/LC_MESSAGES/plasma_applet_org.kde.plasma.kickoff.mo
+share/plasma/shells/org.kde.plasma.desktop/contents/updates/digitalclock_rename_timezonedisplay_key.js
+share/plasma/shells/org.kde.plasma.desktop/contents/updates/klipper_clear_config.js
+share/qlogging-categories5/kcm_kded.categories
+share/qlogging-categories5/kcm_keyboard.categories
+share/qlogging-categories5/kcm_mouse.categories
 share/locale/zh_TW/LC_MESSAGES/plasma_applet_org.kde.plasma.kimpanel.mo
 share/locale/zh_TW/LC_MESSAGES/plasma_applet_org.kde.plasma.minimizeall.mo
 share/locale/zh_TW/LC_MESSAGES/plasma_applet_org.kde.plasma.pager.mo
