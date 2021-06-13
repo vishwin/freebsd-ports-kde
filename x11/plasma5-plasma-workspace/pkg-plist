@@ -129,13 +129,13 @@ lib/libweather_ion.so
 lib/libweather_ion.so.7
 lib/libweather_ion.so.7.0.0
 %%QT_PLUGINDIR%%/fontthumbnail.so
+%%QT_PLUGINDIR%%/kcm_fontinst.so
 %%QT_PLUGINDIR%%/kcm_formats.so
 %%QT_PLUGINDIR%%/kcm_krunner_kill.so
 %%QT_PLUGINDIR%%/kcms/kcm_autostart.so
 %%QT_PLUGINDIR%%/kcms/kcm_colors.so
 %%QT_PLUGINDIR%%/kcms/kcm_cursortheme.so
 %%QT_PLUGINDIR%%/kcms/kcm_desktoptheme.so
-%%QT_PLUGINDIR%%/kcms/kcm_fontinst.so
 %%QT_PLUGINDIR%%/kcms/kcm_fonts.so
 %%QT_PLUGINDIR%%/kcms/kcm_icons.so
 %%QT_PLUGINDIR%%/kcms/kcm_lookandfeel.so
