@@ -241,6 +241,9 @@
     SUBDIR += nvidia-driver-304
     SUBDIR += nvidia-driver-340
     SUBDIR += nvidia-driver-390
+    SUBDIR += nvidia-hybrid-graphics
+    SUBDIR += nvidia-secondary-driver
+    SUBDIR += nvidia-secondary-driver-390
     SUBDIR += nvidia-settings
     SUBDIR += nvidia-xconfig
     SUBDIR += nwg-launchers
@@ -265,6 +268,7 @@
     SUBDIR += plasma5-kscreen
     SUBDIR += plasma5-kwayland-integration
     SUBDIR += plasma5-kwayland-server
+    SUBDIR += plasma5-layer-shell-qt
     SUBDIR += plasma5-libkscreen
     SUBDIR += plasma5-plasma
     SUBDIR += plasma5-plasma-desktop
