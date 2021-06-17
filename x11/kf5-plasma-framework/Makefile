@@ -5,8 +5,6 @@ CATEGORIES=	x11 kde kde-frameworks
 MAINTAINER=	kde@FreeBSD.org
 COMMENT=	KF5 plugin based UI runtime used to write user interfaces
 
-BUILD_DEPENDS=	${LOCALBASE}/bin/gtar:archivers/gtar
-
 USES=		cmake compiler:c++11-lib gettext gl kde:5 pkgconfig qt:5 tar:xz xorg
 USE_GL=		egl gl
 USE_KDE=	activities archive auth codecs completion config \
@@ -17,7 +15,5 @@ USE_KDE=	activities archive auth codecs completion config \
 USE_QT=		buildtools_build concurrent core dbus declarative gui network qmake_build \
 		script sql svg widgets x11extras xml
 USE_XORG=	ice sm x11 xcb xext xrandr
-
-BINARY_ALIAS=	tar=${LOCALBASE}/bin/gtar
 
 .include <bsd.port.mk>
