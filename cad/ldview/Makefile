@@ -36,7 +36,7 @@ post-patch:
 	@${REINPLACE_CMD} -e 's|"/usr/share/ldraw"|"${PREFIX}/share/ldraw"|' ${WRKSRC}/ModelViewerWidget.cpp
 
 pre-configure:
-	@cd ${WRKSRC} && lrelease LDView.pro
+	@cd ${WRKSRC} && ${LRELEASE} LDView.pro
 
 post-install:
 	@${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/LDView
