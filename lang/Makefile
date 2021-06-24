@@ -60,6 +60,7 @@
     SUBDIR += erlang-runtime21
     SUBDIR += erlang-runtime22
     SUBDIR += erlang-runtime23
+    SUBDIR += erlang-runtime24
     SUBDIR += erlang-wx
     SUBDIR += execline
     SUBDIR += expect
@@ -97,7 +98,6 @@
     SUBDIR += gcc6-aux
     SUBDIR += gcc7
     SUBDIR += gcc8
-    SUBDIR += gcc8-devel
     SUBDIR += gcc9
     SUBDIR += gcc9-devel
     SUBDIR += gforth
@@ -251,6 +251,7 @@
     SUBDIR += perl5.28
     SUBDIR += perl5.30
     SUBDIR += perl5.32
+    SUBDIR += perl5.34
     SUBDIR += petite-chez
     SUBDIR += pfe
     SUBDIR += pharo
@@ -304,6 +305,7 @@
     SUBDIR += ruby26
     SUBDIR += ruby27
     SUBDIR += ruby30
+    SUBDIR += rubygem-ruby_language_server
     SUBDIR += runawk
     SUBDIR += rust
     SUBDIR += rust-bootstrap

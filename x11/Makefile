@@ -133,6 +133,7 @@
     SUBDIR += kf5-kwayland
     SUBDIR += kf5-kwindowsystem
     SUBDIR += kf5-plasma-framework
+    SUBDIR += kitty
     SUBDIR += konsole
     SUBDIR += lavalauncher
     SUBDIR += lemonbar
@@ -234,11 +235,15 @@
     SUBDIR += mxascii
     SUBDIR += mxico
     SUBDIR += nezd
+    SUBDIR += nfy
     SUBDIR += numlockx
     SUBDIR += nvidia-driver
     SUBDIR += nvidia-driver-304
     SUBDIR += nvidia-driver-340
     SUBDIR += nvidia-driver-390
+    SUBDIR += nvidia-hybrid-graphics
+    SUBDIR += nvidia-secondary-driver
+    SUBDIR += nvidia-secondary-driver-390
     SUBDIR += nvidia-settings
     SUBDIR += nvidia-xconfig
     SUBDIR += nwg-launchers
@@ -254,7 +259,6 @@
     SUBDIR += p5-XTerm-Conf
     SUBDIR += pcdm
     SUBDIR += perwindowlayoutd
-    SUBDIR += phosh
     SUBDIR += pipeglade
     SUBDIR += pixman
     SUBDIR += plank
@@ -264,6 +268,7 @@
     SUBDIR += plasma5-kscreen
     SUBDIR += plasma5-kwayland-integration
     SUBDIR += plasma5-kwayland-server
+    SUBDIR += plasma5-layer-shell-qt
     SUBDIR += plasma5-libkscreen
     SUBDIR += plasma5-plasma
     SUBDIR += plasma5-plasma-desktop
@@ -273,6 +278,7 @@
     SUBDIR += polybar
     SUBDIR += printscreen
     SUBDIR += py-caffeine-ng
+    SUBDIR += py-i3-quickterm
     SUBDIR += py-i3ipc
     SUBDIR += py-pyscreenshot
     SUBDIR += py-python-xapp
@@ -295,6 +301,7 @@
     SUBDIR += roxterm
     SUBDIR += rsibreak
     SUBDIR += rubygem-gnome
+    SUBDIR += runner
     SUBDIR += rxvt-unicode
     SUBDIR += sakura
     SUBDIR += sbxkb
@@ -307,6 +314,7 @@
     SUBDIR += setlayout
     SUBDIR += setxkbmap
     SUBDIR += showkeys
+    SUBDIR += showmethekey
     SUBDIR += simdock
     SUBDIR += simplestroke
     SUBDIR += slick-greeter
@@ -317,6 +325,7 @@
     SUBDIR += smproxy
     SUBDIR += sprop
     SUBDIR += squeekboard
+    SUBDIR += srandrd
     SUBDIR += sselp
     SUBDIR += stalonetray
     SUBDIR += startup-notification

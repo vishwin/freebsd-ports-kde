@@ -2,8 +2,8 @@
 
 PORTNAME=	qgis
 DISTVERSIONPREFIX=	final-
-DISTVERSION=	3_18_2
-PORTREVISION=	1
+DISTVERSION=	3_18_3
+PORTREVISION=	3
 CATEGORIES=	graphics geography
 
 PATCH_SITES=	https://github.com/${GH_ACCOUNT}/${GH_PROJECT}/commit/
@@ -44,6 +44,7 @@ LIB_DEPENDS=	libexiv2.so:graphics/exiv2 \
 		libgeos.so:graphics/geos \
 		libgsl.so:math/gsl \
 		libhdf5.so:science/hdf5 \
+		liblazperf.so:archivers/lazperf \
 		libnetcdf.so:science/netcdf \
 		libOpenCL.so:devel/ocl-icd \
 		libpdal_base.so:math/pdal \
@@ -129,7 +130,7 @@ CMAKE_ARGS+=	-DCMAKE_BUILD_TYPE:STRING=Release \
 		-DQWT_LIBRARY:FILEPATH=${LOCALBASE}/lib/qt5/libqwt6.so \
 		-DCMAKE_POLICY_DEFAULT_CMP0056:STRING=NEW
 CMAKE_ON=	BUILD_TESTING ENABLE_TESTS USE_OPENCL WITH_3D WITH_ASTYLE \
-		WITH_BINDINGS WITH_CUSTOM_WIDGETS WITH_INTERNAL_MDAL \
+		WITH_BINDINGS WITH_CUSTOM_WIDGETS WITH_EPT WITH_INTERNAL_MDAL \
 		WITH_POSTGRESQL WITH_PDAL
 CMAKE_OFF=	WITH_GLOBE WITH_QWTPOLAR
 

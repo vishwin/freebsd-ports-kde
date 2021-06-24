@@ -14,7 +14,7 @@
 # bsd.port.mk.  There are significant differences in those so non-FreeBSD code
 # was removed.
 #
-# $MCom: portlint/portlint.pl,v 1.525 2021/04/19 20:48:32 jclarke Exp $
+# $MCom$
 #
 
 use strict;
@@ -49,7 +49,7 @@ $portdir = '.';
 # version variables
 my $major = 2;
 my $minor = 19;
-my $micro = 5;
+my $micro = 7;
 
 # default setting - for FreeBSD
 my $portsdir = '/usr/ports';
@@ -593,7 +593,6 @@ sub checkplist {
 	my $owner_seen = 0;
 	my $group_seen = 0;
 	my $found_so = 0;
-	my $found_naked_so = 0;
 
 	# Variables that are allowed to be out-of-sync in the XXXDIR check.
 	# E.g., %%PORTDOCS%%%%RUBY_MODDOCDIR%% will be OK because there is
@@ -809,10 +808,8 @@ sub checkplist {
 			$makevar{USE_LDCONFIG} eq '') {
 			&perror("WARN", $file, $., "installing shared libraries, ".
 				"please define USE_LDCONFIG as appropriate");
-		} elsif ($_ =~ m|lib[^\/]+\.so\.\d+$|) {
+		} elsif ($_ =~ m|lib[^\/]+\.so[.\d]*$|) {
 			$found_so++;
-		} elsif ($_ =~ m|lib[^\/]+\.so$|) {
-			$found_naked_so++;
 		}
 
 		if ($_ =~ m|^share/icons/.*/| &&
@@ -947,14 +944,8 @@ sub checkplist {
 	}
 
 	if ($makevar{USE_LDCONFIG} ne '' && !$found_so) {
-		if ($found_naked_so) {
-			&perror("WARN", $file, -1, "You have defined USE_LDCONFIG, but this ".
-				"port does not install shared objects in the format lib*.so.[0-9] ".
-				"which ldconfig(8) needs to register them in the hints file.");
-		} else {
-			&perror("WARN", $file, -1, "You have defined USE_LDCONFIG, but this ".
-				"port does not install any shared objects.");
-		}
+		&perror("WARN", $file, -1, "You have defined USE_LDCONFIG, but this ".
+			"port does not install any shared objects.");
 	}
 
 	close(IN);
@@ -2663,34 +2654,39 @@ xargs xmkmf
 		}
 	}
 	$idx = 0;
+	my @linestocheck = ();
 
-	#
-	# section 1: comment lines.
-	#
-	print "OK: checking comment section of $file.\n" if ($verbose);
-	my @linestocheck = split("\n", <<EOF);
+	# check if all lines in the first section are comments
+	if (grep(/^#/, split(/\n/, $sections[$idx])) == split(/\n/, $sections[$idx])) {
+
+		#
+		# section 1: comment lines.
+		#
+		print "OK: checking comment section of $file.\n" if ($verbose);
+		@linestocheck = split("\n", <<EOF);
 Whom
 Date [cC]reated
 EOF
 
-	$tmp = $sections[$idx++];
-	$tmp = "\n" . $tmp;	# to make the begin-of-line check easier
+		$tmp = $sections[$idx++];
+		$tmp = "\n" . $tmp;	# to make the begin-of-line check easier
 
-	if ($tmp =~ /\n[^#]/) {
-		&perror("FATAL", $file, -1, "non-comment line in comment section.");
-	}
-	if ($tmp =~ m/Version [rR]equired/) {
-		&perror("WARN", $file, -1, "Version required is no longer needed in the comment section.");
-	}
+		if ($tmp =~ /\n[^#]/) {
+			&perror("FATAL", $file, -1, "non-comment line in comment section.");
+		}
+		if ($tmp =~ m/Version [rR]equired/) {
+			&perror("WARN", $file, -1, "Version required is no longer needed in the comment section.");
+		}
 
-	#
-	# for the rest of the checks, comment lines are not important.
-	#
-	for ($i = 0; $i < scalar(@sections); $i++) {
-		$sections[$i] = "\n" . $sections[$i];
-		$sections[$i] =~ s/\n#[^\n]*//g;
-		$sections[$i] =~ s/\n\n+/\n/g;
-		$sections[$i] =~ s/^\n//;
+		#
+		# for the rest of the checks, comment lines are not important.
+		#
+		for ($i = 0; $i < scalar(@sections); $i++) {
+			$sections[$i] = "\n" . $sections[$i];
+			$sections[$i] =~ s/\n#[^\n]*//g;
+			$sections[$i] =~ s/\n\n+/\n/g;
+			$sections[$i] =~ s/^\n//;
+		}
 	}
 
 	#
@@ -2704,7 +2700,7 @@ EOF
 	&checkorder('PORTNAME', $tmp, $file, qw(
 PORTNAME PORTVERSION DISTVERSIONPREFIX DISTVERSION DISTVERSIONSUFFIX
 PORTREVISION PORTEPOCH CATEGORIES MASTER_SITES MASTER_SITE_SUBDIR
-PROJECTHOST PKGNAMEPREFIX PKGNAMESUFFIX DISTNAME EXTRACT_SUFX DISTFILES
+PROJECTHOST PKGNAMEPREFIX PKGNAMESUFFIX DISTNAME EXTRACT_SUFX DISTFILES(_\w+)?
 DIST_SUBDIR EXTRACT_ONLY
 	));
 
@@ -3075,7 +3071,7 @@ DIST_SUBDIR EXTRACT_ONLY
 	push(@varnames, qw(
 PORTNAME PORTVERSION DISTVERSIONPREFIX DISTVERSION DISTVERSIONSUFFIX
 PORTREVISION PORTEPOCH CATEGORIES MASTER_SITES MASTER_SITE_SUBDIR
-PROJECTHOST PKGNAMEPREFIX PKGNAMESUFFIX DISTNAME EXTRACT_SUFX DISTFILES
+PROJECTHOST PKGNAMEPREFIX PKGNAMESUFFIX DISTNAME EXTRACT_SUFX DISTFILES(_\w+)?
 DIST_SUBDIR EXTRACT_ONLY
 	));
 
@@ -3224,6 +3220,12 @@ MAINTAINER COMMENT
 			}
 		}
 
+		# Last-ditch check to make sure the license is sanely defined.
+		my $lic_check = system("make check-license 2>&1 >/dev/null");
+		if ($lic_check) {
+			&perror("FATAL", $file, -1, "Failed to validate port LICENSE '$makevar{LICENSE}' with ``make check-license''");
+		}
+
 		$idx++;
 
 		push(@varnames, qw(
@@ -3244,7 +3246,7 @@ MAINTAINER COMMENT
 	@linestocheck = qw(
 DEPRECATED EXPIRATION_DATE FORBIDDEN BROKEN(_\w+)? IGNORE(_\w+)?
 ONLY_FOR_ARCHS ONLY_FOR_ARCHS_REASON(_\w+)?
-NOT_FOR_ARCHS NOT_FOR_ARCHS_REASON(_\w+)?
+NOT_FOR_ARCHS NOT_FOR_ARCHS_REASON(_\w+)? LEGAL_TEXT
 	);
 
 	my $brokenpattern = "^(" . join("|", @linestocheck) . ")[?+:]?=";
@@ -3436,15 +3438,6 @@ TEST_DEPENDS FETCH_DEPENDS DEPENDS_TARGET
 			&perror("WARN", $file, -1, "definition of WRKSRC not necessary. ".
 				"WRKSRC is \${WRKDIR} by default.");
 		}
-	}
-
-	# check RESTRICTED/NO_CDROM/NO_PACKAGE
-	print "OK: checking RESTRICTED/NO_CDROM/NO_PACKAGE.\n" if ($verbose);
-	my $lps = $makevar{LICENSE_PERMS} // '';
-	if ($committer && ($tmp =~ /\n(RESTRICTED|NO_CDROM|NO_PACKAGE)[+?]?=/ ||
-		$lps =~ /\bno-\b/)) {
-		&perror("WARN", $file, -1, "Possible restrictive licensing found.  ".
-			"If there are, in fact, limitations to use or distribution, please update ports/LEGAL.");
 	}
 
 	if ($tmp =~ /\nNO_PACKAGE[+?]?=/) {

@@ -1,8 +1,7 @@
 # Created by: Gerald Pfeifer <gerald@FreeBSD.org>
 
 PORTNAME=	gcc
-PORTVERSION=	8.4.0
-PORTREVISION=	1
+PORTVERSION=	8.5.0
 CATEGORIES=	lang
 MASTER_SITES=	GCC
 PKGNAMESUFFIX=	${SUFFIX}
@@ -27,8 +26,6 @@ BUILD_DEPENDS+=	runtest:misc/dejagnu
 USES=		compiler cpe gmake iconv libtool makeinfo perl5 tar:xz
 USE_BINUTILS=	yes
 USE_PERL5=	build
-
-CONFLICTS=	gcc8-devel-8.*
 
 CPE_VENDOR=	gnu
 

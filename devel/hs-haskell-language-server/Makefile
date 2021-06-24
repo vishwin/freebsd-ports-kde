@@ -210,6 +210,7 @@ USE_CABAL=	Diff-0.4.0 \
 		zlib-0.6.2.3
 
 SKIP_CABAL_PLIST=	yes
+CABAL_PROJECT=		append
 
 EXECUTABLES=		${PORTNAME} \
 			${PORTNAME}-wrapper
@@ -220,15 +221,7 @@ PLIST_FILES=		bin/${PORTNAME} \
 			bin/${PORTNAME}-wrapper
 
 post-extract:
-	${MV} ${WRKSRC}/cabal.project ${WRKSRC}/cabal.project.hls
-
-post-patch:
-	echo "packages: " > ${WRKSRC}/cabal.project.port
-.for package in ${USE_CABAL}
-	echo "  ${package:C/_[0-9]+//}" >> ${WRKSRC}/cabal.project.port
-.endfor
-	${REINPLACE_CMD} '/         .\/shake-bench/d' ${WRKSRC}/cabal.project.hls
-	${CAT} ${WRKSRC}/cabal.project.port ${WRKSRC}/cabal.project.hls > ${WRKSRC}/cabal.project
+	${CP} ${WRKSRC}/stack-8.10.4.yaml ${WRKSRC}/stack-8.10.5.yaml
 
 do-build:
 	cd ${WRKSRC} && \
@@ -240,13 +233,8 @@ do-install:
 .endfor
 	${LN} -s ${PORTNAME} ${STAGEDIR}${PREFIX}/bin/${PORTNAME}-8.10.4
 
-make-use-cabal-hls:
-	${RM} ${WRKSRC}/cabal.project
-	${CP} ${WRKSRC}/cabal.project.hls ${WRKSRC}/cabal.project
-	${RM} -rf ${CABAL_HOME}/.cabal
-	${SETENV} HOME=${CABAL_HOME} cabal new-update
+cabal-extract-deps:
 	cd ${WRKSRC} && \
 		${SETENV} HOME=${CABAL_HOME} hls-install hls
-	${MAKE} make-use-cabal
 
 .include <bsd.port.mk>

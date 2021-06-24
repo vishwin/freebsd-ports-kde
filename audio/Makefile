@@ -58,6 +58,7 @@
     SUBDIR += bjumblr-lv2
     SUBDIR += bliss
     SUBDIR += blop
+    SUBDIR += boca
     SUBDIR += boops-lv2
     SUBDIR += bristol
     SUBDIR += bschaffl-lv2
@@ -199,6 +200,7 @@
     SUBDIR += fpc-modplug
     SUBDIR += fpc-oggvorbis
     SUBDIR += fpc-openal
+    SUBDIR += freac
     SUBDIR += freealut
     SUBDIR += freedesktop-sound-theme
     SUBDIR += freepats
@@ -593,6 +595,7 @@
     SUBDIR += pacpl
     SUBDIR += padthv1-lv2
     SUBDIR += paman
+    SUBDIR += pamixer
     SUBDIR += paprefs
     SUBDIR += pavucontrol
     SUBDIR += pavucontrol-qt
@@ -663,9 +666,11 @@
     SUBDIR += qjackctl
     SUBDIR += qmidiarp
     SUBDIR += qmidictl
+    SUBDIR += qmidinet
     SUBDIR += qsampler
     SUBDIR += qsynth
     SUBDIR += quimup
+    SUBDIR += qxgedit
     SUBDIR += raul
     SUBDIR += rawrec
     SUBDIR += re
@@ -728,6 +733,7 @@
     SUBDIR += soundgrab
     SUBDIR += soundkonverter
     SUBDIR += soundtouch
+    SUBDIR += soundtracker
     SUBDIR += sox
     SUBDIR += spc2it
     SUBDIR += spectacle-lv2
@@ -778,6 +784,7 @@
     SUBDIR += tcd
     SUBDIR += teamspeak3-server
     SUBDIR += tempest_for_eliza
+    SUBDIR += tetraproc
     SUBDIR += thunar-media-tags-plugin
     SUBDIR += tiatracker
     SUBDIR += timely-lv2
@@ -804,6 +811,7 @@
     SUBDIR += umodplayer
     SUBDIR += umurmur
     SUBDIR += vamp-plugin-sdk
+    SUBDIR += vban
     SUBDIR += vgmplay
     SUBDIR += vimpc
     SUBDIR += virtual_oss
@@ -825,6 +833,7 @@
     SUBDIR += wavbreaker
     SUBDIR += wavegain
     SUBDIR += waveplay
+    SUBDIR += wavetral
     SUBDIR += wavpack
     SUBDIR += wavplay
     SUBDIR += webrtc-audio-processing
@@ -835,6 +844,7 @@
     SUBDIR += wmix
     SUBDIR += wmmp
     SUBDIR += wmsmixer
+    SUBDIR += wolf-shaper-lv2
     SUBDIR += wxguitar
     SUBDIR += x42-plugins-lv2
     SUBDIR += xanalyser

@@ -30,6 +30,7 @@
     SUBDIR += R-cran-qcc
     SUBDIR += R-cran-rgdal
     SUBDIR += R-cran-rtiff
+    SUBDIR += R-cran-s2
     SUBDIR += R-cran-scales
     SUBDIR += R-cran-shape
     SUBDIR += R-cran-viridis
@@ -75,6 +76,7 @@
     SUBDIR += blend2d
     SUBDIR += blender
     SUBDIR += blender-doc
+    SUBDIR += blender-lts28
     SUBDIR += bmeps
     SUBDIR += bmp2html
     SUBDIR += bonzomatic
@@ -281,6 +283,7 @@
     SUBDIR += gocr
     SUBDIR += goocanvas
     SUBDIR += goocanvas2
+    SUBDIR += goocanvas3
     SUBDIR += goocanvasmm2
     SUBDIR += goom
     SUBDIR += gource
@@ -372,7 +375,6 @@
     SUBDIR += jp2a
     SUBDIR += jpatch
     SUBDIR += jpeg-turbo
-    SUBDIR += jpeg-xl
     SUBDIR += jpeginfo
     SUBDIR += jpegoptim
     SUBDIR += jpgtn
@@ -419,6 +421,7 @@
     SUBDIR += lensfun
     SUBDIR += lepton
     SUBDIR += leptonica
+    SUBDIR += lerc
     SUBDIR += lfview
     SUBDIR += lib3ds
     SUBDIR += libGLU
@@ -456,6 +459,7 @@
     SUBDIR += libimg
     SUBDIR += libiptcdata
     SUBDIR += libjpeg-turbo
+    SUBDIR += libjxl
     SUBDIR += libjxr
     SUBDIR += libkdcraw
     SUBDIR += libkexiv2
@@ -637,6 +641,7 @@
     SUBDIR += p5-GD-Thumbnail
     SUBDIR += p5-Geo-EOP
     SUBDIR += p5-Geo-GDAL
+    SUBDIR += p5-Geo-GDAL-FFI
     SUBDIR += p5-Geo-GML
     SUBDIR += p5-Geo-Gpx
     SUBDIR += p5-Geometry-Primitive
@@ -662,6 +667,7 @@
     SUBDIR += p5-Graphics-GnuplotIF
     SUBDIR += p5-Graphics-Primitive
     SUBDIR += p5-Graphics-Primitive-Driver-Cairo
+    SUBDIR += p5-Graphics-TIFF
     SUBDIR += p5-Image-Base
     SUBDIR += p5-Image-Base-SVG
     SUBDIR += p5-Image-Caa
@@ -754,6 +760,7 @@
     SUBDIR += picpuz
     SUBDIR += piddle
     SUBDIR += piglit
+    SUBDIR += pikchr
     SUBDIR += pikopixel
     SUBDIR += pinpoint
     SUBDIR += pinta
@@ -879,6 +886,7 @@
     SUBDIR += py-pyqrcode
     SUBDIR += py-pyqtgraph
     SUBDIR += py-pyrsgis
+    SUBDIR += py-pytesseract
     SUBDIR += py-python-poppler-qt5
     SUBDIR += py-pyvips
     SUBDIR += py-pyx

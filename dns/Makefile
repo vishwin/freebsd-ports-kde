@@ -44,6 +44,7 @@
     SUBDIR += dnshistory
     SUBDIR += dnsjava
     SUBDIR += dnsmasq
+    SUBDIR += dnsmasq-devel
     SUBDIR += dnsmax-perl
     SUBDIR += dnsproxy
     SUBDIR += dnsrecon
@@ -76,6 +77,7 @@
     SUBDIR += gen6dns
     SUBDIR += getdns
     SUBDIR += hesiod
+    SUBDIR += hetzner_ddns
     SUBDIR += hostdb
     SUBDIR += idnkit
     SUBDIR += idnkit2
@@ -114,7 +116,6 @@
     SUBDIR += nsping
     SUBDIR += nss_mdns
     SUBDIR += nss_resinit
-    SUBDIR += opendd
     SUBDIR += opendnssec2
     SUBDIR += openresolv
     SUBDIR += p5-AnyEvent-CacheDNS
@@ -176,6 +177,7 @@
     SUBDIR += py-adns
     SUBDIR += py-aiodns
     SUBDIR += py-cloudflare
+    SUBDIR += py-dns-crawler
     SUBDIR += py-dns-lexicon
     SUBDIR += py-dnspython
     SUBDIR += py-dnspython2
