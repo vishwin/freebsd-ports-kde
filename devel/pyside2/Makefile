@@ -44,14 +44,12 @@ USE_QT+=	webengine
 PLIST_SUB+=	WEBENGINE="@comment "
 .endif
 
-# AVOID a build_fs_violation with poudriere
-post-build:
-	${RM} -r ${PYTHON_SITELIBDIR}/shiboken2/files.dir/shibokensupport/__pycache__
-	${RM} -r ${PYTHON_SITELIBDIR}/shiboken2/files.dir/shibokensupport/signature/__pycache__
-	${RM} -r ${PYTHON_SITELIBDIR}/shiboken2/files.dir/shibokensupport/signature/lib/__pycache__
-post-stage:
-	${RM} -r ${PYTHON_SITELIBDIR}/shiboken2/files.dir/shibokensupport/__pycache__
-	${RM} -r ${PYTHON_SITELIBDIR}/shiboken2/files.dir/shibokensupport/signature/__pycache__
-	${RM} -r ${PYTHON_SITELIBDIR}/shiboken2/files.dir/shibokensupport/signature/lib/__pycache__
+post-install:
+	${PYTHON_CMD} ${PYTHON_LIBDIR}/compileall.py \
+		-f -d ${PYTHONPREFIX_SITELIBDIR} \
+		${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}
+	${PYTHON_CMD} -O ${PYTHON_LIBDIR}/compileall.py \
+		-f -d ${PYTHONPREFIX_SITELIBDIR} \
+		${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}
 
 .include <bsd.port.post.mk>

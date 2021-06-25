@@ -41,4 +41,12 @@ PLIST_SUB+=	PYVERSTR=.cpython-${PYTHON_SUFFIX}${PYTHON_ABIVER}
 
 WRKSRC=		${WRKDIR}/pyside-setup-opensource-src-${DISTVERSION:C/^([0-9].[0-9]+.[0-9])(.[0-9])?/\1/}/sources/shiboken2
 
+post-install:
+	${PYTHON_CMD} ${PYTHON_LIBDIR}/compileall.py \
+		-f -d ${PYTHONPREFIX_SITELIBDIR} \
+		${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}
+	${PYTHON_CMD} -O ${PYTHON_LIBDIR}/compileall.py \
+		-f -d ${PYTHONPREFIX_SITELIBDIR} \
+		${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}
+
 .include <bsd.port.post.mk>
