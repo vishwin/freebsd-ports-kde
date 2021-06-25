@@ -75,6 +75,7 @@ QT_CMAKEDIR_REL?=	lib/cmake
 QT_MKSPECDIR_REL=	${QT_ARCHDIR_REL}/mkspecs
 _QT_LIBVER=		${_QT_VERSION:R:R}
 
+LCONVERT?=		${QT_BINDIR}/lconvert
 LRELEASE?=		${QT_BINDIR}/lrelease
 LUPDATE?=		${QT_BINDIR}/lupdate
 MOC?=			${QT_BINDIR}/moc
