@@ -14,14 +14,20 @@ LIB_DEPENDS=	libfontconfig.so:x11-fonts/fontconfig \
 		libxkbcommon.so:x11/libxkbcommon
 
 USES=		compiler:c++11-lang gl gnome pkgconfig qmake:norecursive \
-		qt-dist:5,wayland xorg
-USE_GL=		egl gl
+		qt-dist:5,wayland
+USE_GL=		egl
 USE_GNOME=	glib20
 USE_QT=		core dbus gui declarative \
 		buildtools_build qmake_build
-USE_XORG=       x11 xcomposite
-
 
 QT_BINARIES=	yes
+
+OPTIONS_DEFINE=	X11
+OPTIONS_DEFAULT=X11
+OPTIONS_SUB=	yes
+
+X11_USES=	xorg
+X11_USE=	XORG=x11,xcomposite
+X11_VARS=	USE_GL+=gl
 
 .include <bsd.port.mk>
