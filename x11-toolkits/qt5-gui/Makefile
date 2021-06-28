@@ -1,6 +1,6 @@
 PORTNAME=	gui
 DISTVERSION=	${QT5_VERSION}
-PORTREVISION=	5
+PORTREVISION=	6
 CATEGORIES=	x11-toolkits graphics
 PKGNAMEPREFIX=	qt5-
 
@@ -10,7 +10,6 @@ COMMENT=	Qt graphical user interface module
 BUILD_DEPENDS=	${LOCALBASE}/include/linux/input.h:devel/evdev-proto \
 		${LOCALBASE}/include/vulkan/vulkan.h:graphics/vulkan-headers \
 		${LOCALBASE}/include/xf86drm.h:graphics/libdrm \
-		at-spi2-core>=0:accessibility/at-spi2-core \
 		${BUILD_DEPENDS_${ARCH}}
 BUILD_DEPENDS_armv6=	as:devel/binutils
 BUILD_DEPENDS_armv7=	as:devel/binutils
@@ -21,11 +20,6 @@ LIB_DEPENDS=	libdbus-1.so:devel/dbus \
 		libharfbuzz.so:print/harfbuzz \
 		libinput.so:x11/libinput \
 		libpng.so:graphics/png \
-		libxcb-icccm.so:x11/xcb-util-wm \
-		libxcb-image.so:x11/xcb-util-image \
-		libxcb-keysyms.so:x11/xcb-util-keysyms \
-		libxcb-render-util.so:x11/xcb-util-renderutil \
-		libxcb.so:x11/libxcb \
 		libxkbcommon.so:x11/libxkbcommon
 RUN_DEPENDS=	${LOCALBASE}/include/vulkan/vulkan.h:graphics/vulkan-headers \
 		${LOCALBASE}/libdata/pkgconfig/dri.pc:graphics/mesa-dri \
@@ -33,17 +27,15 @@ RUN_DEPENDS=	${LOCALBASE}/include/vulkan/vulkan.h:graphics/vulkan-headers \
 
 USES=			compiler:c++11-lang gl gnome jpeg localbase \
 			qmake:no_env qt-dist:5,base
-USE_GL=			egl gl
+USE_GL=			egl
 USE_GNOME=		glib20
 USE_QT=			core dbus network buildtools_build qmake_build
 QT_BINARIES=		yes
-QT_CONFIG=		accessibility accessibility-atspi-bridge dbus \
-			fontconfig glib opengl png system-freetype system-jpeg \
-			system-png xcb xcb-glx xcb-render xcb-xlib xinput2 xlib \
-			xrender
-QT_DEFINES=		ACCESSIBILITY DBUS FONTCONFIG FREETYPE GLIB \
-			IMAGEFORMAT_PNG OPENGL SHAPE XCB XKB XKBCOMMON XRENDER
-USE_XORG=		ice sm xi xrender
+QT_CONFIG=		accessibility dbus fontconfig glib opengl png \
+			fontconfig glib opengl png system-freetype \
+			system-jpeg system-png
+QT_DEFINES=		ACCESSIBILITY DBUS FONTCONFIG FREETYPE \
+			GLIB IMAGEFORMAT_PNG OPENGL SHAPE XKBCOMMON
 HAS_CONFIGURE=		yes
 CONFIGURE_ARGS=		-no-eglfs \
 			-no-libudev \
@@ -60,8 +52,18 @@ OPTIONS_DEFINE=		X11
 OPTIONS_DEFAULT=	X11
 OPTIONS_SUB=		yes
 
+X11_BUILD_DEPENDS=at-spi2-core>=0:accessibility/at-spi2-core
+X11_LIB_DEPENDS=libxcb-icccm.so:x11/xcb-util-wm \
+		libxcb-image.so:x11/xcb-util-image \
+		libxcb-keysyms.so:x11/xcb-util-keysyms \
+		libxcb-render-util.so:x11/xcb-util-renderutil \
+		libxcb.so:x11/libxcb
 X11_USES=	xorg
-X11_USE=	xorg=x11
+X11_USE=	XORG=x11,ice,sm,xi,xrender
+X11_VARS=	QT_CONFIG+="accessibility-atspi-bridge xcb xcb-glx \
+			xcb-render xcb-xlib xinput2 xlib xrender" \
+		QT_DEFINES+="XCB XKB XRENDER" \
+		USE_GL+=gl
 
 # Build and install QtPlatformSupport and default QPA plugins (XCB,
 # minimal and offscreen). QtGui won't work without (one of) them, but
