@@ -9,7 +9,7 @@ COMMENT=	Qt declarative framework for dynamic user interfaces
 
 USES=		compiler:c++11-lang gl python:build qmake:norecursive \
 		qt-dist:5
-USE_GL=		gl
+USE_GL=		egl
 USE_QT=		core gui network sql testlib \
 		widgets buildtools_build
 
@@ -19,7 +19,13 @@ BINARY_ALIAS=	python=${PYTHON_CMD}
 
 QT_BINARIES=	yes
 QT_DEFINES=	ACCESSIBILITY
-QT_CONFIG=	accessibility accessibility-atspi-bridge
+QT_CONFIG=	accessibility
+
+OPTIONS_DEFINE=	X11
+OPTIONS_DEFAULT=X11
+
+X11_VARS=	QT_CONFIG+=accessibility-atspi-bridge \
+		USE_GL+=gl
 
 post-patch:
 # qtdeclarative.pro wants to run python, replace that with PYTHON_CMD
