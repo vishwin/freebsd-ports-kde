@@ -2,7 +2,7 @@
 
 PORTNAME=	smplayer-skins
 DISTVERSION=	20.11.0
-PORTREVISION=	0
+PORTREVISION=	1
 PORTEPOCH=	1
 CATEGORIES=	multimedia audio kde
 MASTER_SITES=	SF/smplayer/SMPlayer-skins/${PORTVERSION}
