@@ -63,7 +63,6 @@
     SUBDIR += elixir-ecto
     SUBDIR += elixir-geo
     SUBDIR += elixir-mariaex
-    SUBDIR += elixir-mongo
     SUBDIR += elixir-postgrex
     SUBDIR += elixir-timex_ecto
     SUBDIR += emacsql
@@ -75,6 +74,10 @@
     SUBDIR += fastdb
     SUBDIR += firebird25-client
     SUBDIR += firebird25-server
+    SUBDIR += firebird30-client
+    SUBDIR += firebird30-server
+    SUBDIR += firebird40-client
+    SUBDIR += firebird40-server
     SUBDIR += fortytwo-bdb
     SUBDIR += foundationdb
     SUBDIR += foundationdb-devel
@@ -585,7 +588,6 @@
     SUBDIR += pglogical
     SUBDIR += pgmetrics
     SUBDIR += pgmodeler
-    SUBDIR += pgpool-II-35
     SUBDIR += pgpool-II-36
     SUBDIR += pgpool-II-37
     SUBDIR += pgpool-II-40
@@ -834,8 +836,6 @@
     SUBDIR += py-xapian
     SUBDIR += py-zodbpickle
     SUBDIR += pymongo
-    SUBDIR += pypy-gdbm
-    SUBDIR += pypy-sqlite3
     SUBDIR += qdbm
     SUBDIR += qdbm-plus
     SUBDIR += qof
@@ -928,6 +928,7 @@
     SUBDIR += rubygem-familia
     SUBDIR += rubygem-flipper-active_record
     SUBDIR += rubygem-flipper-active_record017
+    SUBDIR += rubygem-flipper-active_record-rails61
     SUBDIR += rubygem-gdbm
     SUBDIR += rubygem-globalid
     SUBDIR += rubygem-globalid-rails5
@@ -967,6 +968,7 @@
     SUBDIR += rubygem-redis-actionpack-rails50
     SUBDIR += rubygem-redis-actionpack-rails52
     SUBDIR += rubygem-redis-actionpack-rails60
+    SUBDIR += rubygem-redis-actionpack-rails61
     SUBDIR += rubygem-redis-namespace
     SUBDIR += rubygem-redis-namespace16
     SUBDIR += rubygem-redis-namespace17

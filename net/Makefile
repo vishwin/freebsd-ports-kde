@@ -98,6 +98,7 @@
     SUBDIR += croc
     SUBDIR += cryptcat
     SUBDIR += csocks
+    SUBDIR += csync2
     SUBDIR += ctrace
     SUBDIR += cvsup-static
     SUBDIR += cvsync
@@ -539,7 +540,6 @@
     SUBDIR += open-isns
     SUBDIR += openbgpd
     SUBDIR += openbgpd6
-    SUBDIR += openggsn
     SUBDIR += openldap24-client
     SUBDIR += openldap24-sasl-client
     SUBDIR += openldap24-server
@@ -903,7 +903,6 @@
     SUBDIR += pacemaker2
     SUBDIR += packetdrill
     SUBDIR += packter-agent
-    SUBDIR += panoptis
     SUBDIR += parpd
     SUBDIR += pathneck
     SUBDIR += pbnc
@@ -1072,6 +1071,14 @@
     SUBDIR += py-pynsq
     SUBDIR += py-pypcap
     SUBDIR += py-pyroute2
+    SUBDIR += py-pyroute2.core
+    SUBDIR += py-pyroute2.ethtool
+    SUBDIR += py-pyroute2.ipset
+    SUBDIR += py-pyroute2.minimal
+    SUBDIR += py-pyroute2.ndb
+    SUBDIR += py-pyroute2.nftables
+    SUBDIR += py-pyroute2.nslink
+    SUBDIR += py-pyroute2.protocols
     SUBDIR += py-pysendfile
     SUBDIR += py-pyshark
     SUBDIR += py-pysmb
@@ -1181,6 +1188,7 @@
     SUBDIR += routinator
     SUBDIR += rp-pppoe
     SUBDIR += rpki-client
+    SUBDIR += rscsi
     SUBDIR += rsocket-cpp
     SUBDIR += rsplib
     SUBDIR += rsync
@@ -1279,6 +1287,7 @@
     SUBDIR += rubygem-httpauth
     SUBDIR += rubygem-ipaddress
     SUBDIR += rubygem-iproto
+    SUBDIR += rubygem-kas-grpc
     SUBDIR += rubygem-lita-gems
     SUBDIR += rubygem-macaddr
     SUBDIR += rubygem-maxmind-db
